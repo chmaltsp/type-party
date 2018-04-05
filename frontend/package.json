@@ -1,0 +1,68 @@
+{
+  "name": "razzle-examples-with-typescript",
+  "version": "2.0.0-alpha.4",
+  "license": "MIT",
+  "scripts": {
+    "start": "razzle start",
+    "build": "razzle build",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js",
+    "format": "prettier --write  **/*.{ts|tsx}"
+  },
+  "dependencies": {
+    "apollo-boost": "^0.1.4",
+    "apollo-cache-inmemory": "^1.1.12",
+    "apollo-link-http": "^1.5.3",
+    "cross-fetch": "^2.1.0",
+    "express": "^4.15.3",
+    "graphql": "^0.13.2",
+    "react": "^16.0.0",
+    "react-apollo": "^2.1.0-beta.3",
+    "react-dom": "^16.0.0",
+    "react-router-dom": "^4.2.2",
+    "styled-components": "^3.2.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.0.35",
+    "@types/jest": "^20.0.1",
+    "@types/node": "^8.0.53",
+    "@types/react": "^16.0.9",
+    "@types/react-dom": "^16.0.0",
+    "@types/react-router-dom": "^4.2.3",
+    "@types/webpack-env": "^1.13.2",
+    "prettier": "^1.11.1",
+    "raf": "^3.4.0",
+    "razzle": "^2.0.0-alpha.7",
+    "ts-jest": "^20.0.6",
+    "ts-loader": "4.1.0",
+    "tslint": "5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "tslint-loader": "wbuchwalter/tslint-loader",
+    "tslint-react": "^3.2.0",
+    "typescript": "2.7.2"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+      "^.+\\.css$": "<rootDir>/node_modules/razzle/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/node_modules/razzle/config/jest/fileTransform.js"
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/config/jest/styleMock.js"
+    },
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.(ts|js)?(x)",
+      "<rootDir>/src/**/?(*.)(spec|test).(ts|js)?(x)"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ]
+  }
+}
