@@ -3,11 +3,11 @@ import * as ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import { ApolloClient, HttpLink, InMemoryCache  } from 'apollo-boost';
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import App from './App';
 
-const link = new HttpLink({ 
+const link = new HttpLink({
   uri: 'http://localhost:4000',
 });
 const client = new ApolloClient({
@@ -16,12 +16,11 @@ const client = new ApolloClient({
 });
 
 ReactDOM.hydrate(
-  <ApolloProvider client={client} >
+  <ApolloProvider client={client}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </ApolloProvider>
-  ,
+  </ApolloProvider>,
   document.getElementById('root')
 );
 

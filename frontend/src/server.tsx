@@ -5,14 +5,16 @@ import { StaticRouter } from 'react-router-dom';
 
 import 'cross-fetch/polyfill';
 
-import { ApolloClient  } from 'apollo-boost';
+import { ApolloClient } from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from 'react-apollo';
 
+import { ServerStyleSheet } from 'styled-components';
+
 import App from './App';
 
-const link = new HttpLink({ 
+const link = new HttpLink({
   fetch,
   uri: 'http://localhost:4000',
 });
@@ -21,13 +23,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
   // @ts-ignore
-  ssrMode: true
+  ssrMode: true,
 });
 
 let assets: any;
 
 const syncLoadAssets = () => {
-    assets = require(process.env.RAZZLE_ASSETS_MANIFEST!);
+  assets = require(process.env.RAZZLE_ASSETS_MANIFEST!);
 };
 syncLoadAssets();
 
@@ -38,6 +40,12 @@ server
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR!))
   .get('/*', (req: express.Request, res: express.Response) => {
     const context = {};
+
+    // Set up SSR + Styled Components
+    const sheet = new ServerStyleSheet();
+    sheet.collectStyles(<App />);
+
+    const styleTags = sheet.getStyleTags();
     const markup = renderToString(
       <ApolloProvider client={client}>
         <StaticRouter context={context} location={req.url}>
@@ -53,11 +61,7 @@ server
         <meta charSet='utf-8' />
         <title>Razzle TypeScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        ${
-          assets.client.css
-            ? `<link rel="stylesheet" href="${assets.client.css}">`
-            : ''
-        }
+        ${styleTags}
           ${
             process.env.NODE_ENV === 'production'
               ? `<script src="${assets.client.js}" defer></script>`

@@ -22,17 +22,20 @@ class Home extends React.Component<{}, {}> {
     return (
       <div className="Home">
         <Query query={GET_WEBSITES}>
-          {({data, loading, error}) => {
+          {({ data, loading, error }) => {
             console.log(data);
 
-            return !loading && data.websites.map(({title, url}: Site) => {
-              return (
-                    <div key={title}>
-                      <h4>{title}</h4>
-                       <p>{url}</p>
-                    </div>
-              );
-            });
+            return (
+              !loading &&
+              data.websites.map(({ title, url }: Site) => {
+                return (
+                  <div key={title}>
+                    <h4>{title}</h4>
+                    <p>{url}</p>
+                  </div>
+                );
+              })
+            );
           }}
         </Query>
       </div>

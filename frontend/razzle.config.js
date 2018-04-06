@@ -1,15 +1,12 @@
 'use strict';
 
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 module.exports = {
   modify(baseConfig, { target, dev }, webpack) {
     const config = Object.assign({}, baseConfig);
 
-    config.resolve.extensions = config.resolve.extensions.concat([
-      '.ts',
-      '.tsx',
-    ]);
+    config.resolve.extensions = config.resolve.extensions.concat(['.ts', '.tsx']);
 
     config.devtool = 'cheap-module-source-map';
 
@@ -54,7 +51,7 @@ module.exports = {
     config.module.rules.push(tslintLoader);
 
     // Fully replace babel-loader with ts-loader
-    config.module.rules[babelLoader] = tsLoader;
+    // config.module.rules[babelLoader] = tsLoader;
 
     // If you want to use Babel & Typescript together (e.g. if you
     // are migrating incrementally and still need some Babel transforms)
@@ -63,7 +60,7 @@ module.exports = {
     // - COMMENT out line 59
     // - UNCOMMENT line 68
     //
-    // config.module.rules.push(tsLoader)
+    config.module.rules.push(tsLoader);
 
     return config;
   },
