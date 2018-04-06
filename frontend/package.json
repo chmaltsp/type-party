@@ -65,5 +65,8 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
     ]
+  },
+  "optionalDependencies": {
+    "sc": "tslinthack"
   }
 }

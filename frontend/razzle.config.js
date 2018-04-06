@@ -1,6 +1,7 @@
 'use strict';
 
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   modify(baseConfig, { target, dev }, webpack) {
@@ -8,6 +9,7 @@ module.exports = {
 
     config.resolve.extensions = config.resolve.extensions.concat(['.ts', '.tsx']);
 
+    config.resolve.alias['sc'] = path.resolve(__dirname, 'src/styles');
     config.devtool = 'cheap-module-source-map';
 
     // Locate eslint-loader and remove it (we're using tslint instead)

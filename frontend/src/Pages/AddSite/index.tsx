@@ -1,27 +1,26 @@
 import * as React from 'react';
 
-import styled from 'styled-components';
+import styled from 'sc';
 
 const Container = styled.div`
   margin: 0 auto;
   width:
   max-width: 960px;
-  background-color: ${props => props.theme.colors.greyDDD};
+  background-color: ${props => props.theme.colors.white};
 `;
 
 const PageTitle = styled.h2`
-  color: ${props => props.theme.colors.white};
+  color: ${props => props.theme.colors.black};
 `;
 // export interface AddSiteProps {
 // }
 
-export default class AddSite extends React.Component<{}, any> {
-  public render() {
-    console.log(this.props);
-    return (
-      <Container>
-        <PageTitle>Add Site Page</PageTitle>
-      </Container>
-    );
-  }
-}
+export const AddSite = () => {
+  return (
+    <Container>
+      <PageTitle>Add Site Page</PageTitle>
+    </Container>
+  );
+};
+
+export default AddSite;

@@ -1,10 +1,11 @@
-interface Theme {
+export interface ThemeInterface {
   colors: {
     [key: string]: string;
+    black: string;
   };
 }
 
-export const theme: Theme = {
+export const theme = {
   colors: {
     black: '#000',
     greyDDD: '#DDD',

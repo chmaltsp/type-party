@@ -4,7 +4,7 @@ import AddSite from './pages/AddSite';
 import Home from './pages/Home';
 
 import { ThemeProvider } from 'styled-components';
-import { theme } from './theme';
+import { theme } from './styles/theme';
 
 const App = () => (
   <ThemeProvider theme={theme}>
