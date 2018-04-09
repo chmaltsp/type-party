@@ -6944,9 +6944,9 @@ tslint-config-prettier@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.10.0.tgz#5063c413d43de4f6988c73727f65ecfc239054ec"
 
-tslint-loader@wbuchwalter/tslint-loader:
-  version "3.5.3"
-  resolved "https://codeload.github.com/wbuchwalter/tslint-loader/tar.gz/093230076f3b453c4f8b7aa2ee074932aa109e84"
+tslint-loader@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/tslint-loader/-/tslint-loader-3.6.0.tgz#12ed4d5ef57d68be25cd12692fb2108b66469d76"
   dependencies:
     loader-utils "^1.0.2"
     mkdirp "^0.5.1"

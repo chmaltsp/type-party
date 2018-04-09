@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "allowUnreachableCode": false,
+    "baseUrl": "./",
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
@@ -19,7 +20,10 @@
     "strict": true,
     "pretty": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es2016"
+    "target": "es2016",
+    "paths": {
+      "sc": ["src/styles"]
+    }
   },
   "exclude": [
     "node_modules",
@@ -30,5 +34,6 @@
     "jest",
     "razzle.config.js"
   ],
+  
   "types": ["typePatches", "node", "webpack-env"]
 }

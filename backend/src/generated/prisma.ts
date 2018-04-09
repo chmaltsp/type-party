@@ -420,16 +420,16 @@ type Mutation {
   upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
   upsertTypeface(where: TypefaceWhereUniqueInput!, create: TypefaceCreateInput!, update: TypefaceUpdateInput!): Typeface!
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
-  updateManyPosts(data: PostUpdateInput!, where: PostWhereInput!): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
-  updateManyWebsites(data: WebsiteUpdateInput!, where: WebsiteWhereInput!): BatchPayload!
-  updateManyTypefaces(data: TypefaceUpdateInput!, where: TypefaceWhereInput!): BatchPayload!
-  updateManyFoundries(data: FoundryUpdateInput!, where: FoundryWhereInput!): BatchPayload!
-  deleteManyPosts(where: PostWhereInput!): BatchPayload!
-  deleteManyUsers(where: UserWhereInput!): BatchPayload!
-  deleteManyWebsites(where: WebsiteWhereInput!): BatchPayload!
-  deleteManyTypefaces(where: TypefaceWhereInput!): BatchPayload!
-  deleteManyFoundries(where: FoundryWhereInput!): BatchPayload!
+  updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyWebsites(data: WebsiteUpdateInput!, where: WebsiteWhereInput): BatchPayload!
+  updateManyTypefaces(data: TypefaceUpdateInput!, where: TypefaceWhereInput): BatchPayload!
+  updateManyFoundries(data: FoundryUpdateInput!, where: FoundryWhereInput): BatchPayload!
+  deleteManyPosts(where: PostWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
+  deleteManyTypefaces(where: TypefaceWhereInput): BatchPayload!
+  deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -3570,16 +3570,16 @@ export type Mutation = {
   upsertWebsite: (args: { where: WebsiteWhereUniqueInput, create: WebsiteCreateInput, update: WebsiteUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Website>
   upsertTypeface: (args: { where: TypefaceWhereUniqueInput, create: TypefaceCreateInput, update: TypefaceUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Typeface>
   upsertFoundry: (args: { where: FoundryWhereUniqueInput, create: FoundryCreateInput, update: FoundryUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Foundry>
-  updateManyPosts: (args: { data: PostUpdateInput, where: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyUsers: (args: { data: UserUpdateInput, where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyWebsites: (args: { data: WebsiteUpdateInput, where: WebsiteWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyTypefaces: (args: { data: TypefaceUpdateInput, where: TypefaceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyFoundries: (args: { data: FoundryUpdateInput, where: FoundryWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyPosts: (args: { where: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyUsers: (args: { where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyWebsites: (args: { where: WebsiteWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyTypefaces: (args: { where: TypefaceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyFoundries: (args: { where: FoundryWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyPosts: (args: { data: PostUpdateInput, where?: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyUsers: (args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyWebsites: (args: { data: WebsiteUpdateInput, where?: WebsiteWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyTypefaces: (args: { data: TypefaceUpdateInput, where?: TypefaceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyFoundries: (args: { data: FoundryUpdateInput, where?: FoundryWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyPosts: (args: { where?: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyUsers: (args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyWebsites: (args: { where?: WebsiteWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyTypefaces: (args: { where?: TypefaceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyFoundries: (args: { where?: FoundryWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
 }
 
 export type Subscription = {

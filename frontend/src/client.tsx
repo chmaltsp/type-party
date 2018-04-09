@@ -8,7 +8,7 @@ import { ApolloProvider } from 'react-apollo';
 import App from './App';
 
 const link = new HttpLink({
-  uri: 'http://localhost:4000',
+  uri: process.env.API_URL || 'https://tp-backend-zocaxqjnyl.now.sh',
 });
 const client = new ApolloClient({
   cache: new InMemoryCache(),

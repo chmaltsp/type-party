@@ -1,5 +1,5 @@
 {
-  "name": "razzle-examples-with-typescript",
+  "name": "tp-frontend",
   "version": "2.0.0-alpha.4",
   "license": "MIT",
   "scripts": {
@@ -38,7 +38,7 @@
     "ts-loader": "4.1.0",
     "tslint": "5.9.1",
     "tslint-config-prettier": "^1.10.0",
-    "tslint-loader": "wbuchwalter/tslint-loader",
+    "tslint-loader": "^3.6.0",
     "tslint-react": "^3.2.0",
     "typescript": "2.7.2"
   },
@@ -65,8 +65,5 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
     ]
-  },
-  "optionalDependencies": {
-    "sc": "tslinthack"
   }
 }
