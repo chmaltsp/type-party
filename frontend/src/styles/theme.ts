@@ -1,11 +1,5 @@
-export interface ThemeInterface {
-  colors: {
-    [key: string]: string;
-    black: string;
-  };
-}
-
 export const theme = {
+  baseSpacing: 8,
   colors: {
     black: '#000',
     greyDDD: '#DDD',
