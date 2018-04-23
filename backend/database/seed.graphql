@@ -1,8 +1,17 @@
 mutation {
   createUser(data: {
-    email: "developer@example.com"
+    email: "phil@test.com"
     password: "$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm" # plaintext password: "nooneknows"
-    name: "Sarah"
+    name: "Phil",
+    websites:{
+      create: [{
+        title: "Google.com"
+        url: "http://google.com",
+        thumbnail: "fakeThumb",
+        image: "fakeImage",
+        isPublished: false
+      }]
+    },
     posts: {
       create: [{
         title: "Hello World"

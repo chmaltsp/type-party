@@ -7,6 +7,11 @@ import 'cross-fetch/polyfill';
 
 import { ApolloClient } from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+
+// @ts-ignore
+import { createUploadLink } from 'apollo-upload-client';
+
+import { concat } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from 'react-apollo';
 
@@ -14,9 +19,11 @@ import { ServerStyleSheet } from 'styled-components';
 
 import App from './App';
 
-const link = new HttpLink({
+const uri = process.env.RAZZLE_API_URL || 'https://tp-backend-zocaxqjnyl.now.sh';
+
+const link = createUploadLink({
   fetch,
-  uri: 'http://localhost:4000',
+  uri,
 });
 
 const client = new ApolloClient({

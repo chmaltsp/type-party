@@ -34,8 +34,6 @@ module.exports = {
 
     const { include } = babelLoader;
 
-    console.log(babelLoader);
-
     const babelLoaderTwo = {
       loader: 'babel-loader',
     };
@@ -78,7 +76,6 @@ module.exports = {
 
     config.module.rules.push(tsLoader);
 
-    // console.log(JSON.stringify(config.module.rules, 0, 2));
     return config;
   },
 };

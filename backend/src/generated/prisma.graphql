@@ -5,6 +5,16 @@
 # Model Types
 #
 
+type File implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String!
+}
+
 type Foundry implements Node {
   id: ID!
   name: String!
@@ -59,6 +69,10 @@ type Website implements Node {
 # Other Types
 #
 
+type AggregateFile {
+  count: Int!
+}
+
 type AggregateFoundry {
   count: Int!
 }
@@ -87,6 +101,450 @@ type BatchPayload {
 }
 
 scalar DateTime
+
+"""
+A connection to a list of items.
+"""
+type FileConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [FileEdge]!
+  aggregate: AggregateFile!
+}
+
+input FileCreateInput {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String!
+}
+
+"""
+An edge in a connection.
+"""
+type FileEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: File!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum FileOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  filename_ASC
+  filename_DESC
+  mimetype_ASC
+  mimetype_DESC
+  encoding_ASC
+  encoding_DESC
+  url_ASC
+  url_DESC
+}
+
+type FilePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String!
+}
+
+type FileSubscriptionPayload {
+  mutation: MutationType!
+  node: File
+  updatedFields: [String!]
+  previousValues: FilePreviousValues
+}
+
+input FileSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [FileSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [FileSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FileWhereInput
+}
+
+input FileUpdateInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+}
+
+input FileWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [FileWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [FileWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  createdAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  createdAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  createdAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  createdAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  createdAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  createdAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  createdAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  updatedAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  updatedAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  updatedAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  updatedAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  updatedAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  updatedAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  updatedAt_gte: DateTime
+  filename: String
+  """
+  All values that are not equal to given value.
+  """
+  filename_not: String
+  """
+  All values that are contained in given list.
+  """
+  filename_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  filename_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  filename_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  filename_lte: String
+  """
+  All values greater than the given value.
+  """
+  filename_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  filename_gte: String
+  """
+  All values containing the given string.
+  """
+  filename_contains: String
+  """
+  All values not containing the given string.
+  """
+  filename_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  filename_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  filename_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  filename_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  filename_not_ends_with: String
+  mimetype: String
+  """
+  All values that are not equal to given value.
+  """
+  mimetype_not: String
+  """
+  All values that are contained in given list.
+  """
+  mimetype_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  mimetype_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  mimetype_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  mimetype_lte: String
+  """
+  All values greater than the given value.
+  """
+  mimetype_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  mimetype_gte: String
+  """
+  All values containing the given string.
+  """
+  mimetype_contains: String
+  """
+  All values not containing the given string.
+  """
+  mimetype_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  mimetype_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  mimetype_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  mimetype_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  mimetype_not_ends_with: String
+  encoding: String
+  """
+  All values that are not equal to given value.
+  """
+  encoding_not: String
+  """
+  All values that are contained in given list.
+  """
+  encoding_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  encoding_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  encoding_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  encoding_lte: String
+  """
+  All values greater than the given value.
+  """
+  encoding_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  encoding_gte: String
+  """
+  All values containing the given string.
+  """
+  encoding_contains: String
+  """
+  All values not containing the given string.
+  """
+  encoding_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  encoding_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  encoding_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  encoding_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  encoding_not_ends_with: String
+  url: String
+  """
+  All values that are not equal to given value.
+  """
+  url_not: String
+  """
+  All values that are contained in given list.
+  """
+  url_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  url_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  url_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  url_lte: String
+  """
+  All values greater than the given value.
+  """
+  url_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  url_gte: String
+  """
+  All values containing the given string.
+  """
+  url_contains: String
+  """
+  All values not containing the given string.
+  """
+  url_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  url_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  url_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  url_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  url_not_ends_with: String
+}
+
+input FileWhereUniqueInput {
+  id: ID
+  url: String
+}
 
 """
 A connection to a list of items.
@@ -401,31 +859,37 @@ type Mutation {
   createWebsite(data: WebsiteCreateInput!): Website!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   createFoundry(data: FoundryCreateInput!): Foundry!
+  createFile(data: FileCreateInput!): File!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
   updateFoundry(data: FoundryUpdateInput!, where: FoundryWhereUniqueInput!): Foundry
+  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   deletePost(where: PostWhereUniqueInput!): Post
   deleteUser(where: UserWhereUniqueInput!): User
   deleteWebsite(where: WebsiteWhereUniqueInput!): Website
   deleteTypeface(where: TypefaceWhereUniqueInput!): Typeface
   deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
+  deleteFile(where: FileWhereUniqueInput!): File
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
   upsertTypeface(where: TypefaceWhereUniqueInput!, create: TypefaceCreateInput!, update: TypefaceUpdateInput!): Typeface!
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
+  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyWebsites(data: WebsiteUpdateInput!, where: WebsiteWhereInput): BatchPayload!
   updateManyTypefaces(data: TypefaceUpdateInput!, where: TypefaceWhereInput): BatchPayload!
   updateManyFoundries(data: FoundryUpdateInput!, where: FoundryWhereInput): BatchPayload!
+  updateManyFiles(data: FileUpdateInput!, where: FileWhereInput): BatchPayload!
   deleteManyPosts(where: PostWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
   deleteManyTypefaces(where: TypefaceWhereInput): BatchPayload!
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
+  deleteManyFiles(where: FileWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -849,16 +1313,19 @@ type Query {
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website]!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
+  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   post(where: PostWhereUniqueInput!): Post
   user(where: UserWhereUniqueInput!): User
   website(where: WebsiteWhereUniqueInput!): Website
   typeface(where: TypefaceWhereUniqueInput!): Typeface
   foundry(where: FoundryWhereUniqueInput!): Foundry
+  file(where: FileWhereUniqueInput!): File
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   websitesConnection(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WebsiteConnection!
   typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
+  filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   """
   Fetches an object given its ID
   """
@@ -874,6 +1341,7 @@ type Subscription {
   website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
+  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
 }
 
 """

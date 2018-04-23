@@ -9,6 +9,16 @@ export const typeDefs = `
 # Model Types
 #
 
+type File implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String!
+}
+
 type Foundry implements Node {
   id: ID!
   name: String!
@@ -63,6 +73,10 @@ type Website implements Node {
 # Other Types
 #
 
+type AggregateFile {
+  count: Int!
+}
+
 type AggregateFoundry {
   count: Int!
 }
@@ -91,6 +105,450 @@ type BatchPayload {
 }
 
 scalar DateTime
+
+"""
+A connection to a list of items.
+"""
+type FileConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [FileEdge]!
+  aggregate: AggregateFile!
+}
+
+input FileCreateInput {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String!
+}
+
+"""
+An edge in a connection.
+"""
+type FileEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: File!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum FileOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  filename_ASC
+  filename_DESC
+  mimetype_ASC
+  mimetype_DESC
+  encoding_ASC
+  encoding_DESC
+  url_ASC
+  url_DESC
+}
+
+type FilePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String!
+}
+
+type FileSubscriptionPayload {
+  mutation: MutationType!
+  node: File
+  updatedFields: [String!]
+  previousValues: FilePreviousValues
+}
+
+input FileSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [FileSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [FileSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FileWhereInput
+}
+
+input FileUpdateInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+}
+
+input FileWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [FileWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [FileWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  createdAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  createdAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  createdAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  createdAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  createdAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  createdAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  createdAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  updatedAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  updatedAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  updatedAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  updatedAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  updatedAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  updatedAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  updatedAt_gte: DateTime
+  filename: String
+  """
+  All values that are not equal to given value.
+  """
+  filename_not: String
+  """
+  All values that are contained in given list.
+  """
+  filename_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  filename_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  filename_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  filename_lte: String
+  """
+  All values greater than the given value.
+  """
+  filename_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  filename_gte: String
+  """
+  All values containing the given string.
+  """
+  filename_contains: String
+  """
+  All values not containing the given string.
+  """
+  filename_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  filename_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  filename_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  filename_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  filename_not_ends_with: String
+  mimetype: String
+  """
+  All values that are not equal to given value.
+  """
+  mimetype_not: String
+  """
+  All values that are contained in given list.
+  """
+  mimetype_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  mimetype_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  mimetype_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  mimetype_lte: String
+  """
+  All values greater than the given value.
+  """
+  mimetype_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  mimetype_gte: String
+  """
+  All values containing the given string.
+  """
+  mimetype_contains: String
+  """
+  All values not containing the given string.
+  """
+  mimetype_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  mimetype_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  mimetype_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  mimetype_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  mimetype_not_ends_with: String
+  encoding: String
+  """
+  All values that are not equal to given value.
+  """
+  encoding_not: String
+  """
+  All values that are contained in given list.
+  """
+  encoding_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  encoding_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  encoding_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  encoding_lte: String
+  """
+  All values greater than the given value.
+  """
+  encoding_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  encoding_gte: String
+  """
+  All values containing the given string.
+  """
+  encoding_contains: String
+  """
+  All values not containing the given string.
+  """
+  encoding_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  encoding_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  encoding_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  encoding_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  encoding_not_ends_with: String
+  url: String
+  """
+  All values that are not equal to given value.
+  """
+  url_not: String
+  """
+  All values that are contained in given list.
+  """
+  url_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  url_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  url_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  url_lte: String
+  """
+  All values greater than the given value.
+  """
+  url_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  url_gte: String
+  """
+  All values containing the given string.
+  """
+  url_contains: String
+  """
+  All values not containing the given string.
+  """
+  url_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  url_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  url_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  url_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  url_not_ends_with: String
+}
+
+input FileWhereUniqueInput {
+  id: ID
+  url: String
+}
 
 """
 A connection to a list of items.
@@ -405,31 +863,37 @@ type Mutation {
   createWebsite(data: WebsiteCreateInput!): Website!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   createFoundry(data: FoundryCreateInput!): Foundry!
+  createFile(data: FileCreateInput!): File!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
   updateFoundry(data: FoundryUpdateInput!, where: FoundryWhereUniqueInput!): Foundry
+  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   deletePost(where: PostWhereUniqueInput!): Post
   deleteUser(where: UserWhereUniqueInput!): User
   deleteWebsite(where: WebsiteWhereUniqueInput!): Website
   deleteTypeface(where: TypefaceWhereUniqueInput!): Typeface
   deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
+  deleteFile(where: FileWhereUniqueInput!): File
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
   upsertTypeface(where: TypefaceWhereUniqueInput!, create: TypefaceCreateInput!, update: TypefaceUpdateInput!): Typeface!
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
+  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyWebsites(data: WebsiteUpdateInput!, where: WebsiteWhereInput): BatchPayload!
   updateManyTypefaces(data: TypefaceUpdateInput!, where: TypefaceWhereInput): BatchPayload!
   updateManyFoundries(data: FoundryUpdateInput!, where: FoundryWhereInput): BatchPayload!
+  updateManyFiles(data: FileUpdateInput!, where: FileWhereInput): BatchPayload!
   deleteManyPosts(where: PostWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
   deleteManyTypefaces(where: TypefaceWhereInput): BatchPayload!
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
+  deleteManyFiles(where: FileWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -853,16 +1317,19 @@ type Query {
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website]!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
+  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   post(where: PostWhereUniqueInput!): Post
   user(where: UserWhereUniqueInput!): User
   website(where: WebsiteWhereUniqueInput!): Website
   typeface(where: TypefaceWhereUniqueInput!): Typeface
   foundry(where: FoundryWhereUniqueInput!): Foundry
+  file(where: FileWhereUniqueInput!): File
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   websitesConnection(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WebsiteConnection!
   typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
+  filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   """
   Fetches an object given its ID
   """
@@ -878,6 +1345,7 @@ type Subscription {
   website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
+  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
 }
 
 """
@@ -2358,18 +2826,36 @@ export type FoundryOrderByInput =
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type FileOrderByInput = 
+  'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'filename_ASC' |
+  'filename_DESC' |
+  'mimetype_ASC' |
+  'mimetype_DESC' |
+  'encoding_ASC' |
+  'encoding_DESC' |
+  'url_ASC' |
+  'url_DESC'
+
 export type MutationType = 
   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export interface TypefaceCreateInput {
-  name: String
-  imageUrl?: String
-  designer?: String
-  usedBy?: WebsiteCreateManyWithoutTypefacesInput
-  addedBy: UserCreateOneWithoutTypefacesInput
-  foundry?: FoundryCreateOneWithoutFontsInput
+export interface WebsiteCreateInput {
+  isPublished?: Boolean
+  title: String
+  thumbnail: String
+  url: String
+  image: String
+  featured?: Boolean
+  addedBy: UserCreateOneWithoutWebsitesInput
+  typefaces?: TypefaceCreateManyWithoutUsedByInput
 }
 
 export interface PostWhereInput {
@@ -2438,11 +2924,12 @@ export interface PostWhereInput {
   author?: UserWhereInput
 }
 
-export interface PostUpdateInput {
-  isPublished?: Boolean
-  title?: String
-  text?: String
-  author?: UserUpdateOneWithoutPostsInput
+export interface TypefaceCreateWithoutFoundryInput {
+  name: String
+  imageUrl?: String
+  designer?: String
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput
+  addedBy: UserCreateOneWithoutTypefacesInput
 }
 
 export interface FoundryWhereInput {
@@ -2495,250 +2982,40 @@ export interface FoundryWhereInput {
   fonts_none?: TypefaceWhereInput
 }
 
-export interface UserCreateWithoutTypefacesInput {
-  email: String
-  password: String
-  name: String
-  posts?: PostCreateManyWithoutAuthorInput
-  websites?: WebsiteCreateManyWithoutAddedByInput
-}
-
-export interface TypefaceUpdateManyWithoutAddedByInput {
-  create?: TypefaceCreateWithoutAddedByInput[] | TypefaceCreateWithoutAddedByInput
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  update?: TypefaceUpdateWithWhereUniqueWithoutAddedByInput[] | TypefaceUpdateWithWhereUniqueWithoutAddedByInput
-  upsert?: TypefaceUpsertWithWhereUniqueWithoutAddedByInput[] | TypefaceUpsertWithWhereUniqueWithoutAddedByInput
-}
-
-export interface PostCreateManyWithoutAuthorInput {
-  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput
-  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput
-}
-
-export interface UserUpdateOneWithoutPostsInput {
-  create?: UserCreateWithoutPostsInput
-  connect?: UserWhereUniqueInput
-  delete?: Boolean
-  update?: UserUpdateWithoutPostsDataInput
-  upsert?: UserUpsertWithoutPostsInput
-}
-
-export interface PostCreateWithoutAuthorInput {
-  isPublished?: Boolean
-  title: String
-  text: String
-}
-
-export interface FoundrySubscriptionWhereInput {
-  AND?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput
-  OR?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: FoundryWhereInput
-}
-
-export interface FoundryCreateOneWithoutFontsInput {
-  create?: FoundryCreateWithoutFontsInput
-  connect?: FoundryWhereUniqueInput
-}
-
-export interface TypefaceSubscriptionWhereInput {
-  AND?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput
-  OR?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: TypefaceWhereInput
-}
-
-export interface FoundryCreateWithoutFontsInput {
-  name: String
-  url?: String
-}
-
-export interface WebsiteSubscriptionWhereInput {
-  AND?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput
-  OR?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: WebsiteWhereInput
-}
-
-export interface TypefaceCreateManyWithoutAddedByInput {
-  create?: TypefaceCreateWithoutAddedByInput[] | TypefaceCreateWithoutAddedByInput
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-}
-
-export interface PostSubscriptionWhereInput {
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: PostWhereInput
-}
-
-export interface TypefaceCreateWithoutAddedByInput {
-  name: String
-  imageUrl?: String
-  designer?: String
-  usedBy?: WebsiteCreateManyWithoutTypefacesInput
-  foundry?: FoundryCreateOneWithoutFontsInput
-}
-
-export interface PostWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface WebsiteCreateManyWithoutTypefacesInput {
-  create?: WebsiteCreateWithoutTypefacesInput[] | WebsiteCreateWithoutTypefacesInput
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-}
-
-export interface WebsiteWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface WebsiteCreateWithoutTypefacesInput {
+export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: Boolean
   title: String
   thumbnail: String
   url: String
   image: String
   featured?: Boolean
-  addedBy: UserCreateOneWithoutWebsitesInput
-}
-
-export interface FoundryWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserCreateOneWithoutWebsitesInput {
-  create?: UserCreateWithoutWebsitesInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
-  where: TypefaceWhereUniqueInput
-  data: TypefaceUpdateWithoutFoundryDataInput
-}
-
-export interface UserCreateWithoutWebsitesInput {
-  email: String
-  password: String
-  name: String
-  posts?: PostCreateManyWithoutAuthorInput
-  typefaces?: TypefaceCreateManyWithoutAddedByInput
-}
-
-export interface FoundryUpdateInput {
-  name?: String
-  url?: String
-  fonts?: TypefaceUpdateManyWithoutFoundryInput
-}
-
-export interface UserCreateInput {
-  email: String
-  password: String
-  name: String
-  posts?: PostCreateManyWithoutAuthorInput
-  websites?: WebsiteCreateManyWithoutAddedByInput
-  typefaces?: TypefaceCreateManyWithoutAddedByInput
-}
-
-export interface WebsiteUpdateInput {
-  isPublished?: Boolean
-  title?: String
-  thumbnail?: String
-  url?: String
-  image?: String
-  featured?: Boolean
-  addedBy?: UserUpdateOneWithoutWebsitesInput
-  typefaces?: TypefaceUpdateManyWithoutUsedByInput
-}
-
-export interface WebsiteCreateInput {
-  isPublished?: Boolean
-  title: String
-  thumbnail: String
-  url: String
-  image: String
-  featured?: Boolean
-  addedBy: UserCreateOneWithoutWebsitesInput
   typefaces?: TypefaceCreateManyWithoutUsedByInput
 }
 
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput
-  create: UserCreateWithoutPostsInput
+export interface TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
+  where: TypefaceWhereUniqueInput
+  update: TypefaceUpdateWithoutUsedByDataInput
+  create: TypefaceCreateWithoutUsedByInput
 }
 
-export interface TypefaceUpdateWithoutAddedByDataInput {
-  name?: String
-  imageUrl?: String
-  designer?: String
-  usedBy?: WebsiteUpdateManyWithoutTypefacesInput
-  foundry?: FoundryUpdateOneWithoutFontsInput
-}
-
-export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
-  where: WebsiteWhereUniqueInput
-  update: WebsiteUpdateWithoutTypefacesDataInput
-  create: WebsiteCreateWithoutTypefacesInput
-}
-
-export interface FoundryCreateInput {
-  name: String
-  url?: String
-  fonts?: TypefaceCreateManyWithoutFoundryInput
-}
-
-export interface UserUpdateWithoutWebsitesDataInput {
-  email?: String
-  password?: String
-  name?: String
-  posts?: PostUpdateManyWithoutAuthorInput
-  typefaces?: TypefaceUpdateManyWithoutAddedByInput
-}
-
-export interface TypefaceCreateManyWithoutFoundryInput {
-  create?: TypefaceCreateWithoutFoundryInput[] | TypefaceCreateWithoutFoundryInput
+export interface TypefaceCreateManyWithoutUsedByInput {
+  create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
 }
 
-export interface WebsiteUpdateWithoutTypefacesDataInput {
-  isPublished?: Boolean
-  title?: String
-  thumbnail?: String
-  url?: String
-  image?: String
-  featured?: Boolean
-  addedBy?: UserUpdateOneWithoutWebsitesInput
+export interface FileCreateInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
 }
 
-export interface TypefaceCreateWithoutFoundryInput {
+export interface TypefaceCreateWithoutUsedByInput {
   name: String
   imageUrl?: String
   designer?: String
-  usedBy?: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput
-}
-
-export interface WebsiteUpdateManyWithoutTypefacesInput {
-  create?: WebsiteCreateWithoutTypefacesInput[] | WebsiteCreateWithoutTypefacesInput
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-  update?: WebsiteUpdateWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput
-  upsert?: WebsiteUpsertWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput
+  foundry?: FoundryCreateOneWithoutFontsInput
 }
 
 export interface TypefaceWhereInput {
@@ -2807,51 +3084,9 @@ export interface TypefaceWhereInput {
   foundry?: FoundryWhereInput
 }
 
-export interface UserCreateOneWithoutPostsInput {
-  create?: UserCreateWithoutPostsInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
-  where: TypefaceWhereUniqueInput
-  data: TypefaceUpdateWithoutAddedByDataInput
-}
-
-export interface WebsiteCreateManyWithoutAddedByInput {
-  create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-}
-
-export interface UserUpdateWithoutPostsDataInput {
-  email?: String
-  password?: String
-  name?: String
-  websites?: WebsiteUpdateManyWithoutAddedByInput
-  typefaces?: TypefaceUpdateManyWithoutAddedByInput
-}
-
-export interface TypefaceCreateManyWithoutUsedByInput {
-  create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-}
-
-export interface WebsiteUpdateManyWithoutAddedByInput {
-  create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
-  update?: WebsiteUpdateWithWhereUniqueWithoutAddedByInput[] | WebsiteUpdateWithWhereUniqueWithoutAddedByInput
-  upsert?: WebsiteUpsertWithWhereUniqueWithoutAddedByInput[] | WebsiteUpsertWithWhereUniqueWithoutAddedByInput
-}
-
 export interface UserCreateOneWithoutTypefacesInput {
   create?: UserCreateWithoutTypefacesInput
   connect?: UserWhereUniqueInput
-}
-
-export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
-  where: WebsiteWhereUniqueInput
-  data: WebsiteUpdateWithoutAddedByDataInput
 }
 
 export interface WebsiteWhereInput {
@@ -2937,14 +3172,27 @@ export interface WebsiteWhereInput {
   typefaces_none?: TypefaceWhereInput
 }
 
-export interface WebsiteUpdateWithoutAddedByDataInput {
-  isPublished?: Boolean
-  title?: String
-  thumbnail?: String
-  url?: String
-  image?: String
-  featured?: Boolean
-  typefaces?: TypefaceUpdateManyWithoutUsedByInput
+export interface UserCreateWithoutTypefacesInput {
+  email: String
+  password: String
+  name: String
+  posts?: PostCreateManyWithoutAuthorInput
+  websites?: WebsiteCreateManyWithoutAddedByInput
+}
+
+export interface WebsiteSubscriptionWhereInput {
+  AND?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput
+  OR?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: WebsiteWhereInput
+}
+
+export interface PostCreateManyWithoutAuthorInput {
+  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput
+  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput
 }
 
 export interface UserSubscriptionWhereInput {
@@ -2957,115 +3205,55 @@ export interface UserSubscriptionWhereInput {
   node?: UserWhereInput
 }
 
-export interface TypefaceUpdateManyWithoutUsedByInput {
-  create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  update?: TypefaceUpdateWithWhereUniqueWithoutUsedByInput[] | TypefaceUpdateWithWhereUniqueWithoutUsedByInput
-  upsert?: TypefaceUpsertWithWhereUniqueWithoutUsedByInput[] | TypefaceUpsertWithWhereUniqueWithoutUsedByInput
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  email?: String
-}
-
-export interface TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
-  where: TypefaceWhereUniqueInput
-  data: TypefaceUpdateWithoutUsedByDataInput
-}
-
-export interface TypefaceUpdateWithoutFoundryDataInput {
-  name?: String
-  imageUrl?: String
-  designer?: String
-  usedBy?: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy?: UserUpdateOneWithoutTypefacesInput
-}
-
-export interface TypefaceUpdateWithoutUsedByDataInput {
-  name?: String
-  imageUrl?: String
-  designer?: String
-  addedBy?: UserUpdateOneWithoutTypefacesInput
-  foundry?: FoundryUpdateOneWithoutFontsInput
-}
-
-export interface TypefaceUpdateInput {
-  name?: String
-  imageUrl?: String
-  designer?: String
-  usedBy?: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy?: UserUpdateOneWithoutTypefacesInput
-  foundry?: FoundryUpdateOneWithoutFontsInput
-}
-
-export interface UserUpdateOneWithoutTypefacesInput {
-  create?: UserCreateWithoutTypefacesInput
-  connect?: UserWhereUniqueInput
-  delete?: Boolean
-  update?: UserUpdateWithoutTypefacesDataInput
-  upsert?: UserUpsertWithoutTypefacesInput
-}
-
-export interface TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
-  where: TypefaceWhereUniqueInput
-  update: TypefaceUpdateWithoutAddedByDataInput
-  create: TypefaceCreateWithoutAddedByInput
-}
-
-export interface UserUpdateWithoutTypefacesDataInput {
-  email?: String
-  password?: String
-  name?: String
-  posts?: PostUpdateManyWithoutAuthorInput
-  websites?: WebsiteUpdateManyWithoutAddedByInput
-}
-
-export interface UserUpdateOneWithoutWebsitesInput {
-  create?: UserCreateWithoutWebsitesInput
-  connect?: UserWhereUniqueInput
-  delete?: Boolean
-  update?: UserUpdateWithoutWebsitesDataInput
-  upsert?: UserUpsertWithoutWebsitesInput
-}
-
-export interface PostUpdateManyWithoutAuthorInput {
-  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput
-  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput
-  disconnect?: PostWhereUniqueInput[] | PostWhereUniqueInput
-  delete?: PostWhereUniqueInput[] | PostWhereUniqueInput
-  update?: PostUpdateWithWhereUniqueWithoutAuthorInput[] | PostUpdateWithWhereUniqueWithoutAuthorInput
-  upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput[] | PostUpsertWithWhereUniqueWithoutAuthorInput
-}
-
-export interface PostCreateInput {
+export interface PostCreateWithoutAuthorInput {
   isPublished?: Boolean
   title: String
   text: String
-  author: UserCreateOneWithoutPostsInput
 }
 
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput
-  data: PostUpdateWithoutAuthorDataInput
+export interface PostSubscriptionWhereInput {
+  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: PostWhereInput
 }
 
-export interface WebsiteCreateWithoutAddedByInput {
-  isPublished?: Boolean
-  title: String
-  thumbnail: String
-  url: String
-  image: String
-  featured?: Boolean
-  typefaces?: TypefaceCreateManyWithoutUsedByInput
+export interface FoundryCreateOneWithoutFontsInput {
+  create?: FoundryCreateWithoutFontsInput
+  connect?: FoundryWhereUniqueInput
 }
 
-export interface PostUpdateWithoutAuthorDataInput {
-  isPublished?: Boolean
-  title?: String
-  text?: String
+export interface PostWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface FoundryCreateWithoutFontsInput {
+  name: String
+  url?: String
+}
+
+export interface WebsiteWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface TypefaceCreateManyWithoutAddedByInput {
+  create?: TypefaceCreateWithoutAddedByInput[] | TypefaceCreateWithoutAddedByInput
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+}
+
+export interface FoundryWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface TypefaceCreateWithoutAddedByInput {
+  name: String
+  imageUrl?: String
+  designer?: String
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput
+  foundry?: FoundryCreateOneWithoutFontsInput
 }
 
 export interface TypefaceUpsertWithWhereUniqueWithoutFoundryInput {
@@ -3074,46 +3262,135 @@ export interface TypefaceUpsertWithWhereUniqueWithoutFoundryInput {
   create: TypefaceCreateWithoutFoundryInput
 }
 
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput
-  update: PostUpdateWithoutAuthorDataInput
-  create: PostCreateWithoutAuthorInput
+export interface WebsiteCreateManyWithoutTypefacesInput {
+  create?: WebsiteCreateWithoutTypefacesInput[] | WebsiteCreateWithoutTypefacesInput
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
 }
 
-export interface TypefaceUpdateManyWithoutFoundryInput {
-  create?: TypefaceCreateWithoutFoundryInput[] | TypefaceCreateWithoutFoundryInput
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
-  update?: TypefaceUpdateWithWhereUniqueWithoutFoundryInput[] | TypefaceUpdateWithWhereUniqueWithoutFoundryInput
-  upsert?: TypefaceUpsertWithWhereUniqueWithoutFoundryInput[] | TypefaceUpsertWithWhereUniqueWithoutFoundryInput
+export interface TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
+  where: TypefaceWhereUniqueInput
+  data: TypefaceUpdateWithoutFoundryDataInput
 }
 
-export interface UserUpsertWithoutTypefacesInput {
-  update: UserUpdateWithoutTypefacesDataInput
-  create: UserCreateWithoutTypefacesInput
+export interface WebsiteCreateWithoutTypefacesInput {
+  isPublished?: Boolean
+  title: String
+  thumbnail: String
+  url: String
+  image: String
+  featured?: Boolean
+  addedBy: UserCreateOneWithoutWebsitesInput
 }
 
-export interface UserUpsertWithoutWebsitesInput {
-  update: UserUpdateWithoutWebsitesDataInput
-  create: UserCreateWithoutWebsitesInput
+export interface FoundryUpdateInput {
+  name?: String
+  url?: String
+  fonts?: TypefaceUpdateManyWithoutFoundryInput
 }
 
-export interface FoundryUpdateOneWithoutFontsInput {
-  create?: FoundryCreateWithoutFontsInput
-  connect?: FoundryWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: FoundryUpdateWithoutFontsDataInput
-  upsert?: FoundryUpsertWithoutFontsInput
+export interface UserCreateOneWithoutWebsitesInput {
+  create?: UserCreateWithoutWebsitesInput
+  connect?: UserWhereUniqueInput
 }
 
-export interface UserCreateWithoutPostsInput {
+export interface WebsiteUpdateInput {
+  isPublished?: Boolean
+  title?: String
+  thumbnail?: String
+  url?: String
+  image?: String
+  featured?: Boolean
+  addedBy?: UserUpdateOneWithoutWebsitesInput
+  typefaces?: TypefaceUpdateManyWithoutUsedByInput
+}
+
+export interface UserCreateWithoutWebsitesInput {
   email: String
   password: String
   name: String
+  posts?: PostCreateManyWithoutAuthorInput
+  typefaces?: TypefaceCreateManyWithoutAddedByInput
+}
+
+export interface UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput
+  create: UserCreateWithoutPostsInput
+}
+
+export interface UserCreateInput {
+  email: String
+  password: String
+  name: String
+  posts?: PostCreateManyWithoutAuthorInput
   websites?: WebsiteCreateManyWithoutAddedByInput
   typefaces?: TypefaceCreateManyWithoutAddedByInput
+}
+
+export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: WebsiteWhereUniqueInput
+  update: WebsiteUpdateWithoutTypefacesDataInput
+  create: WebsiteCreateWithoutTypefacesInput
+}
+
+export interface TypefaceUpdateManyWithoutAddedByInput {
+  create?: TypefaceCreateWithoutAddedByInput[] | TypefaceCreateWithoutAddedByInput
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  update?: TypefaceUpdateWithWhereUniqueWithoutAddedByInput[] | TypefaceUpdateWithWhereUniqueWithoutAddedByInput
+  upsert?: TypefaceUpsertWithWhereUniqueWithoutAddedByInput[] | TypefaceUpsertWithWhereUniqueWithoutAddedByInput
+}
+
+export interface UserUpdateWithoutWebsitesDataInput {
+  email?: String
+  password?: String
+  name?: String
+  posts?: PostUpdateManyWithoutAuthorInput
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput
+}
+
+export interface TypefaceCreateInput {
+  name: String
+  imageUrl?: String
+  designer?: String
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput
+  addedBy: UserCreateOneWithoutTypefacesInput
+  foundry?: FoundryCreateOneWithoutFontsInput
+}
+
+export interface WebsiteUpdateWithoutTypefacesDataInput {
+  isPublished?: Boolean
+  title?: String
+  thumbnail?: String
+  url?: String
+  image?: String
+  featured?: Boolean
+  addedBy?: UserUpdateOneWithoutWebsitesInput
+}
+
+export interface FoundryCreateInput {
+  name: String
+  url?: String
+  fonts?: TypefaceCreateManyWithoutFoundryInput
+}
+
+export interface WebsiteUpdateManyWithoutTypefacesInput {
+  create?: WebsiteCreateWithoutTypefacesInput[] | WebsiteCreateWithoutTypefacesInput
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
+  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
+  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
+  update?: WebsiteUpdateWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput
+  upsert?: WebsiteUpsertWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput
+}
+
+export interface TypefaceCreateManyWithoutFoundryInput {
+  create?: TypefaceCreateWithoutFoundryInput[] | TypefaceCreateWithoutFoundryInput
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+}
+
+export interface TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
+  where: TypefaceWhereUniqueInput
+  data: TypefaceUpdateWithoutAddedByDataInput
 }
 
 export interface WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
@@ -3122,46 +3399,31 @@ export interface WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
   create: WebsiteCreateWithoutAddedByInput
 }
 
-export interface TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
-  where: TypefaceWhereUniqueInput
-  update: TypefaceUpdateWithoutUsedByDataInput
-  create: TypefaceCreateWithoutUsedByInput
+export interface UserCreateOneWithoutPostsInput {
+  create?: UserCreateWithoutPostsInput
+  connect?: UserWhereUniqueInput
 }
 
-export interface FoundryUpsertWithoutFontsInput {
-  update: FoundryUpdateWithoutFontsDataInput
-  create: FoundryCreateWithoutFontsInput
+export interface WebsiteCreateManyWithoutAddedByInput {
+  create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
 }
 
-export interface FoundryUpdateWithoutFontsDataInput {
-  name?: String
-  url?: String
+export interface FoundrySubscriptionWhereInput {
+  AND?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput
+  OR?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FoundryWhereInput
 }
 
-export interface TypefaceCreateWithoutUsedByInput {
-  name: String
-  imageUrl?: String
-  designer?: String
-  addedBy: UserCreateOneWithoutTypefacesInput
-  foundry?: FoundryCreateOneWithoutFontsInput
-}
-
-export interface WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
-  where: WebsiteWhereUniqueInput
-  data: WebsiteUpdateWithoutTypefacesDataInput
-}
-
-export interface UserUpdateInput {
-  email?: String
-  password?: String
-  name?: String
-  posts?: PostUpdateManyWithoutAuthorInput
-  websites?: WebsiteUpdateManyWithoutAddedByInput
-  typefaces?: TypefaceUpdateManyWithoutAddedByInput
-}
-
-export interface TypefaceWhereUniqueInput {
-  id?: ID_Input
+export interface PostUpdateInput {
+  isPublished?: Boolean
+  title?: String
+  text?: String
+  author?: UserUpdateOneWithoutPostsInput
 }
 
 export interface UserWhereInput {
@@ -3234,6 +3496,348 @@ export interface UserWhereInput {
   typefaces_none?: TypefaceWhereInput
 }
 
+export interface UserUpdateOneWithoutPostsInput {
+  create?: UserCreateWithoutPostsInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateWithoutPostsDataInput
+  upsert?: UserUpsertWithoutPostsInput
+}
+
+export interface FileUpdateInput {
+  filename?: String
+  mimetype?: String
+  encoding?: String
+  url?: String
+}
+
+export interface UserUpdateWithoutPostsDataInput {
+  email?: String
+  password?: String
+  name?: String
+  websites?: WebsiteUpdateManyWithoutAddedByInput
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput
+}
+
+export interface TypefaceWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface WebsiteUpdateManyWithoutAddedByInput {
+  create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
+  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
+  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput
+  update?: WebsiteUpdateWithWhereUniqueWithoutAddedByInput[] | WebsiteUpdateWithWhereUniqueWithoutAddedByInput
+  upsert?: WebsiteUpsertWithWhereUniqueWithoutAddedByInput[] | WebsiteUpsertWithWhereUniqueWithoutAddedByInput
+}
+
+export interface TypefaceUpdateWithoutFoundryDataInput {
+  name?: String
+  imageUrl?: String
+  designer?: String
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput
+  addedBy?: UserUpdateOneWithoutTypefacesInput
+}
+
+export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
+  where: WebsiteWhereUniqueInput
+  data: WebsiteUpdateWithoutAddedByDataInput
+}
+
+export interface TypefaceUpdateInput {
+  name?: String
+  imageUrl?: String
+  designer?: String
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput
+  addedBy?: UserUpdateOneWithoutTypefacesInput
+  foundry?: FoundryUpdateOneWithoutFontsInput
+}
+
+export interface WebsiteUpdateWithoutAddedByDataInput {
+  isPublished?: Boolean
+  title?: String
+  thumbnail?: String
+  url?: String
+  image?: String
+  featured?: Boolean
+  typefaces?: TypefaceUpdateManyWithoutUsedByInput
+}
+
+export interface TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
+  where: TypefaceWhereUniqueInput
+  update: TypefaceUpdateWithoutAddedByDataInput
+  create: TypefaceCreateWithoutAddedByInput
+}
+
+export interface TypefaceUpdateManyWithoutUsedByInput {
+  create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  update?: TypefaceUpdateWithWhereUniqueWithoutUsedByInput[] | TypefaceUpdateWithWhereUniqueWithoutUsedByInput
+  upsert?: TypefaceUpsertWithWhereUniqueWithoutUsedByInput[] | TypefaceUpsertWithWhereUniqueWithoutUsedByInput
+}
+
+export interface UserUpdateOneWithoutWebsitesInput {
+  create?: UserCreateWithoutWebsitesInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateWithoutWebsitesDataInput
+  upsert?: UserUpsertWithoutWebsitesInput
+}
+
+export interface TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
+  where: TypefaceWhereUniqueInput
+  data: TypefaceUpdateWithoutUsedByDataInput
+}
+
+export interface TypefaceUpdateWithoutAddedByDataInput {
+  name?: String
+  imageUrl?: String
+  designer?: String
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput
+  foundry?: FoundryUpdateOneWithoutFontsInput
+}
+
+export interface TypefaceUpdateWithoutUsedByDataInput {
+  name?: String
+  imageUrl?: String
+  designer?: String
+  addedBy?: UserUpdateOneWithoutTypefacesInput
+  foundry?: FoundryUpdateOneWithoutFontsInput
+}
+
+export interface UserCreateWithoutPostsInput {
+  email: String
+  password: String
+  name: String
+  websites?: WebsiteCreateManyWithoutAddedByInput
+  typefaces?: TypefaceCreateManyWithoutAddedByInput
+}
+
+export interface UserUpdateOneWithoutTypefacesInput {
+  create?: UserCreateWithoutTypefacesInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateWithoutTypefacesDataInput
+  upsert?: UserUpsertWithoutTypefacesInput
+}
+
+export interface TypefaceSubscriptionWhereInput {
+  AND?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput
+  OR?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: TypefaceWhereInput
+}
+
+export interface UserUpdateWithoutTypefacesDataInput {
+  email?: String
+  password?: String
+  name?: String
+  posts?: PostUpdateManyWithoutAuthorInput
+  websites?: WebsiteUpdateManyWithoutAddedByInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  email?: String
+}
+
+export interface PostUpdateManyWithoutAuthorInput {
+  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput
+  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput
+  disconnect?: PostWhereUniqueInput[] | PostWhereUniqueInput
+  delete?: PostWhereUniqueInput[] | PostWhereUniqueInput
+  update?: PostUpdateWithWhereUniqueWithoutAuthorInput[] | PostUpdateWithWhereUniqueWithoutAuthorInput
+  upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput[] | PostUpsertWithWhereUniqueWithoutAuthorInput
+}
+
+export interface TypefaceUpdateManyWithoutFoundryInput {
+  create?: TypefaceCreateWithoutFoundryInput[] | TypefaceCreateWithoutFoundryInput
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput
+  update?: TypefaceUpdateWithWhereUniqueWithoutFoundryInput[] | TypefaceUpdateWithWhereUniqueWithoutFoundryInput
+  upsert?: TypefaceUpsertWithWhereUniqueWithoutFoundryInput[] | TypefaceUpsertWithWhereUniqueWithoutFoundryInput
+}
+
+export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput
+  data: PostUpdateWithoutAuthorDataInput
+}
+
+export interface UserUpsertWithoutWebsitesInput {
+  update: UserUpdateWithoutWebsitesDataInput
+  create: UserCreateWithoutWebsitesInput
+}
+
+export interface PostUpdateWithoutAuthorDataInput {
+  isPublished?: Boolean
+  title?: String
+  text?: String
+}
+
+export interface PostCreateInput {
+  isPublished?: Boolean
+  title: String
+  text: String
+  author: UserCreateOneWithoutPostsInput
+}
+
+export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput
+  update: PostUpdateWithoutAuthorDataInput
+  create: PostCreateWithoutAuthorInput
+}
+
+export interface FileWhereInput {
+  AND?: FileWhereInput[] | FileWhereInput
+  OR?: FileWhereInput[] | FileWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  filename?: String
+  filename_not?: String
+  filename_in?: String[] | String
+  filename_not_in?: String[] | String
+  filename_lt?: String
+  filename_lte?: String
+  filename_gt?: String
+  filename_gte?: String
+  filename_contains?: String
+  filename_not_contains?: String
+  filename_starts_with?: String
+  filename_not_starts_with?: String
+  filename_ends_with?: String
+  filename_not_ends_with?: String
+  mimetype?: String
+  mimetype_not?: String
+  mimetype_in?: String[] | String
+  mimetype_not_in?: String[] | String
+  mimetype_lt?: String
+  mimetype_lte?: String
+  mimetype_gt?: String
+  mimetype_gte?: String
+  mimetype_contains?: String
+  mimetype_not_contains?: String
+  mimetype_starts_with?: String
+  mimetype_not_starts_with?: String
+  mimetype_ends_with?: String
+  mimetype_not_ends_with?: String
+  encoding?: String
+  encoding_not?: String
+  encoding_in?: String[] | String
+  encoding_not_in?: String[] | String
+  encoding_lt?: String
+  encoding_lte?: String
+  encoding_gt?: String
+  encoding_gte?: String
+  encoding_contains?: String
+  encoding_not_contains?: String
+  encoding_starts_with?: String
+  encoding_not_starts_with?: String
+  encoding_ends_with?: String
+  encoding_not_ends_with?: String
+  url?: String
+  url_not?: String
+  url_in?: String[] | String
+  url_not_in?: String[] | String
+  url_lt?: String
+  url_lte?: String
+  url_gt?: String
+  url_gte?: String
+  url_contains?: String
+  url_not_contains?: String
+  url_starts_with?: String
+  url_not_starts_with?: String
+  url_ends_with?: String
+  url_not_ends_with?: String
+}
+
+export interface FoundryUpsertWithoutFontsInput {
+  update: FoundryUpdateWithoutFontsDataInput
+  create: FoundryCreateWithoutFontsInput
+}
+
+export interface FoundryUpdateWithoutFontsDataInput {
+  name?: String
+  url?: String
+}
+
+export interface FoundryUpdateOneWithoutFontsInput {
+  create?: FoundryCreateWithoutFontsInput
+  connect?: FoundryWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: FoundryUpdateWithoutFontsDataInput
+  upsert?: FoundryUpsertWithoutFontsInput
+}
+
+export interface UserUpsertWithoutTypefacesInput {
+  update: UserUpdateWithoutTypefacesDataInput
+  create: UserCreateWithoutTypefacesInput
+}
+
+export interface FileWhereUniqueInput {
+  id?: ID_Input
+  url?: String
+}
+
+export interface FileSubscriptionWhereInput {
+  AND?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  OR?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FileWhereInput
+}
+
+export interface WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
+  where: WebsiteWhereUniqueInput
+  data: WebsiteUpdateWithoutTypefacesDataInput
+}
+
+export interface UserUpdateInput {
+  email?: String
+  password?: String
+  name?: String
+  posts?: PostUpdateManyWithoutAuthorInput
+  websites?: WebsiteUpdateManyWithoutAddedByInput
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput
+}
+
 /*
  * An object with an ID
 
@@ -3242,21 +3846,49 @@ export interface Node {
   id: ID_Output
 }
 
-export interface FoundryPreviousValues {
+export interface FilePreviousValues {
   id: ID_Output
-  name: String
-  url?: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
 }
 
-/*
- * Information about pagination in a connection.
+export interface File extends Node {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+}
 
- */
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
+export interface Post extends Node {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  isPublished: Boolean
+  title: String
+  text: String
+  author: User
+}
+
+export interface BatchPayload {
+  count: Long
+}
+
+export interface AggregateFile {
+  count: Int
+}
+
+export interface FileSubscriptionPayload {
+  mutation: MutationType
+  node?: File
+  updatedFields?: String[]
+  previousValues?: FilePreviousValues
 }
 
 export interface Website extends Node {
@@ -3272,47 +3904,36 @@ export interface Website extends Node {
 }
 
 /*
- * A connection to a list of items.
-
- */
-export interface PostConnection {
-  pageInfo: PageInfo
-  edges: PostEdge[]
-  aggregate: AggregatePost
-}
-
-export interface Post extends Node {
-  id: ID_Output
-  createdAt: DateTime
-  updatedAt: DateTime
-  isPublished: Boolean
-  title: String
-  text: String
-  author: User
-}
-
-export interface FoundrySubscriptionPayload {
-  mutation: MutationType
-  node?: Foundry
-  updatedFields?: String[]
-  previousValues?: FoundryPreviousValues
-}
-
-/*
  * An edge in a connection.
 
  */
-export interface FoundryEdge {
-  node: Foundry
+export interface FileEdge {
+  node: File
   cursor: String
 }
 
-export interface BatchPayload {
-  count: Long
+/*
+ * A connection to a list of items.
+
+ */
+export interface FileConnection {
+  pageInfo: PageInfo
+  edges: FileEdge[]
+  aggregate: AggregateFile
 }
 
-export interface AggregateTypeface {
+export interface AggregateFoundry {
   count: Int
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface FoundryConnection {
+  pageInfo: PageInfo
+  edges: FoundryEdge[]
+  aggregate: AggregateFoundry
 }
 
 export interface User extends Node {
@@ -3326,39 +3947,21 @@ export interface User extends Node {
 }
 
 /*
- * A connection to a list of items.
-
- */
-export interface TypefaceConnection {
-  pageInfo: PageInfo
-  edges: TypefaceEdge[]
-  aggregate: AggregateTypeface
-}
-
-export interface TypefacePreviousValues {
-  id: ID_Output
-  name: String
-  imageUrl?: String
-  designer?: String
-}
-
-/*
  * An edge in a connection.
 
  */
-export interface WebsiteEdge {
-  node: Website
+export interface TypefaceEdge {
+  node: Typeface
   cursor: String
 }
 
-export interface TypefaceSubscriptionPayload {
-  mutation: MutationType
-  node?: Typeface
-  updatedFields?: String[]
-  previousValues?: TypefacePreviousValues
+export interface FoundryPreviousValues {
+  id: ID_Output
+  name: String
+  url?: String
 }
 
-export interface AggregateUser {
+export interface AggregateWebsite {
   count: Int
 }
 
@@ -3373,10 +3976,10 @@ export interface PostSubscriptionPayload {
  * A connection to a list of items.
 
  */
-export interface UserConnection {
+export interface WebsiteConnection {
   pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
+  edges: WebsiteEdge[]
+  aggregate: AggregateWebsite
 }
 
 export interface PostPreviousValues {
@@ -3392,8 +3995,53 @@ export interface PostPreviousValues {
  * An edge in a connection.
 
  */
-export interface PostEdge {
-  node: Post
+export interface UserEdge {
+  node: User
+  cursor: String
+}
+
+export interface FoundrySubscriptionPayload {
+  mutation: MutationType
+  node?: Foundry
+  updatedFields?: String[]
+  previousValues?: FoundryPreviousValues
+}
+
+export interface AggregatePost {
+  count: Int
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
+}
+
+/*
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
+}
+
+export interface UserPreviousValues {
+  id: ID_Output
+  email: String
+  password: String
+  name: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface FoundryEdge {
+  node: Foundry
   cursor: String
 }
 
@@ -3408,40 +4056,10 @@ export interface Foundry extends Node {
  * A connection to a list of items.
 
  */
-export interface FoundryConnection {
+export interface TypefaceConnection {
   pageInfo: PageInfo
-  edges: FoundryEdge[]
-  aggregate: AggregateFoundry
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType
-  node?: User
-  updatedFields?: String[]
-  previousValues?: UserPreviousValues
-}
-
-export interface AggregateWebsite {
-  count: Int
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface UserEdge {
-  node: User
-  cursor: String
-}
-
-export interface WebsitePreviousValues {
-  id: ID_Output
-  isPublished: Boolean
-  title: String
-  thumbnail: String
-  url: String
-  image: String
-  featured: Boolean
+  edges: TypefaceEdge[]
+  aggregate: AggregateTypeface
 }
 
 export interface WebsiteSubscriptionPayload {
@@ -3449,6 +4067,33 @@ export interface WebsiteSubscriptionPayload {
   node?: Website
   updatedFields?: String[]
   previousValues?: WebsitePreviousValues
+}
+
+export interface AggregateUser {
+  count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface PostEdge {
+  node: Post
+  cursor: String
+}
+
+export interface TypefacePreviousValues {
+  id: ID_Output
+  name: String
+  imageUrl?: String
+  designer?: String
+}
+
+export interface TypefaceSubscriptionPayload {
+  mutation: MutationType
+  node?: Typeface
+  updatedFields?: String[]
+  previousValues?: TypefacePreviousValues
 }
 
 export interface Typeface extends Node {
@@ -3461,44 +4106,54 @@ export interface Typeface extends Node {
   designer?: String
 }
 
-export interface UserPreviousValues {
+export interface WebsitePreviousValues {
   id: ID_Output
-  email: String
-  password: String
-  name: String
-}
-
-export interface AggregatePost {
-  count: Int
+  isPublished: Boolean
+  title: String
+  thumbnail: String
+  url: String
+  image: String
+  featured: Boolean
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface WebsiteConnection {
+export interface PostConnection {
   pageInfo: PageInfo
-  edges: WebsiteEdge[]
-  aggregate: AggregateWebsite
+  edges: PostEdge[]
+  aggregate: AggregatePost
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface TypefaceEdge {
-  node: Typeface
+export interface WebsiteEdge {
+  node: Website
   cursor: String
 }
 
-export interface AggregateFoundry {
+export interface AggregateTypeface {
   count: Int
 }
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The 'Long' scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
 */
-export type Boolean = boolean
+export type Long = string
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
@@ -3512,17 +4167,16 @@ export type ID_Input = string | number
 export type ID_Output = string
 
 /*
-The 'Long' scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
+The `Boolean` scalar type represents `true` or `false`.
 */
-export type Long = string
+export type Boolean = boolean
+
+export type DateTime = string
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string
-
-export type DateTime = string
 
 export interface Schema {
   query: Query
@@ -3536,16 +4190,19 @@ export type Query = {
   websites: (args: { where?: WebsiteWhereInput, orderBy?: WebsiteOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<Website[]>
   typefaces: (args: { where?: TypefaceWhereInput, orderBy?: TypefaceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<Typeface[]>
   foundries: (args: { where?: FoundryWhereInput, orderBy?: FoundryOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<Foundry[]>
+  files: (args: { where?: FileWhereInput, orderBy?: FileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<File[]>
   post: (args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Post | null>
   user: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
   website: (args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Website | null>
   typeface: (args: { where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Typeface | null>
   foundry: (args: { where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Foundry | null>
+  file: (args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<File | null>
   postsConnection: (args: { where?: PostWhereInput, orderBy?: PostOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<PostConnection>
   usersConnection: (args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<UserConnection>
   websitesConnection: (args: { where?: WebsiteWhereInput, orderBy?: WebsiteOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<WebsiteConnection>
   typefacesConnection: (args: { where?: TypefaceWhereInput, orderBy?: TypefaceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<TypefaceConnection>
   foundriesConnection: (args: { where?: FoundryWhereInput, orderBy?: FoundryOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<FoundryConnection>
+  filesConnection: (args: { where?: FileWhereInput, orderBy?: FileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<FileConnection>
   node: (args: { id: ID_Output }, info?: GraphQLResolveInfo | string) => Promise<Node | null>
 }
 
@@ -3555,31 +4212,37 @@ export type Mutation = {
   createWebsite: (args: { data: WebsiteCreateInput }, info?: GraphQLResolveInfo | string) => Promise<Website>
   createTypeface: (args: { data: TypefaceCreateInput }, info?: GraphQLResolveInfo | string) => Promise<Typeface>
   createFoundry: (args: { data: FoundryCreateInput }, info?: GraphQLResolveInfo | string) => Promise<Foundry>
+  createFile: (args: { data: FileCreateInput }, info?: GraphQLResolveInfo | string) => Promise<File>
   updatePost: (args: { data: PostUpdateInput, where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Post | null>
   updateUser: (args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
   updateWebsite: (args: { data: WebsiteUpdateInput, where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Website | null>
   updateTypeface: (args: { data: TypefaceUpdateInput, where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Typeface | null>
   updateFoundry: (args: { data: FoundryUpdateInput, where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Foundry | null>
+  updateFile: (args: { data: FileUpdateInput, where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<File | null>
   deletePost: (args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Post | null>
   deleteUser: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
   deleteWebsite: (args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Website | null>
   deleteTypeface: (args: { where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Typeface | null>
   deleteFoundry: (args: { where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Foundry | null>
+  deleteFile: (args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<File | null>
   upsertPost: (args: { where: PostWhereUniqueInput, create: PostCreateInput, update: PostUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Post>
   upsertUser: (args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
   upsertWebsite: (args: { where: WebsiteWhereUniqueInput, create: WebsiteCreateInput, update: WebsiteUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Website>
   upsertTypeface: (args: { where: TypefaceWhereUniqueInput, create: TypefaceCreateInput, update: TypefaceUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Typeface>
   upsertFoundry: (args: { where: FoundryWhereUniqueInput, create: FoundryCreateInput, update: FoundryUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Foundry>
+  upsertFile: (args: { where: FileWhereUniqueInput, create: FileCreateInput, update: FileUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<File>
   updateManyPosts: (args: { data: PostUpdateInput, where?: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   updateManyUsers: (args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   updateManyWebsites: (args: { data: WebsiteUpdateInput, where?: WebsiteWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   updateManyTypefaces: (args: { data: TypefaceUpdateInput, where?: TypefaceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   updateManyFoundries: (args: { data: FoundryUpdateInput, where?: FoundryWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyFiles: (args: { data: FileUpdateInput, where?: FileWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyPosts: (args: { where?: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyUsers: (args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyWebsites: (args: { where?: WebsiteWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyTypefaces: (args: { where?: TypefaceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyFoundries: (args: { where?: FoundryWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyFiles: (args: { where?: FileWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
 }
 
 export type Subscription = {
@@ -3588,6 +4251,7 @@ export type Subscription = {
   website: (args: { where?: WebsiteSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<WebsiteSubscriptionPayload>>
   typeface: (args: { where?: TypefaceSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<TypefaceSubscriptionPayload>>
   foundry: (args: { where?: FoundrySubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<FoundrySubscriptionPayload>>
+  file: (args: { where?: FileSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<FileSubscriptionPayload>>
 }
 
 export class Prisma extends BasePrisma {
@@ -3601,7 +4265,8 @@ export class Prisma extends BasePrisma {
     User: (where: UserWhereInput): Promise<boolean> => super.existsDelegate('query', 'users', { where }, {}, '{ id }'),
     Website: (where: WebsiteWhereInput): Promise<boolean> => super.existsDelegate('query', 'websites', { where }, {}, '{ id }'),
     Typeface: (where: TypefaceWhereInput): Promise<boolean> => super.existsDelegate('query', 'typefaces', { where }, {}, '{ id }'),
-    Foundry: (where: FoundryWhereInput): Promise<boolean> => super.existsDelegate('query', 'foundries', { where }, {}, '{ id }')
+    Foundry: (where: FoundryWhereInput): Promise<boolean> => super.existsDelegate('query', 'foundries', { where }, {}, '{ id }'),
+    File: (where: FileWhereInput): Promise<boolean> => super.existsDelegate('query', 'files', { where }, {}, '{ id }')
   }
 
   query: Query = {
@@ -3610,16 +4275,19 @@ export class Prisma extends BasePrisma {
     websites: (args, info): Promise<Website[]> => super.delegate('query', 'websites', args, {}, info),
     typefaces: (args, info): Promise<Typeface[]> => super.delegate('query', 'typefaces', args, {}, info),
     foundries: (args, info): Promise<Foundry[]> => super.delegate('query', 'foundries', args, {}, info),
+    files: (args, info): Promise<File[]> => super.delegate('query', 'files', args, {}, info),
     post: (args, info): Promise<Post | null> => super.delegate('query', 'post', args, {}, info),
     user: (args, info): Promise<User | null> => super.delegate('query', 'user', args, {}, info),
     website: (args, info): Promise<Website | null> => super.delegate('query', 'website', args, {}, info),
     typeface: (args, info): Promise<Typeface | null> => super.delegate('query', 'typeface', args, {}, info),
     foundry: (args, info): Promise<Foundry | null> => super.delegate('query', 'foundry', args, {}, info),
+    file: (args, info): Promise<File | null> => super.delegate('query', 'file', args, {}, info),
     postsConnection: (args, info): Promise<PostConnection> => super.delegate('query', 'postsConnection', args, {}, info),
     usersConnection: (args, info): Promise<UserConnection> => super.delegate('query', 'usersConnection', args, {}, info),
     websitesConnection: (args, info): Promise<WebsiteConnection> => super.delegate('query', 'websitesConnection', args, {}, info),
     typefacesConnection: (args, info): Promise<TypefaceConnection> => super.delegate('query', 'typefacesConnection', args, {}, info),
     foundriesConnection: (args, info): Promise<FoundryConnection> => super.delegate('query', 'foundriesConnection', args, {}, info),
+    filesConnection: (args, info): Promise<FileConnection> => super.delegate('query', 'filesConnection', args, {}, info),
     node: (args, info): Promise<Node | null> => super.delegate('query', 'node', args, {}, info)
   }
 
@@ -3629,31 +4297,37 @@ export class Prisma extends BasePrisma {
     createWebsite: (args, info): Promise<Website> => super.delegate('mutation', 'createWebsite', args, {}, info),
     createTypeface: (args, info): Promise<Typeface> => super.delegate('mutation', 'createTypeface', args, {}, info),
     createFoundry: (args, info): Promise<Foundry> => super.delegate('mutation', 'createFoundry', args, {}, info),
+    createFile: (args, info): Promise<File> => super.delegate('mutation', 'createFile', args, {}, info),
     updatePost: (args, info): Promise<Post | null> => super.delegate('mutation', 'updatePost', args, {}, info),
     updateUser: (args, info): Promise<User | null> => super.delegate('mutation', 'updateUser', args, {}, info),
     updateWebsite: (args, info): Promise<Website | null> => super.delegate('mutation', 'updateWebsite', args, {}, info),
     updateTypeface: (args, info): Promise<Typeface | null> => super.delegate('mutation', 'updateTypeface', args, {}, info),
     updateFoundry: (args, info): Promise<Foundry | null> => super.delegate('mutation', 'updateFoundry', args, {}, info),
+    updateFile: (args, info): Promise<File | null> => super.delegate('mutation', 'updateFile', args, {}, info),
     deletePost: (args, info): Promise<Post | null> => super.delegate('mutation', 'deletePost', args, {}, info),
     deleteUser: (args, info): Promise<User | null> => super.delegate('mutation', 'deleteUser', args, {}, info),
     deleteWebsite: (args, info): Promise<Website | null> => super.delegate('mutation', 'deleteWebsite', args, {}, info),
     deleteTypeface: (args, info): Promise<Typeface | null> => super.delegate('mutation', 'deleteTypeface', args, {}, info),
     deleteFoundry: (args, info): Promise<Foundry | null> => super.delegate('mutation', 'deleteFoundry', args, {}, info),
+    deleteFile: (args, info): Promise<File | null> => super.delegate('mutation', 'deleteFile', args, {}, info),
     upsertPost: (args, info): Promise<Post> => super.delegate('mutation', 'upsertPost', args, {}, info),
     upsertUser: (args, info): Promise<User> => super.delegate('mutation', 'upsertUser', args, {}, info),
     upsertWebsite: (args, info): Promise<Website> => super.delegate('mutation', 'upsertWebsite', args, {}, info),
     upsertTypeface: (args, info): Promise<Typeface> => super.delegate('mutation', 'upsertTypeface', args, {}, info),
     upsertFoundry: (args, info): Promise<Foundry> => super.delegate('mutation', 'upsertFoundry', args, {}, info),
+    upsertFile: (args, info): Promise<File> => super.delegate('mutation', 'upsertFile', args, {}, info),
     updateManyPosts: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyPosts', args, {}, info),
     updateManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyUsers', args, {}, info),
     updateManyWebsites: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyWebsites', args, {}, info),
     updateManyTypefaces: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyTypefaces', args, {}, info),
     updateManyFoundries: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyFoundries', args, {}, info),
+    updateManyFiles: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyFiles', args, {}, info),
     deleteManyPosts: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyPosts', args, {}, info),
     deleteManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyUsers', args, {}, info),
     deleteManyWebsites: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyWebsites', args, {}, info),
     deleteManyTypefaces: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyTypefaces', args, {}, info),
-    deleteManyFoundries: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyFoundries', args, {}, info)
+    deleteManyFoundries: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyFoundries', args, {}, info),
+    deleteManyFiles: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyFiles', args, {}, info)
   }
 
   subscription: Subscription = {
@@ -3661,6 +4335,7 @@ export class Prisma extends BasePrisma {
     user: (args, infoOrQuery): Promise<AsyncIterator<UserSubscriptionPayload>> => super.delegateSubscription('user', args, {}, infoOrQuery),
     website: (args, infoOrQuery): Promise<AsyncIterator<WebsiteSubscriptionPayload>> => super.delegateSubscription('website', args, {}, infoOrQuery),
     typeface: (args, infoOrQuery): Promise<AsyncIterator<TypefaceSubscriptionPayload>> => super.delegateSubscription('typeface', args, {}, infoOrQuery),
-    foundry: (args, infoOrQuery): Promise<AsyncIterator<FoundrySubscriptionPayload>> => super.delegateSubscription('foundry', args, {}, infoOrQuery)
+    foundry: (args, infoOrQuery): Promise<AsyncIterator<FoundrySubscriptionPayload>> => super.delegateSubscription('foundry', args, {}, infoOrQuery),
+    file: (args, infoOrQuery): Promise<AsyncIterator<FileSubscriptionPayload>> => super.delegateSubscription('file', args, {}, infoOrQuery)
   }
 }

@@ -46,3 +46,13 @@ type Foundry {
   fonts: [Typeface!]! @relation(name: "TypefaceFoundry")
   url: String
 }
+
+type File {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String! @unique
+}

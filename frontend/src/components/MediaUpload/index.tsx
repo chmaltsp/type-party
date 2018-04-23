@@ -12,6 +12,7 @@ interface LabelProps {
   htmlFor: string;
 }
 const FileUpload = styled.input.attrs({
+  accept: 'image/*',
   type: 'file',
 })`
   width: 0.1px;
