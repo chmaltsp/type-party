@@ -1,6 +1,8 @@
 # import Post from "./generated/prisma.graphql"
 # import Website from "./generated/prisma.graphql"
+# import File from "./generated/prisma.graphql"
 
+scalar Upload
 
 type Query {
   feed: [Post!]!
@@ -19,6 +21,7 @@ type Mutation {
   createDraft(title: String!, text: String!): Post!
   publish(id: ID!): Post!
   deletePost(id: ID!): Post!
+  uploadImage(file: Upload!): File
 }
 
 type AuthPayload {

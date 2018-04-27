@@ -6,11 +6,13 @@ import MediaUpload from '../../components/MediaUpload';
 import styled from 'sc';
 import Yup from 'yup';
 
+import { MutateProps, Mutation } from 'react-apollo';
+import { UPLOAD_IMAGE } from './mutation';
+
 import { Field, FieldProps, Form as FormBase, Formik, FormikActions } from 'formik';
 
 export interface InputValues {
-  name: string;
-  thumbnail: string;
+  thumbnail: File | null;
 }
 
 const Form = styled(FormBase)`
@@ -34,7 +36,7 @@ const SubmitButton = styled.button.attrs({
 `;
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Site name is required'),
+  // name: Yup.string().required('Site name is required'),
 });
 
 const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
@@ -43,12 +45,12 @@ const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
 const SiteForm = () => {
   return (
     <Form>
-      <Field
+      {/* <Field
         name="name"
         render={(props: FieldProps<InputValues>) => {
           return <Input label="Site Name" {...props} />;
         }}
-      />
+      /> */}
       <Field
         name="thumbnail"
         render={(props: FieldProps<InputValues>) => {
@@ -71,22 +73,42 @@ const SiteForm = () => {
   );
 };
 
-const handleSubmit = (values: InputValues) => {
-  console.log(values);
-};
-
-const WrappedForm = () => {
+const WrappedForm: React.SFC<{}> = () => {
+  // const handleSubmit = async (values: InputValues) => {
+  //   console.log(values);
+  // };
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        thumbnail: '',
-      }}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-      component={SiteForm}
-    />
+    <Mutation mutation={UPLOAD_IMAGE}>
+      {(mutate, { data, loading }) => (
+        <React.Fragment>
+          <Formik
+            initialValues={{
+              thumbnail: null,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={async ({ thumbnail }) => {
+              const response = await mutate({
+                variables: {
+                  file: thumbnail,
+                },
+              });
+              console.log(response);
+            }}
+            component={SiteForm}
+          />
+          {!loading && data && <img src={data.uploadImage.url} />}
+        </React.Fragment>
+      )}
+    </Mutation>
   );
 };
+
+interface Response {
+  id: string;
+}
+
+// const WrappedFormWithMutation = graphql<{}, Response, InputValues>(UPLOAD_IMAGE, {})(
+//   WrappedForm
+// );
 
 export default WrappedForm;

@@ -36,6 +36,7 @@ const Label = withProps<LabelProps>()(styled.label)`
     padding: ${({ theme }) => theme.baseSpacing * 2}px;
     border: 2px dashed ${({ theme }) => theme.colors.white};
 `;
+
 export function MediaUpload({
   children,
   field,
