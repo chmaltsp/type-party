@@ -2,9 +2,12 @@ import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from './generated/prisma';
 import resolvers from './resolvers';
 
+import schemaDirectives from './schema-directives';
+
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
+  schemaDirectives,
   context: req => ({
     ...req,
     db: new Prisma({
