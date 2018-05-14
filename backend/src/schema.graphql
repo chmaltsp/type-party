@@ -4,12 +4,14 @@
 
 scalar Upload
 
+directive @isAuthenticated(reason: String = "No Longer Supported") on FIELD_DEFINITION
+
 type Query {
-  feed: [Post!]!
+  feed: [Post!]! 
   drafts: [Post!]!
   post(id: ID!): Post
   me: User
-  users: [User!]!
+  users: [User!]! 
   websites: [Website!]!
   userWebsites: [Website!]! 
 }
@@ -31,7 +33,7 @@ type AuthPayload {
 
 type User {
   id: ID!
-  email: String!
+  email: String! @isAuthenticated(reason: "donso")
   name: String!
   posts: [Post!]!
   websites: [Website!]!

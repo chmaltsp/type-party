@@ -2,12 +2,15 @@ import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from './generated/prisma';
 import resolvers from './resolvers';
 
-import schemaDirectives from './schema-directives';
+// import schemaDirectives from './schema-directives';
+import { IsAuthenticated } from './schema-directives/isAuthenticated';
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
-  schemaDirectives,
+  schemaDirectives: {
+    isAuthenticated: IsAuthenticated,
+  },
   context: req => ({
     ...req,
     db: new Prisma({
