@@ -1,5 +1,5 @@
-import isAuthenticated from './isAuthenticated';
+import { IsAuthenticated } from './isAuthenticated';
 
 export default {
-  isAuthenticated,
+  isAuthenticated: IsAuthenticated,
 };
