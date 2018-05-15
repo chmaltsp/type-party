@@ -1,11 +1,5 @@
-# the name for the service (will be part of the service's HTTP endpoint)
-service: backend
+endpoint: ${env:PRISMA_ENDPOINT}
 
-# the cluster and stage the service is deployed to
-stage: ${env:PRISMA_STAGE}
-
-# to disable authentication:
-# disableAuth: true
 secret: ${env:PRISMA_SECRET}
 
 # the file path pointing to your data model
@@ -15,4 +9,8 @@ datamodel: datamodel.graphql
 seed:
   import: seed.graphql
 
-cluster: ${env:PRISMA_CLUSTER}
+hooks:
+  post-deploy:
+    - echo "Deployment finished"
+    - graphql get-schema
+    - graphql codegen

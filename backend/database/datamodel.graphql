@@ -25,7 +25,7 @@ type Website {
   thumbnail: String!  
   url: String!
   image: String!
-  addedBy: User!
+  addedBy: User! @relation(name: "WebsitesUser")
   typefaces: [Typeface!]!
   featured: Boolean! @default(value: "false")
 }
@@ -35,8 +35,8 @@ type Typeface {
   name: String!
   usedBy: [Website!]!
   imageUrl: String
-  addedBy: User!
-  foundry: Foundry
+  addedBy: User! @relation(name: "TypefaceUser")
+  foundry: Foundry @relation(name: "TypefaceFoundry")
   designer: String
 }
 
