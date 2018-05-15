@@ -14,7 +14,6 @@
     "@types/shortid": "^0.0.29",
     "aws-sdk": "^2.228.1",
     "bcryptjs": "2.4.3",
-    "graphql-tools": "2.23.1",
     "graphql-yoga": "1.13.1",
     "jsonwebtoken": "8.2.0",
     "prisma-binding": "2.0.0",
@@ -27,13 +26,13 @@
     "@types/graphql": "^0.13.0",
     "debug": "^3.1.0",
     "dotenv-cli": "1.4.0",
-    "graphql-cli": "2.15.8",
+    "graphql-cli": "2.16.0",
     "nodemon": "1.17.2",
     "npm-run-all": "4.1.2",
     "prettier": "^1.11.1",
-    "prisma": "1.6.3",
+    "prisma": "1.8.3",
     "rimraf": "2.6.2",
     "ts-node": "4.1.0",
-    "typescript": "2.7.2"
+    "typescript": "2.8.3"
   }
 }
