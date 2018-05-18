@@ -1,18 +1,25 @@
 import { SchemaDirectiveVisitor } from 'graphql-tools';
+import { defaultFieldResolver } from 'graphql';
+
+import { Context, getUserId } from '../utils';
 
 import { GraphQLField, GraphQLEnumValue } from 'graphql';
 
-interface IIsAuthenticated extends SchemaDirectiveVisitor {}
 export class IsAuthenticated extends SchemaDirectiveVisitor {
   public visitFieldDefinition(field: GraphQLField<any, any>) {
-    console.log(field, this.args);
-    field.isDeprecated = true;
-    field.deprecationReason = this.args.reason;
-  }
+    const { resolve = defaultFieldResolver } = field;
 
-  public visitEnumValue(value: GraphQLEnumValue) {
-    value.isDeprecated = true;
-    value.deprecationReason = this.args.reason;
+    field.resolve = async function(...resolveArgs) {
+      const [source, args, ctx] = resolveArgs;
+      // console.log('SOURCE INSIDE FIELD RESOLVE', source);
+      // console.log('ARGS INSIDE FIELD RESOLVE', args);
+      console.log('HEADERS', getUserId(ctx));
+      const result = await resolve.apply(this, resolveArgs);
+      if (typeof result === 'string') {
+        return result.toUpperCase();
+      }
+      return result;
+    };
   }
 }
 
