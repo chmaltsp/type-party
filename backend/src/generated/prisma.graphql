@@ -1,5 +1,5 @@
 # source: http://localhost:4466/backend/dev
-# timestamp: Tue May 15 2018 00:28:53 GMT-0400 (EDT)
+# timestamp: Sun May 20 2018 13:01:25 GMT-0400 (EDT)
 
 type AggregateFile {
   count: Int!
@@ -1090,6 +1090,11 @@ type Query {
   ): Node
 }
 
+enum Role {
+  ADMIN
+  SUBSCRIBER
+}
+
 type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -1515,6 +1520,7 @@ type User implements Node {
   email: String!
   password: String!
   name: String!
+  role: Role!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
@@ -1534,6 +1540,7 @@ input UserCreateInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   posts: PostCreateManyWithoutAuthorInput
   websites: WebsiteCreateManyWithoutAddedByInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
@@ -1558,6 +1565,7 @@ input UserCreateWithoutPostsInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   websites: WebsiteCreateManyWithoutAddedByInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
@@ -1566,6 +1574,7 @@ input UserCreateWithoutTypefacesInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   posts: PostCreateManyWithoutAuthorInput
   websites: WebsiteCreateManyWithoutAddedByInput
 }
@@ -1574,6 +1583,7 @@ input UserCreateWithoutWebsitesInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   posts: PostCreateManyWithoutAuthorInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
@@ -1596,6 +1606,8 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
+  role_ASC
+  role_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1607,6 +1619,7 @@ type UserPreviousValues {
   email: String!
   password: String!
   name: String!
+  role: Role!
 }
 
 type UserSubscriptionPayload {
@@ -1652,6 +1665,7 @@ input UserUpdateInput {
   email: String
   password: String
   name: String
+  role: Role
   posts: PostUpdateManyWithoutAuthorInput
   websites: WebsiteUpdateManyWithoutAddedByInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
@@ -1685,6 +1699,7 @@ input UserUpdateWithoutPostsDataInput {
   email: String
   password: String
   name: String
+  role: Role
   websites: WebsiteUpdateManyWithoutAddedByInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
@@ -1693,6 +1708,7 @@ input UserUpdateWithoutTypefacesDataInput {
   email: String
   password: String
   name: String
+  role: Role
   posts: PostUpdateManyWithoutAuthorInput
   websites: WebsiteUpdateManyWithoutAddedByInput
 }
@@ -1701,6 +1717,7 @@ input UserUpdateWithoutWebsitesDataInput {
   email: String
   password: String
   name: String
+  role: Role
   posts: PostUpdateManyWithoutAuthorInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
@@ -1889,6 +1906,16 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  role: Role
+
+  """All values that are not equal to given value."""
+  role_not: Role
+
+  """All values that are contained in given list."""
+  role_in: [Role!]
+
+  """All values that are not contained in given list."""
+  role_not_in: [Role!]
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

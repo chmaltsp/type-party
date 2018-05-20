@@ -8,11 +8,17 @@ type Post {
   author: User!
 }
 
+enum Role {
+  ADMIN
+  SUBSCRIBER
+}
+
 type User {
   id: ID! @unique
   email: String! @unique
   password: String!
   name: String!
+  role: Role! @default(value: SUBSCRIBER)
   posts: [Post!]!
   websites: [Website!]! @relation(name: "WebsitesUser")
   typefaces: [Typeface!]! @relation(name: "TypefaceUser")
