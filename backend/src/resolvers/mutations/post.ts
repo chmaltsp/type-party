@@ -19,9 +19,13 @@ export const post = {
   },
 
   async publish(parent, { id }, ctx: Context, info) {
-    return await ctx.db.exists.Website({
-      id,
-      title: 'blah',
+    return ctx.db.mutation.updatePost({
+      where: {
+        id,
+      },
+      data: {
+        isPublished: true,
+      },
     });
   },
 
