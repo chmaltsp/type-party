@@ -1,8 +1,7 @@
 import { Prisma } from '../generated/prisma';
 import { Request } from 'express';
 
-export const ctxUser = (ctx: Context) => ctx.request.user;
-
+export const ctxUser = (ctx: Context) => ctx.request && ctx.request.user;
 interface Irequest extends Request {
   user?: {
     userId: string;
