@@ -2,12 +2,14 @@ import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from './generated/prisma';
 import resolvers from './resolvers';
 
+import { checkJwt } from './middleware/checkJwt';
+
 import schemaDirectives from './schema-directives';
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
-  schemaDirectives,
+  // schemaDirectives,
   resolverValidationOptions: {
     requireResolversForResolveType: false,
   },
@@ -19,6 +21,16 @@ const server = new GraphQLServer({
       debug: true, // log all GraphQL queries & mutations
     }),
   }),
+});
+
+server.express.post(server.options.endpoint, checkJwt, (err, req, res, next) => {
+  if (err)
+    return res.status(401).json({
+      error: {
+        message: err.message,
+      },
+    });
+  next();
 });
 
 server.start(

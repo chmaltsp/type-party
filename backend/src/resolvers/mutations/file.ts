@@ -1,4 +1,4 @@
-import { Context, getUserId } from '../../utils';
+import { Context } from '../../utils';
 import { processUpload } from '../../modules/fileApi';
 
 export const file = {

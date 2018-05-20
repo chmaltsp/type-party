@@ -1,17 +1,28 @@
 # import Post from "./generated/prisma.graphql"
 # import Website from "./generated/prisma.graphql"
 # import File from "./generated/prisma.graphql"
+# import Role from "./generated/prisma.graphql"
 
 scalar Upload
 
-directive @isAuthenticated on FIELD_DEFINITION | QUERY
+directive @isAuthenticated on FIELD_DEFINITION | QUERY | MUTATION
+
+directive @hasRole(
+  requires: Role = SUBSCRIBER
+) on FIELD_DEFINITION | QUERY | MUTATION
+
+directive @isOwner(
+  type: String!
+  field: String
+) on FIELD_DEFINITION | QUERY | MUTATION
+
 
 type Query {
   feed: [Post!]! 
   drafts: [Post!]!
   post(id: ID!): Post
-  me: User
-  users: [User!]! 
+  me: User @isAuthenticated
+  users: [User!]! @hasRole(requires: ADMIN)
   websites: [Website!]!
   userWebsites: [Website!]! 
 }
@@ -21,7 +32,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   addWebsite(title: String!, thumbnail: String!, url: String!, image: String): Website!
   createDraft(title: String!, text: String!): Post!
-  publish(id: ID!): Post!
+  publish(id: ID!): Post! @isOwner(type: "Post", field: "author")
   deletePost(id: ID!): Post!
   uploadImage(file: Upload!): File
 }
@@ -33,8 +44,9 @@ type AuthPayload {
 
 type User {
   id: ID!
-  email: String! @isAuthenticated
+  email: String!
   name: String!
   posts: [Post!]!
+  role: Role
   websites: [Website!]!
 }

@@ -1,8 +1,8 @@
-import { getUserId, Context } from '../../utils';
+import { ctxUser, Context } from '../../utils';
 
 export const post = {
   async createDraft(parent, { title, text }, ctx: Context, info) {
-    const userId = getUserId(ctx);
+    const { userId } = ctxUser(ctx);
     return ctx.db.mutation.createPost(
       {
         data: {
@@ -19,26 +19,14 @@ export const post = {
   },
 
   async publish(parent, { id }, ctx: Context, info) {
-    const userId = getUserId(ctx);
-    const postExists = await ctx.db.exists.Post({
+    return await ctx.db.exists.Website({
       id,
-      author: { id: userId },
+      title: 'blah',
     });
-    if (!postExists) {
-      throw new Error(`Post not found or you're not the author`);
-    }
-
-    return ctx.db.mutation.updatePost(
-      {
-        where: { id },
-        data: { isPublished: true },
-      },
-      info
-    );
   },
 
   async deletePost(parent, { id }, ctx: Context, info) {
-    const userId = getUserId(ctx);
+    const { userId } = ctxUser(ctx);
     const postExists = await ctx.db.exists.Post({
       id,
       author: { id: userId },

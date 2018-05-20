@@ -12,5 +12,5 @@ seed:
 hooks:
   post-deploy:
     - echo "Deployment finished"
-    - graphql get-schema
+    - graphql get-schema --project database
     - graphql codegen

@@ -14,7 +14,8 @@
     "@types/shortid": "^0.0.29",
     "aws-sdk": "^2.228.1",
     "bcryptjs": "2.4.3",
-    "graphql-yoga": "1.13.1",
+    "express-jwt": "^5.3.1",
+    "graphql-yoga": "1.14.0",
     "jsonwebtoken": "8.2.0",
     "prisma-binding": "2.0.0",
     "shortid": "^2.2.8"
@@ -23,6 +24,7 @@
     "@types/aws-sdk": "^2.7.0",
     "@types/bcryptjs": "2.4.1",
     "@types/debug": "^0.0.30",
+    "@types/express-jwt": "^0.0.40",
     "@types/graphql": "^0.13.0",
     "@types/jsonwebtoken": "^7.2.7",
     "debug": "^3.1.0",
@@ -33,7 +35,7 @@
     "prettier": "^1.11.1",
     "prisma": "1.8.3",
     "rimraf": "2.6.2",
-    "ts-node": "4.1.0",
+    "ts-node": "6.0.3",
     "typescript": "2.8.3"
   }
 }

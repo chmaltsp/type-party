@@ -29,7 +29,7 @@ export const auth = {
     }
 
     return {
-      token: jwt.sign({ userId: user.id }, process.env.APP_SECRET, {
+      token: jwt.sign({ userId: user.id, role: user.role }, process.env.APP_SECRET, {
         expiresIn: '7d',
       }),
       user,

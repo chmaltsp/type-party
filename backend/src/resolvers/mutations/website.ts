@@ -1,8 +1,8 @@
-import { getUserId, Context } from '../../utils';
+import { ctxUser, Context } from '../../utils';
 
 export const website = {
   async addWebsite(parent, { title, thumbnail, url, image }, ctx: Context, info) {
-    const userId = getUserId(ctx);
+    const { userId } = ctxUser(ctx);
     return ctx.db.mutation.createWebsite(
       {
         data: {

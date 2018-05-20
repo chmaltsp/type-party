@@ -1193,6 +1193,11 @@ type Query {
   ): Node
 }
 
+enum Role {
+  ADMIN
+  SUBSCRIBER
+}
+
 type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -1618,6 +1623,7 @@ type User implements Node {
   email: String!
   password: String!
   name: String!
+  role: Role!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
@@ -1637,6 +1643,7 @@ input UserCreateInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   posts: PostCreateManyWithoutAuthorInput
   websites: WebsiteCreateManyWithoutAddedByInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
@@ -1661,6 +1668,7 @@ input UserCreateWithoutPostsInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   websites: WebsiteCreateManyWithoutAddedByInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
@@ -1669,6 +1677,7 @@ input UserCreateWithoutTypefacesInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   posts: PostCreateManyWithoutAuthorInput
   websites: WebsiteCreateManyWithoutAddedByInput
 }
@@ -1677,6 +1686,7 @@ input UserCreateWithoutWebsitesInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   posts: PostCreateManyWithoutAuthorInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
@@ -1699,6 +1709,8 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
+  role_ASC
+  role_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1710,6 +1722,7 @@ type UserPreviousValues {
   email: String!
   password: String!
   name: String!
+  role: Role!
 }
 
 type UserSubscriptionPayload {
@@ -1755,6 +1768,7 @@ input UserUpdateInput {
   email: String
   password: String
   name: String
+  role: Role
   posts: PostUpdateManyWithoutAuthorInput
   websites: WebsiteUpdateManyWithoutAddedByInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
@@ -1788,6 +1802,7 @@ input UserUpdateWithoutPostsDataInput {
   email: String
   password: String
   name: String
+  role: Role
   websites: WebsiteUpdateManyWithoutAddedByInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
@@ -1796,6 +1811,7 @@ input UserUpdateWithoutTypefacesDataInput {
   email: String
   password: String
   name: String
+  role: Role
   posts: PostUpdateManyWithoutAuthorInput
   websites: WebsiteUpdateManyWithoutAddedByInput
 }
@@ -1804,6 +1820,7 @@ input UserUpdateWithoutWebsitesDataInput {
   email: String
   password: String
   name: String
+  role: Role
   posts: PostUpdateManyWithoutAuthorInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
@@ -1992,6 +2009,16 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  role: Role
+
+  """All values that are not equal to given value."""
+  role_not: Role
+
+  """All values that are contained in given list."""
+  role_in: [Role!]
+
+  """All values that are not contained in given list."""
+  role_not_in: [Role!]
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput
@@ -2500,6 +2527,9 @@ export type TypefaceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type Role =   'ADMIN' |
+  'SUBSCRIBER'
+
 export type UserOrderByInput =   'id_ASC' |
   'id_DESC' |
   'email_ASC' |
@@ -2508,6 +2538,8 @@ export type UserOrderByInput =   'id_ASC' |
   'password_DESC' |
   'name_ASC' |
   'name_DESC' |
+  'role_ASC' |
+  'role_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -2543,15 +2575,14 @@ export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export interface WebsiteCreateInput {
-  isPublished?: Boolean
-  title: String
-  thumbnail: String
-  url: String
-  image: String
-  featured?: Boolean
-  addedBy: UserCreateOneWithoutWebsitesInput
-  typefaces?: TypefaceCreateManyWithoutUsedByInput
+export interface UserCreateInput {
+  email: String
+  password: String
+  name: String
+  role?: Role
+  posts?: PostCreateManyWithoutAuthorInput
+  websites?: WebsiteCreateManyWithoutAddedByInput
+  typefaces?: TypefaceCreateManyWithoutAddedByInput
 }
 
 export interface PostWhereInput {
@@ -2876,6 +2907,7 @@ export interface UserCreateWithoutTypefacesInput {
   email: String
   password: String
   name: String
+  role?: Role
   posts?: PostCreateManyWithoutAuthorInput
   websites?: WebsiteCreateManyWithoutAddedByInput
 }
@@ -3011,6 +3043,7 @@ export interface UserCreateWithoutWebsitesInput {
   email: String
   password: String
   name: String
+  role?: Role
   posts?: PostCreateManyWithoutAuthorInput
   typefaces?: TypefaceCreateManyWithoutAddedByInput
 }
@@ -3018,21 +3051,6 @@ export interface UserCreateWithoutWebsitesInput {
 export interface UserUpsertWithoutPostsInput {
   update: UserUpdateWithoutPostsDataInput
   create: UserCreateWithoutPostsInput
-}
-
-export interface UserCreateInput {
-  email: String
-  password: String
-  name: String
-  posts?: PostCreateManyWithoutAuthorInput
-  websites?: WebsiteCreateManyWithoutAddedByInput
-  typefaces?: TypefaceCreateManyWithoutAddedByInput
-}
-
-export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
-  where: WebsiteWhereUniqueInput
-  update: WebsiteUpdateWithoutTypefacesDataInput
-  create: WebsiteCreateWithoutTypefacesInput
 }
 
 export interface TypefaceUpdateManyWithoutAddedByInput {
@@ -3044,10 +3062,28 @@ export interface TypefaceUpdateManyWithoutAddedByInput {
   upsert?: TypefaceUpsertWithWhereUniqueWithoutAddedByInput[] | TypefaceUpsertWithWhereUniqueWithoutAddedByInput
 }
 
+export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: WebsiteWhereUniqueInput
+  update: WebsiteUpdateWithoutTypefacesDataInput
+  create: WebsiteCreateWithoutTypefacesInput
+}
+
+export interface WebsiteCreateInput {
+  isPublished?: Boolean
+  title: String
+  thumbnail: String
+  url: String
+  image: String
+  featured?: Boolean
+  addedBy: UserCreateOneWithoutWebsitesInput
+  typefaces?: TypefaceCreateManyWithoutUsedByInput
+}
+
 export interface UserUpdateWithoutWebsitesDataInput {
   email?: String
   password?: String
   name?: String
+  role?: Role
   posts?: PostUpdateManyWithoutAuthorInput
   typefaces?: TypefaceUpdateManyWithoutAddedByInput
 }
@@ -3190,6 +3226,10 @@ export interface UserWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
+  role?: Role
+  role_not?: Role
+  role_in?: Role[] | Role
+  role_not_in?: Role[] | Role
   posts_every?: PostWhereInput
   posts_some?: PostWhereInput
   posts_none?: PostWhereInput
@@ -3220,6 +3260,7 @@ export interface UserUpdateWithoutPostsDataInput {
   email?: String
   password?: String
   name?: String
+  role?: Role
   websites?: WebsiteUpdateManyWithoutAddedByInput
   typefaces?: TypefaceUpdateManyWithoutAddedByInput
 }
@@ -3317,6 +3358,7 @@ export interface UserCreateWithoutPostsInput {
   email: String
   password: String
   name: String
+  role?: Role
   websites?: WebsiteCreateManyWithoutAddedByInput
   typefaces?: TypefaceCreateManyWithoutAddedByInput
 }
@@ -3344,6 +3386,7 @@ export interface UserUpdateWithoutTypefacesDataInput {
   email?: String
   password?: String
   name?: String
+  role?: Role
   posts?: PostUpdateManyWithoutAuthorInput
   websites?: WebsiteUpdateManyWithoutAddedByInput
 }
@@ -3541,6 +3584,7 @@ export interface UserUpdateInput {
   email?: String
   password?: String
   name?: String
+  role?: Role
   posts?: PostUpdateManyWithoutAuthorInput
   websites?: WebsiteUpdateManyWithoutAddedByInput
   typefaces?: TypefaceUpdateManyWithoutAddedByInput
@@ -3649,6 +3693,7 @@ export interface User extends Node {
   email: String
   password: String
   name: String
+  role: Role
   posts?: Post[]
   websites?: Website[]
   typefaces?: Typeface[]
@@ -3742,6 +3787,7 @@ export interface UserPreviousValues {
   email: String
   password: String
   name: String
+  role: Role
 }
 
 /*

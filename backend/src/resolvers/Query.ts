@@ -1,4 +1,4 @@
-import { getUserId, Context } from '../utils';
+import { ctxUser, Context } from '../utils';
 
 export const Query = {
   feed(parent, args, ctx: Context, info) {
@@ -6,7 +6,7 @@ export const Query = {
   },
 
   drafts(parent, args, ctx: Context, info) {
-    const id = getUserId(ctx);
+    const { userId: id } = ctxUser(ctx);
 
     const where = {
       isPublished: false,
@@ -23,14 +23,14 @@ export const Query = {
   },
 
   me(parent, args, ctx: Context, info) {
-    const id = getUserId(ctx);
+    const { userId: id } = ctxUser(ctx);
     return ctx.db.query.user({ where: { id } }, info);
   },
   users(parent, args, ctx: Context, info) {
     return ctx.db.query.users({}, info);
   },
   userWebsites(parent, args, ctx: Context, info) {
-    const id = getUserId(ctx);
+    const { userId: id } = ctxUser(ctx);
 
     const where = {
       addedBy: {
