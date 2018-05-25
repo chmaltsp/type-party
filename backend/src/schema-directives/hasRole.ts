@@ -6,27 +6,25 @@ import { isLoggedIn } from '../utils/auth';
 
 import { GraphQLField, GraphQLEnumValue } from 'graphql';
 
-export class HasRole extends SchemaDirectiveVisitor {
-  public visitFieldDefinition(field: GraphQLField<any, any>, details) {
-    // console.log('DETAILS', details.objectType);
-    // console.log('SchemaVisitorArgs', this.args);
-    const requiredRole = this.args.requires;
+import { Role } from '../generated/prisma';
 
+export class HasRole extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field: GraphQLField<any, Context>) {
+    /**
+     * Required roles passed in from schema
+     */
+    const requiredRoles: Role[] = this.args.requires;
     const { resolve = defaultFieldResolver } = field;
 
     field.resolve = async function(...resolveArgs) {
-      const [source, args, ctx, info] = resolveArgs;
-      // console.log('SOURCE INSIDE FIELD RESOLVE', source);
-      // console.log('ARGS INSIDE FIELD RESOLVE', args);
-      // console.log('INFO INSIDE FIELD RESOLVE', info.fieldNodes);
-
+      const [source, args, ctx] = resolveArgs;
       const { role } = isLoggedIn(ctx);
 
-      if (role !== requiredRole) {
-        throw new Error(`You must be a ${requiredRole}`);
+      if (!requiredRoles.includes(role)) {
+        throw new Error(`You must have ${requiredRoles.map(role => `${role} `)} role`);
       }
 
-      return resolve.call(this, resolveArgs);
+      return resolve.apply(this, resolveArgs);
     };
   }
 }
