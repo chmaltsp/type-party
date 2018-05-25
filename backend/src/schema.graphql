@@ -8,7 +8,7 @@ scalar Upload
 directive @isAuthenticated on FIELD_DEFINITION | QUERY | MUTATION
 
 directive @hasRole(
-  requires: Role = SUBSCRIBER
+  requires: [Role] = SUBSCRIBER
 ) on FIELD_DEFINITION | QUERY | MUTATION
 
 directive @isOwner(
@@ -22,7 +22,7 @@ type Query {
   drafts: [Post!]!
   post(id: ID!): Post
   me: User @isAuthenticated
-  users: [User!]! @hasRole(requires: ADMIN)
+  users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
   websites: [Website!]!
   userWebsites: [Website!]! 
 }
