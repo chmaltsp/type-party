@@ -2,6 +2,7 @@ import { normalize } from 'polished';
 
 import { injectGlobal } from 'sc';
 
+// @ts-ignore
 export default injectGlobal`
     @import url('https://fonts.googleapis.com/css?family=Muli');
 
@@ -12,6 +13,6 @@ export default injectGlobal`
         height: 100%;
         font-size: 16px;
         width: 100%;
-        background-color: #000;
+        background-color: #FFF;
     }
 `;

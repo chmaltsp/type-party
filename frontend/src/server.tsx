@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
@@ -29,7 +29,6 @@ const link = createUploadLink({
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
-  // @ts-ignore
   ssrMode: true,
 });
 
