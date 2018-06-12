@@ -31,7 +31,5 @@ export const isRequestingUserAlsoOwner = ({
     id: userId,
   };
 
-  // TODO remove when prisma 2.0 patch comes out
-  //@ts-ignore
-  return ctx.db.exists.Post({ where: existsInput });
+  return ctx.db.exists.Post(existsInput);
 };
