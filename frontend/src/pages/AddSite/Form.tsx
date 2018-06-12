@@ -32,7 +32,8 @@ const SubmitButton = styled.button.attrs({
   margin: ${({ theme }) => theme.baseSpacing * 2}px 0;
   border-radius: ${({ theme }) => theme.baseSpacing / 2}px;
   color: ${({ theme }) => theme.colors.white};
-  padding: ${({ theme }) => theme.baseSpacing}px ${({ theme }) => theme.baseSpacing * 2}px;
+  padding: ${({ theme }) => theme.baseSpacing}px ${({ theme }) =>
+  theme.baseSpacing * 2}px;
 `;
 
 const validationSchema = Yup.object().shape({
