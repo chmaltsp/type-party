@@ -15,6 +15,11 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": false,
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
     "sourceMap": true,
     "strictNullChecks": true,
     "strict": true,
