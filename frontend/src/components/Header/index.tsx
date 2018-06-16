@@ -1,4 +1,4 @@
-import { em } from 'polished';
+import { em, transparentize } from 'polished';
 import * as React from 'react';
 import styled, { media } from 'sc';
 import LinkBase from '../Link';
@@ -48,6 +48,8 @@ const Wrapper = styled.div`
   display: flex;
   margin: 0 ${em(136)};
   padding-top: ${em(48)};
+  padding-bottom: ${em(16)};
+  border-bottom: 1px solid ${({ theme }) => transparentize(0.8, theme.colors.black)};
   ${media.giant`
         margin: 0 ${em(32)};
     `};
@@ -83,6 +85,7 @@ const MenuLink = styled.div`
   font-weight: 400;
   margin-left: auto;
   display: none;
+  align-self: center;
   ${media.tablet`
         display: inline-block;
     `};
