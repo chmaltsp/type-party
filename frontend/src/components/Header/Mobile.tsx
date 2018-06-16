@@ -21,7 +21,7 @@ const LinkWrapper = withProps<{ open: boolean }>()(styled.ul)`
   margin: 0;
   max-height: ${({ open }) => (open ? em(links.length * 50) : '0')};
   overflow: hidden;
-  transition: max-height .5s linear;
+  transition: max-height .2s linear;
   ${media.tablet`
     display: flex;
   `}

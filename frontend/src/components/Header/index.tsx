@@ -90,6 +90,7 @@ const MenuLink = styled.div`
   margin-left: auto;
   display: none;
   align-self: center;
+  cursor: pointer;
   ${media.tablet`
         display: inline-block;
     `};
