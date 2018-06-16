@@ -49,10 +49,14 @@ const Wrapper = styled.div`
   margin: 0 ${em(136)};
   padding-top: ${em(48)};
   padding-bottom: ${em(16)};
-  border-bottom: 1px solid ${({ theme }) => transparentize(0.8, theme.colors.black)};
-  ${media.giant`
-        margin: 0 ${em(32)};
-    `};
+  border-bottom: none;
+  ${media.tablet`
+    border-bottom: 1px solid ${(props: any) =>
+      transparentize(0.8, props.theme.colors.black)};
+  `};
+  ${media.desktop`
+    margin: 0 ${em(32)};
+  `};
 `;
 
 const Star = styled.img`
