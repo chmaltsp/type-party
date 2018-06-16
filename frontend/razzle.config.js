@@ -3,7 +3,25 @@
 const path = require('path');
 
 module.exports = {
-  plugins: ['typescript'],
+  plugins: [
+    {
+      name: 'typescript',
+      options: {
+        useBabel: true,
+        useEslint: false, // ignored if `useBabel` is false
+        tsLoader: {
+          transpileOnly: true,
+          experimentalWatchApi: false,
+        },
+        forkTsChecker: {
+          tsconfig: './tsconfig.json',
+          tslint: './tslint.json',
+          watch: './src',
+          typeCheck: true,
+        },
+      },
+    },
+  ],
   modify(baseConfig, { target, dev }, webpack) {
     const config = Object.assign({}, baseConfig);
 

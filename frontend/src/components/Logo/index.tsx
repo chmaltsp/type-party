@@ -1,14 +1,15 @@
+import { em } from 'polished';
 import * as React from 'react';
 import styled from 'sc';
 
 import tpLogo from './type-party-logo.svg';
 
-const Image = styled.img`
-    width: 100px;
+const Logo = styled.img.attrs({
+  src: tpLogo,
+})`
+    max-width: ${em(100)};
+    width: 100%;
+    height: auto;
 `;
-
-export const Logo = () => {
-  return <Image src={tpLogo} />;
-};
 
 export default Logo;

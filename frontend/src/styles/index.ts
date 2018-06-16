@@ -1,4 +1,5 @@
 import * as styledComponents from 'styled-components';
+import { media } from './media';
 
 // tslint:disable-next-line
 import { ThemedStyledComponentsModule } from 'styled-components';
@@ -13,7 +14,7 @@ const {
   ThemeProvider,
 } = styledComponents as ThemedStyledComponentsModule<typeof theme>;
 
-export { css, injectGlobal, keyframes, ThemeProvider };
+export { css, injectGlobal, keyframes, ThemeProvider, media };
 export default styled;
 
 export const withProps = <U>() => <P, T, O>(
