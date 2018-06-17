@@ -67,7 +67,6 @@
       "\\.(css|less)$": "<rootDir>/config/jest/styleMock.js",
       "^sc$": "<rootDir>/src/styles"
     },
-    "setupFiles": ["<rootDir>/config/jest/setupTest.js" ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.(ts|js)?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).(ts|js)?(x)"

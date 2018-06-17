@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> should render without blowing up 1`] = `
+<React.Fragment>
+  <styled.div>
+    <styled.img />
+    <styled.img
+      src="test-file-stub"
+    />
+    <styled.div
+      onClick={[Function]}
+    >
+      Menu
+    </styled.div>
+    <styled.div>
+      <Styled(Styled(Link))
+        key="/directory"
+        to="/directory"
+      >
+        Font Directory
+      </Styled(Styled(Link))>
+      <Styled(Styled(Link))
+        key="/free-fonts"
+        to="/free-fonts"
+      >
+        Sites using free fonts
+      </Styled(Styled(Link))>
+      <Styled(Styled(Link))
+        key="/resources"
+        to="/resources"
+      >
+        Resources
+      </Styled(Styled(Link))>
+      <Styled(Styled(Link))
+        key="/about"
+        to="/about"
+      >
+        About
+      </Styled(Styled(Link))>
+      <Styled(Styled(Link))
+        key="/twitter"
+        to="/twitter"
+      >
+        <span>
+          @typeparty
+        </span>
+      </Styled(Styled(Link))>
+    </styled.div>
+  </styled.div>
+  <MobileNav
+    open={false}
+  />
+</React.Fragment>
+`;
