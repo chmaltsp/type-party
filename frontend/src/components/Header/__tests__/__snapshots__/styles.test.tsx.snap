@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link should render properly 1`] = `
+.c0 {
+  font-size: 1.125em;
+  font-weight: 400;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-right: 1.5em;
+}
+
+<Styled(Link)
+  className="c0"
+  to="/non-route"
+/>
+`;
+
+exports[`<Logo should render properly 1`] = `
+.c0 {
+  max-width: 6.25em;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width:48em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:62em) {
+  .c0 {
+    width: 5em;
+    height: 5em;
+  }
+}
+
+<img
+  className="c0"
+  src="test-file-stub"
+/>
+`;
+
+exports[`<MenuLink should render properly 1`] = `
+.c0 {
+  font-size: 1.125em;
+  font-weight: 400;
+  margin-left: auto;
+  display: none;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  cursor: pointer;
+}
+
+@media (max-width:48em) {
+  .c0 {
+    display: inline-block;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<NavlinksWrapper should render properly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: right;
+}
+
+@media (max-width:48em) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Star should render properly 1`] = `
+.c0 {
+  display: none;
+}
+
+@media (max-width:48em) {
+  .c0 {
+    display: inline-block;
+  }
+}
+
+<img
+  className="c0"
+/>
+`;
+
+exports[`<Wrapper should render properly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 8.5em;
+  padding-top: 3em;
+  padding-bottom: 1em;
+  border-bottom: none;
+}
+
+@media (max-width:48em) {
+  .c0 {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+}
+
+@media (max-width:62em) {
+  .c0 {
+    margin: 0 2em;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;

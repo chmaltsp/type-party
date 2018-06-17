@@ -4,14 +4,14 @@ import styled, { media } from 'sc';
 import LinkBase from '../Link';
 import LogoBase from '../Logo';
 
-export const Link = styled(LinkBase)`
+const Link = styled(LinkBase)`
   font-size: ${em(18)};
   font-weight: 400;
   text-decoration: none;
   margin-right: ${({ theme }) => em(theme.spacing.md)};
 `;
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   margin: 0 ${em(136)};
   padding-top: ${em(48)};
@@ -26,14 +26,14 @@ export const Wrapper = styled.div`
 `};
 `;
 
-export const Star = styled.img`
+const Star = styled.img`
   display: none;
   ${media.tablet`
     display: inline-block;
   `};
 `;
 
-export const Logo = LogoBase.extend`
+const Logo = LogoBase.extend`
   display: block;
   ${media.tablet`
     display: none;
@@ -43,7 +43,7 @@ export const Logo = LogoBase.extend`
   `};
 `;
 
-export const NavlinksWrapper = styled.div`
+const NavlinksWrapper = styled.div`
   flex: 1;
   text-align: right;
   ${media.tablet`
@@ -51,7 +51,7 @@ export const NavlinksWrapper = styled.div`
   `};
 `;
 
-export const MenuLink = styled.div`
+const MenuLink = styled.div`
   font-size: ${em(18)};
   font-weight: 400;
   margin-left: auto;
@@ -62,3 +62,5 @@ export const MenuLink = styled.div`
       display: inline-block;
   `};
 `;
+
+export { MenuLink, NavlinksWrapper, Logo, Star, Wrapper, Link };
