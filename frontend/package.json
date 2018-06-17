@@ -28,6 +28,7 @@
     "yup": "^0.24.1"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.10",
     "@types/express": "^4.0.35",
     "@types/graphql": "^0.13.1",
     "@types/jest": "^23.0.1",
@@ -38,6 +39,10 @@
     "@types/react-router-dom": "^4.2.7",
     "@types/webpack-env": "^1.13.2",
     "@types/yup": "^0.24.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "jest-styled-components": "^5.0.1",
     "prettier": "^1.13.5",
     "raf": "^3.4.0",
     "razzle": "^2.2.0",
@@ -62,10 +67,12 @@
       "\\.(css|less)$": "<rootDir>/config/jest/styleMock.js",
       "^sc$": "<rootDir>/src/styles"
     },
+    "setupFiles": ["<rootDir>/config/jest/setupTest.js" ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.(ts|js)?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).(ts|js)?(x)"
     ],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "moduleFileExtensions": [
       "ts",
       "tsx",
