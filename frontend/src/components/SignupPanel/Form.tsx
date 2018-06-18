@@ -4,7 +4,13 @@ import styled from 'sc';
 import ButtonBase from '../Button';
 import Input from '../Input';
 
-import { Field, FieldProps, Form as Formbase } from 'formik';
+import {
+  Field,
+  FieldProps,
+  Form as Formbase,
+  InjectedFormikProps,
+  withFormik,
+} from 'formik';
 
 // export interface EmailFormProps {}
 
@@ -15,9 +21,14 @@ const Form = styled(Formbase)`
   display: flex;
 `;
 
-const Button = ButtonBase.extend``;
+const Button = ButtonBase.extend`
+  flex: 0;
+`;
 
-export default class EmailForm extends React.PureComponent<{}, any> {
+export class EmailForm extends React.PureComponent<
+  InjectedFormikProps<{}, InputValues>,
+  any
+> {
   public render() {
     return (
       <Form>
@@ -32,3 +43,7 @@ export default class EmailForm extends React.PureComponent<{}, any> {
     );
   }
 }
+
+export default withFormik<{}, InputValues>({
+  handleSubmit: values => console.log(values),
+})(EmailForm);
