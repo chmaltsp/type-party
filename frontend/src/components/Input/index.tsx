@@ -9,6 +9,7 @@ import { FieldProps } from 'formik';
 
 const InputBase = styled.input`
   padding: 4px 8px;
+  border: 1px solid ${({ theme }) => theme.colors.black};
 `;
 
 const InputWrapper = styled.div`
@@ -40,16 +41,22 @@ const Error = withProps<ErrorProps>()(styled.label)`
 `;
 
 export interface InputProps {
-  label: string;
+  label?: string;
+  placeholder?: string;
 }
 
-const Input: React.SFC<InputProps & FieldProps> = ({ field, label, form }) => {
+const Input: React.SFC<InputProps & FieldProps> = ({
+  field,
+  label,
+  form,
+  placeholder,
+}) => {
   const { name } = field;
   const { touched, errors } = form;
   return (
     <InputWrapper>
-      <Label>{label}</Label>
-      <InputBase {...field} />
+      {label && <Label>{label}</Label>}
+      <InputBase placeholder={placeholder} {...field} />
       <Error show={touched[name] && errors[name]}>{errors[name]}</Error>
     </InputWrapper>
   );
