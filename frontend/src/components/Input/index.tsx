@@ -2,14 +2,16 @@
  * Input
  */
 
+import { em } from 'polished';
 import * as React from 'react';
 import styled, { withProps } from 'sc';
 
 import { FieldProps } from 'formik';
 
 const InputBase = styled.input`
-  padding: 4px 8px;
+  padding: 16px;
   border: 1px solid ${({ theme }) => theme.colors.black};
+  font-size: ${em(18)};
 `;
 
 const InputWrapper = styled.div`
@@ -30,9 +32,9 @@ interface ErrorProps {
 }
 
 const Error = withProps<ErrorProps>()(styled.label)`
-  color: yellow;
+  color: red;
   padding-top: 4px;
-  font-size: 10px;
+  font-size: ${em(14)};
   height: 10px;
   padding-bottom: 0px;
   transition: opacity .2s linear, transform .2s linear;
@@ -50,13 +52,14 @@ const Input: React.SFC<InputProps & FieldProps> = ({
   label,
   form,
   placeholder,
+  ...props
 }) => {
   const { name } = field;
   const { touched, errors } = form;
   return (
-    <InputWrapper>
+    <InputWrapper {...props}>
       {label && <Label>{label}</Label>}
-      <InputBase placeholder={placeholder} {...field} />
+      <InputBase placeholder={placeholder} value={field.value} {...field} />
       <Error show={touched[name] && errors[name]}>{errors[name]}</Error>
     </InputWrapper>
   );

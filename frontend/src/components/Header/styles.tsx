@@ -35,11 +35,12 @@ const Star = styled.img`
 
 const Logo = LogoBase.extend`
   display: block;
+  width: ${em(80)};
   ${media.tablet`
     display: none;
   `} ${media.desktop`
-    width: ${em(80)};
-    height: ${em(80)};
+    width: ${em(72)};
+    height: ${em(72)};
   `};
 `;
 

@@ -1,8 +1,9 @@
+import { em } from 'polished';
 import * as React from 'react';
 
 import styled from 'sc';
 import ButtonBase from '../Button';
-import Input from '../Input';
+import InputBase from '../Input';
 
 import {
   Field,
@@ -11,6 +12,14 @@ import {
   InjectedFormikProps,
   withFormik,
 } from 'formik';
+
+import Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .required('Email is required')
+    .email('Please enter a valid email'),
+});
 
 // export interface EmailFormProps {}
 
@@ -22,9 +31,24 @@ const Form = styled(Formbase)`
 `;
 
 const Button = ButtonBase.extend`
-  flex: 0;
+  flex: 1;
+  margin-left: ${({ theme }) => theme.spacing.md}px;
+  max-width: 220px;
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
+const Input = styled(InputBase)`
+  flex: 2;
+  position: relative;
+  font-size: ${em(20)};
+
+  label {
+    position: absolute;
+    bottom: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+`;
 export class EmailForm extends React.PureComponent<
   InjectedFormikProps<{}, InputValues>,
   any
@@ -46,4 +70,8 @@ export class EmailForm extends React.PureComponent<
 
 export default withFormik<{}, InputValues>({
   handleSubmit: values => console.log(values),
+  mapPropsToValues: () => ({
+    email: '',
+  }),
+  validationSchema,
 })(EmailForm);
