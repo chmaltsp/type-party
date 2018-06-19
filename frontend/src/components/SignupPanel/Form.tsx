@@ -36,6 +36,15 @@ const Button = ButtonBase.extend`
   max-width: 220px;
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
+  background-size: 200% 100%;
+  background-image: linear-gradient(to right, black 50%, white 50%);
+  transition: background-position 0.3s, color 0.3s;
+
+  &:hover {
+    background-position: -100% 0;
+    color: ${({ theme }) => theme.colors.black};
+    cursor: pointer;
+  }
 `;
 
 const Input = styled(InputBase)`
