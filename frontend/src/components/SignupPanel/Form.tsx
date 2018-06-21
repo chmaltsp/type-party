@@ -47,7 +47,7 @@ const Button = ButtonBase.extend`
   }
 `;
 
-const Input = styled(InputBase)`
+const Input = styled(InputBase)<{ name: string }>`
   flex: 2;
   position: relative;
   font-size: ${em(20)};
