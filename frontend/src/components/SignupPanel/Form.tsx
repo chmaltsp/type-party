@@ -1,7 +1,7 @@
-import { em } from 'polished';
+import { em, margin } from 'polished';
 import * as React from 'react';
 
-import styled from 'sc';
+import styled, { media } from 'sc';
 import ButtonBase from '../Button';
 import InputBase from '../Input';
 
@@ -28,6 +28,9 @@ export interface InputValues {
 }
 const Form = styled(Formbase)`
   display: flex;
+  ${media.tablet`
+    flex-direction: column;
+  `};
 `;
 
 const Button = ButtonBase.extend`
@@ -45,9 +48,16 @@ const Button = ButtonBase.extend`
     color: ${({ theme }) => theme.colors.black};
     cursor: pointer;
   }
+
+  ${media.tablet`
+    margin-top: 32px;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  `};
 `;
 
-const Input = styled(InputBase)<{ name: string }>`
+const Input = styled(InputBase)`
   flex: 2;
   position: relative;
   font-size: ${em(20)};
@@ -57,7 +67,14 @@ const Input = styled(InputBase)<{ name: string }>`
     bottom: 0;
     transform: translate3d(0, 16px, 0);
   }
+  ${media.tablet`
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    flex: 1;
+  `};
 `;
+
 export class EmailForm extends React.PureComponent<
   InjectedFormikProps<{}, InputValues>,
   any

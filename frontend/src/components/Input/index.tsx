@@ -4,7 +4,7 @@
 
 import { em } from 'polished';
 import * as React from 'react';
-import styled, { withProps } from 'sc';
+import styled from 'sc';
 
 import { FieldProps } from 'formik';
 
@@ -31,13 +31,13 @@ interface ErrorProps {
   show: boolean;
 }
 
-const Error = withProps<ErrorProps>()(styled.label)`
+const Error = styled.label<ErrorProps>`
   color: red;
   padding-top: 4px;
   font-size: ${em(14)};
   height: 10px;
   padding-bottom: 0px;
-  transition: opacity .2s linear, transform .2s linear;
+  transition: opacity 0.2s linear, transform 0.2s linear;
   opacity: ${props => (props.show ? '1' : '0')};
   transform: translate3d(0, ${props => (props.show ? '0' : '-15px')}, 0);
 `;

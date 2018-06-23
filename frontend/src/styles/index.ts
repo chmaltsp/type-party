@@ -17,7 +17,3 @@ const {
 
 export { css, injectGlobal, keyframes, ThemeProvider, media, shallowWithTheme };
 export default styled;
-
-export const withProps = <U>() => <P, T, O>(
-  fn: styledComponents.ThemedStyledFunction<P, T, O>
-) => fn as styledComponents.ThemedStyledFunction<P & U, T, O & U>;

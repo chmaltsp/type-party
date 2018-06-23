@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import MobileNav from './Mobile';
 
-import star from './star.svg';
-
 import { Link, Logo, MenuLink, NavlinksWrapper, Star, Wrapper } from './styles';
 
 interface NavLink {
@@ -64,7 +62,7 @@ class Header extends React.Component<{}, HeaderState> {
       <React.Fragment>
         <Wrapper>
           <Logo />
-          <Star src={star} />
+          <Star />
           <MenuLink onClick={this.handleMenuToggle}>Menu</MenuLink>
           <NavlinksWrapper>
             {links.map(({ to, text }) => (
