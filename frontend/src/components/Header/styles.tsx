@@ -1,6 +1,9 @@
 import { em, transparentize } from 'polished';
 
 import styled, { media } from 'sc';
+
+import { Star as StarBase } from '../Images';
+
 import LinkBase from '../Link';
 import LogoBase from '../Logo';
 
@@ -26,8 +29,11 @@ const Wrapper = styled.div`
 `};
 `;
 
-const Star = styled.img`
+const Star = StarBase.extend`
   display: none;
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
   ${media.tablet`
     display: inline-block;
   `};

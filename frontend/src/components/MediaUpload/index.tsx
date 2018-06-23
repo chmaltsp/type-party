@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { FieldProps } from 'formik';
-import styled, { withProps } from 'sc';
+import styled from 'sc';
 
 export interface MediaUploadProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -28,13 +28,13 @@ const FieldSet = styled.div`
   margin: ${({ theme }) => theme.baseSpacing * 3}px 0;
 `;
 
-const Label = withProps<LabelProps>()(styled.label)`
-    color: ${({ theme }) => theme.colors.white};
-    cursor: pointer;
-    display: block;
-    text-align: center;
-    padding: ${({ theme }) => theme.baseSpacing * 2}px;
-    border: 2px dashed ${({ theme }) => theme.colors.white};
+const Label = styled.label<LabelProps>`
+  color: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  padding: ${({ theme }) => theme.baseSpacing * 2}px;
+  border: 2px dashed ${({ theme }) => theme.colors.white};
 `;
 
 export function MediaUpload({
