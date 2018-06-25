@@ -20,6 +20,7 @@ const Wrapper = styled.div`
     padding: 0 ${em(32)};
     width: auto;
   `};
+  margin-bottom: ${em(32)};
 `;
 const CtaText = styled.h2`
   font-weight: 800;
