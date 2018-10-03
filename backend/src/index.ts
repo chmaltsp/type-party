@@ -4,7 +4,7 @@ import resolvers from './resolvers';
 
 import { checkJwt } from './middleware/checkJwt';
 
-import schemaDirectives from './schema-directives';
+import { schemaDirectives } from './schema-directives';
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
