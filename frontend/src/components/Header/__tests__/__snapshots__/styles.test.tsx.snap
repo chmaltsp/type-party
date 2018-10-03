@@ -21,6 +21,7 @@ exports[`<Logo should render properly 1`] = `
   width: 100%;
   height: auto;
   display: block;
+  width: 5em;
 }
 
 @media (max-width:48em) {
@@ -31,8 +32,8 @@ exports[`<Logo should render properly 1`] = `
 
 @media (max-width:62em) {
   .c0 {
-    width: 5em;
-    height: 5em;
+    width: 4.5em;
+    height: 4.5em;
   }
 }
 
@@ -86,7 +87,12 @@ exports[`<NavlinksWrapper should render properly 1`] = `
 
 exports[`<Star should render properly 1`] = `
 .c0 {
+  width: 300px;
+  background-image: url(test-file-stub);
   display: none;
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
 }
 
 @media (max-width:48em) {
@@ -95,7 +101,7 @@ exports[`<Star should render properly 1`] = `
   }
 }
 
-<img
+<div
   className="c0"
 />
 `;
