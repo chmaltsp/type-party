@@ -30,6 +30,7 @@ const Wrapper = styled.div`
 interface Site {
   title: string;
   url: string;
+  id: string;
 }
 
 const GET_WEBSITES = gql`
@@ -52,12 +53,12 @@ export const WebsitePanel: React.SFC<{}> = props => {
         console.log(data);
         return (
           <Wrapper>
-            {/* <Grid>
+            <Grid>
               {!loading &&
-                data.websites.map(({ title, url }: Site) => {
-                  return <Card key={title} title={title} imgUrl={url} />;
+                data.websites.map(({ title, url, id }: Site) => {
+                  return <Card key={title + id} title={title} imgUrl={url} />;
                 })}
-            </Grid> */}
+            </Grid>
             <Button>Load More</Button>
           </Wrapper>
         );

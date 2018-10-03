@@ -11,6 +11,7 @@ import { Role, Exists } from '../generated/prisma';
 export interface IsOwnerArgs {
   type: keyof Exists;
   field: string;
+  id: string;
 }
 export class IsOwner extends SchemaDirectiveVisitor {
   public visitFieldDefinition(field: GraphQLField<any, Context, IsOwnerArgs>) {
