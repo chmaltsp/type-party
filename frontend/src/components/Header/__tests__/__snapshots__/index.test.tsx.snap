@@ -4,9 +4,7 @@ exports[`<Header /> should render without blowing up 1`] = `
 <React.Fragment>
   <styled.div>
     <styled.img />
-    <styled.img
-      src="test-file-stub"
-    />
+    <styled.div />
     <styled.div
       onClick={[Function]}
     >

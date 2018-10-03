@@ -52,12 +52,12 @@ export const WebsitePanel: React.SFC<{}> = props => {
         console.log(data);
         return (
           <Wrapper>
-            <Grid>
+            {/* <Grid>
               {!loading &&
                 data.websites.map(({ title, url }: Site) => {
                   return <Card key={title} title={title} imgUrl={url} />;
                 })}
-            </Grid>
+            </Grid> */}
             <Button>Load More</Button>
           </Wrapper>
         );
