@@ -15,9 +15,9 @@
     "aws-sdk": "^2.228.1",
     "bcryptjs": "2.4.3",
     "express-jwt": "^5.3.1",
-    "graphql-yoga": "1.14.0",
+    "graphql-yoga": "1.16.2",
     "jsonwebtoken": "8.2.0",
-    "prisma-binding": "2.0.2",
+    "prisma-binding": "2.1.6",
     "shortid": "^2.2.8"
   },
   "devDependencies": {
@@ -33,9 +33,9 @@
     "nodemon": "1.17.2",
     "npm-run-all": "4.1.2",
     "prettier": "^1.11.1",
-    "prisma": "1.8.3",
+    "prisma": "1.17.1",
     "rimraf": "2.6.2",
     "ts-node": "6.0.3",
-    "typescript": "2.8.3"
+    "typescript": "3.1.1"
   }
 }
