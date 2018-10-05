@@ -45,12 +45,12 @@ const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
 const SiteForm = () => {
   return (
     <Form>
-      {/* <Field
+      <Field
         name="name"
         render={(props: FieldProps<InputValues>) => {
           return <Input label="Site Name" {...props} />;
         }}
-      /> */}
+      />
       <Field
         name="thumbnail"
         render={(props: FieldProps<InputValues>) => {
@@ -83,6 +83,7 @@ const WrappedForm: React.SFC<{}> = () => {
         <React.Fragment>
           <Formik
             initialValues={{
+              name: '',
               thumbnail: null,
             }}
             validationSchema={validationSchema}
