@@ -6,7 +6,7 @@ import { em } from 'polished';
 import * as React from 'react';
 import styled from 'sc';
 
-import { FieldProps } from 'formik';
+import { FieldProps, FormikErrors } from 'formik';
 
 const InputBase = styled.input`
   padding: 16px;
@@ -28,7 +28,7 @@ const Label = styled.label`
 `;
 
 interface ErrorProps {
-  show: boolean;
+  show?: string | FormikErrors<any>;
 }
 
 const Error = styled.label<ErrorProps>`
@@ -60,7 +60,7 @@ const Input: React.SFC<InputProps & FieldProps> = ({
     <InputWrapper {...props}>
       {label && <Label>{label}</Label>}
       <InputBase placeholder={placeholder} value={field.value} {...field} />
-      <Error show={touched[name] && errors[name]}>{errors[name]}</Error>
+      <Error show={errors[name]}>{errors[name]}</Error>
     </InputWrapper>
   );
 };

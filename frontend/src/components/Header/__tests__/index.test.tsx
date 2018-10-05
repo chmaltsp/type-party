@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import Header from '../';
+import Header, { HeaderState } from '../';
 
 import { shallow } from 'enzyme';
 
 describe('<Header />', () => {
-  const component = shallow(<Header />);
+  const component = shallow<{}, HeaderState>(<Header />);
   it('should render without blowing up', () => {
     expect(component).toMatchSnapshot();
   });
@@ -15,10 +15,10 @@ describe('<Header />', () => {
     // @ts-ignore
     instance.handleMenuToggle();
 
-    expect(instance.state.mobileOpen).toEqual(true);
+    expect((instance.state as any).mobileOpen).toEqual(true);
     // @ts-ignore
     instance.handleMenuToggle();
 
-    expect(instance.state.mobileOpen).toEqual(false);
+    expect((instance.state as any).mobileOpen).toEqual(false);
   });
 });

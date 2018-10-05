@@ -3,13 +3,13 @@ import { normalize } from 'polished';
 import { injectGlobal } from 'sc';
 
 // @ts-ignore
-export default injectGlobal`
-    @import url('https://fonts.googleapis.com/css?family=Muli');
+injectGlobal`
 
     ${normalize()};
 
     html {
         font-size: 100%;
+        font-display: block;
     }
 
     body {
