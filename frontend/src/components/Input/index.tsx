@@ -59,7 +59,7 @@ const Input: React.SFC<InputProps & FieldProps> = ({
   return (
     <InputWrapper {...props}>
       {label && <Label>{label}</Label>}
-      <InputBase placeholder={placeholder} value={field.value} {...field} />
+      <InputBase placeholder={placeholder} value={field.value || ''} {...field} />
       <Error show={errors[name]}>{errors[name]}</Error>
     </InputWrapper>
   );
