@@ -953,7 +953,7 @@ input PostUpdateInput {
   isPublished: Boolean
   title: String
   text: String
-  author: UserUpdateOneWithoutPostsInput
+  author: UserUpdateOneRequiredWithoutPostsInput
 }
 
 input PostUpdateManyWithoutAuthorInput {
@@ -1350,7 +1350,7 @@ input TypefaceUpdateInput {
   imageUrl: String
   designer: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy: UserUpdateOneWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
 }
 
@@ -1394,14 +1394,14 @@ input TypefaceUpdateWithoutFoundryDataInput {
   imageUrl: String
   designer: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy: UserUpdateOneWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
 }
 
 input TypefaceUpdateWithoutUsedByDataInput {
   name: String
   imageUrl: String
   designer: String
-  addedBy: UserUpdateOneWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
 }
 
@@ -1774,26 +1774,23 @@ input UserUpdateInput {
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
 
-input UserUpdateOneWithoutPostsInput {
+input UserUpdateOneRequiredWithoutPostsInput {
   create: UserCreateWithoutPostsInput
   connect: UserWhereUniqueInput
-  delete: Boolean
   update: UserUpdateWithoutPostsDataInput
   upsert: UserUpsertWithoutPostsInput
 }
 
-input UserUpdateOneWithoutTypefacesInput {
+input UserUpdateOneRequiredWithoutTypefacesInput {
   create: UserCreateWithoutTypefacesInput
   connect: UserWhereUniqueInput
-  delete: Boolean
   update: UserUpdateWithoutTypefacesDataInput
   upsert: UserUpsertWithoutTypefacesInput
 }
 
-input UserUpdateOneWithoutWebsitesInput {
+input UserUpdateOneRequiredWithoutWebsitesInput {
   create: UserCreateWithoutWebsitesInput
   connect: UserWhereUniqueInput
-  delete: Boolean
   update: UserUpdateWithoutWebsitesDataInput
   upsert: UserUpsertWithoutWebsitesInput
 }
@@ -2184,7 +2181,7 @@ input WebsiteUpdateInput {
   url: String
   image: String
   featured: Boolean
-  addedBy: UserUpdateOneWithoutWebsitesInput
+  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
 }
 
@@ -2223,7 +2220,7 @@ input WebsiteUpdateWithoutTypefacesDataInput {
   url: String
   image: String
   featured: Boolean
-  addedBy: UserUpdateOneWithoutWebsitesInput
+  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
 }
 
 input WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
@@ -3035,7 +3032,7 @@ export interface WebsiteUpdateInput {
   url?: String
   image?: String
   featured?: Boolean
-  addedBy?: UserUpdateOneWithoutWebsitesInput
+  addedBy?: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces?: TypefaceUpdateManyWithoutUsedByInput
 }
 
@@ -3104,7 +3101,7 @@ export interface WebsiteUpdateWithoutTypefacesDataInput {
   url?: String
   image?: String
   featured?: Boolean
-  addedBy?: UserUpdateOneWithoutWebsitesInput
+  addedBy?: UserUpdateOneRequiredWithoutWebsitesInput
 }
 
 export interface FoundryCreateInput {
@@ -3163,7 +3160,7 @@ export interface PostUpdateInput {
   isPublished?: Boolean
   title?: String
   text?: String
-  author?: UserUpdateOneWithoutPostsInput
+  author?: UserUpdateOneRequiredWithoutPostsInput
 }
 
 export interface UserWhereInput {
@@ -3241,10 +3238,9 @@ export interface UserWhereInput {
   typefaces_none?: TypefaceWhereInput
 }
 
-export interface UserUpdateOneWithoutPostsInput {
+export interface UserUpdateOneRequiredWithoutPostsInput {
   create?: UserCreateWithoutPostsInput
   connect?: UserWhereUniqueInput
-  delete?: Boolean
   update?: UserUpdateWithoutPostsDataInput
   upsert?: UserUpsertWithoutPostsInput
 }
@@ -3283,7 +3279,7 @@ export interface TypefaceUpdateWithoutFoundryDataInput {
   imageUrl?: String
   designer?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy?: UserUpdateOneWithoutTypefacesInput
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
 }
 
 export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
@@ -3296,7 +3292,7 @@ export interface TypefaceUpdateInput {
   imageUrl?: String
   designer?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy?: UserUpdateOneWithoutTypefacesInput
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
   foundry?: FoundryUpdateOneWithoutFontsInput
 }
 
@@ -3325,10 +3321,9 @@ export interface TypefaceUpdateManyWithoutUsedByInput {
   upsert?: TypefaceUpsertWithWhereUniqueWithoutUsedByInput[] | TypefaceUpsertWithWhereUniqueWithoutUsedByInput
 }
 
-export interface UserUpdateOneWithoutWebsitesInput {
+export interface UserUpdateOneRequiredWithoutWebsitesInput {
   create?: UserCreateWithoutWebsitesInput
   connect?: UserWhereUniqueInput
-  delete?: Boolean
   update?: UserUpdateWithoutWebsitesDataInput
   upsert?: UserUpsertWithoutWebsitesInput
 }
@@ -3350,7 +3345,7 @@ export interface TypefaceUpdateWithoutUsedByDataInput {
   name?: String
   imageUrl?: String
   designer?: String
-  addedBy?: UserUpdateOneWithoutTypefacesInput
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
   foundry?: FoundryUpdateOneWithoutFontsInput
 }
 
@@ -3363,10 +3358,9 @@ export interface UserCreateWithoutPostsInput {
   typefaces?: TypefaceCreateManyWithoutAddedByInput
 }
 
-export interface UserUpdateOneWithoutTypefacesInput {
+export interface UserUpdateOneRequiredWithoutTypefacesInput {
   create?: UserCreateWithoutTypefacesInput
   connect?: UserWhereUniqueInput
-  delete?: Boolean
   update?: UserUpdateWithoutTypefacesDataInput
   upsert?: UserUpsertWithoutTypefacesInput
 }
