@@ -2,8 +2,7 @@ import { normalize } from 'polished';
 
 import { injectGlobal } from 'sc';
 
-// @ts-ignore
-injectGlobal`
+export default injectGlobal`
 
     ${normalize()};
 
