@@ -4,7 +4,7 @@ import Input from '../../components/Input';
 import MediaUpload from '../../components/MediaUpload';
 
 import styled from 'sc';
-import Yup from 'yup';
+import * as Yup from 'yup';
 
 import { MutateProps, Mutation } from 'react-apollo';
 import { UPLOAD_IMAGE } from './mutation';
@@ -36,7 +36,7 @@ const SubmitButton = styled.button.attrs({
 `;
 
 const validationSchema = Yup.object().shape({
-  // name: Yup.string().required('Site name is required'),
+  name: Yup.string().required('Site name is required'),
 });
 
 const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {

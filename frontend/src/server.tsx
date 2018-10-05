@@ -67,6 +67,7 @@ server
         <meta charSet='utf-8' />
         <title>Razzle TypeScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
         ${styleTags}
           ${
             process.env.NODE_ENV === 'production'
