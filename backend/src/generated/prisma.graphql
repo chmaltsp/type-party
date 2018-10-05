@@ -1,5 +1,5 @@
-# source: http://localhost:4466/backend/dev
-# timestamp: Sun May 20 2018 13:01:25 GMT-0400 (EDT)
+# source: http://tp-st-publi-xwo4ez8p5kt0-907054190.us-east-1.elb.amazonaws.com/backend/dev
+# timestamp: Thu Oct 04 2018 23:00:17 GMT-0400 (EDT)
 
 type AggregateFile {
   count: Int!
@@ -850,7 +850,7 @@ input PostUpdateInput {
   isPublished: Boolean
   title: String
   text: String
-  author: UserUpdateOneWithoutPostsInput
+  author: UserUpdateOneRequiredWithoutPostsInput
 }
 
 input PostUpdateManyWithoutAuthorInput {
@@ -1247,7 +1247,7 @@ input TypefaceUpdateInput {
   imageUrl: String
   designer: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy: UserUpdateOneWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
 }
 
@@ -1291,14 +1291,14 @@ input TypefaceUpdateWithoutFoundryDataInput {
   imageUrl: String
   designer: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  addedBy: UserUpdateOneWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
 }
 
 input TypefaceUpdateWithoutUsedByDataInput {
   name: String
   imageUrl: String
   designer: String
-  addedBy: UserUpdateOneWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
 }
 
@@ -1671,26 +1671,23 @@ input UserUpdateInput {
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
 
-input UserUpdateOneWithoutPostsInput {
+input UserUpdateOneRequiredWithoutPostsInput {
   create: UserCreateWithoutPostsInput
   connect: UserWhereUniqueInput
-  delete: Boolean
   update: UserUpdateWithoutPostsDataInput
   upsert: UserUpsertWithoutPostsInput
 }
 
-input UserUpdateOneWithoutTypefacesInput {
+input UserUpdateOneRequiredWithoutTypefacesInput {
   create: UserCreateWithoutTypefacesInput
   connect: UserWhereUniqueInput
-  delete: Boolean
   update: UserUpdateWithoutTypefacesDataInput
   upsert: UserUpsertWithoutTypefacesInput
 }
 
-input UserUpdateOneWithoutWebsitesInput {
+input UserUpdateOneRequiredWithoutWebsitesInput {
   create: UserCreateWithoutWebsitesInput
   connect: UserWhereUniqueInput
-  delete: Boolean
   update: UserUpdateWithoutWebsitesDataInput
   upsert: UserUpsertWithoutWebsitesInput
 }
@@ -2081,7 +2078,7 @@ input WebsiteUpdateInput {
   url: String
   image: String
   featured: Boolean
-  addedBy: UserUpdateOneWithoutWebsitesInput
+  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
 }
 
@@ -2120,7 +2117,7 @@ input WebsiteUpdateWithoutTypefacesDataInput {
   url: String
   image: String
   featured: Boolean
-  addedBy: UserUpdateOneWithoutWebsitesInput
+  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
 }
 
 input WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
