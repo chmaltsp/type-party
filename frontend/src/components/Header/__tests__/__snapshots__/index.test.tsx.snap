@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Header /> should render without blowing up 1`] = `
-<React.Fragment>
+<Fragment>
   <styled.div>
     <styled.img />
     <styled.div />
@@ -48,5 +48,5 @@ exports[`<Header /> should render without blowing up 1`] = `
   <MobileNav
     open={false}
   />
-</React.Fragment>
+</Fragment>
 `;
