@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import Flex from '../../components/Flex';
 import Input from '../../components/Input';
 import MediaUpload from '../../components/MediaUpload';
 
@@ -15,13 +16,23 @@ export interface InputValues {
   thumbnail: File | null;
 }
 
+const LeftColumn = styled(Flex)`
+  flex: 1;
+  max-width: 469px;
+  flex-direction: column;
+`;
+const RightColumn = styled(Flex)`
+  margin-left: ${({ theme }) => theme.baseSpacing * 13 + 'px'};
+  max-width: 569px;
+  flex-direction: column;
+  flex: 1;
+`;
+
 const Form = styled(FormBase)`
   margin: ${props => props.theme.baseSpacing * 2}px auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  max-width: 400px;
+  flex-direction: row;
+  width: 100%;
 `;
 
 const SubmitButton = styled.button.attrs({
@@ -45,30 +56,56 @@ const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
 const SiteForm = () => {
   return (
     <Form>
-      <Field
-        name="name"
-        render={(props: FieldProps<InputValues>) => {
-          return <Input label="Site Name" {...props} />;
-        }}
-      />
-      <Field
-        name="thumbnail"
-        render={(props: FieldProps<InputValues>) => {
-          return (
-            <MediaUpload
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const file = event.currentTarget.files && event.currentTarget.files[0];
-                const { setFieldValue } = props.form;
-                setFieldValue('thumbnail', file);
-              }}
-              {...props}
-            >
-              Upload Thumbnail
-            </MediaUpload>
-          );
-        }}
-      />
-      <SubmitButton>Add Website</SubmitButton>
+      <LeftColumn>
+        <Field
+          name="large-image"
+          render={(props: FieldProps<InputValues>) => {
+            return (
+              <MediaUpload
+                label="Large Asset"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  const file = event.currentTarget.files && event.currentTarget.files[0];
+                  const { setFieldValue } = props.form;
+                  setFieldValue('large-image', file);
+                }}
+                {...props}
+              />
+            );
+          }}
+        />
+        <Field
+          name="thumbnail"
+          render={(props: FieldProps<InputValues>) => {
+            return (
+              <MediaUpload
+                label="Thumbnail"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  const file = event.currentTarget.files && event.currentTarget.files[0];
+                  const { setFieldValue } = props.form;
+                  setFieldValue('thumbnail', file);
+                }}
+                {...props}
+              />
+            );
+          }}
+        />
+      </LeftColumn>
+      <RightColumn>
+        <Field
+          name="name"
+          render={(props: FieldProps<InputValues>) => {
+            return <Input label="Site Name" {...props} />;
+          }}
+        />
+        <Field
+          name="websiteUrl"
+          render={(props: FieldProps<InputValues>) => {
+            return <Input label="Website Url" placeholder="http://" {...props} />;
+          }}
+        />
+      </RightColumn>
+
+      <SubmitButton>Publish</SubmitButton>
     </Form>
   );
 };

@@ -1,7 +1,10 @@
 export const theme = {
   baseSpacing: 8,
+  borderRadius: '2px',
   colors: {
     black: '#000',
+    greyC4C: '#C4C4C4',
+    greyCCC: '#CCC',
     greyDDD: '#DDD',
     white: '#FFF',
   },

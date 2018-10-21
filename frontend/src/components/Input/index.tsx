@@ -10,8 +10,10 @@ import { FieldProps, FormikErrors } from 'formik';
 
 const InputBase = styled.input`
   padding: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.colors.greyCCC};
+  border-radius: ${({ theme }) => theme.borderRadius};
   font-size: ${em(18)};
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 const InputWrapper = styled.div`
@@ -20,10 +22,9 @@ const InputWrapper = styled.div`
   width: 100%;
 `;
 
-const Label = styled.label`
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 12px;
-  text-transform: uppercase;
+export const Label = styled.label`
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${em(16)};
   padding-bottom: 4px;
 `;
 
@@ -55,7 +56,7 @@ const Input: React.SFC<InputProps & FieldProps> = ({
   ...props
 }) => {
   const { name } = field;
-  const { touched, errors } = form;
+  const { errors } = form;
   return (
     <InputWrapper {...props}>
       {label && <Label>{label}</Label>}
