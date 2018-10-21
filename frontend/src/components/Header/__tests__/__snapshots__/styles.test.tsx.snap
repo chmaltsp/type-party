@@ -17,9 +17,6 @@ exports[`<Link should render properly 1`] = `
 
 exports[`<Logo should render properly 1`] = `
 .c0 {
-  max-width: 6.25em;
-  width: 100%;
-  height: auto;
   display: block;
   width: 5em;
 }
@@ -37,9 +34,8 @@ exports[`<Logo should render properly 1`] = `
   }
 }
 
-<img
+<styled.img
   className="c0"
-  src="test-file-stub"
 />
 `;
 
@@ -87,8 +83,6 @@ exports[`<NavlinksWrapper should render properly 1`] = `
 
 exports[`<Star should render properly 1`] = `
 .c0 {
-  width: 300px;
-  background-image: url(test-file-stub);
   display: none;
   width: 48px;
   height: 48px;
@@ -101,7 +95,7 @@ exports[`<Star should render properly 1`] = `
   }
 }
 
-<div
+<styled.div
   className="c0"
 />
 `;

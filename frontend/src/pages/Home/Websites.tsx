@@ -8,7 +8,7 @@ import { Query } from 'react-apollo';
 import ButtonBase from '../../components/Button';
 import Card from '../../components/Card';
 
-const Button = ButtonBase.extend`
+const Button = styled(ButtonBase)`
   margin-top: ${({ theme }) => theme.spacing.md}px;
   align-self: center;
 `;

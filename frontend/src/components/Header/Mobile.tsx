@@ -5,7 +5,7 @@ import styled, { media } from 'sc';
 
 import LinkBase from '../Link';
 
-const Link = LinkBase.extend`
+const Link = styled(LinkBase)`
   width: 100%;
   padding: ${em(16)} 0;
   text-align: center;
