@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 `};
 `;
 
-const Star = StarBase.extend`
+const Star = styled(StarBase)`
   display: none;
   width: 48px;
   height: 48px;
@@ -39,7 +39,7 @@ const Star = StarBase.extend`
   `};
 `;
 
-const Logo = LogoBase.extend`
+const Logo = styled(LogoBase)`
   display: block;
   width: ${em(80)};
   ${media.tablet`
