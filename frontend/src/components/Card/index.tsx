@@ -14,7 +14,7 @@ const Image = styled.img`
   height: 419px;
 `;
 
-const Title = LinkBase.extend`
+const Title = styled(LinkBase)`
   font-size: ${em(18)};
   display: block;
   text-decoration: none;
