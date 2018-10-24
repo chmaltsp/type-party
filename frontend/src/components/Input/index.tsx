@@ -8,18 +8,29 @@ import styled from 'sc';
 
 import { FieldProps, FormikErrors } from 'formik';
 
-const InputBase = styled.input`
+export const InputBase = styled.input`
   padding: 16px;
   border: 1px solid ${({ theme }) => theme.colors.greyCCC};
   border-radius: ${({ theme }) => theme.borderRadius};
   font-size: ${em(18)};
   color: ${({ theme }) => theme.colors.black};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.greyCCC};
+  }
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.black};
+  }
+  &:active {
+    border-color: ${({ theme }) => theme.colors.black};
+  }
 `;
 
-const InputWrapper = styled.div`
+export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-top: ${({ theme }) => theme.spacing.md}px;
 `;
 
 export const Label = styled.label`

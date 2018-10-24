@@ -11,6 +11,7 @@ import { MutateProps, Mutation } from 'react-apollo';
 import { UPLOAD_IMAGE } from './mutation';
 
 import { Field, FieldProps, Form as FormBase, Formik, FormikActions } from 'formik';
+import Autocomplete from '../../components/Autocomplete';
 
 export interface InputValues {
   thumbnail: File | null;
@@ -103,6 +104,7 @@ const SiteForm = () => {
             return <Input label="Website Url" placeholder="http://" {...props} />;
           }}
         />
+        <Autocomplete />
       </RightColumn>
 
       <SubmitButton>Publish</SubmitButton>
