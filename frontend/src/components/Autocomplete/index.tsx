@@ -8,16 +8,21 @@ import { InputBase, InputWrapper as AutoCompleteWrapper, Label } from '../Input'
 import Flex from '../Flex';
 import Tag from '../Tag';
 import MultiDownshift from './MultiDownshift';
-import { ListItem, ListItemProps, ListWrapper } from './styles';
+import { ListItem, ListItemProps, ListWrapper, TagSpacer } from './styles';
 
 const Input = styled.input`
   flex: 1;
+  border: none;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const InputWrapper = styled(Flex)`
   border: 1px solid ${({ theme }) => theme.colors.greyCCC};
   border-radius: ${({ theme }) => theme.borderRadius};
   flex-wrap: wrap;
+  padding: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 export interface AutocompleteProps {}
@@ -89,14 +94,21 @@ export default class Autocomplete extends React.Component<
             <Label {...getLabelProps()}>Enter a fruit</Label>
             <InputWrapper>
               {selectedItems.map((selectedItem: ListItemProps, index: number) => (
-                <Tag
-                  name={selectedItem.value}
-                  removeButtonProps={getRemoveButtonProps({ item: selectedItem })}
-                />
+                <TagSpacer key={index}>
+                  <Tag
+                    name={selectedItem.value}
+                    removeButtonProps={getRemoveButtonProps({ item: selectedItem })}
+                  />
+                </TagSpacer>
               ))}
               <Input
                 {...getInputProps({
                   onKeyDown: this.handleOnInputEnter,
+                  onKeyUp: event => {
+                    if (event.key === 'Backspace' && !inputValue) {
+                      removeItem(selectedItems[selectedItems.length - 1]);
+                    }
+                  },
                 })}
               />
             </InputWrapper>
@@ -109,13 +121,9 @@ export default class Autocomplete extends React.Component<
                         {...getItemProps({
                           index,
                           isActive: index === highlightedIndex,
+                          isSelected: selectedItems.includes(item),
                           item,
                           key: item.value,
-                          //   style: {
-                          //     backgroundColor:
-                          //       highlightedIndex === index ? 'lightgray' : undefined,
-                          //     fontWeight: selectedItem === item ? 'bold' : 'normal',
-                          //   },
                         } as any)}
                       >
                         {item.value}
