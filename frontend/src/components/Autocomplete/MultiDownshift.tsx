@@ -24,7 +24,7 @@ interface MultiDownshiftProps {
   itemToString?: (item: any) => string;
 }
 
-interface RemoveButtonProps {
+export interface RemoveButtonProps {
   onClick: (e: React.SyntheticEvent) => void;
   item: string;
 }
