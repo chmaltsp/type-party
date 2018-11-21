@@ -7,7 +7,7 @@ import { InputBase, InputWrapper as AutoCompleteWrapper, Label } from '../Input'
 
 import Flex from '../Flex';
 import Tag from '../Tag';
-import MultiDownshift from './MultiDownshift';
+import MultiDownshift, { RemoveButtonProps } from './MultiDownshift';
 import { ListItem, ListItemProps, ListWrapper, TagSpacer } from './styles';
 
 const Input = styled.input`
@@ -25,7 +25,13 @@ const InputWrapper = styled(Flex)`
   padding: ${({ theme }) => theme.spacing.sm}px;
 `;
 
-export interface AutocompleteProps {}
+export interface AutocompleteProps<T = {}> {
+  label?: string;
+  placeholder?: string;
+  items?: T[];
+  itemToString: (item: T) => string;
+  handleOnChange: (selection: T[]) => void;
+}
 
 export interface AutocompleteState {}
 
@@ -41,21 +47,22 @@ type ItemWithExtraProps = GetItemPropsOptions<ListItemProps>;
 
 interface MultiDownshiftProps {
   removeItem: any;
-  getRemoveButtonProps: any;
+  getRemoveButtonProps: RemoveButtonProps;
   selectedItems: any;
 }
-export default class Autocomplete extends React.Component<
-  AutocompleteProps,
+export default class Autocomplete<T> extends React.Component<
+  AutocompleteProps<T>,
   AutocompleteState
 > {
-  constructor(props: AutocompleteProps) {
+  constructor(props: AutocompleteProps<T>) {
     super(props);
 
     this.state = {};
   }
 
-  private handleOnchange = (selection: unknown) => {
+  private handleOnchange = (selection: any) => {
     console.log('You selected', selection);
+    this.props.handleOnChange(selection);
   }
 
   private handleOnInputEnter = (event: React.KeyboardEvent) => {
@@ -71,7 +78,7 @@ export default class Autocomplete extends React.Component<
     return (
       <MultiDownshift
         onChange={this.handleOnchange}
-        itemToString={(item: any) => (item ? item.value : '')}
+        itemToString={this.props.itemToString}
       >
         {({
           getRootProps,

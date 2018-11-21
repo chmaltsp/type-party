@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { MutateProps, Mutation } from 'react-apollo';
 import { UPLOAD_IMAGE } from './mutation';
 
+import { select } from 'async';
 import { Field, FieldProps, Form as FormBase, Formik, FormikActions } from 'formik';
 import Autocomplete from '../../components/Autocomplete';
 
@@ -40,10 +41,10 @@ const SubmitButton = styled.button.attrs({
   type: 'submit',
 })`
   background-color: transparent;
-  border: 2px ${({ theme }) => theme.colors.white} solid;
+  border: 2px ${({ theme }) => theme.colors.black} solid;
   margin: ${({ theme }) => theme.baseSpacing * 2}px 0;
   border-radius: ${({ theme }) => theme.baseSpacing / 2}px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
   padding: ${({ theme }) => theme.baseSpacing}px ${({ theme }) => theme.baseSpacing * 2}px;
 `;
 
@@ -104,18 +105,30 @@ const SiteForm = () => {
             return <Input label="Website Url" placeholder="http://" {...props} />;
           }}
         />
-        <Autocomplete />
-      </RightColumn>
+        <Field
+          name="typefaces"
+          render={(props: FieldProps<InputValues>) => {
+            return (
+              <Autocomplete<{ name?: string }>
+                handleOnChange={selection =>
+                  props.form.setFieldValue('typefaces', selection)
+                }
+                itemToString={item => (item && item.name) || ''}
+              />
+            );
+          }}
+        />
 
-      <SubmitButton>Publish</SubmitButton>
+        <SubmitButton>Publish</SubmitButton>
+      </RightColumn>
     </Form>
   );
 };
 
 const WrappedForm: React.SFC<{}> = () => {
-  // const handleSubmit = async (values: InputValues) => {
-  //   console.log(values);
-  // };
+  const handleSubmit = async (values: InputValues) => {
+    console.log(values);
+  };
   return (
     <Mutation mutation={UPLOAD_IMAGE}>
       {(mutate, { data, loading }) => (
@@ -124,16 +137,19 @@ const WrappedForm: React.SFC<{}> = () => {
             initialValues={{
               name: '',
               thumbnail: null,
+              typefaces: [],
             }}
             validationSchema={validationSchema}
-            onSubmit={async ({ thumbnail }) => {
-              const response = await mutate({
-                variables: {
-                  file: thumbnail,
-                },
-              });
-              console.log(response);
-            }}
+            onSubmit={handleSubmit}
+            // onSubmit={async ({ thumbnail }) => {
+
+            //   const response = await mutate({
+            //     variables: {
+            //       file: thumbnail,
+            //     },
+            //   });
+            //   console.log(response);
+            // }}
             component={SiteForm}
           />
           {!loading && data && <img src={data.uploadImage.url} />}
