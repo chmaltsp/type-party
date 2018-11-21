@@ -7,6 +7,7 @@ export const ListWrapper = styled.ul`
 
 export interface ListItemProps {
   isActive?: boolean;
+  isSelected?: boolean;
   value: string;
 }
 export const ListItem = styled.li<ListItemProps>`
@@ -14,10 +15,20 @@ export const ListItem = styled.li<ListItemProps>`
   border-top: 0;
   list-style: none;
   text-decoration: none;
+  color: ${({ isSelected, theme }) =>
+    isSelected ? theme.colors.greyC4C : theme.colors.black};
   padding: ${({ theme }) => theme.spacing.xs}px;
   background-color: ${({ isActive, theme }) =>
     isActive ? theme.colors.greyC4C : 'transparent'};
   &:last-child {
     border-radius: ${({ theme }) => theme.borderRadius};
   }
+`;
+
+export const TagSpacer = styled.div`
+  display: grid;
+  grid-gap: 6;
+  margin: 0 4px 4px;
+  grid-auto-flow: column;
+  align-items: center;
 `;

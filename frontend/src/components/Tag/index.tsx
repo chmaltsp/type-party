@@ -9,6 +9,7 @@ import closeImg from './close-x.svg';
 const Wrapper = styled(FlexBase)`
   background-color: ${({ theme }) => theme.colors.black};
   padding: ${({ theme }) => theme.spacing.xs}px;
+  border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
 const Text = styled.span`
