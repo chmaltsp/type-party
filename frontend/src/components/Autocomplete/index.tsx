@@ -25,29 +25,27 @@ const InputWrapper = styled(Flex)`
   padding: ${({ theme }) => theme.spacing.sm}px;
 `;
 
-export interface AutocompleteProps<T = {}> {
-  label?: string;
-  placeholder?: string;
-  items?: T[];
-  itemToString: (item: T) => string;
-  handleOnChange: (selection: T[]) => void;
+interface ItemDefault {
+  value: string;
 }
 
-const items = [
-  { value: 'apple' },
-  { value: 'pear' },
-  { value: 'orange' },
-  { value: 'grape' },
-  { value: 'banana' },
-];
+export interface AutocompleteProps<Item> {
+  label?: string;
+  placeholder?: string;
+  items: Item[];
+  itemToString: (item: Item) => string;
+  handleOnChange: (selection: Item[]) => void;
+}
 
 interface MultiDownshiftProps {
   removeItem: any;
   getRemoveButtonProps: (item: any) => RemoveButtonProps;
   selectedItems: any;
 }
-export default class Autocomplete<T> extends React.Component<AutocompleteProps<T>> {
-  constructor(props: AutocompleteProps<T>) {
+export default class Autocomplete<Item extends ItemDefault> extends React.Component<
+  AutocompleteProps<Item>
+> {
+  constructor(props: AutocompleteProps<Item>) {
     super(props);
 
     this.state = {};
@@ -113,7 +111,7 @@ export default class Autocomplete<T> extends React.Component<AutocompleteProps<T
             </InputWrapper>
             <ListWrapper {...getMenuProps()}>
               {isOpen
-                ? items
+                ? this.props.items
                     .filter(item => !inputValue || item.value.includes(inputValue))
                     .map((item, index) => (
                       <ListItem

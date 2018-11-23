@@ -19,6 +19,9 @@ export interface InputValues {
   slug: string;
 }
 
+export interface Typeface {
+  value: string;
+}
 const LeftColumn = styled(Flex)`
   flex: 1;
   max-width: 469px;
@@ -119,7 +122,9 @@ const SiteForm = () => {
           name="typefaces"
           render={(props: FieldProps<InputValues>) => {
             return (
-              <Autocomplete<{ name?: string }>
+              <Autocomplete<{ name?: string; value: string }>
+                items={[{ value: 'typeface' }]}
+                label="Typeface(s)"
                 handleOnChange={selection =>
                   props.form.setFieldValue('typefaces', selection)
                 }
