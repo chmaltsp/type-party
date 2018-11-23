@@ -33,8 +33,6 @@ export interface AutocompleteProps<T = {}> {
   handleOnChange: (selection: T[]) => void;
 }
 
-export interface AutocompleteState {}
-
 const items = [
   { value: 'apple' },
   { value: 'pear' },
@@ -43,17 +41,12 @@ const items = [
   { value: 'banana' },
 ];
 
-type ItemWithExtraProps = GetItemPropsOptions<ListItemProps>;
-
 interface MultiDownshiftProps {
   removeItem: any;
-  getRemoveButtonProps: RemoveButtonProps;
+  getRemoveButtonProps: (item: any) => RemoveButtonProps;
   selectedItems: any;
 }
-export default class Autocomplete<T> extends React.Component<
-  AutocompleteProps<T>,
-  AutocompleteState
-> {
+export default class Autocomplete<T> extends React.Component<AutocompleteProps<T>> {
   constructor(props: AutocompleteProps<T>) {
     super(props);
 
@@ -67,7 +60,6 @@ export default class Autocomplete<T> extends React.Component<
 
   private handleOnInputEnter = (event: React.KeyboardEvent) => {
     // Callback on Enter only to add to list etc...
-    console.log('KEYPRESS', event.which);
     if (event.which === 13) {
       console.log('ON ENTER', event.which);
       event.preventDefault();

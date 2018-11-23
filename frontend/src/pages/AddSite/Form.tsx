@@ -16,6 +16,7 @@ import Autocomplete from '../../components/Autocomplete';
 
 export interface InputValues {
   thumbnail: File | null;
+  slug: string;
 }
 
 const LeftColumn = styled(Flex)`
@@ -50,6 +51,9 @@ const SubmitButton = styled.button.attrs({
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Site name is required'),
+  slug: Yup.string()
+    .required('Website Slug is required')
+    .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Must be a valid slug eg.. my-slug'),
 });
 
 const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
@@ -106,6 +110,12 @@ const SiteForm = () => {
           }}
         />
         <Field
+          name="slug"
+          render={(props: FieldProps<InputValues>) => {
+            return <Input label="Website Slug" placeholder="website-slug" {...props} />;
+          }}
+        />
+        <Field
           name="typefaces"
           render={(props: FieldProps<InputValues>) => {
             return (
@@ -136,6 +146,7 @@ const WrappedForm: React.SFC<{}> = () => {
           <Formik
             initialValues={{
               name: '',
+              slug: '',
               thumbnail: null,
               typefaces: [],
             }}
