@@ -163,7 +163,6 @@ class SiteForm extends React.PureComponent<{}, SiteFormState> {
             </AddTypefaceButton>
           </div>
           {this.state.showAddTypeface && <TypefaceForm />}
-
           <SubmitButton>Publish</SubmitButton>
         </RightColumn>
       </Form>
