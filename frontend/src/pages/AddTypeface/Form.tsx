@@ -3,17 +3,20 @@ import styled from 'sc';
 
 import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
 import ButtonBase from '../../components/Button';
+import DesignerForm from '../../components/DesignerForm';
 import Flex from '../../components/Flex';
 import Input from '../../components/Input';
 
 export interface TypefaceFormProps {
-  handleSubmit: () => void;
+  handleSubmit?: () => void;
+}
+
+interface TypefaceFormState {
+  showDesignerForm: boolean;
 }
 
 export interface InputValues {
-  typeface: string;
-  designerName: string;
-  designerUrl: string;
+  typefaces: string[];
   url: string;
   description: string;
 }
@@ -27,19 +30,29 @@ const ButtonWrapper = styled(Flex)``;
 
 const Publish = styled(ButtonBase)``;
 
-export default class TypefaceForm extends React.PureComponent<TypefaceFormProps, any> {
+export default class TypefaceForm extends React.PureComponent<
+  TypefaceFormProps,
+  TypefaceFormState
+> {
+  public state = {
+    showDesignerForm: false,
+  };
+
+  private toggleDesignerForm = () => {
+    this.setState({
+      showDesignerForm: !this.state.showDesignerForm,
+    });
+  }
   public handleOnSubmit = (values: any) => {
     console.log(values);
-    this.props.handleSubmit();
+    // this.props.handleSubmit();
   }
   public render() {
     return (
       <Formik<InputValues>
         initialValues={{
           description: '',
-          designerName: '',
-          designerUrl: '',
-          typeface: '',
+          typefaces: [],
           url: '',
         }}
         onSubmit={this.handleOnSubmit}
@@ -59,23 +72,17 @@ export default class TypefaceForm extends React.PureComponent<TypefaceFormProps,
                 }}
               />
               <Field
-                name="designerName"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return <Input label="Designer Name" {...fieldProps} />;
-                }}
-              />
-              <Field
-                name="designerUrl"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return <Input label="Designer Url" {...fieldProps} />;
-                }}
-              />
-              <Field
                 name="description"
                 render={(fieldProps: FieldProps<InputValues>) => {
                   return <Input textarea={true} label="Description" {...fieldProps} />;
                 }}
               />
+              <div>
+                <ButtonBase rounded={true} onClick={this.toggleDesignerForm}>
+                  + Add Designer
+                </ButtonBase>
+              </div>
+              {this.state.showDesignerForm && <DesignerForm />}
               <ButtonWrapper>
                 <Publish type="button" black={true} onClick={props.submitForm}>
                   Submit Typeface
