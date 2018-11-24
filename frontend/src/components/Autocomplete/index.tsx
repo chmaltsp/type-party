@@ -88,7 +88,7 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
               refKey: 'innerRef',
             })}
           >
-            <Label {...getLabelProps()}>Enter a fruit</Label>
+            <Label {...getLabelProps()}>{this.props.label}</Label>
             <InputWrapper>
               {selectedItems.map((selectedItem: ListItemProps, index: number) => (
                 <TagSpacer key={index}>
