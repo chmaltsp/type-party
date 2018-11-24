@@ -41,7 +41,9 @@ export default class Foundry extends React.PureComponent<FoundryProps, any> {
                 }}
               />
               <div>
-                <Button black={true}>Submit Foundry</Button>
+                <Button black={true} onClick={props.submitForm}>
+                  Submit Foundry
+                </Button>
               </div>
             </div>
           );
