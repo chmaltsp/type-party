@@ -104,11 +104,13 @@ export default class TypefaceForm extends React.PureComponent<
                   );
                 }}
               />
-              <div>
-                <ButtonBase rounded={true} onClick={this.toggleDesignerForm}>
-                  + Add Designer
-                </ButtonBase>
-              </div>
+              {!this.state.showDesignerForm && (
+                <div>
+                  <ButtonBase rounded={true} onClick={this.toggleDesignerForm}>
+                    + Add Designer
+                  </ButtonBase>
+                </div>
+              )}
               {this.state.showDesignerForm && <DesignerForm />}
               <Field
                 name="foundries"
@@ -125,11 +127,17 @@ export default class TypefaceForm extends React.PureComponent<
                   );
                 }}
               />
-              <div>
-                <ButtonBase rounded={true} type="button" onClick={this.toggleFoundryForm}>
-                  + Add Foundry
-                </ButtonBase>
-              </div>
+              {!this.state.showFoundryForm && (
+                <div>
+                  <ButtonBase
+                    rounded={true}
+                    type="button"
+                    onClick={this.toggleFoundryForm}
+                  >
+                    + Add Foundry
+                  </ButtonBase>
+                </div>
+              )}
               {this.state.showFoundryForm && (
                 <FoundryForm onCancel={this.toggleFoundryForm} />
               )}
