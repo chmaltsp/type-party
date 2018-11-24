@@ -29,7 +29,9 @@ const Form = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.xl};
 `;
 
-const ButtonWrapper = styled(Flex)``;
+const ButtonWrapper = styled(Flex)`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+`;
 
 const Publish = styled(ButtonBase)``;
 
@@ -95,7 +97,7 @@ export default class TypefaceForm extends React.PureComponent<
                       items={[{ value: 'jim' }]}
                       label="Designer(s)"
                       handleOnChange={selection =>
-                        fieldProps.form.setFieldValue('desingers', selection)
+                        fieldProps.form.setFieldValue('designers', selection)
                       }
                       itemToString={item => (item && item.name) || ''}
                     />
@@ -128,7 +130,9 @@ export default class TypefaceForm extends React.PureComponent<
                   + Add Foundry
                 </ButtonBase>
               </div>
-              {this.state.showFoundryForm && <FoundryForm />}
+              {this.state.showFoundryForm && (
+                <FoundryForm onCancel={this.toggleFoundryForm} />
+              )}
               <ButtonWrapper>
                 <Publish type="button" black={true} onClick={props.submitForm}>
                   Submit Typeface

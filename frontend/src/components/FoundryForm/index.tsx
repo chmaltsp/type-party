@@ -1,13 +1,28 @@
 import * as React from 'react';
 
+import styled from 'sc';
+
 import { Field, FieldProps, Formik, FormikProps } from 'formik';
 
 import Button from '../Button';
+import Flex from '../Flex';
 import Input from '../Input';
+import LinkBase from '../Link';
 
 export interface FoundryProps {
   handleSubmit?: () => void;
+  onCancel: () => void;
 }
+
+const Link = styled.a`
+  padding-left: ${({ theme }) => theme.spacing.sm}px;
+  cursor: pointer;
+`;
+
+export const ButtonContainer = styled(Flex)`
+  margin: ${({ theme }) => theme.spacing.sm} 0;
+  align-items: center;
+`;
 
 interface InputValues {
   name: string;
@@ -40,11 +55,12 @@ export default class Foundry extends React.PureComponent<FoundryProps, any> {
                   return <Input label="Foundry Url" {...fieldProps} />;
                 }}
               />
-              <div>
+              <ButtonContainer>
                 <Button black={true} onClick={props.submitForm}>
                   Submit Foundry
                 </Button>
-              </div>
+                <Link onClick={this.props.onCancel}>Cancel</Link>
+              </ButtonContainer>
             </div>
           );
         }}
