@@ -26,6 +26,8 @@ export const InputBase = styled.input`
   }
 `;
 
+export const TextAreaBase = InputBase.withComponent('textarea');
+
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,6 +59,7 @@ const Error = styled.label<ErrorProps>`
 export interface InputProps {
   label?: string;
   placeholder?: string;
+  textarea?: boolean;
 }
 
 const Input: React.SFC<InputProps & FieldProps> = ({
@@ -64,6 +67,7 @@ const Input: React.SFC<InputProps & FieldProps> = ({
   label,
   form,
   placeholder,
+  textarea,
   ...props
 }) => {
   const { name } = field;
@@ -71,7 +75,16 @@ const Input: React.SFC<InputProps & FieldProps> = ({
   return (
     <InputWrapper {...props}>
       {label && <Label>{label}</Label>}
-      <InputBase placeholder={placeholder} value={field.value || ''} {...field} />
+      {textarea ? (
+        <TextAreaBase
+          placeholder={placeholder}
+          rows={6}
+          value={field.value || ''}
+          {...field}
+        />
+      ) : (
+        <InputBase placeholder={placeholder} value={field.value || ''} {...field} />
+      )}
       <Error show={errors[name]}>{errors[name]}</Error>
     </InputWrapper>
   );
