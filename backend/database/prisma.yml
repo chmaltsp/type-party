@@ -9,8 +9,15 @@ datamodel: datamodel.graphql
 seed:
   import: seed.graphql
 
+generate:
+    - generator: typescript-client
+      output: ../src/generated/prisma-client
+    - generator: graphql-schema
+      output:   ../src/generated/
+
 hooks:
   post-deploy:
     - echo "Deployment finished"
     - graphql get-schema --project database
     - graphql codegen
+    - prisma generate

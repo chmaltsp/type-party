@@ -1,4 +1,4 @@
-type AggregateFile {
+export const typeDefs = /* GraphQL */ `type AggregateFile {
   count: Int!
 }
 
@@ -1516,3 +1516,4 @@ input WebsiteWhereInput {
 input WebsiteWhereUniqueInput {
   id: ID
 }
+`
