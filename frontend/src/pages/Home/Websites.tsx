@@ -34,7 +34,7 @@ interface Site {
 }
 
 const GET_WEBSITES = gql`
-  {
+  query GetWebsites {
     websites {
       title
       url
