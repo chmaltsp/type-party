@@ -3,7 +3,9 @@ import * as ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import { ApolloClient, InMemoryCache } from 'apollo-boost';
+import { InMemoryCache } from 'apollo-boost';
+
+import { ApolloClient } from 'apollo-client';
 
 // @ts-ignore
 import { createUploadLink } from 'apollo-upload-client';

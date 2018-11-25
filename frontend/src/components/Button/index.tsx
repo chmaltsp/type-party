@@ -17,6 +17,9 @@ const Button = styled.button<ButtonProps>`
   font-size: ${({ rounded }) => (rounded ? em(16) : em(18))};
   font-weight: 400;
   cursor: pointer;
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.greyDDD};
+  }
 `;
 
 export default Button;

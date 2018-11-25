@@ -5,8 +5,8 @@ import { StaticRouter } from 'react-router-dom';
 
 import 'cross-fetch/polyfill';
 
-import { ApolloClient } from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
 
 // @ts-ignore
 import { createUploadLink } from 'apollo-upload-client';
