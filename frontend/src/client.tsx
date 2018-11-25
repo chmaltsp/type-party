@@ -7,6 +7,8 @@ import { InMemoryCache } from 'apollo-boost';
 
 import { ApolloClient } from 'apollo-client';
 
+import { setContext } from 'apollo-link-context';
+
 // @ts-ignore
 import { createUploadLink } from 'apollo-upload-client';
 import { ApolloProvider } from 'react-apollo';
@@ -14,18 +16,28 @@ import App from './App';
 
 const uri = process.env.RAZZLE_API_URL || 'https://tp-backend-zocaxqjnyl.now.sh';
 
-const link = createUploadLink({
+const uploadLink = createUploadLink({
   fetch,
   uri,
 });
 
-const uploadLink = createUploadLink({ uri });
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('tpt');
+
+  const allHeaders = {
+    ...headers,
+  };
+
+  if (token) {
+    allHeaders.Authorization = token ? `Bearer ${token}` : null;
+  }
+  return allHeaders;
+});
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link,
+  link: authLink.concat(uploadLink),
 });
-
 ReactDOM.hydrate(
   <ApolloProvider client={client}>
     <BrowserRouter>
