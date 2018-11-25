@@ -58,6 +58,7 @@ const Error = styled.label<ErrorProps>`
 
 export interface InputProps {
   label?: string;
+  type?: string;
   placeholder?: string;
   textarea?: boolean;
 }
@@ -83,7 +84,12 @@ const Input: React.SFC<InputProps & FieldProps> = ({
           {...field}
         />
       ) : (
-        <InputBase placeholder={placeholder} value={field.value || ''} {...field} />
+        <InputBase
+          placeholder={placeholder}
+          type={props.type}
+          value={field.value || ''}
+          {...field}
+        />
       )}
       <Error show={errors[name]}>{errors[name]}</Error>
     </InputWrapper>
