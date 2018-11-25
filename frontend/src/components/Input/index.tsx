@@ -42,7 +42,7 @@ export const Label = styled.label`
 `;
 
 interface ErrorProps {
-  show?: string | FormikErrors<any>;
+  show?: string | FormikErrors<any> | false;
 }
 
 const Error = styled.label<ErrorProps>`
@@ -72,7 +72,7 @@ const Input: React.SFC<InputProps & FieldProps> = ({
   ...props
 }) => {
   const { name } = field;
-  const { errors } = form;
+  const { errors, touched } = form;
   return (
     <InputWrapper {...props}>
       {label && <Label>{label}</Label>}
@@ -91,7 +91,7 @@ const Input: React.SFC<InputProps & FieldProps> = ({
           {...field}
         />
       )}
-      <Error show={errors[name]}>{errors[name]}</Error>
+      <Error show={touched[name] && errors[name]}>{errors[name]}</Error>
     </InputWrapper>
   );
 };

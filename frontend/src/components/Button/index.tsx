@@ -18,7 +18,8 @@ const Button = styled.button<ButtonProps>`
   font-weight: 400;
   cursor: pointer;
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.greyDDD};
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 `;
 
