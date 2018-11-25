@@ -41,6 +41,7 @@ type Typeface {
   name: String!
   usedBy: [Website!]!
   imageUrl: String
+  thumbnail: String
   addedBy: User! @relation(name: "TypefaceUser")
   foundry: Foundry @relation(name: "TypefaceFoundry")
   designer: String
