@@ -33,6 +33,7 @@ type Designer {
   url: String!
   typefaces: [Typeface!]! @relation(name: "TypefaceDesigner")
 }
+
 type Typeface {
   id: ID! @unique
   name: String!
