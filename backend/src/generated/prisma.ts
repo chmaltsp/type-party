@@ -1315,6 +1315,7 @@ type Typeface implements Node {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   addedBy: User!
   foundry: Foundry
@@ -1335,6 +1336,7 @@ input TypefaceCreateInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
@@ -1365,6 +1367,7 @@ input TypefaceCreateWithoutAddedByInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   foundry: FoundryCreateOneWithoutFontsInput
   designers: DesignerCreateManyWithoutTypefacesInput
@@ -1374,6 +1377,7 @@ input TypefaceCreateWithoutDesignersInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
@@ -1383,6 +1387,7 @@ input TypefaceCreateWithoutFoundryInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   designers: DesignerCreateManyWithoutTypefacesInput
@@ -1392,6 +1397,7 @@ input TypefaceCreateWithoutUsedByInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
   designers: DesignerCreateManyWithoutTypefacesInput
@@ -1415,6 +1421,8 @@ enum TypefaceOrderByInput {
   downloadUrl_DESC
   description_ASC
   description_DESC
+  slug_ASC
+  slug_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1426,6 +1434,7 @@ type TypefacePreviousValues {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
 }
 
 input TypefaceScalarWhereInput {
@@ -1597,6 +1606,46 @@ input TypefaceScalarWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
 }
 
 type TypefaceSubscriptionPayload {
@@ -1642,6 +1691,7 @@ input TypefaceUpdateInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
@@ -1652,12 +1702,14 @@ input TypefaceUpdateManyDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
 }
 
 input TypefaceUpdateManyMutationInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
 }
 
 input TypefaceUpdateManyWithoutAddedByInput {
@@ -1713,6 +1765,7 @@ input TypefaceUpdateWithoutAddedByDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
   designers: DesignerUpdateManyWithoutTypefacesInput
@@ -1722,6 +1775,7 @@ input TypefaceUpdateWithoutDesignersDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
@@ -1731,6 +1785,7 @@ input TypefaceUpdateWithoutFoundryDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
@@ -1740,6 +1795,7 @@ input TypefaceUpdateWithoutUsedByDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
   designers: DesignerUpdateManyWithoutTypefacesInput
@@ -1958,6 +2014,46 @@ input TypefaceWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
   usedBy_every: WebsiteWhereInput
   usedBy_some: WebsiteWhereInput
   usedBy_none: WebsiteWhereInput
@@ -2353,6 +2449,7 @@ type Website implements Node {
   isPublished: Boolean!
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   addedBy: User!
@@ -2374,6 +2471,7 @@ input WebsiteCreateInput {
   isPublished: Boolean
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   featured: Boolean
@@ -2395,6 +2493,7 @@ input WebsiteCreateWithoutAddedByInput {
   isPublished: Boolean
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   featured: Boolean
@@ -2405,6 +2504,7 @@ input WebsiteCreateWithoutTypefacesInput {
   isPublished: Boolean
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   featured: Boolean
@@ -2429,6 +2529,8 @@ enum WebsiteOrderByInput {
   title_DESC
   thumbnail_ASC
   thumbnail_DESC
+  slug_ASC
+  slug_DESC
   url_ASC
   url_DESC
   image_ASC
@@ -2446,6 +2548,7 @@ type WebsitePreviousValues {
   isPublished: Boolean!
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   featured: Boolean!
@@ -2584,6 +2687,46 @@ input WebsiteScalarWhereInput {
 
   """All values not ending with the given string."""
   thumbnail_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
   url: String
 
   """All values that are not equal to given value."""
@@ -2713,6 +2856,7 @@ input WebsiteUpdateInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   featured: Boolean
@@ -2724,6 +2868,7 @@ input WebsiteUpdateManyDataInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   featured: Boolean
@@ -2733,6 +2878,7 @@ input WebsiteUpdateManyMutationInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   featured: Boolean
@@ -2769,6 +2915,7 @@ input WebsiteUpdateWithoutAddedByDataInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   featured: Boolean
@@ -2779,6 +2926,7 @@ input WebsiteUpdateWithoutTypefacesDataInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   featured: Boolean
@@ -2940,6 +3088,46 @@ input WebsiteWhereInput {
 
   """All values not ending with the given string."""
   thumbnail_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
   url: String
 
   """All values that are not equal to given value."""
@@ -3093,6 +3281,8 @@ export type TypefaceOrderByInput =   'id_ASC' |
   'downloadUrl_DESC' |
   'description_ASC' |
   'description_DESC' |
+  'slug_ASC' |
+  'slug_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -3121,6 +3311,8 @@ export type WebsiteOrderByInput =   'id_ASC' |
   'title_DESC' |
   'thumbnail_ASC' |
   'thumbnail_DESC' |
+  'slug_ASC' |
+  'slug_DESC' |
   'url_ASC' |
   'url_DESC' |
   'image_ASC' |
@@ -3556,6 +3748,7 @@ export interface TypefaceCreateInput {
   name: String
   downloadUrl: String
   description?: String
+  slug: String
   usedBy?: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput
   foundry?: FoundryCreateOneWithoutFontsInput
@@ -3586,6 +3779,7 @@ export interface TypefaceCreateWithoutAddedByInput {
   name: String
   downloadUrl: String
   description?: String
+  slug: String
   usedBy?: WebsiteCreateManyWithoutTypefacesInput
   foundry?: FoundryCreateOneWithoutFontsInput
   designers?: DesignerCreateManyWithoutTypefacesInput
@@ -3595,6 +3789,7 @@ export interface TypefaceCreateWithoutDesignersInput {
   name: String
   downloadUrl: String
   description?: String
+  slug: String
   usedBy?: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput
   foundry?: FoundryCreateOneWithoutFontsInput
@@ -3604,6 +3799,7 @@ export interface TypefaceCreateWithoutFoundryInput {
   name: String
   downloadUrl: String
   description?: String
+  slug: String
   usedBy?: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput
   designers?: DesignerCreateManyWithoutTypefacesInput
@@ -3613,6 +3809,7 @@ export interface TypefaceCreateWithoutUsedByInput {
   name: String
   downloadUrl: String
   description?: String
+  slug: String
   addedBy: UserCreateOneWithoutTypefacesInput
   foundry?: FoundryCreateOneWithoutFontsInput
   designers?: DesignerCreateManyWithoutTypefacesInput
@@ -3678,6 +3875,20 @@ export interface TypefaceScalarWhereInput {
   description_not_starts_with?: String
   description_ends_with?: String
   description_not_ends_with?: String
+  slug?: String
+  slug_not?: String
+  slug_in?: String[] | String
+  slug_not_in?: String[] | String
+  slug_lt?: String
+  slug_lte?: String
+  slug_gt?: String
+  slug_gte?: String
+  slug_contains?: String
+  slug_not_contains?: String
+  slug_starts_with?: String
+  slug_not_starts_with?: String
+  slug_ends_with?: String
+  slug_not_ends_with?: String
 }
 
 export interface TypefaceSubscriptionWhereInput {
@@ -3695,6 +3906,7 @@ export interface TypefaceUpdateInput {
   name?: String
   downloadUrl?: String
   description?: String
+  slug?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
   foundry?: FoundryUpdateOneWithoutFontsInput
@@ -3705,12 +3917,14 @@ export interface TypefaceUpdateManyDataInput {
   name?: String
   downloadUrl?: String
   description?: String
+  slug?: String
 }
 
 export interface TypefaceUpdateManyMutationInput {
   name?: String
   downloadUrl?: String
   description?: String
+  slug?: String
 }
 
 export interface TypefaceUpdateManyWithoutAddedByInput {
@@ -3766,6 +3980,7 @@ export interface TypefaceUpdateWithoutAddedByDataInput {
   name?: String
   downloadUrl?: String
   description?: String
+  slug?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
   foundry?: FoundryUpdateOneWithoutFontsInput
   designers?: DesignerUpdateManyWithoutTypefacesInput
@@ -3775,6 +3990,7 @@ export interface TypefaceUpdateWithoutDesignersDataInput {
   name?: String
   downloadUrl?: String
   description?: String
+  slug?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
   foundry?: FoundryUpdateOneWithoutFontsInput
@@ -3784,6 +4000,7 @@ export interface TypefaceUpdateWithoutFoundryDataInput {
   name?: String
   downloadUrl?: String
   description?: String
+  slug?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
   designers?: DesignerUpdateManyWithoutTypefacesInput
@@ -3793,6 +4010,7 @@ export interface TypefaceUpdateWithoutUsedByDataInput {
   name?: String
   downloadUrl?: String
   description?: String
+  slug?: String
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
   foundry?: FoundryUpdateOneWithoutFontsInput
   designers?: DesignerUpdateManyWithoutTypefacesInput
@@ -3902,6 +4120,20 @@ export interface TypefaceWhereInput {
   description_not_starts_with?: String
   description_ends_with?: String
   description_not_ends_with?: String
+  slug?: String
+  slug_not?: String
+  slug_in?: String[] | String
+  slug_not_in?: String[] | String
+  slug_lt?: String
+  slug_lte?: String
+  slug_gt?: String
+  slug_gte?: String
+  slug_contains?: String
+  slug_not_contains?: String
+  slug_starts_with?: String
+  slug_not_starts_with?: String
+  slug_ends_with?: String
+  slug_not_ends_with?: String
   usedBy_every?: WebsiteWhereInput
   usedBy_some?: WebsiteWhereInput
   usedBy_none?: WebsiteWhereInput
@@ -4099,6 +4331,7 @@ export interface WebsiteCreateInput {
   isPublished?: Boolean
   title: String
   thumbnail: String
+  slug?: String
   url: String
   image: String
   featured?: Boolean
@@ -4120,6 +4353,7 @@ export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: Boolean
   title: String
   thumbnail: String
+  slug?: String
   url: String
   image: String
   featured?: Boolean
@@ -4130,6 +4364,7 @@ export interface WebsiteCreateWithoutTypefacesInput {
   isPublished?: Boolean
   title: String
   thumbnail: String
+  slug?: String
   url: String
   image: String
   featured?: Boolean
@@ -4184,6 +4419,20 @@ export interface WebsiteScalarWhereInput {
   thumbnail_not_starts_with?: String
   thumbnail_ends_with?: String
   thumbnail_not_ends_with?: String
+  slug?: String
+  slug_not?: String
+  slug_in?: String[] | String
+  slug_not_in?: String[] | String
+  slug_lt?: String
+  slug_lte?: String
+  slug_gt?: String
+  slug_gte?: String
+  slug_contains?: String
+  slug_not_contains?: String
+  slug_starts_with?: String
+  slug_not_starts_with?: String
+  slug_ends_with?: String
+  slug_not_ends_with?: String
   url?: String
   url_not?: String
   url_in?: String[] | String
@@ -4231,6 +4480,7 @@ export interface WebsiteUpdateInput {
   isPublished?: Boolean
   title?: String
   thumbnail?: String
+  slug?: String
   url?: String
   image?: String
   featured?: Boolean
@@ -4242,6 +4492,7 @@ export interface WebsiteUpdateManyDataInput {
   isPublished?: Boolean
   title?: String
   thumbnail?: String
+  slug?: String
   url?: String
   image?: String
   featured?: Boolean
@@ -4251,6 +4502,7 @@ export interface WebsiteUpdateManyMutationInput {
   isPublished?: Boolean
   title?: String
   thumbnail?: String
+  slug?: String
   url?: String
   image?: String
   featured?: Boolean
@@ -4287,6 +4539,7 @@ export interface WebsiteUpdateWithoutAddedByDataInput {
   isPublished?: Boolean
   title?: String
   thumbnail?: String
+  slug?: String
   url?: String
   image?: String
   featured?: Boolean
@@ -4297,6 +4550,7 @@ export interface WebsiteUpdateWithoutTypefacesDataInput {
   isPublished?: Boolean
   title?: String
   thumbnail?: String
+  slug?: String
   url?: String
   image?: String
   featured?: Boolean
@@ -4373,6 +4627,20 @@ export interface WebsiteWhereInput {
   thumbnail_not_starts_with?: String
   thumbnail_ends_with?: String
   thumbnail_not_ends_with?: String
+  slug?: String
+  slug_not?: String
+  slug_in?: String[] | String
+  slug_not_in?: String[] | String
+  slug_lt?: String
+  slug_lte?: String
+  slug_gt?: String
+  slug_gte?: String
+  slug_contains?: String
+  slug_not_contains?: String
+  slug_starts_with?: String
+  slug_not_starts_with?: String
+  slug_ends_with?: String
+  slug_not_ends_with?: String
   url?: String
   url_not?: String
   url_in?: String[] | String
@@ -4589,6 +4857,7 @@ export interface Typeface extends Node {
   name: String
   downloadUrl: String
   description?: String
+  slug: String
   usedBy?: Website[]
   addedBy: User
   foundry?: Foundry
@@ -4619,6 +4888,7 @@ export interface TypefacePreviousValues {
   name: String
   downloadUrl: String
   description?: String
+  slug: String
 }
 
 export interface TypefaceSubscriptionPayload {
@@ -4677,6 +4947,7 @@ export interface Website extends Node {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug?: String
   url: String
   image: String
   addedBy: User
@@ -4708,6 +4979,7 @@ export interface WebsitePreviousValues {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug?: String
   url: String
   image: String
   featured: Boolean

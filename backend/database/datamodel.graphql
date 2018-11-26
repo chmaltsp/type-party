@@ -19,6 +19,7 @@ type Website {
   isPublished: Boolean! @default(value: "false")
   title: String!
   thumbnail: String!  
+  slug: String
   url: String!
   image: String!
   addedBy: User! @relation(name: "WebsitesUser")
@@ -37,6 +38,7 @@ type Typeface {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: [Website!]!
   addedBy: User! @relation(name: "TypefaceUser")
   foundry: Foundry @relation(name: "TypefaceFoundry")
