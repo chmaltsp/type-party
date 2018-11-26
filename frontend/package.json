@@ -8,7 +8,7 @@
     "test": "razzle test --env=jsdom",
     "start:prod": "NODE_ENV=production node build/server.js",
     "format": "prettier --write  **/*.{ts|tsx}",
-    "prepare-codegen": "apollo service:download --endpoint http://localhost:4000",
+    "prepare:codegen": "apollo service:download --endpoint http://localhost:4000",
     "codegen": "apollo client:codegen --target=typescript --localSchemaFile schema.json --addTypename"
   },
   "dependencies": {
@@ -23,7 +23,7 @@
     "downshift": "^3.1.2",
     "express": "^4.15.3",
     "formik": "^1.3.1",
-    "graphql": "^0.13.2",
+    "graphql": "^14.0.2",
     "polished": "^2.2.0",
     "react": "^16.5.2",
     "react-apollo": "^2.2.4",

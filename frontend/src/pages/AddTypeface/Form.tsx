@@ -2,12 +2,16 @@ import * as React from 'react';
 import styled from 'sc';
 
 import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
+import { ChildMutateProps, graphql } from 'react-apollo';
 import Autocomplete from '../../components/Autocomplete';
 import ButtonBase from '../../components/Button';
 import DesignerForm from '../../components/DesignerForm';
 import Flex from '../../components/Flex';
 import FoundryForm from '../../components/FoundryForm';
 import Input from '../../components/Input';
+
+import { addTypeface, addTypefaceVariables } from './__generated__/addTypeface';
+import { ADD_TYPEFACE } from './mutation';
 
 export interface TypefaceFormProps {
   handleSubmit?: () => void;
@@ -19,9 +23,11 @@ interface TypefaceFormState {
 }
 
 export interface InputValues {
-  typefaces: string[];
-  url: string;
+  designers: string[];
+  downloadUrl: string;
   description: string;
+  slug: string;
+  name: string;
 }
 
 const Form = styled.div`
@@ -35,8 +41,8 @@ const ButtonWrapper = styled(Flex)`
 
 const Publish = styled(ButtonBase)``;
 
-export default class TypefaceForm extends React.PureComponent<
-  TypefaceFormProps,
+class TypefaceForm extends React.PureComponent<
+  ChildMutateProps<{}, addTypeface, addTypefaceVariables>,
   TypefaceFormState
 > {
   public state = {
@@ -55,8 +61,28 @@ export default class TypefaceForm extends React.PureComponent<
       showFoundryForm: !this.state.showFoundryForm,
     });
   }
-  public handleOnSubmit = (values: any) => {
+  public handleOnSubmit = async (values: InputValues) => {
     console.log(values);
+
+    try {
+      const response = await this.props.mutate({
+        variables: {
+          input: {
+            ...values,
+            addedBy: {},
+            designers: {
+              connect: values.designers.map(designer => ({
+                id: designer,
+              })),
+            },
+          },
+        },
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
     // this.props.handleSubmit();
   }
   public render() {
@@ -64,8 +90,10 @@ export default class TypefaceForm extends React.PureComponent<
       <Formik<InputValues>
         initialValues={{
           description: '',
-          typefaces: [],
-          url: '',
+          designers: [],
+          downloadUrl: '',
+          name: '',
+          slug: '',
         }}
         onSubmit={this.handleOnSubmit}
         render={(props: FormikProps<InputValues>) => {
@@ -78,7 +106,7 @@ export default class TypefaceForm extends React.PureComponent<
                 }}
               />
               <Field
-                name="url"
+                name="downloadUrl"
                 render={(fieldProps: FieldProps<InputValues>) => {
                   return <Input label="Typeface Download Url" {...fieldProps} />;
                 }}
@@ -153,3 +181,9 @@ export default class TypefaceForm extends React.PureComponent<
     );
   }
 }
+
+const WrappedForm = graphql<any, addTypeface, addTypefaceVariables>(ADD_TYPEFACE)(
+  TypefaceForm
+);
+
+export default WrappedForm;
