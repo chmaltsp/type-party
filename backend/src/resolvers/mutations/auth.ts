@@ -2,8 +2,14 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { Context } from '../../utils';
 
-export const auth = {
-  async signup(parent, args, ctx: Context, info) {
+import { MutationResolvers } from '../../generated/graphqlgen';
+
+interface AuthResolvers {
+  signup: MutationResolvers.SignupResolver;
+  login: MutationResolvers.LoginResolver;
+}
+export const auth: AuthResolvers = {
+  async signup(parent, args, ctx, info) {
     const password = await bcrypt.hash(args.password, 10);
     const user = await ctx.db.mutation.createUser({
       data: { ...args, password },
