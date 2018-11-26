@@ -630,6 +630,7 @@ type Typeface {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   addedBy: User!
   foundry: Foundry
@@ -646,6 +647,7 @@ input TypefaceCreateInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
@@ -676,6 +678,7 @@ input TypefaceCreateWithoutAddedByInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   foundry: FoundryCreateOneWithoutFontsInput
   designers: DesignerCreateManyWithoutTypefacesInput
@@ -685,6 +688,7 @@ input TypefaceCreateWithoutDesignersInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
@@ -694,6 +698,7 @@ input TypefaceCreateWithoutFoundryInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   designers: DesignerCreateManyWithoutTypefacesInput
@@ -703,6 +708,7 @@ input TypefaceCreateWithoutUsedByInput {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
   designers: DesignerCreateManyWithoutTypefacesInput
@@ -722,6 +728,8 @@ enum TypefaceOrderByInput {
   downloadUrl_DESC
   description_ASC
   description_DESC
+  slug_ASC
+  slug_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -733,6 +741,7 @@ type TypefacePreviousValues {
   name: String!
   downloadUrl: String!
   description: String
+  slug: String!
 }
 
 type TypefaceSubscriptionPayload {
@@ -757,6 +766,7 @@ input TypefaceUpdateInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
@@ -767,6 +777,7 @@ input TypefaceUpdateManyMutationInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
 }
 
 input TypefaceUpdateManyWithoutAddedByInput {
@@ -809,6 +820,7 @@ input TypefaceUpdateWithoutAddedByDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
   designers: DesignerUpdateManyWithoutTypefacesInput
@@ -818,6 +830,7 @@ input TypefaceUpdateWithoutDesignersDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
@@ -827,6 +840,7 @@ input TypefaceUpdateWithoutFoundryDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
@@ -836,6 +850,7 @@ input TypefaceUpdateWithoutUsedByDataInput {
   name: String
   downloadUrl: String
   description: String
+  slug: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
   designers: DesignerUpdateManyWithoutTypefacesInput
@@ -942,6 +957,20 @@ input TypefaceWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  slug: String
+  slug_not: String
+  slug_in: [String!]
+  slug_not_in: [String!]
+  slug_lt: String
+  slug_lte: String
+  slug_gt: String
+  slug_gte: String
+  slug_contains: String
+  slug_not_contains: String
+  slug_starts_with: String
+  slug_not_starts_with: String
+  slug_ends_with: String
+  slug_not_ends_with: String
   usedBy_every: WebsiteWhereInput
   usedBy_some: WebsiteWhereInput
   usedBy_none: WebsiteWhereInput
@@ -1196,6 +1225,7 @@ type Website {
   isPublished: Boolean!
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   addedBy: User!
@@ -1213,6 +1243,7 @@ input WebsiteCreateInput {
   isPublished: Boolean
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
@@ -1234,6 +1265,7 @@ input WebsiteCreateWithoutAddedByInput {
   isPublished: Boolean
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   typefaces: TypefaceCreateManyWithoutUsedByInput
@@ -1244,6 +1276,7 @@ input WebsiteCreateWithoutTypefacesInput {
   isPublished: Boolean
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
@@ -1264,6 +1297,8 @@ enum WebsiteOrderByInput {
   title_DESC
   thumbnail_ASC
   thumbnail_DESC
+  slug_ASC
+  slug_DESC
   url_ASC
   url_DESC
   image_ASC
@@ -1281,6 +1316,7 @@ type WebsitePreviousValues {
   isPublished: Boolean!
   title: String!
   thumbnail: String!
+  slug: String
   url: String!
   image: String!
   featured: Boolean!
@@ -1308,6 +1344,7 @@ input WebsiteUpdateInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
@@ -1319,6 +1356,7 @@ input WebsiteUpdateManyMutationInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   featured: Boolean
@@ -1346,6 +1384,7 @@ input WebsiteUpdateWithoutAddedByDataInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   typefaces: TypefaceUpdateManyWithoutUsedByInput
@@ -1356,6 +1395,7 @@ input WebsiteUpdateWithoutTypefacesDataInput {
   isPublished: Boolean
   title: String
   thumbnail: String
+  slug: String
   url: String
   image: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
@@ -1429,6 +1469,20 @@ input WebsiteWhereInput {
   thumbnail_not_starts_with: String
   thumbnail_ends_with: String
   thumbnail_not_ends_with: String
+  slug: String
+  slug_not: String
+  slug_in: [String!]
+  slug_not_in: [String!]
+  slug_lt: String
+  slug_lte: String
+  slug_gt: String
+  slug_gte: String
+  slug_contains: String
+  slug_not_contains: String
+  slug_starts_with: String
+  slug_not_starts_with: String
+  slug_ends_with: String
+  slug_not_ends_with: String
   url: String
   url_not: String
   url_in: [String!]

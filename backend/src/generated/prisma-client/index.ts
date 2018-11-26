@@ -323,6 +323,8 @@ export type TypefaceOrderByInput =
   | "downloadUrl_DESC"
   | "description_ASC"
   | "description_DESC"
+  | "slug_ASC"
+  | "slug_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -339,6 +341,8 @@ export type WebsiteOrderByInput =
   | "title_DESC"
   | "thumbnail_ASC"
   | "thumbnail_DESC"
+  | "slug_ASC"
+  | "slug_DESC"
   | "url_ASC"
   | "url_DESC"
   | "image_ASC"
@@ -498,6 +502,7 @@ export interface TypefaceCreateWithoutAddedByInput {
   name: String;
   downloadUrl: String;
   description?: String;
+  slug: String;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput;
   foundry?: FoundryCreateOneWithoutFontsInput;
   designers?: DesignerCreateManyWithoutTypefacesInput;
@@ -578,6 +583,7 @@ export interface WebsiteUpdateManyMutationInput {
   isPublished?: Boolean;
   title?: String;
   thumbnail?: String;
+  slug?: String;
   url?: String;
   image?: String;
   featured?: Boolean;
@@ -614,6 +620,7 @@ export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: Boolean;
   title: String;
   thumbnail: String;
+  slug?: String;
   url: String;
   image: String;
   typefaces?: TypefaceCreateManyWithoutUsedByInput;
@@ -665,6 +672,20 @@ export interface WebsiteWhereInput {
   thumbnail_not_starts_with?: String;
   thumbnail_ends_with?: String;
   thumbnail_not_ends_with?: String;
+  slug?: String;
+  slug_not?: String;
+  slug_in?: String[] | String;
+  slug_not_in?: String[] | String;
+  slug_lt?: String;
+  slug_lte?: String;
+  slug_gt?: String;
+  slug_gte?: String;
+  slug_contains?: String;
+  slug_not_contains?: String;
+  slug_starts_with?: String;
+  slug_not_starts_with?: String;
+  slug_ends_with?: String;
+  slug_not_ends_with?: String;
   url?: String;
   url_not?: String;
   url_in?: String[] | String;
@@ -724,6 +745,7 @@ export interface TypefaceCreateWithoutUsedByInput {
   name: String;
   downloadUrl: String;
   description?: String;
+  slug: String;
   addedBy: UserCreateOneWithoutTypefacesInput;
   foundry?: FoundryCreateOneWithoutFontsInput;
   designers?: DesignerCreateManyWithoutTypefacesInput;
@@ -743,6 +765,7 @@ export interface TypefaceUpdateInput {
   name?: String;
   downloadUrl?: String;
   description?: String;
+  slug?: String;
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
   foundry?: FoundryUpdateOneWithoutFontsInput;
@@ -784,6 +807,7 @@ export interface TypefaceUpdateWithoutDesignersDataInput {
   name?: String;
   downloadUrl?: String;
   description?: String;
+  slug?: String;
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
   foundry?: FoundryUpdateOneWithoutFontsInput;
@@ -825,6 +849,7 @@ export interface TypefaceCreateWithoutFoundryInput {
   name: String;
   downloadUrl: String;
   description?: String;
+  slug: String;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput;
   addedBy: UserCreateOneWithoutTypefacesInput;
   designers?: DesignerCreateManyWithoutTypefacesInput;
@@ -834,6 +859,7 @@ export interface WebsiteUpdateWithoutTypefacesDataInput {
   isPublished?: Boolean;
   title?: String;
   thumbnail?: String;
+  slug?: String;
   url?: String;
   image?: String;
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput;
@@ -945,6 +971,7 @@ export interface TypefaceUpdateWithoutAddedByDataInput {
   name?: String;
   downloadUrl?: String;
   description?: String;
+  slug?: String;
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
   foundry?: FoundryUpdateOneWithoutFontsInput;
   designers?: DesignerUpdateManyWithoutTypefacesInput;
@@ -1002,6 +1029,7 @@ export interface WebsiteCreateInput {
   isPublished?: Boolean;
   title: String;
   thumbnail: String;
+  slug?: String;
   url: String;
   image: String;
   addedBy: UserCreateOneWithoutWebsitesInput;
@@ -1095,6 +1123,20 @@ export interface TypefaceWhereInput {
   description_not_starts_with?: String;
   description_ends_with?: String;
   description_not_ends_with?: String;
+  slug?: String;
+  slug_not?: String;
+  slug_in?: String[] | String;
+  slug_not_in?: String[] | String;
+  slug_lt?: String;
+  slug_lte?: String;
+  slug_gt?: String;
+  slug_gte?: String;
+  slug_contains?: String;
+  slug_not_contains?: String;
+  slug_starts_with?: String;
+  slug_not_starts_with?: String;
+  slug_ends_with?: String;
+  slug_not_ends_with?: String;
   usedBy_every?: WebsiteWhereInput;
   usedBy_some?: WebsiteWhereInput;
   usedBy_none?: WebsiteWhereInput;
@@ -1163,6 +1205,7 @@ export interface TypefaceCreateWithoutDesignersInput {
   name: String;
   downloadUrl: String;
   description?: String;
+  slug: String;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput;
   addedBy: UserCreateOneWithoutTypefacesInput;
   foundry?: FoundryCreateOneWithoutFontsInput;
@@ -1318,6 +1361,7 @@ export interface TypefaceCreateInput {
   name: String;
   downloadUrl: String;
   description?: String;
+  slug: String;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput;
   addedBy: UserCreateOneWithoutTypefacesInput;
   foundry?: FoundryCreateOneWithoutFontsInput;
@@ -1328,6 +1372,7 @@ export interface WebsiteUpdateWithoutAddedByDataInput {
   isPublished?: Boolean;
   title?: String;
   thumbnail?: String;
+  slug?: String;
   url?: String;
   image?: String;
   typefaces?: TypefaceUpdateManyWithoutUsedByInput;
@@ -1459,6 +1504,7 @@ export interface TypefaceUpdateWithoutUsedByDataInput {
   name?: String;
   downloadUrl?: String;
   description?: String;
+  slug?: String;
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
   foundry?: FoundryUpdateOneWithoutFontsInput;
   designers?: DesignerUpdateManyWithoutTypefacesInput;
@@ -1468,6 +1514,7 @@ export interface WebsiteUpdateInput {
   isPublished?: Boolean;
   title?: String;
   thumbnail?: String;
+  slug?: String;
   url?: String;
   image?: String;
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput;
@@ -1479,6 +1526,7 @@ export interface WebsiteCreateWithoutTypefacesInput {
   isPublished?: Boolean;
   title: String;
   thumbnail: String;
+  slug?: String;
   url: String;
   image: String;
   addedBy: UserCreateOneWithoutWebsitesInput;
@@ -1495,6 +1543,7 @@ export interface TypefaceUpdateWithoutFoundryDataInput {
   name?: String;
   downloadUrl?: String;
   description?: String;
+  slug?: String;
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
   designers?: DesignerUpdateManyWithoutTypefacesInput;
@@ -1504,6 +1553,7 @@ export interface TypefaceUpdateManyMutationInput {
   name?: String;
   downloadUrl?: String;
   description?: String;
+  slug?: String;
 }
 
 export interface NodeNode {
@@ -1515,6 +1565,7 @@ export interface WebsitePreviousValues {
   isPublished: Boolean;
   title: String;
   thumbnail: String;
+  slug?: String;
   url: String;
   image: String;
   featured: Boolean;
@@ -1527,6 +1578,7 @@ export interface WebsitePreviousValuesPromise
   isPublished: () => Promise<Boolean>;
   title: () => Promise<String>;
   thumbnail: () => Promise<String>;
+  slug: () => Promise<String>;
   url: () => Promise<String>;
   image: () => Promise<String>;
   featured: () => Promise<Boolean>;
@@ -1539,6 +1591,7 @@ export interface WebsitePreviousValuesSubscription
   isPublished: () => Promise<AsyncIterator<Boolean>>;
   title: () => Promise<AsyncIterator<String>>;
   thumbnail: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
   image: () => Promise<AsyncIterator<String>>;
   featured: () => Promise<AsyncIterator<Boolean>>;
@@ -1581,6 +1634,7 @@ export interface Typeface {
   name: String;
   downloadUrl: String;
   description?: String;
+  slug: String;
 }
 
 export interface TypefacePromise extends Promise<Typeface>, Fragmentable {
@@ -1588,6 +1642,7 @@ export interface TypefacePromise extends Promise<Typeface>, Fragmentable {
   name: () => Promise<String>;
   downloadUrl: () => Promise<String>;
   description: () => Promise<String>;
+  slug: () => Promise<String>;
   usedBy: <T = FragmentableArray<Website>>(
     args?: {
       where?: WebsiteWhereInput;
@@ -1621,6 +1676,7 @@ export interface TypefaceSubscription
   name: () => Promise<AsyncIterator<String>>;
   downloadUrl: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
   usedBy: <T = Promise<AsyncIterator<WebsiteSubscription>>>(
     args?: {
       where?: WebsiteWhereInput;
@@ -1777,6 +1833,7 @@ export interface Website {
   isPublished: Boolean;
   title: String;
   thumbnail: String;
+  slug?: String;
   url: String;
   image: String;
   featured: Boolean;
@@ -1787,6 +1844,7 @@ export interface WebsitePromise extends Promise<Website>, Fragmentable {
   isPublished: () => Promise<Boolean>;
   title: () => Promise<String>;
   thumbnail: () => Promise<String>;
+  slug: () => Promise<String>;
   url: () => Promise<String>;
   image: () => Promise<String>;
   addedBy: <T = UserPromise>() => T;
@@ -1811,6 +1869,7 @@ export interface WebsiteSubscription
   isPublished: () => Promise<AsyncIterator<Boolean>>;
   title: () => Promise<AsyncIterator<String>>;
   thumbnail: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
   image: () => Promise<AsyncIterator<String>>;
   addedBy: <T = UserSubscription>() => T;
@@ -2294,6 +2353,7 @@ export interface TypefacePreviousValues {
   name: String;
   downloadUrl: String;
   description?: String;
+  slug: String;
 }
 
 export interface TypefacePreviousValuesPromise
@@ -2303,6 +2363,7 @@ export interface TypefacePreviousValuesPromise
   name: () => Promise<String>;
   downloadUrl: () => Promise<String>;
   description: () => Promise<String>;
+  slug: () => Promise<String>;
 }
 
 export interface TypefacePreviousValuesSubscription
@@ -2312,6 +2373,7 @@ export interface TypefacePreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
   downloadUrl: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TypefaceSubscriptionPayload {
