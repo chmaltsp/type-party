@@ -31,5 +31,5 @@ export const isRequestingUserAlsoOwner = ({
     id: userId,
   };
 
-  return ctx.db.exists.Post(existsInput);
+  return ctx.db.exists.Website(existsInput);
 };
