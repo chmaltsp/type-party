@@ -1,12 +1,12 @@
+type AggregateDesigner {
+  count: Int!
+}
+
 type AggregateFile {
   count: Int!
 }
 
 type AggregateFoundry {
-  count: Int!
-}
-
-type AggregatePost {
   count: Int!
 }
 
@@ -27,6 +27,169 @@ type BatchPayload {
 }
 
 scalar DateTime
+
+type Designer {
+  id: ID!
+  name: String!
+  url: String!
+  typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+}
+
+type DesignerConnection {
+  pageInfo: PageInfo!
+  edges: [DesignerEdge]!
+  aggregate: AggregateDesigner!
+}
+
+input DesignerCreateInput {
+  name: String!
+  url: String!
+  typefaces: TypefaceCreateManyWithoutDesignersInput
+}
+
+input DesignerCreateManyWithoutTypefacesInput {
+  create: [DesignerCreateWithoutTypefacesInput!]
+  connect: [DesignerWhereUniqueInput!]
+}
+
+input DesignerCreateWithoutTypefacesInput {
+  name: String!
+  url: String!
+}
+
+type DesignerEdge {
+  node: Designer!
+  cursor: String!
+}
+
+enum DesignerOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  url_ASC
+  url_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type DesignerPreviousValues {
+  id: ID!
+  name: String!
+  url: String!
+}
+
+type DesignerSubscriptionPayload {
+  mutation: MutationType!
+  node: Designer
+  updatedFields: [String!]
+  previousValues: DesignerPreviousValues
+}
+
+input DesignerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: DesignerWhereInput
+  AND: [DesignerSubscriptionWhereInput!]
+  OR: [DesignerSubscriptionWhereInput!]
+  NOT: [DesignerSubscriptionWhereInput!]
+}
+
+input DesignerUpdateInput {
+  name: String
+  url: String
+  typefaces: TypefaceUpdateManyWithoutDesignersInput
+}
+
+input DesignerUpdateManyMutationInput {
+  name: String
+  url: String
+}
+
+input DesignerUpdateManyWithoutTypefacesInput {
+  create: [DesignerCreateWithoutTypefacesInput!]
+  delete: [DesignerWhereUniqueInput!]
+  connect: [DesignerWhereUniqueInput!]
+  disconnect: [DesignerWhereUniqueInput!]
+  update: [DesignerUpdateWithWhereUniqueWithoutTypefacesInput!]
+  upsert: [DesignerUpsertWithWhereUniqueWithoutTypefacesInput!]
+}
+
+input DesignerUpdateWithoutTypefacesDataInput {
+  name: String
+  url: String
+}
+
+input DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
+  where: DesignerWhereUniqueInput!
+  data: DesignerUpdateWithoutTypefacesDataInput!
+}
+
+input DesignerUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: DesignerWhereUniqueInput!
+  update: DesignerUpdateWithoutTypefacesDataInput!
+  create: DesignerCreateWithoutTypefacesInput!
+}
+
+input DesignerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  url: String
+  url_not: String
+  url_in: [String!]
+  url_not_in: [String!]
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  typefaces_every: TypefaceWhereInput
+  typefaces_some: TypefaceWhereInput
+  typefaces_none: TypefaceWhereInput
+  AND: [DesignerWhereInput!]
+  OR: [DesignerWhereInput!]
+  NOT: [DesignerWhereInput!]
+}
+
+input DesignerWhereUniqueInput {
+  id: ID
+  name: String
+}
 
 type File {
   id: ID!
@@ -215,8 +378,8 @@ input FileWhereUniqueInput {
 type Foundry {
   id: ID!
   name: String!
+  url: String!
   fonts(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
-  url: String
 }
 
 type FoundryConnection {
@@ -227,8 +390,8 @@ type FoundryConnection {
 
 input FoundryCreateInput {
   name: String!
+  url: String!
   fonts: TypefaceCreateManyWithoutFoundryInput
-  url: String
 }
 
 input FoundryCreateOneWithoutFontsInput {
@@ -238,7 +401,7 @@ input FoundryCreateOneWithoutFontsInput {
 
 input FoundryCreateWithoutFontsInput {
   name: String!
-  url: String
+  url: String!
 }
 
 type FoundryEdge {
@@ -262,7 +425,7 @@ enum FoundryOrderByInput {
 type FoundryPreviousValues {
   id: ID!
   name: String!
-  url: String
+  url: String!
 }
 
 type FoundrySubscriptionPayload {
@@ -285,8 +448,8 @@ input FoundrySubscriptionWhereInput {
 
 input FoundryUpdateInput {
   name: String
-  fonts: TypefaceUpdateManyWithoutFoundryInput
   url: String
+  fonts: TypefaceUpdateManyWithoutFoundryInput
 }
 
 input FoundryUpdateManyMutationInput {
@@ -342,9 +505,6 @@ input FoundryWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  fonts_every: TypefaceWhereInput
-  fonts_some: TypefaceWhereInput
-  fonts_none: TypefaceWhereInput
   url: String
   url_not: String
   url_in: [String!]
@@ -359,6 +519,9 @@ input FoundryWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
+  fonts_every: TypefaceWhereInput
+  fonts_some: TypefaceWhereInput
+  fonts_none: TypefaceWhereInput
   AND: [FoundryWhereInput!]
   OR: [FoundryWhereInput!]
   NOT: [FoundryWhereInput!]
@@ -371,6 +534,12 @@ input FoundryWhereUniqueInput {
 scalar Long
 
 type Mutation {
+  createDesigner(data: DesignerCreateInput!): Designer!
+  updateDesigner(data: DesignerUpdateInput!, where: DesignerWhereUniqueInput!): Designer
+  updateManyDesigners(data: DesignerUpdateManyMutationInput!, where: DesignerWhereInput): BatchPayload!
+  upsertDesigner(where: DesignerWhereUniqueInput!, create: DesignerCreateInput!, update: DesignerUpdateInput!): Designer!
+  deleteDesigner(where: DesignerWhereUniqueInput!): Designer
+  deleteManyDesigners(where: DesignerWhereInput): BatchPayload!
   createFile(data: FileCreateInput!): File!
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
@@ -383,12 +552,6 @@ type Mutation {
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
   deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
   updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
@@ -426,207 +589,16 @@ type PageInfo {
   endCursor: String
 }
 
-type Post {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isPublished: Boolean!
-  title: String!
-  text: String!
-  author: User!
-}
-
-type PostConnection {
-  pageInfo: PageInfo!
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
-}
-
-input PostCreateInput {
-  isPublished: Boolean
-  title: String!
-  text: String!
-  author: UserCreateOneWithoutPostsInput!
-}
-
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-input PostCreateWithoutAuthorInput {
-  isPublished: Boolean
-  title: String!
-  text: String!
-}
-
-type PostEdge {
-  node: Post!
-  cursor: String!
-}
-
-enum PostOrderByInput {
-  id_ASC
-  id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  isPublished_ASC
-  isPublished_DESC
-  title_ASC
-  title_DESC
-  text_ASC
-  text_DESC
-}
-
-type PostPreviousValues {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isPublished: Boolean!
-  title: String!
-  text: String!
-}
-
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  node: Post
-  updatedFields: [String!]
-  previousValues: PostPreviousValues
-}
-
-input PostSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: PostWhereInput
-  AND: [PostSubscriptionWhereInput!]
-  OR: [PostSubscriptionWhereInput!]
-  NOT: [PostSubscriptionWhereInput!]
-}
-
-input PostUpdateInput {
-  isPublished: Boolean
-  title: String
-  text: String
-  author: UserUpdateOneRequiredWithoutPostsInput
-}
-
-input PostUpdateManyMutationInput {
-  isPublished: Boolean
-  title: String
-  text: String
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  delete: [PostWhereUniqueInput!]
-  connect: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-}
-
-input PostUpdateWithoutAuthorDataInput {
-  isPublished: Boolean
-  title: String
-  text: String
-}
-
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
-}
-
-input PostWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  isPublished: Boolean
-  isPublished_not: Boolean
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  text: String
-  text_not: String
-  text_in: [String!]
-  text_not_in: [String!]
-  text_lt: String
-  text_lte: String
-  text_gt: String
-  text_gte: String
-  text_contains: String
-  text_not_contains: String
-  text_starts_with: String
-  text_not_starts_with: String
-  text_ends_with: String
-  text_not_ends_with: String
-  author: UserWhereInput
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-}
-
-input PostWhereUniqueInput {
-  id: ID
-}
-
 type Query {
+  designer(where: DesignerWhereUniqueInput!): Designer
+  designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer]!
+  designersConnection(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DesignerConnection!
   file(where: FileWhereUniqueInput!): File
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   foundry(where: FoundryWhereUniqueInput!): Foundry
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
-  post(where: PostWhereUniqueInput!): Post
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   typeface(where: TypefaceWhereUniqueInput!): Typeface
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
   typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
@@ -645,9 +617,9 @@ enum Role {
 }
 
 type Subscription {
+  designer(where: DesignerSubscriptionWhereInput): DesignerSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
@@ -656,12 +628,12 @@ type Subscription {
 type Typeface {
   id: ID!
   name: String!
+  downloadUrl: String!
+  description: String
   usedBy(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
-  imageUrl: String
-  thumbnail: String
   addedBy: User!
   foundry: Foundry
-  designer: String
+  designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer!]
 }
 
 type TypefaceConnection {
@@ -672,16 +644,21 @@ type TypefaceConnection {
 
 input TypefaceCreateInput {
   name: String!
+  downloadUrl: String!
+  description: String
   usedBy: WebsiteCreateManyWithoutTypefacesInput
-  imageUrl: String
-  thumbnail: String
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
-  designer: String
+  designers: DesignerCreateManyWithoutTypefacesInput
 }
 
 input TypefaceCreateManyWithoutAddedByInput {
   create: [TypefaceCreateWithoutAddedByInput!]
+  connect: [TypefaceWhereUniqueInput!]
+}
+
+input TypefaceCreateManyWithoutDesignersInput {
+  create: [TypefaceCreateWithoutDesignersInput!]
   connect: [TypefaceWhereUniqueInput!]
 }
 
@@ -697,29 +674,38 @@ input TypefaceCreateManyWithoutUsedByInput {
 
 input TypefaceCreateWithoutAddedByInput {
   name: String!
+  downloadUrl: String!
+  description: String
   usedBy: WebsiteCreateManyWithoutTypefacesInput
-  imageUrl: String
-  thumbnail: String
   foundry: FoundryCreateOneWithoutFontsInput
-  designer: String
+  designers: DesignerCreateManyWithoutTypefacesInput
+}
+
+input TypefaceCreateWithoutDesignersInput {
+  name: String!
+  downloadUrl: String!
+  description: String
+  usedBy: WebsiteCreateManyWithoutTypefacesInput
+  addedBy: UserCreateOneWithoutTypefacesInput!
+  foundry: FoundryCreateOneWithoutFontsInput
 }
 
 input TypefaceCreateWithoutFoundryInput {
   name: String!
+  downloadUrl: String!
+  description: String
   usedBy: WebsiteCreateManyWithoutTypefacesInput
-  imageUrl: String
-  thumbnail: String
   addedBy: UserCreateOneWithoutTypefacesInput!
-  designer: String
+  designers: DesignerCreateManyWithoutTypefacesInput
 }
 
 input TypefaceCreateWithoutUsedByInput {
   name: String!
-  imageUrl: String
-  thumbnail: String
+  downloadUrl: String!
+  description: String
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundry: FoundryCreateOneWithoutFontsInput
-  designer: String
+  designers: DesignerCreateManyWithoutTypefacesInput
 }
 
 type TypefaceEdge {
@@ -732,12 +718,10 @@ enum TypefaceOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  imageUrl_ASC
-  imageUrl_DESC
-  thumbnail_ASC
-  thumbnail_DESC
-  designer_ASC
-  designer_DESC
+  downloadUrl_ASC
+  downloadUrl_DESC
+  description_ASC
+  description_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -747,9 +731,8 @@ enum TypefaceOrderByInput {
 type TypefacePreviousValues {
   id: ID!
   name: String!
-  imageUrl: String
-  thumbnail: String
-  designer: String
+  downloadUrl: String!
+  description: String
 }
 
 type TypefaceSubscriptionPayload {
@@ -772,19 +755,18 @@ input TypefaceSubscriptionWhereInput {
 
 input TypefaceUpdateInput {
   name: String
+  downloadUrl: String
+  description: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  imageUrl: String
-  thumbnail: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
-  designer: String
+  designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
 input TypefaceUpdateManyMutationInput {
   name: String
-  imageUrl: String
-  thumbnail: String
-  designer: String
+  downloadUrl: String
+  description: String
 }
 
 input TypefaceUpdateManyWithoutAddedByInput {
@@ -794,6 +776,15 @@ input TypefaceUpdateManyWithoutAddedByInput {
   disconnect: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutAddedByInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutAddedByInput!]
+}
+
+input TypefaceUpdateManyWithoutDesignersInput {
+  create: [TypefaceCreateWithoutDesignersInput!]
+  delete: [TypefaceWhereUniqueInput!]
+  connect: [TypefaceWhereUniqueInput!]
+  disconnect: [TypefaceWhereUniqueInput!]
+  update: [TypefaceUpdateWithWhereUniqueWithoutDesignersInput!]
+  upsert: [TypefaceUpsertWithWhereUniqueWithoutDesignersInput!]
 }
 
 input TypefaceUpdateManyWithoutFoundryInput {
@@ -816,34 +807,48 @@ input TypefaceUpdateManyWithoutUsedByInput {
 
 input TypefaceUpdateWithoutAddedByDataInput {
   name: String
+  downloadUrl: String
+  description: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  imageUrl: String
-  thumbnail: String
   foundry: FoundryUpdateOneWithoutFontsInput
-  designer: String
+  designers: DesignerUpdateManyWithoutTypefacesInput
+}
+
+input TypefaceUpdateWithoutDesignersDataInput {
+  name: String
+  downloadUrl: String
+  description: String
+  usedBy: WebsiteUpdateManyWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
+  foundry: FoundryUpdateOneWithoutFontsInput
 }
 
 input TypefaceUpdateWithoutFoundryDataInput {
   name: String
+  downloadUrl: String
+  description: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  imageUrl: String
-  thumbnail: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  designer: String
+  designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
 input TypefaceUpdateWithoutUsedByDataInput {
   name: String
-  imageUrl: String
-  thumbnail: String
+  downloadUrl: String
+  description: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundry: FoundryUpdateOneWithoutFontsInput
-  designer: String
+  designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
 input TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
   where: TypefaceWhereUniqueInput!
   data: TypefaceUpdateWithoutAddedByDataInput!
+}
+
+input TypefaceUpdateWithWhereUniqueWithoutDesignersInput {
+  where: TypefaceWhereUniqueInput!
+  data: TypefaceUpdateWithoutDesignersDataInput!
 }
 
 input TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
@@ -860,6 +865,12 @@ input TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
   where: TypefaceWhereUniqueInput!
   update: TypefaceUpdateWithoutAddedByDataInput!
   create: TypefaceCreateWithoutAddedByInput!
+}
+
+input TypefaceUpsertWithWhereUniqueWithoutDesignersInput {
+  where: TypefaceWhereUniqueInput!
+  update: TypefaceUpdateWithoutDesignersDataInput!
+  create: TypefaceCreateWithoutDesignersInput!
 }
 
 input TypefaceUpsertWithWhereUniqueWithoutFoundryInput {
@@ -903,53 +914,42 @@ input TypefaceWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  downloadUrl: String
+  downloadUrl_not: String
+  downloadUrl_in: [String!]
+  downloadUrl_not_in: [String!]
+  downloadUrl_lt: String
+  downloadUrl_lte: String
+  downloadUrl_gt: String
+  downloadUrl_gte: String
+  downloadUrl_contains: String
+  downloadUrl_not_contains: String
+  downloadUrl_starts_with: String
+  downloadUrl_not_starts_with: String
+  downloadUrl_ends_with: String
+  downloadUrl_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
   usedBy_every: WebsiteWhereInput
   usedBy_some: WebsiteWhereInput
   usedBy_none: WebsiteWhereInput
-  imageUrl: String
-  imageUrl_not: String
-  imageUrl_in: [String!]
-  imageUrl_not_in: [String!]
-  imageUrl_lt: String
-  imageUrl_lte: String
-  imageUrl_gt: String
-  imageUrl_gte: String
-  imageUrl_contains: String
-  imageUrl_not_contains: String
-  imageUrl_starts_with: String
-  imageUrl_not_starts_with: String
-  imageUrl_ends_with: String
-  imageUrl_not_ends_with: String
-  thumbnail: String
-  thumbnail_not: String
-  thumbnail_in: [String!]
-  thumbnail_not_in: [String!]
-  thumbnail_lt: String
-  thumbnail_lte: String
-  thumbnail_gt: String
-  thumbnail_gte: String
-  thumbnail_contains: String
-  thumbnail_not_contains: String
-  thumbnail_starts_with: String
-  thumbnail_not_starts_with: String
-  thumbnail_ends_with: String
-  thumbnail_not_ends_with: String
   addedBy: UserWhereInput
   foundry: FoundryWhereInput
-  designer: String
-  designer_not: String
-  designer_in: [String!]
-  designer_not_in: [String!]
-  designer_lt: String
-  designer_lte: String
-  designer_gt: String
-  designer_gte: String
-  designer_contains: String
-  designer_not_contains: String
-  designer_starts_with: String
-  designer_not_starts_with: String
-  designer_ends_with: String
-  designer_not_ends_with: String
+  designers_every: DesignerWhereInput
+  designers_some: DesignerWhereInput
+  designers_none: DesignerWhereInput
   AND: [TypefaceWhereInput!]
   OR: [TypefaceWhereInput!]
   NOT: [TypefaceWhereInput!]
@@ -965,7 +965,6 @@ type User {
   password: String!
   name: String!
   role: Role!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
 }
@@ -981,14 +980,8 @@ input UserCreateInput {
   password: String!
   name: String!
   role: Role
-  posts: PostCreateManyWithoutAuthorInput
   websites: WebsiteCreateManyWithoutAddedByInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
-}
-
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutTypefacesInput {
@@ -1001,21 +994,11 @@ input UserCreateOneWithoutWebsitesInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutPostsInput {
-  email: String!
-  password: String!
-  name: String!
-  role: Role
-  websites: WebsiteCreateManyWithoutAddedByInput
-  typefaces: TypefaceCreateManyWithoutAddedByInput
-}
-
 input UserCreateWithoutTypefacesInput {
   email: String!
   password: String!
   name: String!
   role: Role
-  posts: PostCreateManyWithoutAuthorInput
   websites: WebsiteCreateManyWithoutAddedByInput
 }
 
@@ -1024,7 +1007,6 @@ input UserCreateWithoutWebsitesInput {
   password: String!
   name: String!
   role: Role
-  posts: PostCreateManyWithoutAuthorInput
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
 
@@ -1081,7 +1063,6 @@ input UserUpdateInput {
   password: String
   name: String
   role: Role
-  posts: PostUpdateManyWithoutAuthorInput
   websites: WebsiteUpdateManyWithoutAddedByInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
@@ -1091,13 +1072,6 @@ input UserUpdateManyMutationInput {
   password: String
   name: String
   role: Role
-}
-
-input UserUpdateOneRequiredWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
-  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutTypefacesInput {
@@ -1114,21 +1088,11 @@ input UserUpdateOneRequiredWithoutWebsitesInput {
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateWithoutPostsDataInput {
-  email: String
-  password: String
-  name: String
-  role: Role
-  websites: WebsiteUpdateManyWithoutAddedByInput
-  typefaces: TypefaceUpdateManyWithoutAddedByInput
-}
-
 input UserUpdateWithoutTypefacesDataInput {
   email: String
   password: String
   name: String
   role: Role
-  posts: PostUpdateManyWithoutAuthorInput
   websites: WebsiteUpdateManyWithoutAddedByInput
 }
 
@@ -1137,13 +1101,7 @@ input UserUpdateWithoutWebsitesDataInput {
   password: String
   name: String
   role: Role
-  posts: PostUpdateManyWithoutAuthorInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
-}
-
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
 }
 
 input UserUpsertWithoutTypefacesInput {
@@ -1217,9 +1175,6 @@ input UserWhereInput {
   role_not: Role
   role_in: [Role!]
   role_not_in: [Role!]
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
   websites_every: WebsiteWhereInput
   websites_some: WebsiteWhereInput
   websites_none: WebsiteWhereInput
