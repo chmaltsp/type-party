@@ -1,4 +1,3 @@
-# import Post from "./generated/prisma.graphql"
 # import Website from "./generated/prisma.graphql"
 # import File from "./generated/prisma.graphql"
 # import Role from "./generated/prisma.graphql"
@@ -18,9 +17,6 @@ directive @isOwner(
 
 
 type Query {
-  feed: [Post!]! 
-  drafts: [Post!]!
-  post(id: ID!): Post
   me: User @isAuthenticated
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
   websites: [Website!]!
@@ -31,9 +27,6 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   addWebsite(title: String!, thumbnail: String!, url: String!, image: String): Website!
-  createDraft(title: String!, text: String!): Post!
-  publish(id: ID!): Post! @isOwner(type: "Post", field: "author")
-  deletePost(id: ID!): Post!
   uploadImage(file: Upload!): File
 }
 
@@ -46,7 +39,6 @@ type User {
   id: ID!
   email: String!
   name: String!
-  posts: [Post!]!
   role: Role
   websites: [Website!]!
 }
