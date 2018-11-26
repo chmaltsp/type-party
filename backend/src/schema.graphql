@@ -34,7 +34,7 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   addWebsite(title: String!, thumbnail: String!, url: String!, image: String): Website!
-  addTypeface(input: TypefaceCreateInput): Typeface
+  addTypeface(input: TypefaceCreateInput): Typeface @isAuthenticated
   uploadImage(file: Upload!): File
 }
 

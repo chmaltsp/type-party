@@ -31,7 +31,8 @@ const authLink = setContext((_, { headers }) => {
   if (token) {
     allHeaders.Authorization = token ? `Bearer ${token}` : null;
   }
-  return allHeaders;
+
+  return { headers: allHeaders };
 });
 
 const client = new ApolloClient({
