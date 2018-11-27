@@ -44,11 +44,13 @@ interface MultiDownshiftProps {
   selectedItems: any;
 }
 
-export const equalByString = (
-  itemA: any,
-  itemB: any,
-  itemToString: (item: any) => string
-) => itemToString(itemA) === itemToString(itemB);
+type EqualByStringUtil = <T = {}>(
+  itemA: T,
+  itemB: T,
+  itemToString: (item: T) => string
+) => boolean;
+export const equalByString: EqualByStringUtil = (itemA, itemB, itemToString) =>
+  itemToString(itemA) === itemToString(itemB);
 export default class Autocomplete<Item extends ItemDefault> extends React.Component<
   AutocompleteProps<Item>
 > {
@@ -133,7 +135,11 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
                           index,
                           isActive: index === highlightedIndex,
                           isSelected: selectedItems.find((selectedItem: any) =>
-                            equalByString(selectedItem, item, this.props.itemToString)
+                            equalByString<Item>(
+                              selectedItem,
+                              item,
+                              this.props.itemToString
+                            )
                           ),
                           item,
                           key: item.value,
