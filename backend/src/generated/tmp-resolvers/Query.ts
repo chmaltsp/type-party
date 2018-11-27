@@ -17,4 +17,7 @@ export const Query: QueryResolvers.Type = {
   userWebsites: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  findTypefaces: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };

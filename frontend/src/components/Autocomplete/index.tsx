@@ -35,6 +35,7 @@ export interface AutocompleteProps<Item> {
   items: Item[];
   itemToString: (item: Item) => string;
   handleOnChange: (selection: Item[]) => void;
+  handleSearch?: (search: string | null) => void;
 }
 
 interface MultiDownshiftProps {
@@ -42,6 +43,12 @@ interface MultiDownshiftProps {
   getRemoveButtonProps: (item: any) => RemoveButtonProps;
   selectedItems: any;
 }
+
+export const equalByString = (
+  itemA: any,
+  itemB: any,
+  itemToString: (item: any) => string
+) => itemToString(itemA) === itemToString(itemB);
 export default class Autocomplete<Item extends ItemDefault> extends React.Component<
   AutocompleteProps<Item>
 > {
@@ -105,6 +112,9 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
                     if (event.key === 'Backspace' && !inputValue) {
                       removeItem(selectedItems[selectedItems.length - 1]);
                     }
+                    if (this.props.handleSearch) {
+                      this.props.handleSearch(inputValue);
+                    }
                   },
                 })}
               />
@@ -112,13 +122,19 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
             <ListWrapper {...getMenuProps()}>
               {isOpen
                 ? this.props.items
-                    .filter(item => !inputValue || item.value.includes(inputValue))
+                    .filter(
+                      item =>
+                        !inputValue ||
+                        item.value.toLowerCase().includes(inputValue.toLowerCase())
+                    )
                     .map((item, index) => (
                       <ListItem
                         {...getItemProps({
                           index,
                           isActive: index === highlightedIndex,
-                          isSelected: selectedItems.includes(item),
+                          isSelected: selectedItems.find((selectedItem: any) =>
+                            equalByString(selectedItem, item, this.props.itemToString)
+                          ),
                           item,
                           key: item.value,
                         } as any)}

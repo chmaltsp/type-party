@@ -23,6 +23,7 @@ type Query {
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
   websites: [Website!]!
   userWebsites: [Website!]! 
+  findTypefaces(search: String!): [Typeface!]!
 }
 
 input TypefaceInput {

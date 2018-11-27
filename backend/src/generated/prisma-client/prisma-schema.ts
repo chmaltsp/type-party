@@ -529,6 +529,7 @@ input FoundryWhereInput {
 
 input FoundryWhereUniqueInput {
   id: ID
+  name: String
 }
 
 scalar Long
@@ -986,6 +987,7 @@ input TypefaceWhereInput {
 
 input TypefaceWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type User {

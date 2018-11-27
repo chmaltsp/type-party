@@ -1195,6 +1195,7 @@ input FoundryWhereInput {
 
 input FoundryWhereUniqueInput {
   id: ID
+  name: String
 }
 
 """
@@ -2066,6 +2067,7 @@ input TypefaceWhereInput {
 
 input TypefaceWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type User implements Node {
@@ -3742,6 +3744,7 @@ export interface FoundryWhereInput {
 
 export interface FoundryWhereUniqueInput {
   id?: ID_Input
+  name?: String
 }
 
 export interface TypefaceCreateInput {
@@ -4146,6 +4149,7 @@ export interface TypefaceWhereInput {
 
 export interface TypefaceWhereUniqueInput {
   id?: ID_Input
+  name?: String
 }
 
 export interface UserCreateInput {

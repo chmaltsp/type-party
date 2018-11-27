@@ -4,6 +4,7 @@ import Downshift, {
   StateChangeOptions,
 } from 'downshift';
 import * as React from 'react';
+import { equalByString } from '.';
 import { ListItemProps } from './styles';
 
 interface MultiDownshiftState {
@@ -21,7 +22,7 @@ interface MultiDownshiftProps {
     selectedItems: string[],
     downshift: ControllerStateAndHelpers<ListItemProps>
   ) => void;
-  itemToString?: (item: any) => string;
+  itemToString: (item: any) => string;
 }
 
 export interface RemoveButtonProps {
@@ -64,8 +65,13 @@ class MultiDownshift extends React.Component<MultiDownshiftProps, MultiDownshift
         onChange(selectedItems, this.getStateAndHelpers(downshift));
       }
     };
+
     // @ts-ignore
-    if (this.state.selectedItems.includes(selectedItem)) {
+    if (
+      this.state.selectedItems.find(item =>
+        equalByString(item, selectedItem, this.props.itemToString)
+      )
+    ) {
       this.removeItem(selectedItem, callOnChange);
     } else {
       this.addSelectedItem(selectedItem, callOnChange);
@@ -75,7 +81,9 @@ class MultiDownshift extends React.Component<MultiDownshiftProps, MultiDownshift
   public removeItem = (item: any, cb?: any) => {
     this.setState(({ selectedItems }) => {
       return {
-        selectedItems: selectedItems.filter(i => i !== item),
+        selectedItems: selectedItems.filter(
+          i => !equalByString(i, item, this.props.itemToString)
+        ),
       };
     },            cb);
   }
