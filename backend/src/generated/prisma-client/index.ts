@@ -753,6 +753,7 @@ export interface TypefaceCreateWithoutUsedByInput {
 
 export type FoundryWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  name?: String;
 }>;
 
 export interface DesignerUpdateInput {
@@ -1157,6 +1158,7 @@ export interface DesignerUpdateWithoutTypefacesDataInput {
 
 export type TypefaceWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  name?: String;
 }>;
 
 export interface DesignerUpsertWithWhereUniqueWithoutTypefacesInput {

@@ -57,6 +57,10 @@ type DesignerOrderByInput =
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
+  export interface ArgsFindTypefaces {
+    search: string;
+  }
+
   export type MeResolver = (
     parent: undefined,
     args: {},
@@ -84,6 +88,13 @@ export namespace QueryResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Website[] | Promise<Website[]>;
+
+  export type FindTypefacesResolver = (
+    parent: undefined,
+    args: ArgsFindTypefaces,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Typeface[] | Promise<Typeface[]>;
 
   export interface Type {
     me: (
@@ -113,6 +124,13 @@ export namespace QueryResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Website[] | Promise<Website[]>;
+
+    findTypefaces: (
+      parent: undefined,
+      args: ArgsFindTypefaces,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Typeface[] | Promise<Typeface[]>;
   }
 }
 
@@ -2142,6 +2160,7 @@ export namespace MutationResolvers {
   }
   export interface FoundryWhereUniqueInput {
     id: string | null;
+    name: string | null;
   }
   export interface DesignerCreateManyWithoutTypefacesInput {
     create: DesignerCreateWithoutTypefacesInput[];
@@ -2157,6 +2176,7 @@ export namespace MutationResolvers {
   }
   export interface TypefaceWhereUniqueInput {
     id: string | null;
+    name: string | null;
   }
   export interface UserWhereUniqueInput {
     id: string | null;

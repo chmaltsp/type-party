@@ -37,6 +37,7 @@ export interface FoundryCreateWithoutFontsInput {
 
 export interface FoundryWhereUniqueInput {
   id?: string | null;
+  name?: string | null;
 }
 
 export interface TypefaceCreateInput {
@@ -82,6 +83,7 @@ export interface TypefaceCreateWithoutUsedByInput {
 
 export interface TypefaceWhereUniqueInput {
   id?: string | null;
+  name?: string | null;
 }
 
 export interface UserCreateOneWithoutTypefacesInput {
