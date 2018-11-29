@@ -20,4 +20,7 @@ export const Query: QueryResolvers.Type = {
   findTypefaces: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  findDesigners: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };

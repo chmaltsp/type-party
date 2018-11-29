@@ -4,82 +4,82 @@ import { Options } from 'graphql-binding'
 import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
-    users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     websites: <T = Website[]>(args: { where?: WebsiteWhereInput, orderBy?: WebsiteOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     designers: <T = Designer[]>(args: { where?: DesignerWhereInput, orderBy?: DesignerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     typefaces: <T = Typeface[]>(args: { where?: TypefaceWhereInput, orderBy?: TypefaceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     foundries: <T = Foundry[]>(args: { where?: FoundryWhereInput, orderBy?: FoundryOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     files: <T = File[]>(args: { where?: FileWhereInput, orderBy?: FileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    user: <T = User>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     website: <T = Website>(args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     designer: <T = Designer>(args: { where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     typeface: <T = Typeface>(args: { where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     foundry: <T = Foundry>(args: { where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     file: <T = File>(args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    user: <T = User>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     websitesConnection: <T = WebsiteConnection>(args: { where?: WebsiteWhereInput, orderBy?: WebsiteOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     designersConnection: <T = DesignerConnection>(args: { where?: DesignerWhereInput, orderBy?: DesignerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     typefacesConnection: <T = TypefaceConnection>(args: { where?: TypefaceWhereInput, orderBy?: TypefaceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     foundriesConnection: <T = FoundryConnection>(args: { where?: FoundryWhereInput, orderBy?: FoundryOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     filesConnection: <T = FileConnection>(args: { where?: FileWhereInput, orderBy?: FileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
   }
 
 export interface Mutation {
-    createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createWebsite: <T = Website>(args: { data: WebsiteCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createDesigner: <T = Designer>(args: { data: DesignerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createTypeface: <T = Typeface>(args: { data: TypefaceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createFoundry: <T = Foundry>(args: { data: FoundryCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createFile: <T = File>(args: { data: FileCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateUser: <T = User>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateWebsite: <T = Website>(args: { data: WebsiteUpdateInput, where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateDesigner: <T = Designer>(args: { data: DesignerUpdateInput, where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateTypeface: <T = Typeface>(args: { data: TypefaceUpdateInput, where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateFoundry: <T = Foundry>(args: { data: FoundryUpdateInput, where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateFile: <T = File>(args: { data: FileUpdateInput, where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    deleteUser: <T = User>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    updateUser: <T = User>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteWebsite: <T = Website>(args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteDesigner: <T = Designer>(args: { where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteTypeface: <T = Typeface>(args: { where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteFoundry: <T = Foundry>(args: { where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteFile: <T = File>(args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteUser: <T = User>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     upsertWebsite: <T = Website>(args: { where: WebsiteWhereUniqueInput, create: WebsiteCreateInput, update: WebsiteUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertDesigner: <T = Designer>(args: { where: DesignerWhereUniqueInput, create: DesignerCreateInput, update: DesignerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertTypeface: <T = Typeface>(args: { where: TypefaceWhereUniqueInput, create: TypefaceCreateInput, update: TypefaceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFoundry: <T = Foundry>(args: { where: FoundryWhereUniqueInput, create: FoundryCreateInput, update: FoundryUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFile: <T = File>(args: { where: FileWhereUniqueInput, create: FileCreateInput, update: FileUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateManyMutationInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyWebsites: <T = BatchPayload>(args: { data: WebsiteUpdateManyMutationInput, where?: WebsiteWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDesigners: <T = BatchPayload>(args: { data: DesignerUpdateManyMutationInput, where?: DesignerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyTypefaces: <T = BatchPayload>(args: { data: TypefaceUpdateManyMutationInput, where?: TypefaceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyFoundries: <T = BatchPayload>(args: { data: FoundryUpdateManyMutationInput, where?: FoundryWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyFiles: <T = BatchPayload>(args: { data: FileUpdateManyMutationInput, where?: FileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateManyMutationInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyWebsites: <T = BatchPayload>(args: { where?: WebsiteWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDesigners: <T = BatchPayload>(args: { where?: DesignerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyTypefaces: <T = BatchPayload>(args: { where?: TypefaceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyFoundries: <T = BatchPayload>(args: { where?: FoundryWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyFiles: <T = BatchPayload>(args: { where?: FileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    deleteManyFiles: <T = BatchPayload>(args: { where?: FileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
-    user: <T = UserSubscriptionPayload>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     website: <T = WebsiteSubscriptionPayload>(args: { where?: WebsiteSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     designer: <T = DesignerSubscriptionPayload>(args: { where?: DesignerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     typeface: <T = TypefaceSubscriptionPayload>(args: { where?: TypefaceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     foundry: <T = FoundrySubscriptionPayload>(args: { where?: FoundrySubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
-    file: <T = FileSubscriptionPayload>(args: { where?: FileSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> 
+    file: <T = FileSubscriptionPayload>(args: { where?: FileSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
+    user: <T = UserSubscriptionPayload>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> 
   }
 
 export interface Exists {
-  User: (where?: UserWhereInput) => Promise<boolean>
   Website: (where?: WebsiteWhereInput) => Promise<boolean>
   Designer: (where?: DesignerWhereInput) => Promise<boolean>
   Typeface: (where?: TypefaceWhereInput) => Promise<boolean>
   Foundry: (where?: FoundryWhereInput) => Promise<boolean>
   File: (where?: FileWhereInput) => Promise<boolean>
+  User: (where?: UserWhereInput) => Promise<boolean>
 }
 
 export interface Prisma {
@@ -140,6 +140,7 @@ type Designer implements Node {
   name: String!
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  addedBy: User!
 }
 
 """A connection to a list of items."""
@@ -156,6 +157,7 @@ input DesignerCreateInput {
   name: String!
   url: String!
   typefaces: TypefaceCreateManyWithoutDesignersInput
+  addedBy: UserCreateOneInput!
 }
 
 input DesignerCreateManyWithoutTypefacesInput {
@@ -166,6 +168,7 @@ input DesignerCreateManyWithoutTypefacesInput {
 input DesignerCreateWithoutTypefacesInput {
   name: String!
   url: String!
+  addedBy: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -370,6 +373,7 @@ input DesignerUpdateInput {
   name: String
   url: String
   typefaces: TypefaceUpdateManyWithoutDesignersInput
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input DesignerUpdateManyDataInput {
@@ -401,6 +405,7 @@ input DesignerUpdateManyWithWhereNestedInput {
 input DesignerUpdateWithoutTypefacesDataInput {
   name: String
   url: String
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
@@ -546,6 +551,7 @@ input DesignerWhereInput {
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
+  addedBy: UserWhereInput
 }
 
 input DesignerWhereUniqueInput {
@@ -1205,42 +1211,42 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
   createWebsite(data: WebsiteCreateInput!): Website!
   createDesigner(data: DesignerCreateInput!): Designer!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   createFoundry(data: FoundryCreateInput!): Foundry!
   createFile(data: FileCreateInput!): File!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  createUser(data: UserCreateInput!): User!
   updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
   updateDesigner(data: DesignerUpdateInput!, where: DesignerWhereUniqueInput!): Designer
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
   updateFoundry(data: FoundryUpdateInput!, where: FoundryWhereUniqueInput!): Foundry
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
-  deleteUser(where: UserWhereUniqueInput!): User
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteWebsite(where: WebsiteWhereUniqueInput!): Website
   deleteDesigner(where: DesignerWhereUniqueInput!): Designer
   deleteTypeface(where: TypefaceWhereUniqueInput!): Typeface
   deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
   deleteFile(where: FileWhereUniqueInput!): File
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
   upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
   upsertDesigner(where: DesignerWhereUniqueInput!, create: DesignerCreateInput!, update: DesignerUpdateInput!): Designer!
   upsertTypeface(where: TypefaceWhereUniqueInput!, create: TypefaceCreateInput!, update: TypefaceUpdateInput!): Typeface!
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyWebsites(data: WebsiteUpdateManyMutationInput!, where: WebsiteWhereInput): BatchPayload!
   updateManyDesigners(data: DesignerUpdateManyMutationInput!, where: DesignerWhereInput): BatchPayload!
   updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
   updateManyFoundries(data: FoundryUpdateManyMutationInput!, where: FoundryWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
   deleteManyDesigners(where: DesignerWhereInput): BatchPayload!
   deleteManyTypefaces(where: TypefaceWhereInput): BatchPayload!
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1271,24 +1277,24 @@ type PageInfo {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website]!
   designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer]!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
-  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   website(where: WebsiteWhereUniqueInput!): Website
   designer(where: DesignerWhereUniqueInput!): Designer
   typeface(where: TypefaceWhereUniqueInput!): Typeface
   foundry(where: FoundryWhereUniqueInput!): Foundry
   file(where: FileWhereUniqueInput!): File
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  user(where: UserWhereUniqueInput!): User
   websitesConnection(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WebsiteConnection!
   designersConnection(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DesignerConnection!
   typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1303,12 +1309,12 @@ enum Role {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
   designer(where: DesignerSubscriptionWhereInput): DesignerSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type Typeface implements Node {
@@ -2099,6 +2105,11 @@ input UserCreateInput {
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
 
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutTypefacesInput {
   create: UserCreateWithoutTypefacesInput
   connect: UserWhereUniqueInput
@@ -2198,6 +2209,15 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  name: String
+  role: Role
+  websites: WebsiteUpdateManyWithoutAddedByInput
+  typefaces: TypefaceUpdateManyWithoutAddedByInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
@@ -2212,6 +2232,13 @@ input UserUpdateManyMutationInput {
   password: String
   name: String
   role: Role
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
 }
 
 input UserUpdateOneRequiredWithoutTypefacesInput {
@@ -2242,6 +2269,11 @@ input UserUpdateWithoutWebsitesDataInput {
   name: String
   role: Role
   typefaces: TypefaceUpdateManyWithoutAddedByInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutTypefacesInput {
@@ -3330,6 +3362,7 @@ export interface DesignerCreateInput {
   name: String
   url: String
   typefaces?: TypefaceCreateManyWithoutDesignersInput
+  addedBy: UserCreateOneInput
 }
 
 export interface DesignerCreateManyWithoutTypefacesInput {
@@ -3340,6 +3373,7 @@ export interface DesignerCreateManyWithoutTypefacesInput {
 export interface DesignerCreateWithoutTypefacesInput {
   name: String
   url: String
+  addedBy: UserCreateOneInput
 }
 
 export interface DesignerScalarWhereInput {
@@ -3405,6 +3439,7 @@ export interface DesignerUpdateInput {
   name?: String
   url?: String
   typefaces?: TypefaceUpdateManyWithoutDesignersInput
+  addedBy?: UserUpdateOneRequiredInput
 }
 
 export interface DesignerUpdateManyDataInput {
@@ -3436,6 +3471,7 @@ export interface DesignerUpdateManyWithWhereNestedInput {
 export interface DesignerUpdateWithoutTypefacesDataInput {
   name?: String
   url?: String
+  addedBy?: UserUpdateOneRequiredInput
 }
 
 export interface DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
@@ -3498,6 +3534,7 @@ export interface DesignerWhereInput {
   typefaces_every?: TypefaceWhereInput
   typefaces_some?: TypefaceWhereInput
   typefaces_none?: TypefaceWhereInput
+  addedBy?: UserWhereInput
 }
 
 export interface DesignerWhereUniqueInput {
@@ -4161,6 +4198,11 @@ export interface UserCreateInput {
   typefaces?: TypefaceCreateManyWithoutAddedByInput
 }
 
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+}
+
 export interface UserCreateOneWithoutTypefacesInput {
   create?: UserCreateWithoutTypefacesInput
   connect?: UserWhereUniqueInput
@@ -4198,6 +4240,15 @@ export interface UserSubscriptionWhereInput {
   node?: UserWhereInput
 }
 
+export interface UserUpdateDataInput {
+  email?: String
+  password?: String
+  name?: String
+  role?: Role
+  websites?: WebsiteUpdateManyWithoutAddedByInput
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput
+}
+
 export interface UserUpdateInput {
   email?: String
   password?: String
@@ -4212,6 +4263,13 @@ export interface UserUpdateManyMutationInput {
   password?: String
   name?: String
   role?: Role
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
 }
 
 export interface UserUpdateOneRequiredWithoutTypefacesInput {
@@ -4242,6 +4300,11 @@ export interface UserUpdateWithoutWebsitesDataInput {
   name?: String
   role?: Role
   typefaces?: TypefaceUpdateManyWithoutAddedByInput
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
 }
 
 export interface UserUpsertWithoutTypefacesInput {
@@ -4726,6 +4789,7 @@ export interface Designer extends Node {
   name: String
   url: String
   typefaces?: Typeface[]
+  addedBy: User
 }
 
 /*

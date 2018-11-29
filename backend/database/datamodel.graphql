@@ -32,6 +32,7 @@ type Designer {
   name: String! @unique
   url: String!
   typefaces: [Typeface!]! @relation(name: "TypefaceDesigner")
+  addedBy: User! @relation(name: "DesignerUser")
 }
 
 type Typeface {

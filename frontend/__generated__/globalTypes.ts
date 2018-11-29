@@ -10,6 +10,13 @@ export enum Role {
   SUBSCRIBER = "SUBSCRIBER",
 }
 
+export interface DesignerCreateInput {
+  name: string;
+  url: string;
+  typefaces?: TypefaceCreateManyWithoutDesignersInput | null;
+  addedBy: UserCreateOneInput;
+}
+
 export interface DesignerCreateManyWithoutTypefacesInput {
   create?: DesignerCreateWithoutTypefacesInput[] | null;
   connect?: DesignerWhereUniqueInput[] | null;
@@ -18,6 +25,7 @@ export interface DesignerCreateManyWithoutTypefacesInput {
 export interface DesignerCreateWithoutTypefacesInput {
   name: string;
   url: string;
+  addedBy: UserCreateOneInput;
 }
 
 export interface DesignerWhereUniqueInput {
@@ -56,6 +64,11 @@ export interface TypefaceCreateManyWithoutAddedByInput {
   connect?: TypefaceWhereUniqueInput[] | null;
 }
 
+export interface TypefaceCreateManyWithoutDesignersInput {
+  create?: TypefaceCreateWithoutDesignersInput[] | null;
+  connect?: TypefaceWhereUniqueInput[] | null;
+}
+
 export interface TypefaceCreateManyWithoutUsedByInput {
   create?: TypefaceCreateWithoutUsedByInput[] | null;
   connect?: TypefaceWhereUniqueInput[] | null;
@@ -71,6 +84,16 @@ export interface TypefaceCreateWithoutAddedByInput {
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
+export interface TypefaceCreateWithoutDesignersInput {
+  name: string;
+  downloadUrl: string;
+  description?: string | null;
+  slug: string;
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
+  addedBy: UserCreateOneWithoutTypefacesInput;
+  foundry?: FoundryCreateOneWithoutFontsInput | null;
+}
+
 export interface TypefaceCreateWithoutUsedByInput {
   name: string;
   downloadUrl: string;
@@ -84,6 +107,20 @@ export interface TypefaceCreateWithoutUsedByInput {
 export interface TypefaceWhereUniqueInput {
   id?: string | null;
   name?: string | null;
+}
+
+export interface UserCreateInput {
+  email: string;
+  password: string;
+  name: string;
+  role?: Role | null;
+  websites?: WebsiteCreateManyWithoutAddedByInput | null;
+  typefaces?: TypefaceCreateManyWithoutAddedByInput | null;
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput | null;
+  connect?: UserWhereUniqueInput | null;
 }
 
 export interface UserCreateOneWithoutTypefacesInput {

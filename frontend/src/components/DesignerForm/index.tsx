@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import { Field, FieldProps, Formik, FormikProps } from 'formik';
 
-import Autocomplete from '../Autocomplete';
+import { ChildMutateProps, graphql } from 'react-apollo';
 import Button from '../Button';
-import Foundry from '../FoundryForm';
 import Input from '../Input';
+import { AddDesigner, AddDesignerVariables } from './__generated__/AddDesigner';
+import { ADD_DESIGNER } from './mutation';
 
 export interface DesignerFormProps {
   handleSumbit?: () => void;
@@ -17,17 +18,30 @@ export interface DesignerFormState {
 interface InputValues {
   name: string;
   url: string;
-  foundries: string[];
 }
-export default class DesignerForm extends React.PureComponent<DesignerFormProps, any> {
-  private handleOnSubmit = (values: any) => {
-    console.log(values);
+
+export class DesignerForm extends React.PureComponent<
+  ChildMutateProps<{}, AddDesigner, AddDesignerVariables>,
+  any
+> {
+  private handleOnSubmit = async (values: InputValues) => {
+    try {
+      await this.props.mutate({
+        variables: {
+          input: {
+            ...values,
+            addedBy: {},
+          },
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
   public render() {
     return (
       <Formik
         initialValues={{
-          foundries: [],
           name: '',
           url: '',
         }}
@@ -57,3 +71,7 @@ export default class DesignerForm extends React.PureComponent<DesignerFormProps,
     );
   }
 }
+
+export default graphql<any, AddDesigner, AddDesignerVariables>(ADD_DESIGNER)(
+  DesignerForm
+);

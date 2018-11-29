@@ -4,6 +4,7 @@ import { file } from './mutations/file';
 import { website } from './mutations/website';
 import { AuthPayload } from './AuthPayload';
 import { typeface } from './mutations/typeface';
+import { designer } from './mutations/designer';
 
 export default {
   Query,
@@ -12,6 +13,7 @@ export default {
     ...website,
     ...file,
     ...typeface,
+    ...designer,
   },
   AuthPayload,
 };

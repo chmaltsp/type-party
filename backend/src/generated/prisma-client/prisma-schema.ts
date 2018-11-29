@@ -33,6 +33,7 @@ type Designer {
   name: String!
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  addedBy: User!
 }
 
 type DesignerConnection {
@@ -45,6 +46,7 @@ input DesignerCreateInput {
   name: String!
   url: String!
   typefaces: TypefaceCreateManyWithoutDesignersInput
+  addedBy: UserCreateOneInput!
 }
 
 input DesignerCreateManyWithoutTypefacesInput {
@@ -55,6 +57,7 @@ input DesignerCreateManyWithoutTypefacesInput {
 input DesignerCreateWithoutTypefacesInput {
   name: String!
   url: String!
+  addedBy: UserCreateOneInput!
 }
 
 type DesignerEdge {
@@ -103,6 +106,7 @@ input DesignerUpdateInput {
   name: String
   url: String
   typefaces: TypefaceUpdateManyWithoutDesignersInput
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input DesignerUpdateManyMutationInput {
@@ -122,6 +126,7 @@ input DesignerUpdateManyWithoutTypefacesInput {
 input DesignerUpdateWithoutTypefacesDataInput {
   name: String
   url: String
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
@@ -181,6 +186,7 @@ input DesignerWhereInput {
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
+  addedBy: UserWhereInput
   AND: [DesignerWhereInput!]
   OR: [DesignerWhereInput!]
   NOT: [DesignerWhereInput!]
@@ -1015,6 +1021,11 @@ input UserCreateInput {
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
 
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutTypefacesInput {
   create: UserCreateWithoutTypefacesInput
   connect: UserWhereUniqueInput
@@ -1089,6 +1100,15 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  name: String
+  role: Role
+  websites: WebsiteUpdateManyWithoutAddedByInput
+  typefaces: TypefaceUpdateManyWithoutAddedByInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
@@ -1103,6 +1123,13 @@ input UserUpdateManyMutationInput {
   password: String
   name: String
   role: Role
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutTypefacesInput {
@@ -1133,6 +1160,11 @@ input UserUpdateWithoutWebsitesDataInput {
   name: String
   role: Role
   typefaces: TypefaceUpdateManyWithoutAddedByInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutTypefacesInput {
