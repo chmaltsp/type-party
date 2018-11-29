@@ -2,6 +2,7 @@
 # import File from "./generated/prisma.graphql"
 # import Role from "./generated/prisma.graphql"
 # import Typeface, TypefaceCreateInput from "./generated/prisma.graphql"
+# import Designer, DesignerCreateInput from "./generated/prisma.graphql"
 
 scalar Upload
 
@@ -24,11 +25,11 @@ type Query {
   websites: [Website!]!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
+  findDesigners(search: String!): [Designer!]!
 }
 
 input TypefaceInput {
   name: String!
-  
 }
 
 type Mutation {
@@ -36,6 +37,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   addWebsite(title: String!, thumbnail: String!, url: String!, image: String): Website!
   addTypeface(input: TypefaceCreateInput): Typeface @isAuthenticated
+  addDesigner(input: DesignerCreateInput): Designer @isAuthenticated
   uploadImage(file: Upload!): File
 }
 

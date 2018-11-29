@@ -61,6 +61,10 @@ export namespace QueryResolvers {
     search: string;
   }
 
+  export interface ArgsFindDesigners {
+    search: string;
+  }
+
   export type MeResolver = (
     parent: undefined,
     args: {},
@@ -95,6 +99,13 @@ export namespace QueryResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Typeface[] | Promise<Typeface[]>;
+
+  export type FindDesignersResolver = (
+    parent: undefined,
+    args: ArgsFindDesigners,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Designer[] | Promise<Designer[]>;
 
   export interface Type {
     me: (
@@ -131,6 +142,13 @@ export namespace QueryResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Typeface[] | Promise<Typeface[]>;
+
+    findDesigners: (
+      parent: undefined,
+      args: ArgsFindDesigners,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Designer[] | Promise<Designer[]>;
   }
 }
 
@@ -574,6 +592,7 @@ export namespace WebsiteResolvers {
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: DesignerWhereInput[];
     OR: DesignerWhereInput[];
     NOT: DesignerWhereInput[];
@@ -1089,6 +1108,7 @@ export namespace TypefaceResolvers {
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: DesignerWhereInput[];
     OR: DesignerWhereInput[];
     NOT: DesignerWhereInput[];
@@ -1597,6 +1617,7 @@ export namespace FoundryResolvers {
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: DesignerWhereInput[];
     OR: DesignerWhereInput[];
     NOT: DesignerWhereInput[];
@@ -2025,6 +2046,7 @@ export namespace DesignerResolvers {
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: DesignerWhereInput[];
     OR: DesignerWhereInput[];
     NOT: DesignerWhereInput[];
@@ -2068,6 +2090,13 @@ export namespace DesignerResolvers {
     info: GraphQLResolveInfo
   ) => Typeface[] | Promise<Typeface[]>;
 
+  export type AddedByResolver = (
+    parent: Designer,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
+
   export interface Type {
     id: (
       parent: Designer,
@@ -2096,6 +2125,13 @@ export namespace DesignerResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Typeface[] | Promise<Typeface[]>;
+
+    addedBy: (
+      parent: Designer,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
   }
 }
 
@@ -2169,32 +2205,19 @@ export namespace MutationResolvers {
   export interface DesignerCreateWithoutTypefacesInput {
     name: string;
     url: string;
+    addedBy: UserCreateOneInput;
   }
-  export interface DesignerWhereUniqueInput {
-    id: string | null;
-    name: string | null;
-  }
-  export interface TypefaceWhereUniqueInput {
-    id: string | null;
-    name: string | null;
-  }
-  export interface UserWhereUniqueInput {
-    id: string | null;
-    email: string | null;
-  }
-  export interface WebsiteWhereUniqueInput {
-    id: string | null;
-  }
-  export interface UserCreateOneWithoutTypefacesInput {
-    create: UserCreateWithoutTypefacesInput | null;
+  export interface UserCreateOneInput {
+    create: UserCreateInput | null;
     connect: UserWhereUniqueInput | null;
   }
-  export interface UserCreateWithoutTypefacesInput {
+  export interface UserCreateInput {
     email: string;
     password: string;
     name: string;
     role: Role | null;
     websites: WebsiteCreateManyWithoutAddedByInput | null;
+    typefaces: TypefaceCreateManyWithoutAddedByInput | null;
   }
   export interface WebsiteCreateManyWithoutAddedByInput {
     create: WebsiteCreateWithoutAddedByInput[];
@@ -2223,6 +2246,51 @@ export namespace MutationResolvers {
     foundry: FoundryCreateOneWithoutFontsInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
   }
+  export interface UserCreateOneWithoutTypefacesInput {
+    create: UserCreateWithoutTypefacesInput | null;
+    connect: UserWhereUniqueInput | null;
+  }
+  export interface UserCreateWithoutTypefacesInput {
+    email: string;
+    password: string;
+    name: string;
+    role: Role | null;
+    websites: WebsiteCreateManyWithoutAddedByInput | null;
+  }
+  export interface UserWhereUniqueInput {
+    id: string | null;
+    email: string | null;
+  }
+  export interface TypefaceWhereUniqueInput {
+    id: string | null;
+    name: string | null;
+  }
+  export interface WebsiteWhereUniqueInput {
+    id: string | null;
+  }
+  export interface DesignerWhereUniqueInput {
+    id: string | null;
+    name: string | null;
+  }
+  export interface DesignerCreateInput {
+    name: string;
+    url: string;
+    typefaces: TypefaceCreateManyWithoutDesignersInput | null;
+    addedBy: UserCreateOneInput;
+  }
+  export interface TypefaceCreateManyWithoutDesignersInput {
+    create: TypefaceCreateWithoutDesignersInput[];
+    connect: TypefaceWhereUniqueInput[];
+  }
+  export interface TypefaceCreateWithoutDesignersInput {
+    name: string;
+    downloadUrl: string;
+    description: string | null;
+    slug: string;
+    usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
+    addedBy: UserCreateOneWithoutTypefacesInput;
+    foundry: FoundryCreateOneWithoutFontsInput | null;
+  }
 
   export interface ArgsSignup {
     email: string;
@@ -2244,6 +2312,10 @@ export namespace MutationResolvers {
 
   export interface ArgsAddTypeface {
     input: TypefaceCreateInput | null;
+  }
+
+  export interface ArgsAddDesigner {
+    input: DesignerCreateInput | null;
   }
 
   export interface ArgsUploadImage {
@@ -2277,6 +2349,13 @@ export namespace MutationResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Typeface | null | Promise<Typeface | null>;
+
+  export type AddDesignerResolver = (
+    parent: undefined,
+    args: ArgsAddDesigner,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Designer | null | Promise<Designer | null>;
 
   export type UploadImageResolver = (
     parent: undefined,
@@ -2313,6 +2392,13 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Typeface | null | Promise<Typeface | null>;
+
+    addDesigner: (
+      parent: undefined,
+      args: ArgsAddDesigner,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Designer | null | Promise<Designer | null>;
 
     uploadImage: (
       parent: undefined,

@@ -1,11 +1,11 @@
 import { gql } from 'apollo-boost';
 
-export const SEARCH_TYPEFACE = gql`
-  query FindTypeface($search: String!) {
-    findTypefaces(search: $search) {
+export const SEARCH_DESIGNER = gql`
+  query FindDesigner($search: String!) {
+    findDesigners(search: $search) {
       name
       id
-      downloadUrl
+      url
     }
   }
 `;

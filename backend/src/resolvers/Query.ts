@@ -35,4 +35,11 @@ export const Query: QueryResolvers.Type = {
       first: 5,
     });
   },
+  findDesigners: (parent, args, ctx) => {
+    return ctx.client.designers({
+      where: {
+        name_contains: args.search,
+      },
+    });
+  },
 };

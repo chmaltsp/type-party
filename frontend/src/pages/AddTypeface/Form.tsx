@@ -11,9 +11,9 @@ import FoundryForm from '../../components/FoundryForm';
 import Input from '../../components/Input';
 
 import { addTypeface, addTypefaceVariables } from './__generated__/addTypeface';
-import { FindTypeface, FindTypefaceVariables } from './__generated__/FindTypeface';
+import { FindDesigner, FindDesignerVariables } from './__generated__/FindDesigner';
 import { ADD_TYPEFACE } from './mutation';
-import { SEARCH_TYPEFACE } from './queries';
+import { SEARCH_DESIGNER } from './queries';
 
 export interface TypefaceFormProps {
   handleSubmit?: () => void;
@@ -43,7 +43,7 @@ const ButtonWrapper = styled(Flex)`
 
 const Publish = styled(ButtonBase)``;
 
-type Props = ChildProps<{}, FindTypeface, FindTypefaceVariables> &
+type Props = ChildProps<{}, FindDesigner, FindDesignerVariables> &
   ChildMutateProps<{}, addTypeface, addTypefaceVariables>;
 
 class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
@@ -89,12 +89,10 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   }
 
   public handleSearch = async (search: string | null) => {
-    console.log('SEARCH', search);
     if (this.props.data) {
       await this.props.data.refetch({
         search: search || '',
       });
-      console.log('AFTER SEARCH:', this.props.data.findTypefaces);
     }
   }
   public render() {
@@ -136,10 +134,10 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                     <Autocomplete<{ name?: string; id: string; value: string }>
                       items={
                         (this.props.data &&
-                          this.props.data.findTypefaces &&
-                          this.props.data.findTypefaces.map(typeface => ({
-                            ...typeface,
-                            value: typeface.name,
+                          this.props.data.findDesigners &&
+                          this.props.data.findDesigners.map(designer => ({
+                            ...designer,
+                            value: designer.name,
                           }))) ||
                         []
                       }
@@ -209,7 +207,7 @@ const WrappedForm = graphql<any, addTypeface, addTypefaceVariables>(ADD_TYPEFACE
 
 export default compose(
   graphql<any, addTypeface, addTypefaceVariables>(ADD_TYPEFACE),
-  graphql<any, FindTypeface, FindTypefaceVariables>(SEARCH_TYPEFACE, {
+  graphql<any, FindDesigner, FindDesignerVariables>(SEARCH_DESIGNER, {
     options: {
       variables: {
         search: '',

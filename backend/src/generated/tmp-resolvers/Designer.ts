@@ -9,4 +9,7 @@ export const Designer: DesignerResolvers.Type = {
   typefaces: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  addedBy: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };
