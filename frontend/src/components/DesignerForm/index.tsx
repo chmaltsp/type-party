@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { Field, FieldProps, Formik, FormikProps } from 'formik';
+import { Field, FieldProps, Formik, FormikActions, FormikProps } from 'formik';
 
+import { ErrorResponse } from 'apollo-link-error';
 import { ChildMutateProps, graphql } from 'react-apollo';
 import Button from '../Button';
 import Input from '../Input';
@@ -24,9 +25,12 @@ export class DesignerForm extends React.PureComponent<
   ChildMutateProps<{}, AddDesigner, AddDesignerVariables>,
   any
 > {
-  private handleOnSubmit = async (values: InputValues) => {
+  private handleOnSubmit = async (
+    values: InputValues,
+    actions: FormikActions<InputValues>
+  ) => {
     try {
-      await this.props.mutate({
+      this.props.mutate({
         variables: {
           input: {
             ...values,
@@ -35,7 +39,7 @@ export class DesignerForm extends React.PureComponent<
         },
       });
     } catch (error) {
-      console.error(error);
+      actions.setFieldError('name', error.graphQLErrors[0].message);
     }
   }
   public render() {
@@ -72,6 +76,8 @@ export class DesignerForm extends React.PureComponent<
   }
 }
 
-export default graphql<any, AddDesigner, AddDesignerVariables>(ADD_DESIGNER)(
-  DesignerForm
-);
+export default graphql<any, AddDesigner, AddDesignerVariables>(ADD_DESIGNER, {
+  options: {
+    errorPolicy: 'all',
+  },
+})(DesignerForm);
