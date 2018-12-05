@@ -6,37 +6,26 @@ import Downshift, {
 } from 'downshift';
 import * as React from 'react';
 import { equalByString } from '.';
-import { ListItemProps } from './styles';
 
-interface MultiDownshiftState {
-  selectedItems: string[];
-}
-
-interface MultiDownshiftProps {
+interface MultiDownshiftProps<Item> {
   render?: () => void;
   children?: any;
-  onStateChange: (options: any, stateAndHelpers: any) => void;
-  onChange: (
-    selectedItems: string[],
-    downshift?: ControllerStateAndHelpers<ListItemProps>
-  ) => void;
-  onSelect?: (
-    selectedItems: string[],
-    downshift: ControllerStateAndHelpers<ListItemProps>
-  ) => void;
+  onStateChange?: (options: any, stateAndHelpers: any) => void;
+  onChange: (selectedItems: Item[]) => void;
+  onSelect?: (selectedItems: Item[]) => void;
   itemToString: (item: any) => string;
-  selectedItem: any[];
+  selectedItem: Item[];
 }
 
-export interface RemoveButtonProps {
+export interface RemoveButtonProps<Item> {
   onClick: (e: React.SyntheticEvent) => void;
-  item: string;
+  item: Item;
 }
 
-class MultiDownshift extends React.Component<MultiDownshiftProps, MultiDownshiftState> {
+class MultiDownshift<ListItem> extends React.Component<MultiDownshiftProps<ListItem>> {
   public stateReducer = (
-    state: DownshiftState<ListItemProps>,
-    changes: StateChangeOptions<ListItemProps>
+    state: DownshiftState<ListItem>,
+    changes: StateChangeOptions<ListItem>
   ) => {
     switch (changes.type) {
       case Downshift.stateChangeTypes.keyDownEnter:
@@ -52,45 +41,34 @@ class MultiDownshift extends React.Component<MultiDownshiftProps, MultiDownshift
     }
   }
 
-  public handleSelection = (
-    selectedItem: string,
-    downshift: ControllerStateAndHelpers<ListItemProps>
-  ) => {
-    const callOnChange = () => {
-      const { onSelect, onChange } = this.props;
-      const { selectedItems } = this.state;
-      if (onSelect) {
-        onSelect(selectedItems, this.getStateAndHelpers(downshift));
-      }
-      if (onChange) {
-        onChange(selectedItems, this.getStateAndHelpers(downshift));
-      }
-    };
-
-    // @ts-ignore
+  public handleSelection = (selectedItem: ListItem) => {
     if (
       this.props.selectedItem.find(item =>
         equalByString(item, selectedItem, this.props.itemToString)
       )
     ) {
-      this.removeItem(selectedItem, callOnChange);
+      this.removeItem(selectedItem);
     } else {
-      this.addSelectedItem(selectedItem, callOnChange);
+      this.addSelectedItem(selectedItem);
     }
   }
 
-  public removeItem = (item: any, cb?: any) => {
+  public removeItem = (item: ListItem) => {
     const filteredItems = this.props.selectedItem.filter(
       i => !equalByString(i, item, this.props.itemToString)
     );
 
     this.props.onChange(filteredItems);
   }
-  public addSelectedItem(item: any, cb: any) {
+  public addSelectedItem(item: ListItem) {
     this.props.onChange([...this.props.selectedItem, item]);
   }
 
-  public getRemoveButtonProps = ({ onClick, item, ...props }: RemoveButtonProps) => {
+  public getRemoveButtonProps = ({
+    onClick,
+    item,
+    ...props
+  }: RemoveButtonProps<ListItem>) => {
     return {
       onClick: (e: any) => {
         // TODO: use something like downshift's composeEventHandlers utility instead
@@ -103,7 +81,7 @@ class MultiDownshift extends React.Component<MultiDownshiftProps, MultiDownshift
     };
   }
 
-  public getStateAndHelpers(downshift: ControllerStateAndHelpers<ListItemProps>): any {
+  public getStateAndHelpers(downshift: ControllerStateAndHelpers<ListItem>): any {
     return {
       getRemoveButtonProps: this.getRemoveButtonProps,
       removeItem: this.removeItem,
@@ -118,9 +96,9 @@ class MultiDownshift extends React.Component<MultiDownshiftProps, MultiDownshift
         {...this.props}
         stateReducer={this.stateReducer}
         onChange={this.handleSelection}
-        selectedItem={this.props.selectedItem || null}
+        selectedItem={this.props.selectedItem}
       >
-        {(downshift: ControllerStateAndHelpers<ListItemProps>) =>
+        {(downshift: ControllerStateAndHelpers<ListItem>) =>
           // @ts-ignore
           this.props.children(this.getStateAndHelpers(downshift))
         }

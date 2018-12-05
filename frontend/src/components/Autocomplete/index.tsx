@@ -30,10 +30,6 @@ const InputWrapper = styled(Flex)`
   padding: ${({ theme }) => theme.spacing.sm}px;
 `;
 
-interface ItemDefault {
-  value: string;
-}
-
 export interface AutocompleteProps<Item> {
   label?: string;
   placeholder?: string;
@@ -44,9 +40,13 @@ export interface AutocompleteProps<Item> {
   value: Item[];
 }
 
-interface MultiDownshiftProps {
+interface RemoveButtonInput<Item> {
+  item: Item;
+  onClick?: () => void;
+}
+interface MultiDownshiftProps<Item> {
   removeItem: any;
-  getRemoveButtonProps: (item: any) => RemoveButtonProps;
+  getRemoveButtonProps: (input: RemoveButtonInput<Item>) => RemoveButtonProps<Item>;
   selectedItems: any;
 }
 
@@ -57,9 +57,7 @@ type EqualByStringUtil = <T = {}>(
 ) => boolean;
 export const equalByString: EqualByStringUtil = (itemA, itemB, itemToString) =>
   itemToString(itemA) === itemToString(itemB);
-export default class Autocomplete<Item extends ItemDefault> extends React.Component<
-  AutocompleteProps<Item>
-> {
+export default class Autocomplete<Item> extends React.Component<AutocompleteProps<Item>> {
   constructor(props: AutocompleteProps<Item>) {
     super(props);
 
@@ -79,17 +77,12 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
     }
   }
 
-  private onStateChange = (changes: StateChangeTypes, stateAndHelpers: any) => {
-    console.log('CHANGES', changes, stateAndHelpers);
-  }
-
   public render() {
     return (
       <MultiDownshift
         onChange={this.handleOnchange}
         itemToString={this.props.itemToString}
         selectedItem={this.props.value || []}
-        onStateChange={this.onStateChange}
       >
         {({
           getRootProps,
@@ -103,7 +96,7 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
           inputValue,
           highlightedIndex,
           selectedItem,
-        }: ControllerStateAndHelpers<ListItemProps[]> & MultiDownshiftProps) => (
+        }: ControllerStateAndHelpers<Item[]> & MultiDownshiftProps<Item>) => (
           <AutoCompleteWrapper
             {...getRootProps({
               refKey: 'innerRef',
@@ -111,15 +104,16 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
           >
             <Label {...getLabelProps()}>{this.props.label}</Label>
             <InputWrapper>
-              {(selectedItem as any).map((item: ListItemProps, index: number) => (
-                <TagSpacer key={index}>
-                  <Tag
-                    name={item.value}
-                    removeButtonProps={getRemoveButtonProps({ item })}
-                    // removeButtonProps={getRemoveButtonProps({ item })}
-                  />
-                </TagSpacer>
-              ))}
+              {selectedItem &&
+                selectedItem.map((item: Item, index: number) => (
+                  <TagSpacer key={index}>
+                    <Tag
+                      name={this.props.itemToString(item)}
+                      removeButtonProps={getRemoveButtonProps({ item })}
+                      // removeButtonProps={getRemoveButtonProps({ item })}
+                    />
+                  </TagSpacer>
+                ))}
               <Input
                 {...getInputProps({
                   onKeyDown: this.handleOnInputEnter,
@@ -141,21 +135,30 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
                     .filter(
                       item =>
                         !inputValue ||
-                        item.value.toLowerCase().includes(inputValue.toLowerCase())
+                        this.props
+                          .itemToString(item)
+                          .toLowerCase()
+                          .includes(inputValue.toLowerCase())
                     )
                     .map((item, index) => (
                       <ListItem
                         {...getItemProps({
                           index,
                           isActive: index === highlightedIndex,
-                          isSelected: (selectedItem as any).find((otherItem: any) =>
-                            equalByString<Item>(otherItem, item, this.props.itemToString)
-                          ),
+                          isSelected:
+                            selectedItem &&
+                            selectedItem.find((otherItem: any) =>
+                              equalByString<Item>(
+                                otherItem,
+                                item,
+                                this.props.itemToString
+                              )
+                            ),
                           item,
-                          key: item.value,
+                          key: index + this.props.itemToString(item),
                         } as any)}
                       >
-                        {item.value}
+                        {this.props.itemToString(item)}
                       </ListItem>
                     ))
                 : null}
