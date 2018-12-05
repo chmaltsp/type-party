@@ -10,7 +10,7 @@ import { AddDesigner, AddDesignerVariables } from './__generated__/AddDesigner';
 import { ADD_DESIGNER } from './mutation';
 
 export interface DesignerFormProps {
-  handleSumbit?: () => void;
+  handleSubmit: (designer: any) => void;
 }
 
 export interface DesignerFormState {
@@ -22,7 +22,7 @@ interface InputValues {
 }
 
 export class DesignerForm extends React.PureComponent<
-  ChildMutateProps<{}, AddDesigner, AddDesignerVariables>,
+  ChildMutateProps<DesignerFormProps, AddDesigner, AddDesignerVariables>,
   any
 > {
   private handleOnSubmit = async (
@@ -30,7 +30,7 @@ export class DesignerForm extends React.PureComponent<
     actions: FormikActions<InputValues>
   ) => {
     try {
-      this.props.mutate({
+      const response = await this.props.mutate({
         variables: {
           input: {
             ...values,
@@ -38,8 +38,16 @@ export class DesignerForm extends React.PureComponent<
           },
         },
       });
+
+      if (response && response.data) {
+        this.props.handleSubmit(response.data.addDesigner);
+      }
     } catch (error) {
-      actions.setFieldError('name', error.graphQLErrors[0].message);
+      console.error(error);
+
+      if (error && error.graphQLErrors) {
+        actions.setFieldError('name', error.graphQLErrors[0].message);
+      }
     }
   }
   public render() {
@@ -78,6 +86,6 @@ export class DesignerForm extends React.PureComponent<
 
 export default graphql<any, AddDesigner, AddDesignerVariables>(ADD_DESIGNER, {
   options: {
-    errorPolicy: 'all',
+    // errorPolicy: ,
   },
 })(DesignerForm);

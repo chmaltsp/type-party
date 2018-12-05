@@ -147,6 +147,7 @@ class SiteForm extends React.PureComponent<{}, SiteFormState> {
             render={(props: FieldProps<InputValues>) => {
               return (
                 <Autocomplete<{ name?: string; value: string }>
+                  value={props.field.value}
                   items={[{ value: 'typeface' }]}
                   label="Typeface(s)"
                   handleOnChange={selection =>
