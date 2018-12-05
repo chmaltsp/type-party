@@ -7,16 +7,11 @@ import { DesignerCreateInput } from "./../../../../__generated__/globalTypes";
 // GraphQL mutation operation: AddDesigner
 // ====================================================
 
-export interface AddDesigner_addDesigner_addedBy {
-  __typename: "User";
-  email: string;
-}
-
 export interface AddDesigner_addDesigner {
   __typename: "Designer";
   name: string;
   url: string;
-  addedBy: AddDesigner_addDesigner_addedBy;
+  id: string;
 }
 
 export interface AddDesigner {

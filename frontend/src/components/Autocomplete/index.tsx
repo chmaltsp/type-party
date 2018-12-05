@@ -1,7 +1,12 @@
 import * as React from 'react';
 import styled from 'sc';
 
-import { ControllerStateAndHelpers, GetItemPropsOptions } from 'downshift';
+import {
+  ControllerStateAndHelpers,
+  GetItemPropsOptions,
+  StateChangeOptions,
+  StateChangeTypes,
+} from 'downshift';
 
 import { InputBase, InputWrapper as AutoCompleteWrapper, Label } from '../Input';
 
@@ -36,6 +41,7 @@ export interface AutocompleteProps<Item> {
   itemToString: (item: Item) => string;
   handleOnChange: (selection: Item[]) => void;
   handleSearch?: (search: string | null) => void;
+  value: Item[];
 }
 
 interface MultiDownshiftProps {
@@ -73,11 +79,17 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
     }
   }
 
+  private onStateChange = (changes: StateChangeTypes, stateAndHelpers: any) => {
+    console.log('CHANGES', changes, stateAndHelpers);
+  }
+
   public render() {
     return (
       <MultiDownshift
         onChange={this.handleOnchange}
         itemToString={this.props.itemToString}
+        selectedItem={this.props.value || []}
+        onStateChange={this.onStateChange}
       >
         {({
           getRootProps,
@@ -90,8 +102,8 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
           isOpen,
           inputValue,
           highlightedIndex,
-          selectedItems,
-        }: ControllerStateAndHelpers<ListItemProps> & MultiDownshiftProps) => (
+          selectedItem,
+        }: ControllerStateAndHelpers<ListItemProps[]> & MultiDownshiftProps) => (
           <AutoCompleteWrapper
             {...getRootProps({
               refKey: 'innerRef',
@@ -99,11 +111,12 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
           >
             <Label {...getLabelProps()}>{this.props.label}</Label>
             <InputWrapper>
-              {selectedItems.map((selectedItem: ListItemProps, index: number) => (
+              {(selectedItem as any).map((item: ListItemProps, index: number) => (
                 <TagSpacer key={index}>
                   <Tag
-                    name={selectedItem.value}
-                    removeButtonProps={getRemoveButtonProps({ item: selectedItem })}
+                    name={item.value}
+                    removeButtonProps={getRemoveButtonProps({ item })}
+                    // removeButtonProps={getRemoveButtonProps({ item })}
                   />
                 </TagSpacer>
               ))}
@@ -111,8 +124,9 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
                 {...getInputProps({
                   onKeyDown: this.handleOnInputEnter,
                   onKeyUp: event => {
+                    const currentSelection = selectedItem || [];
                     if (event.key === 'Backspace' && !inputValue) {
-                      removeItem(selectedItems[selectedItems.length - 1]);
+                      removeItem(currentSelection[currentSelection.length - 1]);
                     }
                     if (this.props.handleSearch) {
                       this.props.handleSearch(inputValue);
@@ -134,12 +148,8 @@ export default class Autocomplete<Item extends ItemDefault> extends React.Compon
                         {...getItemProps({
                           index,
                           isActive: index === highlightedIndex,
-                          isSelected: selectedItems.find((selectedItem: any) =>
-                            equalByString<Item>(
-                              selectedItem,
-                              item,
-                              this.props.itemToString
-                            )
+                          isSelected: (selectedItem as any).find((otherItem: any) =>
+                            equalByString<Item>(otherItem, item, this.props.itemToString)
                           ),
                           item,
                           key: item.value,

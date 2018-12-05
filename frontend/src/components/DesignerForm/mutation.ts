@@ -5,9 +5,7 @@ export const ADD_DESIGNER = gql`
     addDesigner(input: $input) {
       name
       url
-      addedBy {
-        email
-      }
+      id
     }
   }
 `;

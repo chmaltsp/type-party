@@ -10,6 +10,7 @@ import Flex from '../../components/Flex';
 import FoundryForm from '../../components/FoundryForm';
 import Input from '../../components/Input';
 
+import { AddDesigner_addDesigner } from 'src/components/DesignerForm/__generated__/AddDesigner';
 import { addTypeface, addTypefaceVariables } from './__generated__/addTypeface';
 import { FindDesigner, FindDesignerVariables } from './__generated__/FindDesigner';
 import { ADD_TYPEFACE } from './mutation';
@@ -24,8 +25,13 @@ interface TypefaceFormState {
   showFoundryForm: boolean;
 }
 
+interface Designer {
+  name: string;
+  id: string;
+  value: string;
+}
 export interface InputValues {
-  designers: string[];
+  designers: AddDesigner_addDesigner[];
   downloadUrl: string;
   description: string;
   slug: string;
@@ -74,7 +80,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
             addedBy: {},
             designers: {
               connect: values.designers.map(designer => ({
-                id: designer,
+                id: designer.id,
               })),
             },
           },
@@ -86,6 +92,19 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
       console.log(error);
     }
     // this.props.handleSubmit();
+  }
+
+  public handleAddNewDesigner = (formProps: FormikProps<InputValues>) => (
+    designer: AddDesigner_addDesigner
+  ) => {
+    console.log('NEW DESIGNER', designer);
+
+    const newDesigner = {
+      ...designer,
+      value: designer.name,
+    };
+
+    formProps.setFieldValue('designers', [...formProps.values.designers, newDesigner]);
   }
 
   public handleSearch = async (search: string | null) => {
@@ -141,6 +160,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                           }))) ||
                         []
                       }
+                      value={fieldProps.field.value}
                       label="Designer(s)"
                       handleSearch={this.handleSearch}
                       handleOnChange={selection =>
@@ -158,13 +178,16 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                   </ButtonBase>
                 </div>
               )}
-              {this.state.showDesignerForm && <DesignerForm />}
+              {this.state.showDesignerForm && (
+                <DesignerForm handleSubmit={this.handleAddNewDesigner(props)} />
+              )}
               <Field
                 name="foundries"
                 render={(fieldProps: FieldProps<InputValues>) => {
                   return (
                     <Autocomplete<{ name?: string; value: string }>
                       items={[{ value: 'Google' }]}
+                      value={fieldProps.field.value}
                       label="Foundries(s)"
                       handleOnChange={selection =>
                         fieldProps.form.setFieldValue('foundries', selection)
