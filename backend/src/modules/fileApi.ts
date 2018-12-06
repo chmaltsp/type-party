@@ -3,6 +3,7 @@ import { Context } from '../utils';
 import { generate } from 'shortid';
 
 import * as debugBase from 'debug';
+import { File } from '../generated/prisma-client';
 
 const debug = debugBase('s3');
 
@@ -16,15 +17,15 @@ const s3 = new S3({
   apiVersion: 'latest',
 });
 
-export const processUpload = async (upload, ctx: Context) => {
+export const processUpload = async (upload, ctx: Context): Promise<File | null> => {
   if (!upload) {
-    return debug('No Upload');
+    console.log('NO UPLOAD');
+    return null;
   }
   const { stream, filename, mimetype, encoding } = await upload;
 
   // Generate Filename
   const key = `${generate()}-${filename}`;
-  console.log(key);
 
   // Upload to S3
   const response = await s3
@@ -48,7 +49,7 @@ export const processUpload = async (upload, ctx: Context) => {
   };
 
   // Sync with prisma
-  const { id } = await ctx.db.mutation.createFile({ data }, ` { id } `);
+  const { id, createdAt, updatedAt } = await ctx.client.createFile({ ...data });
 
   // Prepare file type for resolver
   const file = {
@@ -57,6 +58,8 @@ export const processUpload = async (upload, ctx: Context) => {
     mimetype,
     encoding,
     url,
+    createdAt,
+    updatedAt,
   };
 
   return file;

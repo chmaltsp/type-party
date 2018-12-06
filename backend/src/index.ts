@@ -9,6 +9,7 @@ import { schemaDirectives } from './schema-directives';
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
+  // @ts-ignore
   resolvers,
   schemaDirectives,
   resolverValidationOptions: {
