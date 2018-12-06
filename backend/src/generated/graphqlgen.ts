@@ -2272,6 +2272,24 @@ export namespace MutationResolvers {
     id: string | null;
     name: string | null;
   }
+  export interface FoundryCreateInput {
+    name: string;
+    url: string;
+    fonts: TypefaceCreateManyWithoutFoundryInput | null;
+  }
+  export interface TypefaceCreateManyWithoutFoundryInput {
+    create: TypefaceCreateWithoutFoundryInput[];
+    connect: TypefaceWhereUniqueInput[];
+  }
+  export interface TypefaceCreateWithoutFoundryInput {
+    name: string;
+    downloadUrl: string;
+    description: string | null;
+    slug: string;
+    usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
+    addedBy: UserCreateOneWithoutTypefacesInput;
+    designers: DesignerCreateManyWithoutTypefacesInput | null;
+  }
   export interface DesignerCreateInput {
     name: string;
     url: string;
@@ -2314,6 +2332,10 @@ export namespace MutationResolvers {
     input: TypefaceCreateInput | null;
   }
 
+  export interface ArgsAddFoundry {
+    input: FoundryCreateInput | null;
+  }
+
   export interface ArgsAddDesigner {
     input: DesignerCreateInput | null;
   }
@@ -2349,6 +2371,13 @@ export namespace MutationResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Typeface | null | Promise<Typeface | null>;
+
+  export type AddFoundryResolver = (
+    parent: undefined,
+    args: ArgsAddFoundry,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Foundry | null | Promise<Foundry | null>;
 
   export type AddDesignerResolver = (
     parent: undefined,
@@ -2392,6 +2421,13 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Typeface | null | Promise<Typeface | null>;
+
+    addFoundry: (
+      parent: undefined,
+      args: ArgsAddFoundry,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Foundry | null | Promise<Foundry | null>;
 
     addDesigner: (
       parent: undefined,

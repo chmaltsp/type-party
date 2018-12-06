@@ -97,14 +97,13 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   public handleAddNewDesigner = (formProps: FormikProps<InputValues>) => (
     designer: AddDesigner_addDesigner
   ) => {
-    console.log('NEW DESIGNER', designer);
-
     const newDesigner = {
       ...designer,
       value: designer.name,
     };
 
     formProps.setFieldValue('designers', [...formProps.values.designers, newDesigner]);
+    this.toggleDesignerForm();
   }
 
   public handleSearch = async (search: string | null) => {

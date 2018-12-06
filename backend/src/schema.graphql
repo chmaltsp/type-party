@@ -3,6 +3,8 @@
 # import Role from "./generated/prisma.graphql"
 # import Typeface, TypefaceCreateInput from "./generated/prisma.graphql"
 # import Designer, DesignerCreateInput from "./generated/prisma.graphql"
+# import Foundry, FoundryCreateInput from "./generated/prisma.graphql"
+
 
 scalar Upload
 
@@ -37,6 +39,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   addWebsite(title: String!, thumbnail: String!, url: String!, image: String): Website!
   addTypeface(input: TypefaceCreateInput): Typeface @isAuthenticated
+  addFoundry(input: FoundryCreateInput): Foundry @isAuthenticated
   addDesigner(input: DesignerCreateInput): Designer @isAuthenticated
   uploadImage(file: Upload!): File
 }

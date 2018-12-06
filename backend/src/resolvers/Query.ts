@@ -1,15 +1,16 @@
-import { ctxUser, Context } from '../utils';
+import { ctxUser } from '../utils';
 import { QueryResolvers } from '../generated/graphqlgen';
 
 export const Query: QueryResolvers.Type = {
-  me(parent, args, ctx: Context, info) {
+  ...QueryResolvers.defaultResolvers,
+  me(parent, args, ctx, info) {
     const { userId: id } = ctxUser(ctx);
     return ctx.db.query.user({ where: { id } }, info);
   },
-  users(parent, args, ctx: Context, info) {
+  users(parent, args, ctx, info) {
     return ctx.db.query.users({}, info);
   },
-  userWebsites(parent, args, ctx: Context, info) {
+  userWebsites(parent, args, ctx, info) {
     const { userId: id } = ctxUser(ctx);
 
     const where = {
@@ -24,7 +25,7 @@ export const Query: QueryResolvers.Type = {
       info
     );
   },
-  websites(parent, args, ctx: Context, info) {
+  websites(parent, args, ctx, info) {
     return ctx.db.query.websites({}, info);
   },
   findTypefaces: (parent, args, ctx) => {

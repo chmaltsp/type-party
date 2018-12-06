@@ -5,15 +5,22 @@ import { website } from './mutations/website';
 import { AuthPayload } from './AuthPayload';
 import { typeface } from './mutations/typeface';
 import { designer } from './mutations/designer';
+import { foundry } from './mutations/foundry';
+import { User } from './User';
+import { Resolvers } from '../generated/graphqlgen';
 
-export default {
+const resolvers: Pick<Resolvers, 'Query' | 'Mutation' | 'AuthPayload' | 'User'> = {
   Query,
   Mutation: {
     ...auth,
+    ...foundry,
     ...website,
     ...file,
     ...typeface,
     ...designer,
   },
   AuthPayload,
+  User,
 };
+
+export default resolvers;
