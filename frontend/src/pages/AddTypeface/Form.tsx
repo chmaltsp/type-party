@@ -98,6 +98,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
     foundry: AddFoundry_addFoundry
   ) => {
     formProps.setFieldValue('foundries', [...formProps.values.foundries, foundry]);
+    this.toggleFoundryForm();
   }
 
   public handleAddNewDesigner = (formProps: FormikProps<InputValues>) => (
@@ -170,7 +171,10 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                 </div>
               )}
               {this.state.showFoundryForm && (
-                <FoundryForm onCancel={this.toggleFoundryForm} />
+                <FoundryForm
+                  handleSubmit={this.handleAddNewFoundry(props)}
+                  onCancel={this.toggleFoundryForm}
+                />
               )}
               <ButtonWrapper>
                 <Publish type="button" black={true} onClick={props.submitForm}>
