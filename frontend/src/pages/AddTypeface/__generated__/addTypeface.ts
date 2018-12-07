@@ -4,18 +4,18 @@
 import { TypefaceCreateInput } from "./../../../../__generated__/globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: addTypeface
+// GraphQL mutation operation: AddTypeface
 // ====================================================
 
-export interface addTypeface_addTypeface {
+export interface AddTypeface_addTypeface {
   __typename: "Typeface";
   name: string;
 }
 
-export interface addTypeface {
-  addTypeface: addTypeface_addTypeface | null;
+export interface AddTypeface {
+  addTypeface: AddTypeface_addTypeface | null;
 }
 
-export interface addTypefaceVariables {
+export interface AddTypefaceVariables {
   input?: TypefaceCreateInput | null;
 }

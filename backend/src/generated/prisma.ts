@@ -939,7 +939,8 @@ type Foundry implements Node {
   id: ID!
   name: String!
   url: String!
-  fonts(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  addedBy: User!
 }
 
 """A connection to a list of items."""
@@ -955,17 +956,19 @@ type FoundryConnection {
 input FoundryCreateInput {
   name: String!
   url: String!
-  fonts: TypefaceCreateManyWithoutFoundryInput
+  typefaces: TypefaceCreateManyWithoutFoundryInput
+  addedBy: UserCreateOneInput!
 }
 
-input FoundryCreateOneWithoutFontsInput {
-  create: FoundryCreateWithoutFontsInput
+input FoundryCreateOneWithoutTypefacesInput {
+  create: FoundryCreateWithoutTypefacesInput
   connect: FoundryWhereUniqueInput
 }
 
-input FoundryCreateWithoutFontsInput {
+input FoundryCreateWithoutTypefacesInput {
   name: String!
   url: String!
+  addedBy: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1038,7 +1041,8 @@ input FoundrySubscriptionWhereInput {
 input FoundryUpdateInput {
   name: String
   url: String
-  fonts: TypefaceUpdateManyWithoutFoundryInput
+  typefaces: TypefaceUpdateManyWithoutFoundryInput
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input FoundryUpdateManyMutationInput {
@@ -1046,23 +1050,24 @@ input FoundryUpdateManyMutationInput {
   url: String
 }
 
-input FoundryUpdateOneWithoutFontsInput {
-  create: FoundryCreateWithoutFontsInput
+input FoundryUpdateOneWithoutTypefacesInput {
+  create: FoundryCreateWithoutTypefacesInput
   connect: FoundryWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: FoundryUpdateWithoutFontsDataInput
-  upsert: FoundryUpsertWithoutFontsInput
+  update: FoundryUpdateWithoutTypefacesDataInput
+  upsert: FoundryUpsertWithoutTypefacesInput
 }
 
-input FoundryUpdateWithoutFontsDataInput {
+input FoundryUpdateWithoutTypefacesDataInput {
   name: String
   url: String
+  addedBy: UserUpdateOneRequiredInput
 }
 
-input FoundryUpsertWithoutFontsInput {
-  update: FoundryUpdateWithoutFontsDataInput!
-  create: FoundryCreateWithoutFontsInput!
+input FoundryUpsertWithoutTypefacesInput {
+  update: FoundryUpdateWithoutTypefacesDataInput!
+  create: FoundryCreateWithoutTypefacesInput!
 }
 
 input FoundryWhereInput {
@@ -1194,9 +1199,10 @@ input FoundryWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
-  fonts_every: TypefaceWhereInput
-  fonts_some: TypefaceWhereInput
-  fonts_none: TypefaceWhereInput
+  typefaces_every: TypefaceWhereInput
+  typefaces_some: TypefaceWhereInput
+  typefaces_none: TypefaceWhereInput
+  addedBy: UserWhereInput
 }
 
 input FoundryWhereUniqueInput {
@@ -1346,7 +1352,7 @@ input TypefaceCreateInput {
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -1376,7 +1382,7 @@ input TypefaceCreateWithoutAddedByInput {
   description: String
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -1387,7 +1393,7 @@ input TypefaceCreateWithoutDesignersInput {
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
 }
 
 input TypefaceCreateWithoutFoundryInput {
@@ -1406,7 +1412,7 @@ input TypefaceCreateWithoutUsedByInput {
   description: String
   slug: String!
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -1701,7 +1707,7 @@ input TypefaceUpdateInput {
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -1774,7 +1780,7 @@ input TypefaceUpdateWithoutAddedByDataInput {
   description: String
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -1785,7 +1791,7 @@ input TypefaceUpdateWithoutDesignersDataInput {
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
 }
 
 input TypefaceUpdateWithoutFoundryDataInput {
@@ -1804,7 +1810,7 @@ input TypefaceUpdateWithoutUsedByDataInput {
   description: String
   slug: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -3674,17 +3680,19 @@ export interface FileWhereUniqueInput {
 export interface FoundryCreateInput {
   name: String
   url: String
-  fonts?: TypefaceCreateManyWithoutFoundryInput
+  typefaces?: TypefaceCreateManyWithoutFoundryInput
+  addedBy: UserCreateOneInput
 }
 
-export interface FoundryCreateOneWithoutFontsInput {
-  create?: FoundryCreateWithoutFontsInput
+export interface FoundryCreateOneWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput
   connect?: FoundryWhereUniqueInput
 }
 
-export interface FoundryCreateWithoutFontsInput {
+export interface FoundryCreateWithoutTypefacesInput {
   name: String
   url: String
+  addedBy: UserCreateOneInput
 }
 
 export interface FoundrySubscriptionWhereInput {
@@ -3701,7 +3709,8 @@ export interface FoundrySubscriptionWhereInput {
 export interface FoundryUpdateInput {
   name?: String
   url?: String
-  fonts?: TypefaceUpdateManyWithoutFoundryInput
+  typefaces?: TypefaceUpdateManyWithoutFoundryInput
+  addedBy?: UserUpdateOneRequiredInput
 }
 
 export interface FoundryUpdateManyMutationInput {
@@ -3709,23 +3718,24 @@ export interface FoundryUpdateManyMutationInput {
   url?: String
 }
 
-export interface FoundryUpdateOneWithoutFontsInput {
-  create?: FoundryCreateWithoutFontsInput
+export interface FoundryUpdateOneWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput
   connect?: FoundryWhereUniqueInput
   disconnect?: Boolean
   delete?: Boolean
-  update?: FoundryUpdateWithoutFontsDataInput
-  upsert?: FoundryUpsertWithoutFontsInput
+  update?: FoundryUpdateWithoutTypefacesDataInput
+  upsert?: FoundryUpsertWithoutTypefacesInput
 }
 
-export interface FoundryUpdateWithoutFontsDataInput {
+export interface FoundryUpdateWithoutTypefacesDataInput {
   name?: String
   url?: String
+  addedBy?: UserUpdateOneRequiredInput
 }
 
-export interface FoundryUpsertWithoutFontsInput {
-  update: FoundryUpdateWithoutFontsDataInput
-  create: FoundryCreateWithoutFontsInput
+export interface FoundryUpsertWithoutTypefacesInput {
+  update: FoundryUpdateWithoutTypefacesDataInput
+  create: FoundryCreateWithoutTypefacesInput
 }
 
 export interface FoundryWhereInput {
@@ -3774,9 +3784,10 @@ export interface FoundryWhereInput {
   url_not_starts_with?: String
   url_ends_with?: String
   url_not_ends_with?: String
-  fonts_every?: TypefaceWhereInput
-  fonts_some?: TypefaceWhereInput
-  fonts_none?: TypefaceWhereInput
+  typefaces_every?: TypefaceWhereInput
+  typefaces_some?: TypefaceWhereInput
+  typefaces_none?: TypefaceWhereInput
+  addedBy?: UserWhereInput
 }
 
 export interface FoundryWhereUniqueInput {
@@ -3791,7 +3802,7 @@ export interface TypefaceCreateInput {
   slug: String
   usedBy?: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput
-  foundry?: FoundryCreateOneWithoutFontsInput
+  foundry?: FoundryCreateOneWithoutTypefacesInput
   designers?: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -3821,7 +3832,7 @@ export interface TypefaceCreateWithoutAddedByInput {
   description?: String
   slug: String
   usedBy?: WebsiteCreateManyWithoutTypefacesInput
-  foundry?: FoundryCreateOneWithoutFontsInput
+  foundry?: FoundryCreateOneWithoutTypefacesInput
   designers?: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -3832,7 +3843,7 @@ export interface TypefaceCreateWithoutDesignersInput {
   slug: String
   usedBy?: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput
-  foundry?: FoundryCreateOneWithoutFontsInput
+  foundry?: FoundryCreateOneWithoutTypefacesInput
 }
 
 export interface TypefaceCreateWithoutFoundryInput {
@@ -3851,7 +3862,7 @@ export interface TypefaceCreateWithoutUsedByInput {
   description?: String
   slug: String
   addedBy: UserCreateOneWithoutTypefacesInput
-  foundry?: FoundryCreateOneWithoutFontsInput
+  foundry?: FoundryCreateOneWithoutTypefacesInput
   designers?: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -3949,7 +3960,7 @@ export interface TypefaceUpdateInput {
   slug?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry?: FoundryUpdateOneWithoutFontsInput
+  foundry?: FoundryUpdateOneWithoutTypefacesInput
   designers?: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -4022,7 +4033,7 @@ export interface TypefaceUpdateWithoutAddedByDataInput {
   description?: String
   slug?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
-  foundry?: FoundryUpdateOneWithoutFontsInput
+  foundry?: FoundryUpdateOneWithoutTypefacesInput
   designers?: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -4033,7 +4044,7 @@ export interface TypefaceUpdateWithoutDesignersDataInput {
   slug?: String
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry?: FoundryUpdateOneWithoutFontsInput
+  foundry?: FoundryUpdateOneWithoutTypefacesInput
 }
 
 export interface TypefaceUpdateWithoutFoundryDataInput {
@@ -4052,7 +4063,7 @@ export interface TypefaceUpdateWithoutUsedByDataInput {
   description?: String
   slug?: String
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry?: FoundryUpdateOneWithoutFontsInput
+  foundry?: FoundryUpdateOneWithoutTypefacesInput
   designers?: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -4874,7 +4885,8 @@ export interface Foundry extends Node {
   id: ID_Output
   name: String
   url: String
-  fonts?: Typeface[]
+  typefaces?: Typeface[]
+  addedBy: User
 }
 
 /*

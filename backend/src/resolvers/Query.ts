@@ -43,4 +43,11 @@ export const Query: QueryResolvers.Type = {
       },
     });
   },
+  findFoundries: (parent, args, ctx) => {
+    return ctx.client.foundries({
+      where: {
+        name_contains: args.search,
+      },
+    });
+  },
 };

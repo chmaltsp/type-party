@@ -2,15 +2,23 @@ import * as React from 'react';
 
 import styled from 'sc';
 
-import { Field, FieldProps, Formik, FormikProps } from 'formik';
+import { Field, FieldProps, Formik, FormikActions, FormikProps } from 'formik';
 
+import { responsePathAsArray } from 'graphql';
+import { ChildMutateProps, graphql } from 'react-apollo';
 import Button from '../Button';
 import Flex from '../Flex';
 import Input from '../Input';
 import LinkBase from '../Link';
+import {
+  AddFoundry,
+  AddFoundry_addFoundry,
+  AddFoundryVariables,
+} from './__generated__/AddFoundry';
+import { ADD_FOUNDRY } from './mutation';
 
 export interface FoundryProps {
-  handleSubmit?: () => void;
+  handleSubmit: (foundry: any) => void;
   onCancel: () => void;
 }
 
@@ -28,9 +36,34 @@ interface InputValues {
   name: string;
   url: string;
 }
-export default class Foundry extends React.PureComponent<FoundryProps, any> {
-  private handleOnSubmit = (values: InputValues) => {
+export class Foundry extends React.PureComponent<
+  ChildMutateProps<FoundryProps, AddFoundry, AddFoundryVariables>,
+  any
+> {
+  private handleOnSubmit = async (
+    values: InputValues,
+    actions: FormikActions<InputValues>
+  ) => {
     console.log('FOUNDRY FORM: ', values);
+
+    try {
+      const response = await this.props.mutate({
+        variables: {
+          input: {
+            ...values,
+            addedBy: {},
+          },
+        },
+      });
+
+      if (response && response.data) {
+        this.props.handleSubmit(response.data.addFoundry);
+      }
+    } catch (error) {
+      if (error && error.graphQLErrors) {
+        actions.setFieldError('name', error.graphQLErrors[0].message);
+      }
+    }
   }
   public render() {
     return (
@@ -68,3 +101,7 @@ export default class Foundry extends React.PureComponent<FoundryProps, any> {
     );
   }
 }
+
+const WrappedForm = graphql<any, AddFoundry, AddFoundryVariables>(ADD_FOUNDRY)(Foundry);
+
+export default WrappedForm;

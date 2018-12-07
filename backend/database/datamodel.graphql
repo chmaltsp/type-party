@@ -51,7 +51,8 @@ type Foundry {
   id: ID! @unique
   name: String! @unique
   url: String!
-  fonts: [Typeface!]! @relation(name: "TypefaceFoundry")
+  typefaces: [Typeface!]! @relation(name: "TypefaceFoundry")
+  addedBy: User! @relation(name: "FoundryUser")
 }
 
 type File {

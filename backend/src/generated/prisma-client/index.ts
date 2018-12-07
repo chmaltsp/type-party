@@ -499,9 +499,10 @@ export interface DesignerWhereInput {
   NOT?: DesignerWhereInput[] | DesignerWhereInput;
 }
 
-export interface FoundryCreateWithoutFontsInput {
+export interface FoundryCreateWithoutTypefacesInput {
   name: String;
   url: String;
+  addedBy: UserCreateOneInput;
 }
 
 export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
@@ -510,11 +511,9 @@ export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
   create: WebsiteCreateWithoutTypefacesInput;
 }
 
-export interface DesignerCreateManyWithoutTypefacesInput {
-  create?:
-    | DesignerCreateWithoutTypefacesInput[]
-    | DesignerCreateWithoutTypefacesInput;
-  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+export interface UserCreateOneInput {
+  create?: UserCreateInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
@@ -522,10 +521,13 @@ export interface TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
   data: TypefaceUpdateWithoutAddedByDataInput;
 }
 
-export interface DesignerCreateWithoutTypefacesInput {
+export interface UserCreateInput {
+  email: String;
+  password: String;
   name: String;
-  url: String;
-  addedBy: UserCreateOneInput;
+  role?: Role;
+  websites?: WebsiteCreateManyWithoutAddedByInput;
+  typefaces?: TypefaceCreateManyWithoutAddedByInput;
 }
 
 export interface WebsiteSubscriptionWhereInput {
@@ -539,9 +541,11 @@ export interface WebsiteSubscriptionWhereInput {
   NOT?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput;
 }
 
-export interface UserCreateOneInput {
-  create?: UserCreateInput;
-  connect?: UserWhereUniqueInput;
+export interface WebsiteCreateManyWithoutAddedByInput {
+  create?:
+    | WebsiteCreateWithoutAddedByInput[]
+    | WebsiteCreateWithoutAddedByInput;
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
 }
 
 export interface TypefaceSubscriptionWhereInput {
@@ -555,13 +559,15 @@ export interface TypefaceSubscriptionWhereInput {
   NOT?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput;
 }
 
-export interface UserCreateInput {
-  email: String;
-  password: String;
-  name: String;
-  role?: Role;
-  websites?: WebsiteCreateManyWithoutAddedByInput;
-  typefaces?: TypefaceCreateManyWithoutAddedByInput;
+export interface WebsiteCreateWithoutAddedByInput {
+  isPublished?: Boolean;
+  title: String;
+  thumbnail: String;
+  slug?: String;
+  url: String;
+  image: String;
+  typefaces?: TypefaceCreateManyWithoutUsedByInput;
+  featured?: Boolean;
 }
 
 export interface FileSubscriptionWhereInput {
@@ -575,11 +581,11 @@ export interface FileSubscriptionWhereInput {
   NOT?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput;
 }
 
-export interface WebsiteCreateManyWithoutAddedByInput {
+export interface TypefaceCreateManyWithoutUsedByInput {
   create?:
-    | WebsiteCreateWithoutAddedByInput[]
-    | WebsiteCreateWithoutAddedByInput;
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+    | TypefaceCreateWithoutUsedByInput[]
+    | TypefaceCreateWithoutUsedByInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
 }
 
 export interface WebsiteUpdateManyMutationInput {
@@ -592,15 +598,14 @@ export interface WebsiteUpdateManyMutationInput {
   featured?: Boolean;
 }
 
-export interface WebsiteCreateWithoutAddedByInput {
-  isPublished?: Boolean;
-  title: String;
-  thumbnail: String;
-  slug?: String;
-  url: String;
-  image: String;
-  typefaces?: TypefaceCreateManyWithoutUsedByInput;
-  featured?: Boolean;
+export interface TypefaceCreateWithoutUsedByInput {
+  name: String;
+  downloadUrl: String;
+  description?: String;
+  slug: String;
+  addedBy: UserCreateOneWithoutTypefacesInput;
+  foundry?: FoundryCreateOneWithoutTypefacesInput;
+  designers?: DesignerCreateManyWithoutTypefacesInput;
 }
 
 export type FileWhereUniqueInput = AtLeastOne<{
@@ -608,11 +613,9 @@ export type FileWhereUniqueInput = AtLeastOne<{
   url?: String;
 }>;
 
-export interface TypefaceCreateManyWithoutUsedByInput {
-  create?:
-    | TypefaceCreateWithoutUsedByInput[]
-    | TypefaceCreateWithoutUsedByInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+export interface UserCreateOneWithoutTypefacesInput {
+  create?: UserCreateWithoutTypefacesInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -622,14 +625,12 @@ export interface UserUpdateManyMutationInput {
   role?: Role;
 }
 
-export interface TypefaceCreateWithoutUsedByInput {
+export interface UserCreateWithoutTypefacesInput {
+  email: String;
+  password: String;
   name: String;
-  downloadUrl: String;
-  description?: String;
-  slug: String;
-  addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutFontsInput;
-  designers?: DesignerCreateManyWithoutTypefacesInput;
+  role?: Role;
+  websites?: WebsiteCreateManyWithoutAddedByInput;
 }
 
 export interface WebsiteWhereInput {
@@ -730,9 +731,11 @@ export interface WebsiteWhereInput {
   NOT?: WebsiteWhereInput[] | WebsiteWhereInput;
 }
 
-export interface UserCreateOneWithoutTypefacesInput {
-  create?: UserCreateWithoutTypefacesInput;
-  connect?: UserWhereUniqueInput;
+export interface DesignerCreateManyWithoutTypefacesInput {
+  create?:
+    | DesignerCreateWithoutTypefacesInput[]
+    | DesignerCreateWithoutTypefacesInput;
+  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
 }
 
 export interface TypefaceUpdateManyMutationInput {
@@ -742,12 +745,10 @@ export interface TypefaceUpdateManyMutationInput {
   slug?: String;
 }
 
-export interface UserCreateWithoutTypefacesInput {
-  email: String;
-  password: String;
+export interface DesignerCreateWithoutTypefacesInput {
   name: String;
-  role?: Role;
-  websites?: WebsiteCreateManyWithoutAddedByInput;
+  url: String;
+  addedBy: UserCreateOneInput;
 }
 
 export type FoundryWhereUniqueInput = AtLeastOne<{
@@ -769,7 +770,7 @@ export interface TypefaceCreateInput {
   slug: String;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput;
   addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutFontsInput;
+  foundry?: FoundryCreateOneWithoutTypefacesInput;
   designers?: DesignerCreateManyWithoutTypefacesInput;
 }
 
@@ -816,7 +817,7 @@ export interface TypefaceUpdateWithoutDesignersDataInput {
   slug?: String;
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
-  foundry?: FoundryUpdateOneWithoutFontsInput;
+  foundry?: FoundryUpdateOneWithoutTypefacesInput;
 }
 
 export interface TypefaceUpdateManyWithoutFoundryInput {
@@ -842,7 +843,8 @@ export interface DesignerUpdateManyMutationInput {
 export interface FoundryUpdateInput {
   name?: String;
   url?: String;
-  fonts?: TypefaceUpdateManyWithoutFoundryInput;
+  typefaces?: TypefaceUpdateManyWithoutFoundryInput;
+  addedBy?: UserUpdateOneRequiredInput;
 }
 
 export interface WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
@@ -944,9 +946,10 @@ export interface FoundryWhereInput {
   url_not_starts_with?: String;
   url_ends_with?: String;
   url_not_ends_with?: String;
-  fonts_every?: TypefaceWhereInput;
-  fonts_some?: TypefaceWhereInput;
-  fonts_none?: TypefaceWhereInput;
+  typefaces_every?: TypefaceWhereInput;
+  typefaces_some?: TypefaceWhereInput;
+  typefaces_none?: TypefaceWhereInput;
+  addedBy?: UserWhereInput;
   AND?: FoundryWhereInput[] | FoundryWhereInput;
   OR?: FoundryWhereInput[] | FoundryWhereInput;
   NOT?: FoundryWhereInput[] | FoundryWhereInput;
@@ -976,7 +979,7 @@ export interface TypefaceUpdateWithoutAddedByDataInput {
   description?: String;
   slug?: String;
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
-  foundry?: FoundryUpdateOneWithoutFontsInput;
+  foundry?: FoundryUpdateOneWithoutTypefacesInput;
   designers?: DesignerUpdateManyWithoutTypefacesInput;
 }
 
@@ -987,23 +990,24 @@ export interface TypefaceCreateManyWithoutAddedByInput {
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
 }
 
-export interface FoundryUpdateOneWithoutFontsInput {
-  create?: FoundryCreateWithoutFontsInput;
-  update?: FoundryUpdateWithoutFontsDataInput;
-  upsert?: FoundryUpsertWithoutFontsInput;
+export interface FoundryUpdateOneWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput;
+  update?: FoundryUpdateWithoutTypefacesDataInput;
+  upsert?: FoundryUpsertWithoutTypefacesInput;
   delete?: Boolean;
   disconnect?: Boolean;
   connect?: FoundryWhereUniqueInput;
 }
 
-export interface FoundryCreateOneWithoutFontsInput {
-  create?: FoundryCreateWithoutFontsInput;
+export interface FoundryCreateOneWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput;
   connect?: FoundryWhereUniqueInput;
 }
 
-export interface FoundryUpdateWithoutFontsDataInput {
+export interface FoundryUpdateWithoutTypefacesDataInput {
   name?: String;
   url?: String;
+  addedBy?: UserUpdateOneRequiredInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -1017,9 +1021,11 @@ export interface UserSubscriptionWhereInput {
   NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
 
-export interface FoundryUpsertWithoutFontsInput {
-  update: FoundryUpdateWithoutFontsDataInput;
-  create: FoundryCreateWithoutFontsInput;
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput;
+  update?: UserUpdateDataInput;
+  upsert?: UserUpsertNestedInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface DesignerSubscriptionWhereInput {
@@ -1033,19 +1039,13 @@ export interface DesignerSubscriptionWhereInput {
   NOT?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput;
 }
 
-export interface DesignerUpdateManyWithoutTypefacesInput {
-  create?:
-    | DesignerCreateWithoutTypefacesInput[]
-    | DesignerCreateWithoutTypefacesInput;
-  delete?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
-  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
-  disconnect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
-  update?:
-    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput[]
-    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput;
-  upsert?:
-    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput[]
-    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput;
+export interface UserUpdateDataInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
+  websites?: WebsiteUpdateManyWithoutAddedByInput;
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
 }
 
 export interface WebsiteCreateInput {
@@ -1060,9 +1060,19 @@ export interface WebsiteCreateInput {
   featured?: Boolean;
 }
 
-export interface DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
-  where: DesignerWhereUniqueInput;
-  data: DesignerUpdateWithoutTypefacesDataInput;
+export interface WebsiteUpdateManyWithoutAddedByInput {
+  create?:
+    | WebsiteCreateWithoutAddedByInput[]
+    | WebsiteCreateWithoutAddedByInput;
+  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  update?:
+    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput[]
+    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput;
+  upsert?:
+    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput[]
+    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput;
 }
 
 export interface UserUpdateInput {
@@ -1074,10 +1084,9 @@ export interface UserUpdateInput {
   typefaces?: TypefaceUpdateManyWithoutAddedByInput;
 }
 
-export interface DesignerUpdateWithoutTypefacesDataInput {
-  name?: String;
-  url?: String;
-  addedBy?: UserUpdateOneRequiredInput;
+export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
+  where: WebsiteWhereUniqueInput;
+  data: WebsiteUpdateWithoutAddedByDataInput;
 }
 
 export interface TypefaceWhereInput {
@@ -1164,65 +1173,6 @@ export interface TypefaceWhereInput {
   NOT?: TypefaceWhereInput[] | TypefaceWhereInput;
 }
 
-export interface UserUpdateOneRequiredInput {
-  create?: UserCreateInput;
-  update?: UserUpdateDataInput;
-  upsert?: UserUpsertNestedInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export type TypefaceWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  name?: String;
-}>;
-
-export interface UserUpdateDataInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  role?: Role;
-  websites?: WebsiteUpdateManyWithoutAddedByInput;
-  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-}>;
-
-export interface WebsiteUpdateManyWithoutAddedByInput {
-  create?:
-    | WebsiteCreateWithoutAddedByInput[]
-    | WebsiteCreateWithoutAddedByInput;
-  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  update?:
-    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput[]
-    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput;
-  upsert?:
-    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput[]
-    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput;
-}
-
-export interface FoundryCreateInput {
-  name: String;
-  url: String;
-  fonts?: TypefaceCreateManyWithoutFoundryInput;
-}
-
-export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
-  where: WebsiteWhereUniqueInput;
-  data: WebsiteUpdateWithoutAddedByDataInput;
-}
-
-export interface FileCreateInput {
-  filename: String;
-  mimetype: String;
-  encoding: String;
-  url: String;
-}
-
 export interface WebsiteUpdateWithoutAddedByDataInput {
   isPublished?: Boolean;
   title?: String;
@@ -1234,15 +1184,10 @@ export interface WebsiteUpdateWithoutAddedByDataInput {
   featured?: Boolean;
 }
 
-export interface TypefaceCreateWithoutDesignersInput {
-  name: String;
-  downloadUrl: String;
-  description?: String;
-  slug: String;
-  usedBy?: WebsiteCreateManyWithoutTypefacesInput;
-  addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutFontsInput;
-}
+export type TypefaceWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
 
 export interface TypefaceUpdateManyWithoutUsedByInput {
   create?:
@@ -1259,6 +1204,65 @@ export interface TypefaceUpdateManyWithoutUsedByInput {
     | TypefaceUpsertWithWhereUniqueWithoutUsedByInput;
 }
 
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+}>;
+
+export interface TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
+  where: TypefaceWhereUniqueInput;
+  data: TypefaceUpdateWithoutUsedByDataInput;
+}
+
+export interface FoundryCreateInput {
+  name: String;
+  url: String;
+  typefaces?: TypefaceCreateManyWithoutFoundryInput;
+  addedBy: UserCreateOneInput;
+}
+
+export interface TypefaceUpdateWithoutUsedByDataInput {
+  name?: String;
+  downloadUrl?: String;
+  description?: String;
+  slug?: String;
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
+  foundry?: FoundryUpdateOneWithoutTypefacesInput;
+  designers?: DesignerUpdateManyWithoutTypefacesInput;
+}
+
+export interface FileCreateInput {
+  filename: String;
+  mimetype: String;
+  encoding: String;
+  url: String;
+}
+
+export interface UserUpdateOneRequiredWithoutTypefacesInput {
+  create?: UserCreateWithoutTypefacesInput;
+  update?: UserUpdateWithoutTypefacesDataInput;
+  upsert?: UserUpsertWithoutTypefacesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface TypefaceCreateWithoutDesignersInput {
+  name: String;
+  downloadUrl: String;
+  description?: String;
+  slug: String;
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput;
+  addedBy: UserCreateOneWithoutTypefacesInput;
+  foundry?: FoundryCreateOneWithoutTypefacesInput;
+}
+
+export interface UserUpdateWithoutTypefacesDataInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
+  websites?: WebsiteUpdateManyWithoutAddedByInput;
+}
+
 export interface UserCreateWithoutWebsitesInput {
   email: String;
   password: String;
@@ -1267,9 +1271,9 @@ export interface UserCreateWithoutWebsitesInput {
   typefaces?: TypefaceCreateManyWithoutAddedByInput;
 }
 
-export interface TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
-  where: TypefaceWhereUniqueInput;
-  data: TypefaceUpdateWithoutUsedByDataInput;
+export interface UserUpsertWithoutTypefacesInput {
+  update: UserUpdateWithoutTypefacesDataInput;
+  create: UserCreateWithoutTypefacesInput;
 }
 
 export interface UserWhereInput {
@@ -1344,14 +1348,19 @@ export interface UserWhereInput {
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface TypefaceUpdateWithoutUsedByDataInput {
-  name?: String;
-  downloadUrl?: String;
-  description?: String;
-  slug?: String;
-  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
-  foundry?: FoundryUpdateOneWithoutFontsInput;
-  designers?: DesignerUpdateManyWithoutTypefacesInput;
+export interface DesignerUpdateManyWithoutTypefacesInput {
+  create?:
+    | DesignerCreateWithoutTypefacesInput[]
+    | DesignerCreateWithoutTypefacesInput;
+  delete?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+  disconnect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+  update?:
+    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput[]
+    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput;
+  upsert?:
+    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput[]
+    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput;
 }
 
 export interface WebsiteUpdateInput {
@@ -1366,11 +1375,9 @@ export interface WebsiteUpdateInput {
   featured?: Boolean;
 }
 
-export interface UserUpdateOneRequiredWithoutTypefacesInput {
-  create?: UserCreateWithoutTypefacesInput;
-  update?: UserUpdateWithoutTypefacesDataInput;
-  upsert?: UserUpsertWithoutTypefacesInput;
-  connect?: UserWhereUniqueInput;
+export interface DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
+  where: DesignerWhereUniqueInput;
+  data: DesignerUpdateWithoutTypefacesDataInput;
 }
 
 export interface TypefaceUpdateInput {
@@ -1380,16 +1387,14 @@ export interface TypefaceUpdateInput {
   slug?: String;
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
-  foundry?: FoundryUpdateOneWithoutFontsInput;
+  foundry?: FoundryUpdateOneWithoutTypefacesInput;
   designers?: DesignerUpdateManyWithoutTypefacesInput;
 }
 
-export interface UserUpdateWithoutTypefacesDataInput {
-  email?: String;
-  password?: String;
+export interface DesignerUpdateWithoutTypefacesDataInput {
   name?: String;
-  role?: Role;
-  websites?: WebsiteUpdateManyWithoutAddedByInput;
+  url?: String;
+  addedBy?: UserUpdateOneRequiredInput;
 }
 
 export interface TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
@@ -1397,9 +1402,10 @@ export interface TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
   data: TypefaceUpdateWithoutFoundryDataInput;
 }
 
-export interface UserUpsertWithoutTypefacesInput {
-  update: UserUpdateWithoutTypefacesDataInput;
-  create: UserCreateWithoutTypefacesInput;
+export interface DesignerUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: DesignerWhereUniqueInput;
+  update: DesignerUpdateWithoutTypefacesDataInput;
+  create: DesignerCreateWithoutTypefacesInput;
 }
 
 export interface FileUpdateManyMutationInput {
@@ -1454,10 +1460,9 @@ export interface TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
   create: TypefaceCreateWithoutAddedByInput;
 }
 
-export interface DesignerUpsertWithWhereUniqueWithoutTypefacesInput {
-  where: DesignerWhereUniqueInput;
-  update: DesignerUpdateWithoutTypefacesDataInput;
-  create: DesignerCreateWithoutTypefacesInput;
+export interface FoundryUpsertWithoutTypefacesInput {
+  update: FoundryUpdateWithoutTypefacesDataInput;
+  create: FoundryCreateWithoutTypefacesInput;
 }
 
 export interface UserUpsertNestedInput {
@@ -1563,7 +1568,7 @@ export interface TypefaceCreateWithoutAddedByInput {
   description?: String;
   slug: String;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutFontsInput;
+  foundry?: FoundryCreateOneWithoutTypefacesInput;
   designers?: DesignerCreateManyWithoutTypefacesInput;
 }
 
@@ -2425,7 +2430,7 @@ export interface FoundryPromise extends Promise<Foundry>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   url: () => Promise<String>;
-  fonts: <T = FragmentableArray<Typeface>>(
+  typefaces: <T = FragmentableArray<Typeface>>(
     args?: {
       where?: TypefaceWhereInput;
       orderBy?: TypefaceOrderByInput;
@@ -2436,6 +2441,7 @@ export interface FoundryPromise extends Promise<Foundry>, Fragmentable {
       last?: Int;
     }
   ) => T;
+  addedBy: <T = UserPromise>() => T;
 }
 
 export interface FoundrySubscription
@@ -2444,7 +2450,7 @@ export interface FoundrySubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
-  fonts: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
+  typefaces: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
     args?: {
       where?: TypefaceWhereInput;
       orderBy?: TypefaceOrderByInput;
@@ -2455,6 +2461,7 @@ export interface FoundrySubscription
       last?: Int;
     }
   ) => T;
+  addedBy: <T = UserSubscription>() => T;
 }
 
 export interface FoundryPreviousValues {

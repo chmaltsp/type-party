@@ -6,7 +6,10 @@ import { FoundryResolvers } from '../graphqlgen';
 export const Foundry: FoundryResolvers.Type = {
   ...FoundryResolvers.defaultResolvers,
 
-  fonts: (parent, args, ctx) => {
+  typefaces: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
+  addedBy: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
 };

@@ -33,14 +33,22 @@ export interface DesignerWhereUniqueInput {
   name?: string | null;
 }
 
-export interface FoundryCreateOneWithoutFontsInput {
-  create?: FoundryCreateWithoutFontsInput | null;
+export interface FoundryCreateInput {
+  name: string;
+  url: string;
+  typefaces?: TypefaceCreateManyWithoutFoundryInput | null;
+  addedBy: UserCreateOneInput;
+}
+
+export interface FoundryCreateOneWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput | null;
   connect?: FoundryWhereUniqueInput | null;
 }
 
-export interface FoundryCreateWithoutFontsInput {
+export interface FoundryCreateWithoutTypefacesInput {
   name: string;
   url: string;
+  addedBy: UserCreateOneInput;
 }
 
 export interface FoundryWhereUniqueInput {
@@ -55,7 +63,7 @@ export interface TypefaceCreateInput {
   slug: string;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
   addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutFontsInput | null;
+  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
@@ -66,6 +74,11 @@ export interface TypefaceCreateManyWithoutAddedByInput {
 
 export interface TypefaceCreateManyWithoutDesignersInput {
   create?: TypefaceCreateWithoutDesignersInput[] | null;
+  connect?: TypefaceWhereUniqueInput[] | null;
+}
+
+export interface TypefaceCreateManyWithoutFoundryInput {
+  create?: TypefaceCreateWithoutFoundryInput[] | null;
   connect?: TypefaceWhereUniqueInput[] | null;
 }
 
@@ -80,7 +93,7 @@ export interface TypefaceCreateWithoutAddedByInput {
   description?: string | null;
   slug: string;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
-  foundry?: FoundryCreateOneWithoutFontsInput | null;
+  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
@@ -91,7 +104,17 @@ export interface TypefaceCreateWithoutDesignersInput {
   slug: string;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
   addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutFontsInput | null;
+  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
+}
+
+export interface TypefaceCreateWithoutFoundryInput {
+  name: string;
+  downloadUrl: string;
+  description?: string | null;
+  slug: string;
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
+  addedBy: UserCreateOneWithoutTypefacesInput;
+  designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
 export interface TypefaceCreateWithoutUsedByInput {
@@ -100,7 +123,7 @@ export interface TypefaceCreateWithoutUsedByInput {
   description?: string | null;
   slug: string;
   addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutFontsInput | null;
+  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
