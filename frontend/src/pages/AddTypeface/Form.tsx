@@ -2,8 +2,7 @@ import * as React from 'react';
 import styled from 'sc';
 
 import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
-import { ChildMutateProps, ChildProps, compose, graphql } from 'react-apollo';
-import Autocomplete from '../../components/Autocomplete';
+import { ChildMutateProps, compose, graphql } from 'react-apollo';
 import ButtonBase from '../../components/Button';
 import DesignerForm from '../../components/DesignerForm';
 import Flex from '../../components/Flex';
@@ -13,11 +12,9 @@ import Input from '../../components/Input';
 import { AddDesigner_addDesigner } from 'src/components/DesignerForm/__generated__/AddDesigner';
 import { AddFoundry_addFoundry } from 'src/components/FoundryForm/__generated__/AddFoundry';
 import { AddTypeface, AddTypefaceVariables } from './__generated__/AddTypeface';
-import { FindDesigner, FindDesignerVariables } from './__generated__/FindDesigner';
-import { FindFoundry, FindFoundryVariables } from './__generated__/FindFoundry';
+import DesignerTypeahead from './DesignerTypeahead';
 import FoundryTypeahead from './FoundryTypeahead';
 import { ADD_TYPEFACE } from './mutation';
-import { SEARCH_DESIGNER, SEARCH_FOUNDRY } from './queries';
 
 export interface TypefaceFormProps {
   handleSubmit?: () => void;
@@ -53,8 +50,7 @@ const ButtonWrapper = styled(Flex)`
 
 const Publish = styled(ButtonBase)``;
 
-type Props = ChildProps<{}, FindDesigner, FindDesignerVariables> &
-  ChildMutateProps<{}, AddTypeface, AddTypefaceVariables>;
+type Props = ChildMutateProps<{}, AddTypeface, AddTypefaceVariables>;
 
 class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   public state = {
@@ -116,13 +112,6 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
     this.toggleDesignerForm();
   }
 
-  public handleSearch = async (search: string | null) => {
-    if (this.props.data) {
-      await this.props.data.refetch({
-        search: search || '',
-      });
-    }
-  }
   public render() {
     console.log(this.props);
     return (
@@ -157,31 +146,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                   return <Input textarea={true} label="Description" {...fieldProps} />;
                 }}
               />
-              <Field
-                name="designers"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return (
-                    <Autocomplete<{ name?: string; id: string; value: string }>
-                      items={
-                        (this.props.data &&
-                          this.props.data.findDesigners &&
-                          this.props.data.findDesigners.map(designer => ({
-                            ...designer,
-                            value: designer.name,
-                          }))) ||
-                        []
-                      }
-                      value={fieldProps.field.value}
-                      label="Designer(s)"
-                      handleSearch={this.handleSearch}
-                      handleOnChange={selection =>
-                        fieldProps.form.setFieldValue('designers', selection)
-                      }
-                      itemToString={item => (item && item.name) || ''}
-                    />
-                  );
-                }}
-              />
+              <DesignerTypeahead />
               {!this.state.showDesignerForm && (
                 <div>
                   <ButtonBase rounded={true} onClick={this.toggleDesignerForm}>
@@ -224,13 +189,6 @@ const WrappedForm = graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE
   TypefaceForm
 );
 
-export default compose(
-  graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE),
-  graphql<any, FindDesigner, FindDesignerVariables>(SEARCH_DESIGNER, {
-    options: {
-      variables: {
-        search: '',
-      },
-    },
-  })
-)(WrappedForm);
+export default compose(graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE))(
+  WrappedForm
+);
