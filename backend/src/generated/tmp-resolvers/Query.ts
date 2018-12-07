@@ -23,4 +23,7 @@ export const Query: QueryResolvers.Type = {
   findDesigners: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  findFoundries: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };

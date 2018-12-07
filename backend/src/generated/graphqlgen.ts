@@ -65,6 +65,10 @@ export namespace QueryResolvers {
     search: string;
   }
 
+  export interface ArgsFindFoundries {
+    search: string;
+  }
+
   export type MeResolver = (
     parent: undefined,
     args: {},
@@ -106,6 +110,13 @@ export namespace QueryResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Designer[] | Promise<Designer[]>;
+
+  export type FindFoundriesResolver = (
+    parent: undefined,
+    args: ArgsFindFoundries,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Foundry[] | Promise<Foundry[]>;
 
   export interface Type {
     me: (
@@ -149,6 +160,13 @@ export namespace QueryResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Designer[] | Promise<Designer[]>;
+
+    findFoundries: (
+      parent: undefined,
+      args: ArgsFindFoundries,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Foundry[] | Promise<Foundry[]>;
   }
 }
 
@@ -539,9 +557,10 @@ export namespace WebsiteResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    fonts_every: TypefaceWhereInput | null;
-    fonts_some: TypefaceWhereInput | null;
-    fonts_none: TypefaceWhereInput | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: FoundryWhereInput[];
     OR: FoundryWhereInput[];
     NOT: FoundryWhereInput[];
@@ -1055,9 +1074,10 @@ export namespace TypefaceResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    fonts_every: TypefaceWhereInput | null;
-    fonts_some: TypefaceWhereInput | null;
-    fonts_none: TypefaceWhereInput | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: FoundryWhereInput[];
     OR: FoundryWhereInput[];
     NOT: FoundryWhereInput[];
@@ -1564,9 +1584,10 @@ export namespace FoundryResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    fonts_every: TypefaceWhereInput | null;
-    fonts_some: TypefaceWhereInput | null;
-    fonts_none: TypefaceWhereInput | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: FoundryWhereInput[];
     OR: FoundryWhereInput[];
     NOT: FoundryWhereInput[];
@@ -1623,7 +1644,7 @@ export namespace FoundryResolvers {
     NOT: DesignerWhereInput[];
   }
 
-  export interface ArgsFonts {
+  export interface ArgsTypefaces {
     where: TypefaceWhereInput | null;
     orderBy: TypefaceOrderByInput | null;
     skip: number | null;
@@ -1654,12 +1675,19 @@ export namespace FoundryResolvers {
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
-  export type FontsResolver = (
+  export type TypefacesResolver = (
     parent: Foundry,
-    args: ArgsFonts,
+    args: ArgsTypefaces,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Typeface[] | Promise<Typeface[]>;
+
+  export type AddedByResolver = (
+    parent: Foundry,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
 
   export interface Type {
     id: (
@@ -1683,12 +1711,19 @@ export namespace FoundryResolvers {
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
-    fonts: (
+    typefaces: (
       parent: Foundry,
-      args: ArgsFonts,
+      args: ArgsTypefaces,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Typeface[] | Promise<Typeface[]>;
+
+    addedBy: (
+      parent: Foundry,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
   }
 }
 
@@ -1993,9 +2028,10 @@ export namespace DesignerResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    fonts_every: TypefaceWhereInput | null;
-    fonts_some: TypefaceWhereInput | null;
-    fonts_none: TypefaceWhereInput | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
     AND: FoundryWhereInput[];
     OR: FoundryWhereInput[];
     NOT: FoundryWhereInput[];
@@ -2145,7 +2181,7 @@ export namespace MutationResolvers {
     slug: string;
     usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
     addedBy: UserCreateOneWithoutTypefacesInput;
-    foundry: FoundryCreateOneWithoutFontsInput | null;
+    foundry: FoundryCreateOneWithoutTypefacesInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
   }
   export interface WebsiteCreateManyWithoutTypefacesInput {
@@ -2183,26 +2219,14 @@ export namespace MutationResolvers {
     description: string | null;
     slug: string;
     usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
-    foundry: FoundryCreateOneWithoutFontsInput | null;
+    foundry: FoundryCreateOneWithoutTypefacesInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
   }
-  export interface FoundryCreateOneWithoutFontsInput {
-    create: FoundryCreateWithoutFontsInput | null;
+  export interface FoundryCreateOneWithoutTypefacesInput {
+    create: FoundryCreateWithoutTypefacesInput | null;
     connect: FoundryWhereUniqueInput | null;
   }
-  export interface FoundryCreateWithoutFontsInput {
-    name: string;
-    url: string;
-  }
-  export interface FoundryWhereUniqueInput {
-    id: string | null;
-    name: string | null;
-  }
-  export interface DesignerCreateManyWithoutTypefacesInput {
-    create: DesignerCreateWithoutTypefacesInput[];
-    connect: DesignerWhereUniqueInput[];
-  }
-  export interface DesignerCreateWithoutTypefacesInput {
+  export interface FoundryCreateWithoutTypefacesInput {
     name: string;
     url: string;
     addedBy: UserCreateOneInput;
@@ -2243,7 +2267,7 @@ export namespace MutationResolvers {
     description: string | null;
     slug: string;
     addedBy: UserCreateOneWithoutTypefacesInput;
-    foundry: FoundryCreateOneWithoutFontsInput | null;
+    foundry: FoundryCreateOneWithoutTypefacesInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
   }
   export interface UserCreateOneWithoutTypefacesInput {
@@ -2261,6 +2285,19 @@ export namespace MutationResolvers {
     id: string | null;
     email: string | null;
   }
+  export interface DesignerCreateManyWithoutTypefacesInput {
+    create: DesignerCreateWithoutTypefacesInput[];
+    connect: DesignerWhereUniqueInput[];
+  }
+  export interface DesignerCreateWithoutTypefacesInput {
+    name: string;
+    url: string;
+    addedBy: UserCreateOneInput;
+  }
+  export interface DesignerWhereUniqueInput {
+    id: string | null;
+    name: string | null;
+  }
   export interface TypefaceWhereUniqueInput {
     id: string | null;
     name: string | null;
@@ -2268,14 +2305,15 @@ export namespace MutationResolvers {
   export interface WebsiteWhereUniqueInput {
     id: string | null;
   }
-  export interface DesignerWhereUniqueInput {
+  export interface FoundryWhereUniqueInput {
     id: string | null;
     name: string | null;
   }
   export interface FoundryCreateInput {
     name: string;
     url: string;
-    fonts: TypefaceCreateManyWithoutFoundryInput | null;
+    typefaces: TypefaceCreateManyWithoutFoundryInput | null;
+    addedBy: UserCreateOneInput;
   }
   export interface TypefaceCreateManyWithoutFoundryInput {
     create: TypefaceCreateWithoutFoundryInput[];
@@ -2307,7 +2345,7 @@ export namespace MutationResolvers {
     slug: string;
     usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
     addedBy: UserCreateOneWithoutTypefacesInput;
-    foundry: FoundryCreateOneWithoutFontsInput | null;
+    foundry: FoundryCreateOneWithoutTypefacesInput | null;
   }
 
   export interface ArgsSignup {

@@ -385,7 +385,8 @@ type Foundry {
   id: ID!
   name: String!
   url: String!
-  fonts(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  addedBy: User!
 }
 
 type FoundryConnection {
@@ -397,17 +398,19 @@ type FoundryConnection {
 input FoundryCreateInput {
   name: String!
   url: String!
-  fonts: TypefaceCreateManyWithoutFoundryInput
+  typefaces: TypefaceCreateManyWithoutFoundryInput
+  addedBy: UserCreateOneInput!
 }
 
-input FoundryCreateOneWithoutFontsInput {
-  create: FoundryCreateWithoutFontsInput
+input FoundryCreateOneWithoutTypefacesInput {
+  create: FoundryCreateWithoutTypefacesInput
   connect: FoundryWhereUniqueInput
 }
 
-input FoundryCreateWithoutFontsInput {
+input FoundryCreateWithoutTypefacesInput {
   name: String!
   url: String!
+  addedBy: UserCreateOneInput!
 }
 
 type FoundryEdge {
@@ -455,7 +458,8 @@ input FoundrySubscriptionWhereInput {
 input FoundryUpdateInput {
   name: String
   url: String
-  fonts: TypefaceUpdateManyWithoutFoundryInput
+  typefaces: TypefaceUpdateManyWithoutFoundryInput
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input FoundryUpdateManyMutationInput {
@@ -463,23 +467,24 @@ input FoundryUpdateManyMutationInput {
   url: String
 }
 
-input FoundryUpdateOneWithoutFontsInput {
-  create: FoundryCreateWithoutFontsInput
-  update: FoundryUpdateWithoutFontsDataInput
-  upsert: FoundryUpsertWithoutFontsInput
+input FoundryUpdateOneWithoutTypefacesInput {
+  create: FoundryCreateWithoutTypefacesInput
+  update: FoundryUpdateWithoutTypefacesDataInput
+  upsert: FoundryUpsertWithoutTypefacesInput
   delete: Boolean
   disconnect: Boolean
   connect: FoundryWhereUniqueInput
 }
 
-input FoundryUpdateWithoutFontsDataInput {
+input FoundryUpdateWithoutTypefacesDataInput {
   name: String
   url: String
+  addedBy: UserUpdateOneRequiredInput
 }
 
-input FoundryUpsertWithoutFontsInput {
-  update: FoundryUpdateWithoutFontsDataInput!
-  create: FoundryCreateWithoutFontsInput!
+input FoundryUpsertWithoutTypefacesInput {
+  update: FoundryUpdateWithoutTypefacesDataInput!
+  create: FoundryCreateWithoutTypefacesInput!
 }
 
 input FoundryWhereInput {
@@ -525,9 +530,10 @@ input FoundryWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
-  fonts_every: TypefaceWhereInput
-  fonts_some: TypefaceWhereInput
-  fonts_none: TypefaceWhereInput
+  typefaces_every: TypefaceWhereInput
+  typefaces_some: TypefaceWhereInput
+  typefaces_none: TypefaceWhereInput
+  addedBy: UserWhereInput
   AND: [FoundryWhereInput!]
   OR: [FoundryWhereInput!]
   NOT: [FoundryWhereInput!]
@@ -657,7 +663,7 @@ input TypefaceCreateInput {
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -687,7 +693,7 @@ input TypefaceCreateWithoutAddedByInput {
   description: String
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -698,7 +704,7 @@ input TypefaceCreateWithoutDesignersInput {
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
 }
 
 input TypefaceCreateWithoutFoundryInput {
@@ -717,7 +723,7 @@ input TypefaceCreateWithoutUsedByInput {
   description: String
   slug: String!
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutFontsInput
+  foundry: FoundryCreateOneWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -776,7 +782,7 @@ input TypefaceUpdateInput {
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -829,7 +835,7 @@ input TypefaceUpdateWithoutAddedByDataInput {
   description: String
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -840,7 +846,7 @@ input TypefaceUpdateWithoutDesignersDataInput {
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
 }
 
 input TypefaceUpdateWithoutFoundryDataInput {
@@ -859,7 +865,7 @@ input TypefaceUpdateWithoutUsedByDataInput {
   description: String
   slug: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutFontsInput
+  foundry: FoundryUpdateOneWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 

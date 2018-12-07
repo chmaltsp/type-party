@@ -28,6 +28,8 @@ type Query {
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
   findDesigners(search: String!): [Designer!]!
+  findFoundries(search: String!): [Foundry!]!
+
 }
 
 input TypefaceInput {

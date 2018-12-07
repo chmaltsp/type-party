@@ -9,3 +9,13 @@ export const SEARCH_DESIGNER = gql`
     }
   }
 `;
+
+export const SEARCH_FOUNDRY = gql`
+  query FindFoundry($search: String!) {
+    findFoundries(search: $search) {
+      name
+      id
+      url
+    }
+  }
+`;

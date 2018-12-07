@@ -11,10 +11,13 @@ import FoundryForm from '../../components/FoundryForm';
 import Input from '../../components/Input';
 
 import { AddDesigner_addDesigner } from 'src/components/DesignerForm/__generated__/AddDesigner';
-import { addTypeface, addTypefaceVariables } from './__generated__/addTypeface';
+import { AddFoundry_addFoundry } from 'src/components/FoundryForm/__generated__/AddFoundry';
+import { AddTypeface, AddTypefaceVariables } from './__generated__/AddTypeface';
 import { FindDesigner, FindDesignerVariables } from './__generated__/FindDesigner';
+import { FindFoundry, FindFoundryVariables } from './__generated__/FindFoundry';
+import FoundryTypeahead from './FoundryTypeahead';
 import { ADD_TYPEFACE } from './mutation';
-import { SEARCH_DESIGNER } from './queries';
+import { SEARCH_DESIGNER, SEARCH_FOUNDRY } from './queries';
 
 export interface TypefaceFormProps {
   handleSubmit?: () => void;
@@ -32,6 +35,7 @@ interface Designer {
 }
 export interface InputValues {
   designers: AddDesigner_addDesigner[];
+  foundries: AddFoundry_addFoundry[];
   downloadUrl: string;
   description: string;
   slug: string;
@@ -50,7 +54,7 @@ const ButtonWrapper = styled(Flex)`
 const Publish = styled(ButtonBase)``;
 
 type Props = ChildProps<{}, FindDesigner, FindDesignerVariables> &
-  ChildMutateProps<{}, addTypeface, addTypefaceVariables>;
+  ChildMutateProps<{}, AddTypeface, AddTypefaceVariables>;
 
 class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   public state = {
@@ -94,6 +98,12 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
     // this.props.handleSubmit();
   }
 
+  public handleAddNewFoundry = (formProps: FormikProps<InputValues>) => (
+    foundry: AddFoundry_addFoundry
+  ) => {
+    formProps.setFieldValue('foundries', [...formProps.values.foundries, foundry]);
+  }
+
   public handleAddNewDesigner = (formProps: FormikProps<InputValues>) => (
     designer: AddDesigner_addDesigner
   ) => {
@@ -114,12 +124,14 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
     }
   }
   public render() {
+    console.log(this.props);
     return (
       <Formik<InputValues>
         initialValues={{
           description: '',
           designers: [],
           downloadUrl: '',
+          foundries: [],
           name: '',
           slug: '',
         }}
@@ -180,22 +192,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
               {this.state.showDesignerForm && (
                 <DesignerForm handleSubmit={this.handleAddNewDesigner(props)} />
               )}
-              <Field
-                name="foundries"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return (
-                    <Autocomplete<{ name?: string; value: string }>
-                      items={[{ value: 'Google' }]}
-                      value={fieldProps.field.value}
-                      label="Foundries(s)"
-                      handleOnChange={selection =>
-                        fieldProps.form.setFieldValue('foundries', selection)
-                      }
-                      itemToString={item => (item && item.name) || ''}
-                    />
-                  );
-                }}
-              />
+              <FoundryTypeahead />
               {!this.state.showFoundryForm && (
                 <div>
                   <ButtonBase
@@ -223,12 +220,12 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   }
 }
 
-const WrappedForm = graphql<any, addTypeface, addTypefaceVariables>(ADD_TYPEFACE)(
+const WrappedForm = graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE)(
   TypefaceForm
 );
 
 export default compose(
-  graphql<any, addTypeface, addTypefaceVariables>(ADD_TYPEFACE),
+  graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE),
   graphql<any, FindDesigner, FindDesignerVariables>(SEARCH_DESIGNER, {
     options: {
       variables: {
