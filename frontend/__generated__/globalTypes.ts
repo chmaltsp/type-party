@@ -244,6 +244,7 @@ export interface WebsiteCreateWithoutTypefacesInput {
 
 export interface WebsiteWhereUniqueInput {
   id?: string | null;
+  title?: string | null;
 }
 
 //==============================================================
