@@ -6,6 +6,9 @@ import { WebsiteResolvers } from '../graphqlgen';
 export const Website: WebsiteResolvers.Type = {
   ...WebsiteResolvers.defaultResolvers,
 
+  images: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   addedBy: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },

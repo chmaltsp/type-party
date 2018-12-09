@@ -1,4 +1,4 @@
-# import Website from "./generated/prisma.graphql"
+# import Website, WebsiteCreateInput from "./generated/prisma.graphql"
 # import File from "./generated/prisma.graphql"
 # import Role from "./generated/prisma.graphql"
 # import Typeface, TypefaceCreateInput from "./generated/prisma.graphql"
@@ -36,10 +36,19 @@ input TypefaceInput {
   name: String!
 }
 
+input AddWebsiteInput {
+  full: Upload!
+  thumbnail: Upload!
+  title: String!
+  url: String!
+  slug: String!
+  typefaces: [String!]!
+}
+
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  addWebsite(title: String!, thumbnail: String!, url: String!, image: String): Website!
+  addWebsite(input: AddWebsiteInput): Website!
   addTypeface(input: TypefaceCreateInput): Typeface @isAuthenticated
   addFoundry(input: FoundryCreateInput): Foundry @isAuthenticated
   addDesigner(input: DesignerCreateInput): Designer @isAuthenticated

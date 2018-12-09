@@ -13,6 +13,7 @@ export interface Exists {
   designer: (where?: DesignerWhereInput) => Promise<boolean>;
   file: (where?: FileWhereInput) => Promise<boolean>;
   foundry: (where?: FoundryWhereInput) => Promise<boolean>;
+  images: (where?: ImagesWhereInput) => Promise<boolean>;
   typeface: (where?: TypefaceWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
   website: (where?: WebsiteWhereInput) => Promise<boolean>;
@@ -106,6 +107,28 @@ export interface Prisma {
       last?: Int;
     }
   ) => FoundryConnectionPromise;
+  imageses: (
+    args?: {
+      where?: ImagesWhereInput;
+      orderBy?: ImagesOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<Images>;
+  imagesesConnection: (
+    args?: {
+      where?: ImagesWhereInput;
+      orderBy?: ImagesOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => ImagesConnectionPromise;
   typeface: (where: TypefaceWhereUniqueInput) => TypefacePromise;
   typefaces: (
     args?: {
@@ -229,6 +252,8 @@ export interface Prisma {
   ) => FoundryPromise;
   deleteFoundry: (where: FoundryWhereUniqueInput) => FoundryPromise;
   deleteManyFoundries: (where?: FoundryWhereInput) => BatchPayloadPromise;
+  createImages: (data: ImagesCreateInput) => ImagesPromise;
+  deleteManyImageses: (where?: ImagesWhereInput) => BatchPayloadPromise;
   createTypeface: (data: TypefaceCreateInput) => TypefacePromise;
   updateTypeface: (
     args: { data: TypefaceUpdateInput; where: TypefaceWhereUniqueInput }
@@ -295,6 +320,9 @@ export interface Subscription {
   foundry: (
     where?: FoundrySubscriptionWhereInput
   ) => FoundrySubscriptionPayloadSubscription;
+  images: (
+    where?: ImagesSubscriptionWhereInput
+  ) => ImagesSubscriptionPayloadSubscription;
   typeface: (
     where?: TypefaceSubscriptionWhereInput
   ) => TypefaceSubscriptionPayloadSubscription;
@@ -314,6 +342,8 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type Role = "ADMIN" | "SUBSCRIBER";
+
 export type TypefaceOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -330,8 +360,6 @@ export type TypefaceOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type Role = "ADMIN" | "SUBSCRIBER";
-
 export type WebsiteOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -339,14 +367,10 @@ export type WebsiteOrderByInput =
   | "isPublished_DESC"
   | "title_ASC"
   | "title_DESC"
-  | "thumbnail_ASC"
-  | "thumbnail_DESC"
   | "slug_ASC"
   | "slug_DESC"
   | "url_ASC"
   | "url_DESC"
-  | "image_ASC"
-  | "image_DESC"
   | "featured_ASC"
   | "featured_DESC"
   | "createdAt_ASC"
@@ -394,6 +418,14 @@ export type FoundryOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type ImagesOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -412,19 +444,9 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface WebsiteUpdateManyWithoutTypefacesInput {
-  create?:
-    | WebsiteCreateWithoutTypefacesInput[]
-    | WebsiteCreateWithoutTypefacesInput;
-  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  update?:
-    | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput[]
-    | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput;
-  upsert?:
-    | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput[]
-    | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput;
+export interface TypefaceUpdateWithWhereUniqueWithoutDesignersInput {
+  where: TypefaceWhereUniqueInput;
+  data: TypefaceUpdateWithoutDesignersDataInput;
 }
 
 export type DesignerWhereUniqueInput = AtLeastOne<{
@@ -432,19 +454,90 @@ export type DesignerWhereUniqueInput = AtLeastOne<{
   name?: String;
 }>;
 
-export interface TypefaceUpdateManyWithoutAddedByInput {
-  create?:
-    | TypefaceCreateWithoutAddedByInput[]
-    | TypefaceCreateWithoutAddedByInput;
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  update?:
-    | TypefaceUpdateWithWhereUniqueWithoutAddedByInput[]
-    | TypefaceUpdateWithWhereUniqueWithoutAddedByInput;
-  upsert?:
-    | TypefaceUpsertWithWhereUniqueWithoutAddedByInput[]
-    | TypefaceUpsertWithWhereUniqueWithoutAddedByInput;
+export interface ImagesUpdateDataInput {
+  thumbnail?: FileUpdateOneInput;
+  full?: FileUpdateOneInput;
+}
+
+export interface UserWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  role?: Role;
+  role_not?: Role;
+  role_in?: Role[] | Role;
+  role_not_in?: Role[] | Role;
+  websites_every?: WebsiteWhereInput;
+  websites_some?: WebsiteWhereInput;
+  websites_none?: WebsiteWhereInput;
+  typefaces_every?: TypefaceWhereInput;
+  typefaces_some?: TypefaceWhereInput;
+  typefaces_none?: TypefaceWhereInput;
+  AND?: UserWhereInput[] | UserWhereInput;
+  OR?: UserWhereInput[] | UserWhereInput;
+  NOT?: UserWhereInput[] | UserWhereInput;
+}
+
+export interface FileUpdateOneInput {
+  create?: FileCreateInput;
+  update?: FileUpdateDataInput;
+  upsert?: FileUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: FileWhereUniqueInput;
 }
 
 export interface DesignerWhereInput {
@@ -499,35 +592,38 @@ export interface DesignerWhereInput {
   NOT?: DesignerWhereInput[] | DesignerWhereInput;
 }
 
-export interface FoundryCreateWithoutTypefacesInput {
+export interface TypefaceCreateManyWithoutAddedByInput {
+  create?:
+    | TypefaceCreateWithoutAddedByInput[]
+    | TypefaceCreateWithoutAddedByInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface TypefaceCreateWithoutAddedByInput {
   name: String;
-  url: String;
-  addedBy: UserCreateOneInput;
+  downloadUrl: String;
+  description?: String;
+  slug: String;
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput;
+  foundry?: FoundryCreateOneWithoutTypefacesInput;
+  designers?: DesignerCreateManyWithoutTypefacesInput;
 }
 
-export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
-  where: WebsiteWhereUniqueInput;
-  update: WebsiteUpdateWithoutTypefacesDataInput;
-  create: WebsiteCreateWithoutTypefacesInput;
+export interface FileUpdateDataInput {
+  filename?: String;
+  mimetype?: String;
+  encoding?: String;
+  url?: String;
 }
 
-export interface UserCreateOneInput {
-  create?: UserCreateInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
-  where: TypefaceWhereUniqueInput;
-  data: TypefaceUpdateWithoutAddedByDataInput;
-}
-
-export interface UserCreateInput {
-  email: String;
-  password: String;
-  name: String;
-  role?: Role;
-  websites?: WebsiteCreateManyWithoutAddedByInput;
-  typefaces?: TypefaceCreateManyWithoutAddedByInput;
+export interface FoundryCreateOneWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput;
+  connect?: FoundryWhereUniqueInput;
 }
 
 export interface WebsiteSubscriptionWhereInput {
@@ -541,11 +637,10 @@ export interface WebsiteSubscriptionWhereInput {
   NOT?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput;
 }
 
-export interface WebsiteCreateManyWithoutAddedByInput {
-  create?:
-    | WebsiteCreateWithoutAddedByInput[]
-    | WebsiteCreateWithoutAddedByInput;
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+export interface FoundryCreateWithoutTypefacesInput {
+  name: String;
+  url: String;
+  addedBy: UserCreateOneInput;
 }
 
 export interface TypefaceSubscriptionWhereInput {
@@ -559,15 +654,29 @@ export interface TypefaceSubscriptionWhereInput {
   NOT?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput;
 }
 
-export interface WebsiteCreateWithoutAddedByInput {
-  isPublished?: Boolean;
-  title: String;
-  thumbnail: String;
-  slug?: String;
-  url: String;
-  image: String;
-  typefaces?: TypefaceCreateManyWithoutUsedByInput;
-  featured?: Boolean;
+export interface UserCreateOneInput {
+  create?: UserCreateInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface FoundrySubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: FoundryWhereInput;
+  AND?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput;
+  OR?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput;
+  NOT?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput;
+}
+
+export interface UserCreateInput {
+  email: String;
+  password: String;
+  name: String;
+  role?: Role;
+  websites?: WebsiteCreateManyWithoutAddedByInput;
+  typefaces?: TypefaceCreateManyWithoutAddedByInput;
 }
 
 export interface FileSubscriptionWhereInput {
@@ -581,6 +690,36 @@ export interface FileSubscriptionWhereInput {
   NOT?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput;
 }
 
+export interface WebsiteCreateManyWithoutAddedByInput {
+  create?:
+    | WebsiteCreateWithoutAddedByInput[]
+    | WebsiteCreateWithoutAddedByInput;
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+}
+
+export interface WebsiteUpdateManyMutationInput {
+  isPublished?: Boolean;
+  title?: String;
+  slug?: String;
+  url?: String;
+  featured?: Boolean;
+}
+
+export interface WebsiteCreateWithoutAddedByInput {
+  isPublished?: Boolean;
+  title: String;
+  images?: ImagesCreateOneInput;
+  slug?: String;
+  url: String;
+  typefaces?: TypefaceCreateManyWithoutUsedByInput;
+  featured?: Boolean;
+}
+
+export type FileWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  url?: String;
+}>;
+
 export interface TypefaceCreateManyWithoutUsedByInput {
   create?:
     | TypefaceCreateWithoutUsedByInput[]
@@ -588,14 +727,11 @@ export interface TypefaceCreateManyWithoutUsedByInput {
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
 }
 
-export interface WebsiteUpdateManyMutationInput {
-  isPublished?: Boolean;
-  title?: String;
-  thumbnail?: String;
-  slug?: String;
-  url?: String;
-  image?: String;
-  featured?: Boolean;
+export interface UserUpdateManyMutationInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
 }
 
 export interface TypefaceCreateWithoutUsedByInput {
@@ -608,29 +744,16 @@ export interface TypefaceCreateWithoutUsedByInput {
   designers?: DesignerCreateManyWithoutTypefacesInput;
 }
 
-export type FileWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  url?: String;
-}>;
+export interface TypefaceUpdateManyMutationInput {
+  name?: String;
+  downloadUrl?: String;
+  description?: String;
+  slug?: String;
+}
 
 export interface UserCreateOneWithoutTypefacesInput {
   create?: UserCreateWithoutTypefacesInput;
   connect?: UserWhereUniqueInput;
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  role?: Role;
-}
-
-export interface UserCreateWithoutTypefacesInput {
-  email: String;
-  password: String;
-  name: String;
-  role?: Role;
-  websites?: WebsiteCreateManyWithoutAddedByInput;
 }
 
 export interface WebsiteWhereInput {
@@ -664,20 +787,7 @@ export interface WebsiteWhereInput {
   title_not_starts_with?: String;
   title_ends_with?: String;
   title_not_ends_with?: String;
-  thumbnail?: String;
-  thumbnail_not?: String;
-  thumbnail_in?: String[] | String;
-  thumbnail_not_in?: String[] | String;
-  thumbnail_lt?: String;
-  thumbnail_lte?: String;
-  thumbnail_gt?: String;
-  thumbnail_gte?: String;
-  thumbnail_contains?: String;
-  thumbnail_not_contains?: String;
-  thumbnail_starts_with?: String;
-  thumbnail_not_starts_with?: String;
-  thumbnail_ends_with?: String;
-  thumbnail_not_ends_with?: String;
+  images?: ImagesWhereInput;
   slug?: String;
   slug_not?: String;
   slug_in?: String[] | String;
@@ -706,20 +816,6 @@ export interface WebsiteWhereInput {
   url_not_starts_with?: String;
   url_ends_with?: String;
   url_not_ends_with?: String;
-  image?: String;
-  image_not?: String;
-  image_in?: String[] | String;
-  image_not_in?: String[] | String;
-  image_lt?: String;
-  image_lte?: String;
-  image_gt?: String;
-  image_gte?: String;
-  image_contains?: String;
-  image_not_contains?: String;
-  image_starts_with?: String;
-  image_not_starts_with?: String;
-  image_ends_with?: String;
-  image_not_ends_with?: String;
   addedBy?: UserWhereInput;
   typefaces_every?: TypefaceWhereInput;
   typefaces_some?: TypefaceWhereInput;
@@ -731,36 +827,12 @@ export interface WebsiteWhereInput {
   NOT?: WebsiteWhereInput[] | WebsiteWhereInput;
 }
 
-export interface DesignerCreateManyWithoutTypefacesInput {
-  create?:
-    | DesignerCreateWithoutTypefacesInput[]
-    | DesignerCreateWithoutTypefacesInput;
-  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
-}
-
-export interface TypefaceUpdateManyMutationInput {
-  name?: String;
-  downloadUrl?: String;
-  description?: String;
-  slug?: String;
-}
-
-export interface DesignerCreateWithoutTypefacesInput {
+export interface UserCreateWithoutTypefacesInput {
+  email: String;
+  password: String;
   name: String;
-  url: String;
-  addedBy: UserCreateOneInput;
-}
-
-export type FoundryWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  name?: String;
-}>;
-
-export interface DesignerUpdateInput {
-  name?: String;
-  url?: String;
-  typefaces?: TypefaceUpdateManyWithoutDesignersInput;
-  addedBy?: UserUpdateOneRequiredInput;
+  role?: Role;
+  websites?: WebsiteCreateManyWithoutAddedByInput;
 }
 
 export interface TypefaceCreateInput {
@@ -774,319 +846,11 @@ export interface TypefaceCreateInput {
   designers?: DesignerCreateManyWithoutTypefacesInput;
 }
 
-export interface TypefaceUpdateManyWithoutDesignersInput {
+export interface DesignerCreateManyWithoutTypefacesInput {
   create?:
-    | TypefaceCreateWithoutDesignersInput[]
-    | TypefaceCreateWithoutDesignersInput;
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  update?:
-    | TypefaceUpdateWithWhereUniqueWithoutDesignersInput[]
-    | TypefaceUpdateWithWhereUniqueWithoutDesignersInput;
-  upsert?:
-    | TypefaceUpsertWithWhereUniqueWithoutDesignersInput[]
-    | TypefaceUpsertWithWhereUniqueWithoutDesignersInput;
-}
-
-export interface TypefaceUpsertWithWhereUniqueWithoutFoundryInput {
-  where: TypefaceWhereUniqueInput;
-  update: TypefaceUpdateWithoutFoundryDataInput;
-  create: TypefaceCreateWithoutFoundryInput;
-}
-
-export interface TypefaceUpdateWithWhereUniqueWithoutDesignersInput {
-  where: TypefaceWhereUniqueInput;
-  data: TypefaceUpdateWithoutDesignersDataInput;
-}
-
-export interface TypefaceUpdateWithoutFoundryDataInput {
-  name?: String;
-  downloadUrl?: String;
-  description?: String;
-  slug?: String;
-  usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
-  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
-  designers?: DesignerUpdateManyWithoutTypefacesInput;
-}
-
-export interface TypefaceUpdateWithoutDesignersDataInput {
-  name?: String;
-  downloadUrl?: String;
-  description?: String;
-  slug?: String;
-  usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
-  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
-  foundry?: FoundryUpdateOneWithoutTypefacesInput;
-}
-
-export interface TypefaceUpdateManyWithoutFoundryInput {
-  create?:
-    | TypefaceCreateWithoutFoundryInput[]
-    | TypefaceCreateWithoutFoundryInput;
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  update?:
-    | TypefaceUpdateWithWhereUniqueWithoutFoundryInput[]
-    | TypefaceUpdateWithWhereUniqueWithoutFoundryInput;
-  upsert?:
-    | TypefaceUpsertWithWhereUniqueWithoutFoundryInput[]
-    | TypefaceUpsertWithWhereUniqueWithoutFoundryInput;
-}
-
-export interface DesignerUpdateManyMutationInput {
-  name?: String;
-  url?: String;
-}
-
-export interface FoundryUpdateInput {
-  name?: String;
-  url?: String;
-  typefaces?: TypefaceUpdateManyWithoutFoundryInput;
-  addedBy?: UserUpdateOneRequiredInput;
-}
-
-export interface WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
-  where: WebsiteWhereUniqueInput;
-  data: WebsiteUpdateWithoutTypefacesDataInput;
-}
-
-export interface TypefaceCreateManyWithoutFoundryInput {
-  create?:
-    | TypefaceCreateWithoutFoundryInput[]
-    | TypefaceCreateWithoutFoundryInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-}
-
-export interface WebsiteUpdateWithoutTypefacesDataInput {
-  isPublished?: Boolean;
-  title?: String;
-  thumbnail?: String;
-  slug?: String;
-  url?: String;
-  image?: String;
-  addedBy?: UserUpdateOneRequiredWithoutWebsitesInput;
-  featured?: Boolean;
-}
-
-export type WebsiteWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface UserUpdateOneRequiredWithoutWebsitesInput {
-  create?: UserCreateWithoutWebsitesInput;
-  update?: UserUpdateWithoutWebsitesDataInput;
-  upsert?: UserUpsertWithoutWebsitesInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface FileUpdateInput {
-  filename?: String;
-  mimetype?: String;
-  encoding?: String;
-  url?: String;
-}
-
-export interface UserUpdateWithoutWebsitesDataInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  role?: Role;
-  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
-}
-
-export interface TypefaceCreateManyWithoutDesignersInput {
-  create?:
-    | TypefaceCreateWithoutDesignersInput[]
-    | TypefaceCreateWithoutDesignersInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-}
-
-export interface FoundryWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  typefaces_every?: TypefaceWhereInput;
-  typefaces_some?: TypefaceWhereInput;
-  typefaces_none?: TypefaceWhereInput;
-  addedBy?: UserWhereInput;
-  AND?: FoundryWhereInput[] | FoundryWhereInput;
-  OR?: FoundryWhereInput[] | FoundryWhereInput;
-  NOT?: FoundryWhereInput[] | FoundryWhereInput;
-}
-
-export interface WebsiteCreateManyWithoutTypefacesInput {
-  create?:
-    | WebsiteCreateWithoutTypefacesInput[]
-    | WebsiteCreateWithoutTypefacesInput;
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-}
-
-export interface TypefaceUpsertWithWhereUniqueWithoutDesignersInput {
-  where: TypefaceWhereUniqueInput;
-  update: TypefaceUpdateWithoutDesignersDataInput;
-  create: TypefaceCreateWithoutDesignersInput;
-}
-
-export interface UserCreateOneWithoutWebsitesInput {
-  create?: UserCreateWithoutWebsitesInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface TypefaceUpdateWithoutAddedByDataInput {
-  name?: String;
-  downloadUrl?: String;
-  description?: String;
-  slug?: String;
-  usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
-  foundry?: FoundryUpdateOneWithoutTypefacesInput;
-  designers?: DesignerUpdateManyWithoutTypefacesInput;
-}
-
-export interface TypefaceCreateManyWithoutAddedByInput {
-  create?:
-    | TypefaceCreateWithoutAddedByInput[]
-    | TypefaceCreateWithoutAddedByInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-}
-
-export interface FoundryUpdateOneWithoutTypefacesInput {
-  create?: FoundryCreateWithoutTypefacesInput;
-  update?: FoundryUpdateWithoutTypefacesDataInput;
-  upsert?: FoundryUpsertWithoutTypefacesInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: FoundryWhereUniqueInput;
-}
-
-export interface FoundryCreateOneWithoutTypefacesInput {
-  create?: FoundryCreateWithoutTypefacesInput;
-  connect?: FoundryWhereUniqueInput;
-}
-
-export interface FoundryUpdateWithoutTypefacesDataInput {
-  name?: String;
-  url?: String;
-  addedBy?: UserUpdateOneRequiredInput;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
-export interface UserUpdateOneRequiredInput {
-  create?: UserCreateInput;
-  update?: UserUpdateDataInput;
-  upsert?: UserUpsertNestedInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface DesignerSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: DesignerWhereInput;
-  AND?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput;
-  OR?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput;
-  NOT?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput;
-}
-
-export interface UserUpdateDataInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  role?: Role;
-  websites?: WebsiteUpdateManyWithoutAddedByInput;
-  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
-}
-
-export interface WebsiteCreateInput {
-  isPublished?: Boolean;
-  title: String;
-  thumbnail: String;
-  slug?: String;
-  url: String;
-  image: String;
-  addedBy: UserCreateOneWithoutWebsitesInput;
-  typefaces?: TypefaceCreateManyWithoutUsedByInput;
-  featured?: Boolean;
-}
-
-export interface WebsiteUpdateManyWithoutAddedByInput {
-  create?:
-    | WebsiteCreateWithoutAddedByInput[]
-    | WebsiteCreateWithoutAddedByInput;
-  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  update?:
-    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput[]
-    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput;
-  upsert?:
-    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput[]
-    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput;
-}
-
-export interface UserUpdateInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  role?: Role;
-  websites?: WebsiteUpdateManyWithoutAddedByInput;
-  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
-}
-
-export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
-  where: WebsiteWhereUniqueInput;
-  data: WebsiteUpdateWithoutAddedByDataInput;
+    | DesignerCreateWithoutTypefacesInput[]
+    | DesignerCreateWithoutTypefacesInput;
+  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
 }
 
 export interface TypefaceWhereInput {
@@ -1173,15 +937,27 @@ export interface TypefaceWhereInput {
   NOT?: TypefaceWhereInput[] | TypefaceWhereInput;
 }
 
-export interface WebsiteUpdateWithoutAddedByDataInput {
-  isPublished?: Boolean;
-  title?: String;
-  thumbnail?: String;
+export interface DesignerCreateWithoutTypefacesInput {
+  name: String;
+  url: String;
+  addedBy: UserCreateOneInput;
+}
+
+export interface TypefaceUpdateWithoutFoundryDataInput {
+  name?: String;
+  downloadUrl?: String;
+  description?: String;
   slug?: String;
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
+  designers?: DesignerUpdateManyWithoutTypefacesInput;
+}
+
+export interface DesignerUpdateInput {
+  name?: String;
   url?: String;
-  image?: String;
-  typefaces?: TypefaceUpdateManyWithoutUsedByInput;
-  featured?: Boolean;
+  typefaces?: TypefaceUpdateManyWithoutDesignersInput;
+  addedBy?: UserUpdateOneRequiredInput;
 }
 
 export type TypefaceWhereUniqueInput = AtLeastOne<{
@@ -1189,19 +965,31 @@ export type TypefaceWhereUniqueInput = AtLeastOne<{
   name?: String;
 }>;
 
-export interface TypefaceUpdateManyWithoutUsedByInput {
+export interface TypefaceUpdateManyWithoutDesignersInput {
   create?:
-    | TypefaceCreateWithoutUsedByInput[]
-    | TypefaceCreateWithoutUsedByInput;
+    | TypefaceCreateWithoutDesignersInput[]
+    | TypefaceCreateWithoutDesignersInput;
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
   update?:
-    | TypefaceUpdateWithWhereUniqueWithoutUsedByInput[]
-    | TypefaceUpdateWithWhereUniqueWithoutUsedByInput;
+    | TypefaceUpdateWithWhereUniqueWithoutDesignersInput[]
+    | TypefaceUpdateWithWhereUniqueWithoutDesignersInput;
   upsert?:
-    | TypefaceUpsertWithWhereUniqueWithoutUsedByInput[]
-    | TypefaceUpsertWithWhereUniqueWithoutUsedByInput;
+    | TypefaceUpsertWithWhereUniqueWithoutDesignersInput[]
+    | TypefaceUpsertWithWhereUniqueWithoutDesignersInput;
+}
+
+export interface FoundryUpdateInput {
+  name?: String;
+  url?: String;
+  typefaces?: TypefaceUpdateManyWithoutFoundryInput;
+  addedBy?: UserUpdateOneRequiredInput;
+}
+
+export interface UserUpsertWithoutWebsitesInput {
+  update: UserUpdateWithoutWebsitesDataInput;
+  create: UserCreateWithoutWebsitesInput;
 }
 
 export type UserWhereUniqueInput = AtLeastOne<{
@@ -1209,9 +997,14 @@ export type UserWhereUniqueInput = AtLeastOne<{
   email?: String;
 }>;
 
-export interface TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
-  where: TypefaceWhereUniqueInput;
-  data: TypefaceUpdateWithoutUsedByDataInput;
+export interface TypefaceUpdateWithoutDesignersDataInput {
+  name?: String;
+  downloadUrl?: String;
+  description?: String;
+  slug?: String;
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
+  foundry?: FoundryUpdateOneWithoutTypefacesInput;
 }
 
 export interface FoundryCreateInput {
@@ -1221,62 +1014,70 @@ export interface FoundryCreateInput {
   addedBy: UserCreateOneInput;
 }
 
-export interface TypefaceUpdateWithoutUsedByDataInput {
+export interface WebsiteUpdateManyWithoutTypefacesInput {
+  create?:
+    | WebsiteCreateWithoutTypefacesInput[]
+    | WebsiteCreateWithoutTypefacesInput;
+  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  update?:
+    | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput[]
+    | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput;
+  upsert?:
+    | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput[]
+    | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput;
+}
+
+export interface FileUpdateInput {
+  filename?: String;
+  mimetype?: String;
+  encoding?: String;
+  url?: String;
+}
+
+export interface WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
+  where: WebsiteWhereUniqueInput;
+  data: WebsiteUpdateWithoutTypefacesDataInput;
+}
+
+export interface DesignerUpdateManyMutationInput {
   name?: String;
-  downloadUrl?: String;
-  description?: String;
+  url?: String;
+}
+
+export interface WebsiteUpdateWithoutTypefacesDataInput {
+  isPublished?: Boolean;
+  title?: String;
+  images?: ImagesUpdateOneInput;
   slug?: String;
-  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
-  foundry?: FoundryUpdateOneWithoutTypefacesInput;
-  designers?: DesignerUpdateManyWithoutTypefacesInput;
+  url?: String;
+  addedBy?: UserUpdateOneRequiredWithoutWebsitesInput;
+  featured?: Boolean;
 }
 
-export interface FileCreateInput {
-  filename: String;
-  mimetype: String;
-  encoding: String;
+export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: WebsiteWhereUniqueInput;
+  update: WebsiteUpdateWithoutTypefacesDataInput;
+  create: WebsiteCreateWithoutTypefacesInput;
+}
+
+export interface ImagesUpdateOneInput {
+  create?: ImagesCreateInput;
+  update?: ImagesUpdateDataInput;
+  upsert?: ImagesUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+}
+
+export interface DesignerCreateInput {
+  name: String;
   url: String;
+  typefaces?: TypefaceCreateManyWithoutDesignersInput;
+  addedBy: UserCreateOneInput;
 }
 
-export interface UserUpdateOneRequiredWithoutTypefacesInput {
-  create?: UserCreateWithoutTypefacesInput;
-  update?: UserUpdateWithoutTypefacesDataInput;
-  upsert?: UserUpsertWithoutTypefacesInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface TypefaceCreateWithoutDesignersInput {
-  name: String;
-  downloadUrl: String;
-  description?: String;
-  slug: String;
-  usedBy?: WebsiteCreateManyWithoutTypefacesInput;
-  addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutTypefacesInput;
-}
-
-export interface UserUpdateWithoutTypefacesDataInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  role?: Role;
-  websites?: WebsiteUpdateManyWithoutAddedByInput;
-}
-
-export interface UserCreateWithoutWebsitesInput {
-  email: String;
-  password: String;
-  name: String;
-  role?: Role;
-  typefaces?: TypefaceCreateManyWithoutAddedByInput;
-}
-
-export interface UserUpsertWithoutTypefacesInput {
-  update: UserUpdateWithoutTypefacesDataInput;
-  create: UserCreateWithoutTypefacesInput;
-}
-
-export interface UserWhereInput {
+export interface FoundryWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -1291,34 +1092,6 @@ export interface UserWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  email?: String;
-  email_not?: String;
-  email_in?: String[] | String;
-  email_not_in?: String[] | String;
-  email_lt?: String;
-  email_lte?: String;
-  email_gt?: String;
-  email_gte?: String;
-  email_contains?: String;
-  email_not_contains?: String;
-  email_starts_with?: String;
-  email_not_starts_with?: String;
-  email_ends_with?: String;
-  email_not_ends_with?: String;
-  password?: String;
-  password_not?: String;
-  password_in?: String[] | String;
-  password_not_in?: String[] | String;
-  password_lt?: String;
-  password_lte?: String;
-  password_gt?: String;
-  password_gte?: String;
-  password_contains?: String;
-  password_not_contains?: String;
-  password_starts_with?: String;
-  password_not_starts_with?: String;
-  password_ends_with?: String;
-  password_not_ends_with?: String;
   name?: String;
   name_not?: String;
   name_in?: String[] | String;
@@ -1333,51 +1106,172 @@ export interface UserWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
-  role?: Role;
-  role_not?: Role;
-  role_in?: Role[] | Role;
-  role_not_in?: Role[] | Role;
-  websites_every?: WebsiteWhereInput;
-  websites_some?: WebsiteWhereInput;
-  websites_none?: WebsiteWhereInput;
+  url?: String;
+  url_not?: String;
+  url_in?: String[] | String;
+  url_not_in?: String[] | String;
+  url_lt?: String;
+  url_lte?: String;
+  url_gt?: String;
+  url_gte?: String;
+  url_contains?: String;
+  url_not_contains?: String;
+  url_starts_with?: String;
+  url_not_starts_with?: String;
+  url_ends_with?: String;
+  url_not_ends_with?: String;
   typefaces_every?: TypefaceWhereInput;
   typefaces_some?: TypefaceWhereInput;
   typefaces_none?: TypefaceWhereInput;
-  AND?: UserWhereInput[] | UserWhereInput;
-  OR?: UserWhereInput[] | UserWhereInput;
-  NOT?: UserWhereInput[] | UserWhereInput;
+  addedBy?: UserWhereInput;
+  AND?: FoundryWhereInput[] | FoundryWhereInput;
+  OR?: FoundryWhereInput[] | FoundryWhereInput;
+  NOT?: FoundryWhereInput[] | FoundryWhereInput;
 }
 
-export interface DesignerUpdateManyWithoutTypefacesInput {
+export interface TypefaceCreateWithoutDesignersInput {
+  name: String;
+  downloadUrl: String;
+  description?: String;
+  slug: String;
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput;
+  addedBy: UserCreateOneWithoutTypefacesInput;
+  foundry?: FoundryCreateOneWithoutTypefacesInput;
+}
+
+export interface TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
+  where: TypefaceWhereUniqueInput;
+  update: TypefaceUpdateWithoutAddedByDataInput;
+  create: TypefaceCreateWithoutAddedByInput;
+}
+
+export interface WebsiteCreateWithoutTypefacesInput {
+  isPublished?: Boolean;
+  title: String;
+  images?: ImagesCreateOneInput;
+  slug?: String;
+  url: String;
+  addedBy: UserCreateOneWithoutWebsitesInput;
+  featured?: Boolean;
+}
+
+export interface FoundryUpsertWithoutTypefacesInput {
+  update: FoundryUpdateWithoutTypefacesDataInput;
+  create: FoundryCreateWithoutTypefacesInput;
+}
+
+export interface ImagesCreateInput {
+  thumbnail?: FileCreateOneInput;
+  full?: FileCreateOneInput;
+}
+
+export interface FileUpsertNestedInput {
+  update: FileUpdateDataInput;
+  create: FileCreateInput;
+}
+
+export interface FileCreateInput {
+  filename: String;
+  mimetype: String;
+  encoding: String;
+  url: String;
+}
+
+export interface ImagesUpsertNestedInput {
+  update: ImagesUpdateDataInput;
+  create: ImagesCreateInput;
+}
+
+export interface UserCreateWithoutWebsitesInput {
+  email: String;
+  password: String;
+  name: String;
+  role?: Role;
+  typefaces?: TypefaceCreateManyWithoutAddedByInput;
+}
+
+export interface UserUpdateOneRequiredWithoutWebsitesInput {
+  create?: UserCreateWithoutWebsitesInput;
+  update?: UserUpdateWithoutWebsitesDataInput;
+  upsert?: UserUpsertWithoutWebsitesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+}
+
+export interface UserUpdateWithoutWebsitesDataInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
+}
+
+export interface ImagesWhereInput {
+  thumbnail?: FileWhereInput;
+  full?: FileWhereInput;
+  AND?: ImagesWhereInput[] | ImagesWhereInput;
+  OR?: ImagesWhereInput[] | ImagesWhereInput;
+  NOT?: ImagesWhereInput[] | ImagesWhereInput;
+}
+
+export interface TypefaceUpdateManyWithoutAddedByInput {
   create?:
-    | DesignerCreateWithoutTypefacesInput[]
-    | DesignerCreateWithoutTypefacesInput;
-  delete?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
-  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
-  disconnect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+    | TypefaceCreateWithoutAddedByInput[]
+    | TypefaceCreateWithoutAddedByInput;
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
   update?:
-    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput[]
-    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput;
+    | TypefaceUpdateWithWhereUniqueWithoutAddedByInput[]
+    | TypefaceUpdateWithWhereUniqueWithoutAddedByInput;
   upsert?:
-    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput[]
-    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput;
+    | TypefaceUpsertWithWhereUniqueWithoutAddedByInput[]
+    | TypefaceUpsertWithWhereUniqueWithoutAddedByInput;
 }
 
 export interface WebsiteUpdateInput {
   isPublished?: Boolean;
   title?: String;
-  thumbnail?: String;
+  images?: ImagesUpdateOneInput;
   slug?: String;
   url?: String;
-  image?: String;
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput;
   typefaces?: TypefaceUpdateManyWithoutUsedByInput;
   featured?: Boolean;
 }
 
-export interface DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
-  where: DesignerWhereUniqueInput;
-  data: DesignerUpdateWithoutTypefacesDataInput;
+export interface TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
+  where: TypefaceWhereUniqueInput;
+  data: TypefaceUpdateWithoutAddedByDataInput;
+}
+
+export interface UserUpdateInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
+  websites?: WebsiteUpdateManyWithoutAddedByInput;
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
+}
+
+export interface TypefaceUpdateWithoutAddedByDataInput {
+  name?: String;
+  downloadUrl?: String;
+  description?: String;
+  slug?: String;
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
+  foundry?: FoundryUpdateOneWithoutTypefacesInput;
+  designers?: DesignerUpdateManyWithoutTypefacesInput;
 }
 
 export interface TypefaceUpdateInput {
@@ -1391,83 +1285,109 @@ export interface TypefaceUpdateInput {
   designers?: DesignerUpdateManyWithoutTypefacesInput;
 }
 
-export interface DesignerUpdateWithoutTypefacesDataInput {
+export interface FoundryUpdateOneWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput;
+  update?: FoundryUpdateWithoutTypefacesDataInput;
+  upsert?: FoundryUpsertWithoutTypefacesInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: FoundryWhereUniqueInput;
+}
+
+export interface TypefaceUpsertWithWhereUniqueWithoutFoundryInput {
+  where: TypefaceWhereUniqueInput;
+  update: TypefaceUpdateWithoutFoundryDataInput;
+  create: TypefaceCreateWithoutFoundryInput;
+}
+
+export interface FoundryUpdateWithoutTypefacesDataInput {
   name?: String;
   url?: String;
   addedBy?: UserUpdateOneRequiredInput;
 }
 
-export interface TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
-  where: TypefaceWhereUniqueInput;
-  data: TypefaceUpdateWithoutFoundryDataInput;
+export interface TypefaceUpdateManyWithoutFoundryInput {
+  create?:
+    | TypefaceCreateWithoutFoundryInput[]
+    | TypefaceCreateWithoutFoundryInput;
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  update?:
+    | TypefaceUpdateWithWhereUniqueWithoutFoundryInput[]
+    | TypefaceUpdateWithWhereUniqueWithoutFoundryInput;
+  upsert?:
+    | TypefaceUpsertWithWhereUniqueWithoutFoundryInput[]
+    | TypefaceUpsertWithWhereUniqueWithoutFoundryInput;
 }
 
-export interface DesignerUpsertWithWhereUniqueWithoutTypefacesInput {
-  where: DesignerWhereUniqueInput;
-  update: DesignerUpdateWithoutTypefacesDataInput;
-  create: DesignerCreateWithoutTypefacesInput;
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput;
+  update?: UserUpdateDataInput;
+  upsert?: UserUpsertNestedInput;
+  connect?: UserWhereUniqueInput;
 }
 
-export interface FileUpdateManyMutationInput {
-  filename?: String;
-  mimetype?: String;
-  encoding?: String;
-  url?: String;
+export interface TypefaceCreateManyWithoutFoundryInput {
+  create?:
+    | TypefaceCreateWithoutFoundryInput[]
+    | TypefaceCreateWithoutFoundryInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
 }
 
-export interface TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
-  where: TypefaceWhereUniqueInput;
-  update: TypefaceUpdateWithoutUsedByDataInput;
-  create: TypefaceCreateWithoutUsedByInput;
+export interface UserUpdateDataInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
+  websites?: WebsiteUpdateManyWithoutAddedByInput;
+  typefaces?: TypefaceUpdateManyWithoutAddedByInput;
 }
 
-export interface WebsiteCreateWithoutTypefacesInput {
-  isPublished?: Boolean;
-  title: String;
-  thumbnail: String;
-  slug?: String;
-  url: String;
-  image: String;
-  addedBy: UserCreateOneWithoutWebsitesInput;
-  featured?: Boolean;
+export type WebsiteWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface WebsiteUpdateManyWithoutAddedByInput {
+  create?:
+    | WebsiteCreateWithoutAddedByInput[]
+    | WebsiteCreateWithoutAddedByInput;
+  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+  update?:
+    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput[]
+    | WebsiteUpdateWithWhereUniqueWithoutAddedByInput;
+  upsert?:
+    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput[]
+    | WebsiteUpsertWithWhereUniqueWithoutAddedByInput;
 }
 
-export interface WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
+export interface WebsiteCreateManyWithoutTypefacesInput {
+  create?:
+    | WebsiteCreateWithoutTypefacesInput[]
+    | WebsiteCreateWithoutTypefacesInput;
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
+}
+
+export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput;
-  update: WebsiteUpdateWithoutAddedByDataInput;
-  create: WebsiteCreateWithoutAddedByInput;
+  data: WebsiteUpdateWithoutAddedByDataInput;
 }
 
-export interface FoundrySubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: FoundryWhereInput;
-  AND?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput;
-  OR?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput;
-  NOT?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput;
+export interface FileCreateOneInput {
+  create?: FileCreateInput;
+  connect?: FileWhereUniqueInput;
 }
 
-export interface UserUpsertWithoutWebsitesInput {
-  update: UserUpdateWithoutWebsitesDataInput;
-  create: UserCreateWithoutWebsitesInput;
-}
-
-export interface TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
-  where: TypefaceWhereUniqueInput;
-  update: TypefaceUpdateWithoutAddedByDataInput;
-  create: TypefaceCreateWithoutAddedByInput;
-}
-
-export interface FoundryUpsertWithoutTypefacesInput {
-  update: FoundryUpdateWithoutTypefacesDataInput;
-  create: FoundryCreateWithoutTypefacesInput;
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput;
-  create: UserCreateInput;
+export interface WebsiteUpdateWithoutAddedByDataInput {
+  isPublished?: Boolean;
+  title?: String;
+  images?: ImagesUpdateOneInput;
+  slug?: String;
+  url?: String;
+  typefaces?: TypefaceUpdateManyWithoutUsedByInput;
+  featured?: Boolean;
 }
 
 export interface FileWhereInput {
@@ -1562,21 +1482,125 @@ export interface FileWhereInput {
   NOT?: FileWhereInput[] | FileWhereInput;
 }
 
-export interface TypefaceCreateWithoutAddedByInput {
-  name: String;
-  downloadUrl: String;
-  description?: String;
-  slug: String;
-  usedBy?: WebsiteCreateManyWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutTypefacesInput;
-  designers?: DesignerCreateManyWithoutTypefacesInput;
+export interface TypefaceUpdateManyWithoutUsedByInput {
+  create?:
+    | TypefaceCreateWithoutUsedByInput[]
+    | TypefaceCreateWithoutUsedByInput;
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  update?:
+    | TypefaceUpdateWithWhereUniqueWithoutUsedByInput[]
+    | TypefaceUpdateWithWhereUniqueWithoutUsedByInput;
+  upsert?:
+    | TypefaceUpsertWithWhereUniqueWithoutUsedByInput[]
+    | TypefaceUpsertWithWhereUniqueWithoutUsedByInput;
 }
 
-export interface DesignerCreateInput {
-  name: String;
+export interface DesignerSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: DesignerWhereInput;
+  AND?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput;
+  OR?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput;
+  NOT?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput;
+}
+
+export interface TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
+  where: TypefaceWhereUniqueInput;
+  data: TypefaceUpdateWithoutUsedByDataInput;
+}
+
+export type FoundryWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export interface TypefaceUpdateWithoutUsedByDataInput {
+  name?: String;
+  downloadUrl?: String;
+  description?: String;
+  slug?: String;
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
+  foundry?: FoundryUpdateOneWithoutTypefacesInput;
+  designers?: DesignerUpdateManyWithoutTypefacesInput;
+}
+
+export interface TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
+  where: TypefaceWhereUniqueInput;
+  data: TypefaceUpdateWithoutFoundryDataInput;
+}
+
+export interface UserUpdateOneRequiredWithoutTypefacesInput {
+  create?: UserCreateWithoutTypefacesInput;
+  update?: UserUpdateWithoutTypefacesDataInput;
+  upsert?: UserUpsertWithoutTypefacesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface FileUpdateManyMutationInput {
+  filename?: String;
+  mimetype?: String;
+  encoding?: String;
+  url?: String;
+}
+
+export interface UserUpdateWithoutTypefacesDataInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
+  websites?: WebsiteUpdateManyWithoutAddedByInput;
+}
+
+export interface TypefaceCreateManyWithoutDesignersInput {
+  create?:
+    | TypefaceCreateWithoutDesignersInput[]
+    | TypefaceCreateWithoutDesignersInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+}
+
+export interface UserUpsertWithoutTypefacesInput {
+  update: UserUpdateWithoutTypefacesDataInput;
+  create: UserCreateWithoutTypefacesInput;
+}
+
+export interface UserCreateOneWithoutWebsitesInput {
+  create?: UserCreateWithoutWebsitesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface DesignerUpdateManyWithoutTypefacesInput {
+  create?:
+    | DesignerCreateWithoutTypefacesInput[]
+    | DesignerCreateWithoutTypefacesInput;
+  delete?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+  connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+  disconnect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput;
+  update?:
+    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput[]
+    | DesignerUpdateWithWhereUniqueWithoutTypefacesInput;
+  upsert?:
+    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput[]
+    | DesignerUpsertWithWhereUniqueWithoutTypefacesInput;
+}
+
+export interface WebsiteCreateInput {
+  isPublished?: Boolean;
+  title: String;
+  images?: ImagesCreateOneInput;
+  slug?: String;
   url: String;
-  typefaces?: TypefaceCreateManyWithoutDesignersInput;
-  addedBy: UserCreateOneInput;
+  addedBy: UserCreateOneWithoutWebsitesInput;
+  typefaces?: TypefaceCreateManyWithoutUsedByInput;
+  featured?: Boolean;
+}
+
+export interface DesignerUpdateWithWhereUniqueWithoutTypefacesInput {
+  where: DesignerWhereUniqueInput;
+  data: DesignerUpdateWithoutTypefacesDataInput;
 }
 
 export interface TypefaceCreateWithoutFoundryInput {
@@ -1589,9 +1613,54 @@ export interface TypefaceCreateWithoutFoundryInput {
   designers?: DesignerCreateManyWithoutTypefacesInput;
 }
 
+export interface WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
+  where: WebsiteWhereUniqueInput;
+  update: WebsiteUpdateWithoutAddedByDataInput;
+  create: WebsiteCreateWithoutAddedByInput;
+}
+
+export interface TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
+  where: TypefaceWhereUniqueInput;
+  update: TypefaceUpdateWithoutUsedByDataInput;
+  create: TypefaceCreateWithoutUsedByInput;
+}
+
+export interface DesignerUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: DesignerWhereUniqueInput;
+  update: DesignerUpdateWithoutTypefacesDataInput;
+  create: DesignerCreateWithoutTypefacesInput;
+}
+
+export interface DesignerUpdateWithoutTypefacesDataInput {
+  name?: String;
+  url?: String;
+  addedBy?: UserUpdateOneRequiredInput;
+}
+
+export interface TypefaceUpsertWithWhereUniqueWithoutDesignersInput {
+  where: TypefaceWhereUniqueInput;
+  update: TypefaceUpdateWithoutDesignersDataInput;
+  create: TypefaceCreateWithoutDesignersInput;
+}
+
 export interface FoundryUpdateManyMutationInput {
   name?: String;
   url?: String;
+}
+
+export interface ImagesSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ImagesWhereInput;
+  AND?: ImagesSubscriptionWhereInput[] | ImagesSubscriptionWhereInput;
+  OR?: ImagesSubscriptionWhereInput[] | ImagesSubscriptionWhereInput;
+  NOT?: ImagesSubscriptionWhereInput[] | ImagesSubscriptionWhereInput;
+}
+
+export interface ImagesCreateOneInput {
+  create?: ImagesCreateInput;
 }
 
 export interface NodeNode {
@@ -1602,10 +1671,8 @@ export interface WebsitePreviousValues {
   id: ID_Output;
   isPublished: Boolean;
   title: String;
-  thumbnail: String;
   slug?: String;
   url: String;
-  image: String;
   featured: Boolean;
 }
 
@@ -1615,10 +1682,8 @@ export interface WebsitePreviousValuesPromise
   id: () => Promise<ID_Output>;
   isPublished: () => Promise<Boolean>;
   title: () => Promise<String>;
-  thumbnail: () => Promise<String>;
   slug: () => Promise<String>;
   url: () => Promise<String>;
-  image: () => Promise<String>;
   featured: () => Promise<Boolean>;
 }
 
@@ -1628,43 +1693,57 @@ export interface WebsitePreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   isPublished: () => Promise<AsyncIterator<Boolean>>;
   title: () => Promise<AsyncIterator<String>>;
-  thumbnail: () => Promise<AsyncIterator<String>>;
   slug: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
-  image: () => Promise<AsyncIterator<String>>;
   featured: () => Promise<AsyncIterator<Boolean>>;
 }
 
-export interface File {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  filename: String;
-  mimetype: String;
-  encoding: String;
-  url: String;
+export interface FileEdge {
+  cursor: String;
 }
 
-export interface FilePromise extends Promise<File>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  filename: () => Promise<String>;
-  mimetype: () => Promise<String>;
-  encoding: () => Promise<String>;
-  url: () => Promise<String>;
+export interface FileEdgePromise extends Promise<FileEdge>, Fragmentable {
+  node: <T = FilePromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface FileSubscription
-  extends Promise<AsyncIterator<File>>,
+export interface FileEdgeSubscription
+  extends Promise<AsyncIterator<FileEdge>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  filename: () => Promise<AsyncIterator<String>>;
-  mimetype: () => Promise<AsyncIterator<String>>;
-  encoding: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
+  node: <T = FileSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Images {}
+
+export interface ImagesPromise extends Promise<Images>, Fragmentable {
+  thumbnail: <T = FilePromise>() => T;
+  full: <T = FilePromise>() => T;
+}
+
+export interface ImagesSubscription
+  extends Promise<AsyncIterator<Images>>,
+    Fragmentable {
+  thumbnail: <T = FileSubscription>() => T;
+  full: <T = FileSubscription>() => T;
+}
+
+export interface FileConnection {}
+
+export interface FileConnectionPromise
+  extends Promise<FileConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<FileEdge>>() => T;
+  aggregate: <T = AggregateFilePromise>() => T;
+}
+
+export interface FileConnectionSubscription
+  extends Promise<AsyncIterator<FileConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<FileEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateFileSubscription>() => T;
 }
 
 export interface Typeface {
@@ -1741,6 +1820,50 @@ export interface TypefaceSubscription
   ) => T;
 }
 
+export interface UserPreviousValues {
+  id: ID_Output;
+  email: String;
+  password: String;
+  name: String;
+  role: Role;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  name: () => Promise<String>;
+  role: () => Promise<Role>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<Role>>;
+}
+
+export interface AggregateWebsite {
+  count: Int;
+}
+
+export interface AggregateWebsitePromise
+  extends Promise<AggregateWebsite>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateWebsiteSubscription
+  extends Promise<AsyncIterator<AggregateWebsite>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface AggregateDesigner {
   count: Int;
 }
@@ -1757,20 +1880,22 @@ export interface AggregateDesignerSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface BatchPayload {
-  count: Long;
+export interface WebsiteConnection {}
+
+export interface WebsiteConnectionPromise
+  extends Promise<WebsiteConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<WebsiteEdge>>() => T;
+  aggregate: <T = AggregateWebsitePromise>() => T;
 }
 
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
+export interface WebsiteConnectionSubscription
+  extends Promise<AsyncIterator<WebsiteConnection>>,
     Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<WebsiteEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateWebsiteSubscription>() => T;
 }
 
 export interface DesignerEdge {
@@ -1791,20 +1916,59 @@ export interface DesignerEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateWebsite {
-  count: Int;
+export interface Website {
+  id: ID_Output;
+  isPublished: Boolean;
+  title: String;
+  slug?: String;
+  url: String;
+  featured: Boolean;
 }
 
-export interface AggregateWebsitePromise
-  extends Promise<AggregateWebsite>,
-    Fragmentable {
-  count: () => Promise<Int>;
+export interface WebsitePromise extends Promise<Website>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  isPublished: () => Promise<Boolean>;
+  title: () => Promise<String>;
+  images: <T = ImagesPromise>() => T;
+  slug: () => Promise<String>;
+  url: () => Promise<String>;
+  addedBy: <T = UserPromise>() => T;
+  typefaces: <T = FragmentableArray<Typeface>>(
+    args?: {
+      where?: TypefaceWhereInput;
+      orderBy?: TypefaceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  featured: () => Promise<Boolean>;
 }
 
-export interface AggregateWebsiteSubscription
-  extends Promise<AsyncIterator<AggregateWebsite>>,
+export interface WebsiteSubscription
+  extends Promise<AsyncIterator<Website>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  isPublished: () => Promise<AsyncIterator<Boolean>>;
+  title: () => Promise<AsyncIterator<String>>;
+  images: <T = ImagesSubscription>() => T;
+  slug: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+  addedBy: <T = UserSubscription>() => T;
+  typefaces: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
+    args?: {
+      where?: TypefaceWhereInput;
+      orderBy?: TypefaceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  featured: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface PageInfo {
@@ -1830,22 +1994,335 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface WebsiteConnection {}
-
-export interface WebsiteConnectionPromise
-  extends Promise<WebsiteConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<WebsiteEdge>>() => T;
-  aggregate: <T = AggregateWebsitePromise>() => T;
+export interface UserEdge {
+  cursor: String;
 }
 
-export interface WebsiteConnectionSubscription
-  extends Promise<AsyncIterator<WebsiteConnection>>,
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface Designer {
+  id: ID_Output;
+  name: String;
+  url: String;
+}
+
+export interface DesignerPromise extends Promise<Designer>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  url: () => Promise<String>;
+  typefaces: <T = FragmentableArray<Typeface>>(
+    args?: {
+      where?: TypefaceWhereInput;
+      orderBy?: TypefaceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  addedBy: <T = UserPromise>() => T;
+}
+
+export interface DesignerSubscription
+  extends Promise<AsyncIterator<Designer>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+  typefaces: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
+    args?: {
+      where?: TypefaceWhereInput;
+      orderBy?: TypefaceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  addedBy: <T = UserSubscription>() => T;
+}
+
+export interface DesignerSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface DesignerSubscriptionPayloadPromise
+  extends Promise<DesignerSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = DesignerPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = DesignerPreviousValuesPromise>() => T;
+}
+
+export interface DesignerSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<DesignerSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = DesignerSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = DesignerPreviousValuesSubscription>() => T;
+}
+
+export interface TypefaceEdge {
+  cursor: String;
+}
+
+export interface TypefaceEdgePromise
+  extends Promise<TypefaceEdge>,
+    Fragmentable {
+  node: <T = TypefacePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TypefaceEdgeSubscription
+  extends Promise<AsyncIterator<TypefaceEdge>>,
+    Fragmentable {
+  node: <T = TypefaceSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface DesignerPreviousValues {
+  id: ID_Output;
+  name: String;
+  url: String;
+}
+
+export interface DesignerPreviousValuesPromise
+  extends Promise<DesignerPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  url: () => Promise<String>;
+}
+
+export interface DesignerPreviousValuesSubscription
+  extends Promise<AsyncIterator<DesignerPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateImages {
+  count: Int;
+}
+
+export interface AggregateImagesPromise
+  extends Promise<AggregateImages>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateImagesSubscription
+  extends Promise<AsyncIterator<AggregateImages>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface DesignerConnection {}
+
+export interface DesignerConnectionPromise
+  extends Promise<DesignerConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<DesignerEdge>>() => T;
+  aggregate: <T = AggregateDesignerPromise>() => T;
+}
+
+export interface DesignerConnectionSubscription
+  extends Promise<AsyncIterator<DesignerConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<WebsiteEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateWebsiteSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<DesignerEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateDesignerSubscription>() => T;
+}
+
+export interface ImagesConnection {}
+
+export interface ImagesConnectionPromise
+  extends Promise<ImagesConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ImagesEdge>>() => T;
+  aggregate: <T = AggregateImagesPromise>() => T;
+}
+
+export interface ImagesConnectionSubscription
+  extends Promise<AsyncIterator<ImagesConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ImagesEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateImagesSubscription>() => T;
+}
+
+export interface FileSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface FileSubscriptionPayloadPromise
+  extends Promise<FileSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FilePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FilePreviousValuesPromise>() => T;
+}
+
+export interface FileSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<FileSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FileSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FilePreviousValuesSubscription>() => T;
+}
+
+export interface FoundryEdge {
+  cursor: String;
+}
+
+export interface FoundryEdgePromise extends Promise<FoundryEdge>, Fragmentable {
+  node: <T = FoundryPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface FoundryEdgeSubscription
+  extends Promise<AsyncIterator<FoundryEdge>>,
+    Fragmentable {
+  node: <T = FoundrySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface FilePreviousValues {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  filename: String;
+  mimetype: String;
+  encoding: String;
+  url: String;
+}
+
+export interface FilePreviousValuesPromise
+  extends Promise<FilePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  filename: () => Promise<String>;
+  mimetype: () => Promise<String>;
+  encoding: () => Promise<String>;
+  url: () => Promise<String>;
+}
+
+export interface FilePreviousValuesSubscription
+  extends Promise<AsyncIterator<FilePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  filename: () => Promise<AsyncIterator<String>>;
+  mimetype: () => Promise<AsyncIterator<String>>;
+  encoding: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateFile {
+  count: Int;
+}
+
+export interface AggregateFilePromise
+  extends Promise<AggregateFile>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateFileSubscription
+  extends Promise<AsyncIterator<AggregateFile>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Foundry {
+  id: ID_Output;
+  name: String;
+  url: String;
+}
+
+export interface FoundryPromise extends Promise<Foundry>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  url: () => Promise<String>;
+  typefaces: <T = FragmentableArray<Typeface>>(
+    args?: {
+      where?: TypefaceWhereInput;
+      orderBy?: TypefaceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  addedBy: <T = UserPromise>() => T;
+}
+
+export interface FoundrySubscription
+  extends Promise<AsyncIterator<Foundry>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+  typefaces: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
+    args?: {
+      where?: TypefaceWhereInput;
+      orderBy?: TypefaceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  addedBy: <T = UserSubscription>() => T;
 }
 
 export interface WebsiteEdge {
@@ -1862,6 +2339,83 @@ export interface WebsiteEdgeSubscription
     Fragmentable {
   node: <T = WebsiteSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface FoundrySubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface FoundrySubscriptionPayloadPromise
+  extends Promise<FoundrySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FoundryPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FoundryPreviousValuesPromise>() => T;
+}
+
+export interface FoundrySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<FoundrySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FoundrySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FoundryPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface FoundryPreviousValues {
+  id: ID_Output;
+  name: String;
+  url: String;
+}
+
+export interface FoundryPreviousValuesPromise
+  extends Promise<FoundryPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  url: () => Promise<String>;
+}
+
+export interface FoundryPreviousValuesSubscription
+  extends Promise<AsyncIterator<FoundryPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateTypeface {
+  count: Int;
+}
+
+export interface AggregateTypefacePromise
+  extends Promise<AggregateTypeface>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTypefaceSubscription
+  extends Promise<AsyncIterator<AggregateTypeface>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface User {
@@ -1934,439 +2488,38 @@ export interface UserSubscription
   ) => T;
 }
 
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserEdge {
+export interface ImagesEdge {
   cursor: String;
 }
 
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
+export interface ImagesEdgePromise extends Promise<ImagesEdge>, Fragmentable {
+  node: <T = ImagesPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface ImagesEdgeSubscription
+  extends Promise<AsyncIterator<ImagesEdge>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
+  node: <T = ImagesSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface UserConnection {}
+export interface FoundryConnection {}
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface FoundryConnectionPromise
+  extends Promise<FoundryConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<FoundryEdge>>() => T;
+  aggregate: <T = AggregateFoundryPromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface FoundryConnectionSubscription
+  extends Promise<AsyncIterator<FoundryConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface AggregateTypeface {
-  count: Int;
-}
-
-export interface AggregateTypefacePromise
-  extends Promise<AggregateTypeface>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateTypefaceSubscription
-  extends Promise<AsyncIterator<AggregateTypeface>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface DesignerSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface DesignerSubscriptionPayloadPromise
-  extends Promise<DesignerSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = DesignerPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = DesignerPreviousValuesPromise>() => T;
-}
-
-export interface DesignerSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<DesignerSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = DesignerSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = DesignerPreviousValuesSubscription>() => T;
-}
-
-export interface TypefaceConnection {}
-
-export interface TypefaceConnectionPromise
-  extends Promise<TypefaceConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<TypefaceEdge>>() => T;
-  aggregate: <T = AggregateTypefacePromise>() => T;
-}
-
-export interface TypefaceConnectionSubscription
-  extends Promise<AsyncIterator<TypefaceConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<TypefaceEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateTypefaceSubscription>() => T;
-}
-
-export interface DesignerPreviousValues {
-  id: ID_Output;
-  name: String;
-  url: String;
-}
-
-export interface DesignerPreviousValuesPromise
-  extends Promise<DesignerPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  url: () => Promise<String>;
-}
-
-export interface DesignerPreviousValuesSubscription
-  extends Promise<AsyncIterator<DesignerPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-}
-
-export interface FoundryEdge {
-  cursor: String;
-}
-
-export interface FoundryEdgePromise extends Promise<FoundryEdge>, Fragmentable {
-  node: <T = FoundryPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface FoundryEdgeSubscription
-  extends Promise<AsyncIterator<FoundryEdge>>,
-    Fragmentable {
-  node: <T = FoundrySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface DesignerConnection {}
-
-export interface DesignerConnectionPromise
-  extends Promise<DesignerConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<DesignerEdge>>() => T;
-  aggregate: <T = AggregateDesignerPromise>() => T;
-}
-
-export interface DesignerConnectionSubscription
-  extends Promise<AsyncIterator<DesignerConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<DesignerEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateDesignerSubscription>() => T;
-}
-
-export interface AggregateFile {
-  count: Int;
-}
-
-export interface AggregateFilePromise
-  extends Promise<AggregateFile>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateFileSubscription
-  extends Promise<AsyncIterator<AggregateFile>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface FileSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface FileSubscriptionPayloadPromise
-  extends Promise<FileSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = FilePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = FilePreviousValuesPromise>() => T;
-}
-
-export interface FileSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<FileSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = FileSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = FilePreviousValuesSubscription>() => T;
-}
-
-export interface FileConnection {}
-
-export interface FileConnectionPromise
-  extends Promise<FileConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<FileEdge>>() => T;
-  aggregate: <T = AggregateFilePromise>() => T;
-}
-
-export interface FileConnectionSubscription
-  extends Promise<AsyncIterator<FileConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<FileEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateFileSubscription>() => T;
-}
-
-export interface FilePreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  filename: String;
-  mimetype: String;
-  encoding: String;
-  url: String;
-}
-
-export interface FilePreviousValuesPromise
-  extends Promise<FilePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  filename: () => Promise<String>;
-  mimetype: () => Promise<String>;
-  encoding: () => Promise<String>;
-  url: () => Promise<String>;
-}
-
-export interface FilePreviousValuesSubscription
-  extends Promise<AsyncIterator<FilePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  filename: () => Promise<AsyncIterator<String>>;
-  mimetype: () => Promise<AsyncIterator<String>>;
-  encoding: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Website {
-  id: ID_Output;
-  isPublished: Boolean;
-  title: String;
-  thumbnail: String;
-  slug?: String;
-  url: String;
-  image: String;
-  featured: Boolean;
-}
-
-export interface WebsitePromise extends Promise<Website>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  isPublished: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  thumbnail: () => Promise<String>;
-  slug: () => Promise<String>;
-  url: () => Promise<String>;
-  image: () => Promise<String>;
-  addedBy: <T = UserPromise>() => T;
-  typefaces: <T = FragmentableArray<Typeface>>(
-    args?: {
-      where?: TypefaceWhereInput;
-      orderBy?: TypefaceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  featured: () => Promise<Boolean>;
-}
-
-export interface WebsiteSubscription
-  extends Promise<AsyncIterator<Website>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  isPublished: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  thumbnail: () => Promise<AsyncIterator<String>>;
-  slug: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-  image: () => Promise<AsyncIterator<String>>;
-  addedBy: <T = UserSubscription>() => T;
-  typefaces: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
-    args?: {
-      where?: TypefaceWhereInput;
-      orderBy?: TypefaceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  featured: () => Promise<AsyncIterator<Boolean>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface Designer {
-  id: ID_Output;
-  name: String;
-  url: String;
-}
-
-export interface DesignerPromise extends Promise<Designer>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  url: () => Promise<String>;
-  typefaces: <T = FragmentableArray<Typeface>>(
-    args?: {
-      where?: TypefaceWhereInput;
-      orderBy?: TypefaceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  addedBy: <T = UserPromise>() => T;
-}
-
-export interface DesignerSubscription
-  extends Promise<AsyncIterator<Designer>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-  typefaces: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
-    args?: {
-      where?: TypefaceWhereInput;
-      orderBy?: TypefaceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  addedBy: <T = UserSubscription>() => T;
-}
-
-export interface FoundrySubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface FoundrySubscriptionPayloadPromise
-  extends Promise<FoundrySubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = FoundryPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = FoundryPreviousValuesPromise>() => T;
-}
-
-export interface FoundrySubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<FoundrySubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = FoundrySubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = FoundryPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateFoundry {
-  count: Int;
-}
-
-export interface AggregateFoundryPromise
-  extends Promise<AggregateFoundry>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateFoundrySubscription
-  extends Promise<AsyncIterator<AggregateFoundry>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface FileEdge {
-  cursor: String;
-}
-
-export interface FileEdgePromise extends Promise<FileEdge>, Fragmentable {
-  node: <T = FilePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface FileEdgeSubscription
-  extends Promise<AsyncIterator<FileEdge>>,
-    Fragmentable {
-  node: <T = FileSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  edges: <T = Promise<AsyncIterator<FoundryEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateFoundrySubscription>() => T;
 }
 
 export interface TypefacePreviousValues {
@@ -2420,70 +2573,57 @@ export interface TypefaceSubscriptionPayloadSubscription
   previousValues: <T = TypefacePreviousValuesSubscription>() => T;
 }
 
-export interface Foundry {
+export interface File {
   id: ID_Output;
-  name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  filename: String;
+  mimetype: String;
+  encoding: String;
   url: String;
 }
 
-export interface FoundryPromise extends Promise<Foundry>, Fragmentable {
+export interface FilePromise extends Promise<File>, Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  url: () => Promise<String>;
-  typefaces: <T = FragmentableArray<Typeface>>(
-    args?: {
-      where?: TypefaceWhereInput;
-      orderBy?: TypefaceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  addedBy: <T = UserPromise>() => T;
-}
-
-export interface FoundrySubscription
-  extends Promise<AsyncIterator<Foundry>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-  typefaces: <T = Promise<AsyncIterator<TypefaceSubscription>>>(
-    args?: {
-      where?: TypefaceWhereInput;
-      orderBy?: TypefaceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  addedBy: <T = UserSubscription>() => T;
-}
-
-export interface FoundryPreviousValues {
-  id: ID_Output;
-  name: String;
-  url: String;
-}
-
-export interface FoundryPreviousValuesPromise
-  extends Promise<FoundryPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  filename: () => Promise<String>;
+  mimetype: () => Promise<String>;
+  encoding: () => Promise<String>;
   url: () => Promise<String>;
 }
 
-export interface FoundryPreviousValuesSubscription
-  extends Promise<AsyncIterator<FoundryPreviousValues>>,
+export interface FileSubscription
+  extends Promise<AsyncIterator<File>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  filename: () => Promise<AsyncIterator<String>>;
+  mimetype: () => Promise<AsyncIterator<String>>;
+  encoding: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ImagesSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface ImagesSubscriptionPayloadPromise
+  extends Promise<ImagesSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ImagesPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+}
+
+export interface ImagesSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ImagesSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ImagesSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
 }
 
 export interface WebsiteSubscriptionPayload {
@@ -2509,79 +2649,91 @@ export interface WebsiteSubscriptionPayloadSubscription
   previousValues: <T = WebsitePreviousValuesSubscription>() => T;
 }
 
-export interface FoundryConnection {}
+export interface AggregateFoundry {
+  count: Int;
+}
 
-export interface FoundryConnectionPromise
-  extends Promise<FoundryConnection>,
+export interface AggregateFoundryPromise
+  extends Promise<AggregateFoundry>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateFoundrySubscription
+  extends Promise<AsyncIterator<AggregateFoundry>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface TypefaceConnection {}
+
+export interface TypefaceConnectionPromise
+  extends Promise<TypefaceConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<FoundryEdge>>() => T;
-  aggregate: <T = AggregateFoundryPromise>() => T;
+  edges: <T = FragmentableArray<TypefaceEdge>>() => T;
+  aggregate: <T = AggregateTypefacePromise>() => T;
 }
 
-export interface FoundryConnectionSubscription
-  extends Promise<AsyncIterator<FoundryConnection>>,
+export interface TypefaceConnectionSubscription
+  extends Promise<AsyncIterator<TypefaceConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<FoundryEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateFoundrySubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TypefaceEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTypefaceSubscription>() => T;
 }
 
-export interface TypefaceEdge {
-  cursor: String;
-}
+export interface UserConnection {}
 
-export interface TypefaceEdgePromise
-  extends Promise<TypefaceEdge>,
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
-  node: <T = TypefacePromise>() => T;
-  cursor: () => Promise<String>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface TypefaceEdgeSubscription
-  extends Promise<AsyncIterator<TypefaceEdge>>,
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
     Fragmentable {
-  node: <T = TypefaceSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
-export interface UserPreviousValues {
-  id: ID_Output;
-  email: String;
-  password: String;
-  name: String;
-  role: Role;
+export interface BatchPayload {
+  count: Long;
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
-  name: () => Promise<String>;
-  role: () => Promise<Role>;
+  count: () => Promise<Long>;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  role: () => Promise<AsyncIterator<Role>>;
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `Boolean` scalar type represents `true` or `false`.
 */
-export type String = string;
+export type Boolean = boolean;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
+
+/*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number;
+export type ID_Output = string;
+
+export type Long = string;
 
 /*
 DateTime scalar input type, allowing Date
@@ -2594,17 +2746,9 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
-export type ID_Input = string | number;
-export type ID_Output = string;
-
-export type Long = string;
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
+export type String = string;
 
 /**
  * Model Metadata
@@ -2621,6 +2765,10 @@ export const models = [
   },
   {
     name: "Foundry",
+    embedded: false
+  },
+  {
+    name: "Images",
     embedded: false
   },
   {

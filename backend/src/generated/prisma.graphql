@@ -10,6 +10,10 @@ type AggregateFoundry {
   count: Int!
 }
 
+type AggregateImages {
+  count: Int!
+}
+
 type AggregateTypeface {
   count: Int!
 }
@@ -220,6 +224,11 @@ input FileCreateInput {
   url: String!
 }
 
+input FileCreateOneInput {
+  create: FileCreateInput
+  connect: FileWhereUniqueInput
+}
+
 type FileEdge {
   node: File!
   cursor: String!
@@ -270,6 +279,13 @@ input FileSubscriptionWhereInput {
   NOT: [FileSubscriptionWhereInput!]
 }
 
+input FileUpdateDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+}
+
 input FileUpdateInput {
   filename: String
   mimetype: String
@@ -282,6 +298,20 @@ input FileUpdateManyMutationInput {
   mimetype: String
   encoding: String
   url: String
+}
+
+input FileUpdateOneInput {
+  create: FileCreateInput
+  update: FileUpdateDataInput
+  upsert: FileUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: FileWhereUniqueInput
+}
+
+input FileUpsertNestedInput {
+  update: FileUpdateDataInput!
+  create: FileCreateInput!
 }
 
 input FileWhereInput {
@@ -544,6 +574,83 @@ input FoundryWhereUniqueInput {
   name: String
 }
 
+type Images {
+  thumbnail: File
+  full: File
+}
+
+type ImagesConnection {
+  pageInfo: PageInfo!
+  edges: [ImagesEdge]!
+  aggregate: AggregateImages!
+}
+
+input ImagesCreateInput {
+  thumbnail: FileCreateOneInput
+  full: FileCreateOneInput
+}
+
+input ImagesCreateOneInput {
+  create: ImagesCreateInput
+}
+
+type ImagesEdge {
+  node: Images!
+  cursor: String!
+}
+
+enum ImagesOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ImagesSubscriptionPayload {
+  mutation: MutationType!
+  node: Images
+  updatedFields: [String!]
+}
+
+input ImagesSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ImagesWhereInput
+  AND: [ImagesSubscriptionWhereInput!]
+  OR: [ImagesSubscriptionWhereInput!]
+  NOT: [ImagesSubscriptionWhereInput!]
+}
+
+input ImagesUpdateDataInput {
+  thumbnail: FileUpdateOneInput
+  full: FileUpdateOneInput
+}
+
+input ImagesUpdateOneInput {
+  create: ImagesCreateInput
+  update: ImagesUpdateDataInput
+  upsert: ImagesUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+}
+
+input ImagesUpsertNestedInput {
+  update: ImagesUpdateDataInput!
+  create: ImagesCreateInput!
+}
+
+input ImagesWhereInput {
+  thumbnail: FileWhereInput
+  full: FileWhereInput
+  AND: [ImagesWhereInput!]
+  OR: [ImagesWhereInput!]
+  NOT: [ImagesWhereInput!]
+}
+
 scalar Long
 
 type Mutation {
@@ -565,6 +672,8 @@ type Mutation {
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
   deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
+  createImages(data: ImagesCreateInput!): Images!
+  deleteManyImageses(where: ImagesWhereInput): BatchPayload!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
   updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
@@ -612,6 +721,8 @@ type Query {
   foundry(where: FoundryWhereUniqueInput!): Foundry
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
+  imageses(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Images]!
+  imagesesConnection(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImagesConnection!
   typeface(where: TypefaceWhereUniqueInput!): Typeface
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
   typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
@@ -633,6 +744,7 @@ type Subscription {
   designer(where: DesignerSubscriptionWhereInput): DesignerSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
+  images(where: ImagesSubscriptionWhereInput): ImagesSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
@@ -1264,10 +1376,9 @@ type Website {
   id: ID!
   isPublished: Boolean!
   title: String!
-  thumbnail: String!
+  images: Images
   slug: String
   url: String!
-  image: String!
   addedBy: User!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   featured: Boolean!
@@ -1282,10 +1393,9 @@ type WebsiteConnection {
 input WebsiteCreateInput {
   isPublished: Boolean
   title: String!
-  thumbnail: String!
+  images: ImagesCreateOneInput
   slug: String
   url: String!
-  image: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
   featured: Boolean
@@ -1304,10 +1414,9 @@ input WebsiteCreateManyWithoutTypefacesInput {
 input WebsiteCreateWithoutAddedByInput {
   isPublished: Boolean
   title: String!
-  thumbnail: String!
+  images: ImagesCreateOneInput
   slug: String
   url: String!
-  image: String!
   typefaces: TypefaceCreateManyWithoutUsedByInput
   featured: Boolean
 }
@@ -1315,10 +1424,9 @@ input WebsiteCreateWithoutAddedByInput {
 input WebsiteCreateWithoutTypefacesInput {
   isPublished: Boolean
   title: String!
-  thumbnail: String!
+  images: ImagesCreateOneInput
   slug: String
   url: String!
-  image: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
   featured: Boolean
 }
@@ -1335,14 +1443,10 @@ enum WebsiteOrderByInput {
   isPublished_DESC
   title_ASC
   title_DESC
-  thumbnail_ASC
-  thumbnail_DESC
   slug_ASC
   slug_DESC
   url_ASC
   url_DESC
-  image_ASC
-  image_DESC
   featured_ASC
   featured_DESC
   createdAt_ASC
@@ -1355,10 +1459,8 @@ type WebsitePreviousValues {
   id: ID!
   isPublished: Boolean!
   title: String!
-  thumbnail: String!
   slug: String
   url: String!
-  image: String!
   featured: Boolean!
 }
 
@@ -1383,10 +1485,9 @@ input WebsiteSubscriptionWhereInput {
 input WebsiteUpdateInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
+  images: ImagesUpdateOneInput
   slug: String
   url: String
-  image: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
   featured: Boolean
@@ -1395,10 +1496,8 @@ input WebsiteUpdateInput {
 input WebsiteUpdateManyMutationInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
   slug: String
   url: String
-  image: String
   featured: Boolean
 }
 
@@ -1423,10 +1522,9 @@ input WebsiteUpdateManyWithoutTypefacesInput {
 input WebsiteUpdateWithoutAddedByDataInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
+  images: ImagesUpdateOneInput
   slug: String
   url: String
-  image: String
   typefaces: TypefaceUpdateManyWithoutUsedByInput
   featured: Boolean
 }
@@ -1434,10 +1532,9 @@ input WebsiteUpdateWithoutAddedByDataInput {
 input WebsiteUpdateWithoutTypefacesDataInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
+  images: ImagesUpdateOneInput
   slug: String
   url: String
-  image: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   featured: Boolean
 }
@@ -1495,20 +1592,7 @@ input WebsiteWhereInput {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
-  thumbnail: String
-  thumbnail_not: String
-  thumbnail_in: [String!]
-  thumbnail_not_in: [String!]
-  thumbnail_lt: String
-  thumbnail_lte: String
-  thumbnail_gt: String
-  thumbnail_gte: String
-  thumbnail_contains: String
-  thumbnail_not_contains: String
-  thumbnail_starts_with: String
-  thumbnail_not_starts_with: String
-  thumbnail_ends_with: String
-  thumbnail_not_ends_with: String
+  images: ImagesWhereInput
   slug: String
   slug_not: String
   slug_in: [String!]
@@ -1537,20 +1621,6 @@ input WebsiteWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
-  image: String
-  image_not: String
-  image_in: [String!]
-  image_not_in: [String!]
-  image_lt: String
-  image_lte: String
-  image_gt: String
-  image_gte: String
-  image_contains: String
-  image_not_contains: String
-  image_starts_with: String
-  image_not_starts_with: String
-  image_ends_with: String
-  image_not_ends_with: String
   addedBy: UserWhereInput
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
