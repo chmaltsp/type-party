@@ -17,7 +17,7 @@ type User {
 type Website {
   id: ID! @unique
   isPublished: Boolean! @default(value: "false")
-  title: String!
+  title: String! @unique
   images: Images
   slug: String
   url: String!

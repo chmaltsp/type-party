@@ -1634,5 +1634,6 @@ input WebsiteWhereInput {
 
 input WebsiteWhereUniqueInput {
   id: ID
+  title: String
 }
 `

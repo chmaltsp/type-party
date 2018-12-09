@@ -10,6 +10,7 @@ import { TypefaceCreateInput } from "./../../../../__generated__/globalTypes";
 export interface AddTypeface_addTypeface {
   __typename: "Typeface";
   name: string;
+  id: string;
 }
 
 export interface AddTypeface {

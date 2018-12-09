@@ -3236,6 +3236,7 @@ input WebsiteWhereInput {
 
 input WebsiteWhereUniqueInput {
   id: ID
+  title: String
 }
 `
 
@@ -4743,6 +4744,7 @@ export interface WebsiteWhereInput {
 
 export interface WebsiteWhereUniqueInput {
   id?: ID_Input
+  title?: String
 }
 
 /*

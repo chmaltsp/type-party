@@ -25,3 +25,9 @@ services:
     environment:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: prisma
+  s3:
+    container_name: fake-s3
+    image: lphoward/fake-s3
+    ports: 
+    - "4569:4569"
+

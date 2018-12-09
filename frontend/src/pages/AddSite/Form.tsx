@@ -20,6 +20,7 @@ import {
   FormikProps,
 } from 'formik';
 
+import { type } from 'os';
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
 import { AddWebsite_addWebsite, AddWebsiteVariables } from './__generated__/AddWebsite';
@@ -204,14 +205,15 @@ const WrappedForm: React.SFC<{}> = () => {
             validationSchema={validationSchema}
             onSubmit={async (values: InputValues) => {
               console.log(values);
-              // const response = await mutate({
-              //   variables: {
-              //     input: {
-              //       ...values,
-              //     },
-              //   },
-              // });
-              // console.log(response);
+              const response = await mutate({
+                variables: {
+                  input: {
+                    ...values,
+                    typefaces: values.typefaces.map(typeface => typeface.id),
+                  },
+                },
+              });
+              console.log(response);
             }}
             component={SiteForm}
           />

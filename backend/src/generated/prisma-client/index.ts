@@ -1346,6 +1346,7 @@ export interface UserUpdateDataInput {
 
 export type WebsiteWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  title?: String;
 }>;
 
 export interface WebsiteUpdateManyWithoutAddedByInput {
