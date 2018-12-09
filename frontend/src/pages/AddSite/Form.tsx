@@ -74,9 +74,11 @@ const SubmitButton = styled.button.attrs({
 `;
 
 const validationSchema = Yup.object().shape({
+  full: Yup.mixed().required('Full size image is required'),
   slug: Yup.string()
     .required('Website Slug is required')
     .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Must be a valid slug eg.. my-slug'),
+  thumbnail: Yup.mixed().required('Thumbnail is required'),
   title: Yup.string().required('Site name is required'),
   url: Yup.string()
     .required('Url field is required')
@@ -112,7 +114,7 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
       <Form>
         <LeftColumn>
           <Field
-            name="large-image"
+            name="full"
             render={(props: FieldProps<InputValues>) => {
               return (
                 <MediaUpload
@@ -121,7 +123,7 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
                     const file =
                       event.currentTarget.files && event.currentTarget.files[0];
                     const { setFieldValue } = props.form;
-                    setFieldValue('large-image', file);
+                    setFieldValue('full', file);
                   }}
                   {...props}
                 />

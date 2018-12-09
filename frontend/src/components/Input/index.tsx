@@ -45,7 +45,7 @@ interface ErrorProps {
   show?: string | FormikErrors<any> | false;
 }
 
-const Error = styled.label<ErrorProps>`
+export const Error = styled.label<ErrorProps>`
   color: red;
   padding-top: 4px;
   font-size: ${em(14)};
