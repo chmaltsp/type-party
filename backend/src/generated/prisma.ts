@@ -10,6 +10,7 @@ export interface Query {
     foundries: <T = Foundry[]>(args: { where?: FoundryWhereInput, orderBy?: FoundryOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     files: <T = File[]>(args: { where?: FileWhereInput, orderBy?: FileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    imageses: <T = Images[]>(args: { where?: ImagesWhereInput, orderBy?: ImagesOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     website: <T = Website>(args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     designer: <T = Designer>(args: { where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     typeface: <T = Typeface>(args: { where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
@@ -22,6 +23,7 @@ export interface Query {
     foundriesConnection: <T = FoundryConnection>(args: { where?: FoundryWhereInput, orderBy?: FoundryOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     filesConnection: <T = FileConnection>(args: { where?: FileWhereInput, orderBy?: FileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    imagesesConnection: <T = ImagesConnection>(args: { where?: ImagesWhereInput, orderBy?: ImagesOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
   }
 
@@ -32,6 +34,7 @@ export interface Mutation {
     createFoundry: <T = Foundry>(args: { data: FoundryCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createFile: <T = File>(args: { data: FileCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createImages: <T = Images>(args: { data: ImagesCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateWebsite: <T = Website>(args: { data: WebsiteUpdateInput, where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateDesigner: <T = Designer>(args: { data: DesignerUpdateInput, where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateTypeface: <T = Typeface>(args: { data: TypefaceUpdateInput, where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
@@ -61,7 +64,8 @@ export interface Mutation {
     deleteManyTypefaces: <T = BatchPayload>(args: { where?: TypefaceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyFoundries: <T = BatchPayload>(args: { where?: FoundryWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyFiles: <T = BatchPayload>(args: { where?: FileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyImageses: <T = BatchPayload>(args: { where?: ImagesWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
@@ -70,7 +74,8 @@ export interface Subscription {
     typeface: <T = TypefaceSubscriptionPayload>(args: { where?: TypefaceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     foundry: <T = FoundrySubscriptionPayload>(args: { where?: FoundrySubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     file: <T = FileSubscriptionPayload>(args: { where?: FileSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
-    user: <T = UserSubscriptionPayload>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> 
+    user: <T = UserSubscriptionPayload>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
+    images: <T = ImagesSubscriptionPayload>(args: { where?: ImagesSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> 
   }
 
 export interface Exists {
@@ -80,6 +85,7 @@ export interface Exists {
   Foundry: (where?: FoundryWhereInput) => Promise<boolean>
   File: (where?: FileWhereInput) => Promise<boolean>
   User: (where?: UserWhereInput) => Promise<boolean>
+  Images: (where?: ImagesWhereInput) => Promise<boolean>
 }
 
 export interface Prisma {
@@ -113,6 +119,10 @@ type AggregateFile {
 }
 
 type AggregateFoundry {
+  count: Int!
+}
+
+type AggregateImages {
   count: Int!
 }
 
@@ -586,6 +596,11 @@ input FileCreateInput {
   url: String!
 }
 
+input FileCreateOneInput {
+  create: FileCreateInput
+  connect: FileWhereUniqueInput
+}
+
 """An edge in a connection."""
 type FileEdge {
   """The item at the end of the edge."""
@@ -661,6 +676,13 @@ input FileSubscriptionWhereInput {
   node: FileWhereInput
 }
 
+input FileUpdateDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+}
+
 input FileUpdateInput {
   filename: String
   mimetype: String
@@ -673,6 +695,20 @@ input FileUpdateManyMutationInput {
   mimetype: String
   encoding: String
   url: String
+}
+
+input FileUpdateOneInput {
+  create: FileCreateInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateDataInput
+  upsert: FileUpsertNestedInput
+}
+
+input FileUpsertNestedInput {
+  update: FileUpdateDataInput!
+  create: FileCreateInput!
 }
 
 input FileWhereInput {
@@ -1210,6 +1246,117 @@ input FoundryWhereUniqueInput {
   name: String
 }
 
+type Images {
+  thumbnail: File
+  full: File
+}
+
+"""A connection to a list of items."""
+type ImagesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ImagesEdge]!
+  aggregate: AggregateImages!
+}
+
+input ImagesCreateInput {
+  thumbnail: FileCreateOneInput
+  full: FileCreateOneInput
+}
+
+input ImagesCreateOneInput {
+  create: ImagesCreateInput
+}
+
+"""An edge in a connection."""
+type ImagesEdge {
+  """The item at the end of the edge."""
+  node: Images!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ImagesOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ImagesSubscriptionPayload {
+  mutation: MutationType!
+  node: Images
+  updatedFields: [String!]
+}
+
+input ImagesSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ImagesSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ImagesSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ImagesSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ImagesWhereInput
+}
+
+input ImagesUpdateDataInput {
+  thumbnail: FileUpdateOneInput
+  full: FileUpdateOneInput
+}
+
+input ImagesUpdateOneInput {
+  create: ImagesCreateInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ImagesUpdateDataInput
+  upsert: ImagesUpsertNestedInput
+}
+
+input ImagesUpsertNestedInput {
+  update: ImagesUpdateDataInput!
+  create: ImagesCreateInput!
+}
+
+input ImagesWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ImagesWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ImagesWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ImagesWhereInput!]
+  thumbnail: FileWhereInput
+  full: FileWhereInput
+}
+
 """
 The \`Long\` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -1223,6 +1370,7 @@ type Mutation {
   createFoundry(data: FoundryCreateInput!): Foundry!
   createFile(data: FileCreateInput!): File!
   createUser(data: UserCreateInput!): User!
+  createImages(data: ImagesCreateInput!): Images!
   updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
   updateDesigner(data: DesignerUpdateInput!, where: DesignerWhereUniqueInput!): Designer
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
@@ -1253,6 +1401,7 @@ type Mutation {
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyImageses(where: ImagesWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1289,6 +1438,7 @@ type Query {
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  imageses(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Images]!
   website(where: WebsiteWhereUniqueInput!): Website
   designer(where: DesignerWhereUniqueInput!): Designer
   typeface(where: TypefaceWhereUniqueInput!): Typeface
@@ -1301,6 +1451,7 @@ type Query {
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  imagesesConnection(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImagesConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1321,6 +1472,7 @@ type Subscription {
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  images(where: ImagesSubscriptionWhereInput): ImagesSubscriptionPayload
 }
 
 type Typeface implements Node {
@@ -2488,10 +2640,9 @@ type Website implements Node {
   id: ID!
   isPublished: Boolean!
   title: String!
-  thumbnail: String!
+  images: Images
   slug: String
   url: String!
-  image: String!
   addedBy: User!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   featured: Boolean!
@@ -2510,11 +2661,10 @@ type WebsiteConnection {
 input WebsiteCreateInput {
   isPublished: Boolean
   title: String!
-  thumbnail: String!
   slug: String
   url: String!
-  image: String!
   featured: Boolean
+  images: ImagesCreateOneInput
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
 }
@@ -2532,22 +2682,20 @@ input WebsiteCreateManyWithoutTypefacesInput {
 input WebsiteCreateWithoutAddedByInput {
   isPublished: Boolean
   title: String!
-  thumbnail: String!
   slug: String
   url: String!
-  image: String!
   featured: Boolean
+  images: ImagesCreateOneInput
   typefaces: TypefaceCreateManyWithoutUsedByInput
 }
 
 input WebsiteCreateWithoutTypefacesInput {
   isPublished: Boolean
   title: String!
-  thumbnail: String!
   slug: String
   url: String!
-  image: String!
   featured: Boolean
+  images: ImagesCreateOneInput
   addedBy: UserCreateOneWithoutWebsitesInput!
 }
 
@@ -2567,14 +2715,10 @@ enum WebsiteOrderByInput {
   isPublished_DESC
   title_ASC
   title_DESC
-  thumbnail_ASC
-  thumbnail_DESC
   slug_ASC
   slug_DESC
   url_ASC
   url_DESC
-  image_ASC
-  image_DESC
   featured_ASC
   featured_DESC
   updatedAt_ASC
@@ -2587,10 +2731,8 @@ type WebsitePreviousValues {
   id: ID!
   isPublished: Boolean!
   title: String!
-  thumbnail: String!
   slug: String
   url: String!
-  image: String!
   featured: Boolean!
 }
 
@@ -2687,46 +2829,6 @@ input WebsiteScalarWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
-  thumbnail: String
-
-  """All values that are not equal to given value."""
-  thumbnail_not: String
-
-  """All values that are contained in given list."""
-  thumbnail_in: [String!]
-
-  """All values that are not contained in given list."""
-  thumbnail_not_in: [String!]
-
-  """All values less than the given value."""
-  thumbnail_lt: String
-
-  """All values less than or equal the given value."""
-  thumbnail_lte: String
-
-  """All values greater than the given value."""
-  thumbnail_gt: String
-
-  """All values greater than or equal the given value."""
-  thumbnail_gte: String
-
-  """All values containing the given string."""
-  thumbnail_contains: String
-
-  """All values not containing the given string."""
-  thumbnail_not_contains: String
-
-  """All values starting with the given string."""
-  thumbnail_starts_with: String
-
-  """All values not starting with the given string."""
-  thumbnail_not_starts_with: String
-
-  """All values ending with the given string."""
-  thumbnail_ends_with: String
-
-  """All values not ending with the given string."""
-  thumbnail_not_ends_with: String
   slug: String
 
   """All values that are not equal to given value."""
@@ -2807,46 +2909,6 @@ input WebsiteScalarWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
-  image: String
-
-  """All values that are not equal to given value."""
-  image_not: String
-
-  """All values that are contained in given list."""
-  image_in: [String!]
-
-  """All values that are not contained in given list."""
-  image_not_in: [String!]
-
-  """All values less than the given value."""
-  image_lt: String
-
-  """All values less than or equal the given value."""
-  image_lte: String
-
-  """All values greater than the given value."""
-  image_gt: String
-
-  """All values greater than or equal the given value."""
-  image_gte: String
-
-  """All values containing the given string."""
-  image_contains: String
-
-  """All values not containing the given string."""
-  image_not_contains: String
-
-  """All values starting with the given string."""
-  image_starts_with: String
-
-  """All values not starting with the given string."""
-  image_not_starts_with: String
-
-  """All values ending with the given string."""
-  image_ends_with: String
-
-  """All values not ending with the given string."""
-  image_not_ends_with: String
   featured: Boolean
 
   """All values that are not equal to given value."""
@@ -2895,11 +2957,10 @@ input WebsiteSubscriptionWhereInput {
 input WebsiteUpdateInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
   slug: String
   url: String
-  image: String
   featured: Boolean
+  images: ImagesUpdateOneInput
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
 }
@@ -2907,20 +2968,16 @@ input WebsiteUpdateInput {
 input WebsiteUpdateManyDataInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
   slug: String
   url: String
-  image: String
   featured: Boolean
 }
 
 input WebsiteUpdateManyMutationInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
   slug: String
   url: String
-  image: String
   featured: Boolean
 }
 
@@ -2954,22 +3011,20 @@ input WebsiteUpdateManyWithWhereNestedInput {
 input WebsiteUpdateWithoutAddedByDataInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
   slug: String
   url: String
-  image: String
   featured: Boolean
+  images: ImagesUpdateOneInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
 }
 
 input WebsiteUpdateWithoutTypefacesDataInput {
   isPublished: Boolean
   title: String
-  thumbnail: String
   slug: String
   url: String
-  image: String
   featured: Boolean
+  images: ImagesUpdateOneInput
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
 }
 
@@ -3088,46 +3143,6 @@ input WebsiteWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
-  thumbnail: String
-
-  """All values that are not equal to given value."""
-  thumbnail_not: String
-
-  """All values that are contained in given list."""
-  thumbnail_in: [String!]
-
-  """All values that are not contained in given list."""
-  thumbnail_not_in: [String!]
-
-  """All values less than the given value."""
-  thumbnail_lt: String
-
-  """All values less than or equal the given value."""
-  thumbnail_lte: String
-
-  """All values greater than the given value."""
-  thumbnail_gt: String
-
-  """All values greater than or equal the given value."""
-  thumbnail_gte: String
-
-  """All values containing the given string."""
-  thumbnail_contains: String
-
-  """All values not containing the given string."""
-  thumbnail_not_contains: String
-
-  """All values starting with the given string."""
-  thumbnail_starts_with: String
-
-  """All values not starting with the given string."""
-  thumbnail_not_starts_with: String
-
-  """All values ending with the given string."""
-  thumbnail_ends_with: String
-
-  """All values not ending with the given string."""
-  thumbnail_not_ends_with: String
   slug: String
 
   """All values that are not equal to given value."""
@@ -3208,50 +3223,11 @@ input WebsiteWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
-  image: String
-
-  """All values that are not equal to given value."""
-  image_not: String
-
-  """All values that are contained in given list."""
-  image_in: [String!]
-
-  """All values that are not contained in given list."""
-  image_not_in: [String!]
-
-  """All values less than the given value."""
-  image_lt: String
-
-  """All values less than or equal the given value."""
-  image_lte: String
-
-  """All values greater than the given value."""
-  image_gt: String
-
-  """All values greater than or equal the given value."""
-  image_gte: String
-
-  """All values containing the given string."""
-  image_contains: String
-
-  """All values not containing the given string."""
-  image_not_contains: String
-
-  """All values starting with the given string."""
-  image_starts_with: String
-
-  """All values not starting with the given string."""
-  image_not_starts_with: String
-
-  """All values ending with the given string."""
-  image_ends_with: String
-
-  """All values not ending with the given string."""
-  image_not_ends_with: String
   featured: Boolean
 
   """All values that are not equal to given value."""
   featured_not: Boolean
+  images: ImagesWhereInput
   addedBy: UserWhereInput
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
@@ -3306,6 +3282,13 @@ export type FoundryOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type ImagesOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
 export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
@@ -3349,14 +3332,10 @@ export type WebsiteOrderByInput =   'id_ASC' |
   'isPublished_DESC' |
   'title_ASC' |
   'title_DESC' |
-  'thumbnail_ASC' |
-  'thumbnail_DESC' |
   'slug_ASC' |
   'slug_DESC' |
   'url_ASC' |
   'url_DESC' |
-  'image_ASC' |
-  'image_DESC' |
   'featured_ASC' |
   'featured_DESC' |
   'updatedAt_ASC' |
@@ -3555,6 +3534,11 @@ export interface FileCreateInput {
   url: String
 }
 
+export interface FileCreateOneInput {
+  create?: FileCreateInput
+  connect?: FileWhereUniqueInput
+}
+
 export interface FileSubscriptionWhereInput {
   AND?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
   OR?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
@@ -3564,6 +3548,13 @@ export interface FileSubscriptionWhereInput {
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
   node?: FileWhereInput
+}
+
+export interface FileUpdateDataInput {
+  filename?: String
+  mimetype?: String
+  encoding?: String
+  url?: String
 }
 
 export interface FileUpdateInput {
@@ -3578,6 +3569,20 @@ export interface FileUpdateManyMutationInput {
   mimetype?: String
   encoding?: String
   url?: String
+}
+
+export interface FileUpdateOneInput {
+  create?: FileCreateInput
+  connect?: FileWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: FileUpdateDataInput
+  upsert?: FileUpsertNestedInput
+}
+
+export interface FileUpsertNestedInput {
+  update: FileUpdateDataInput
+  create: FileCreateInput
 }
 
 export interface FileWhereInput {
@@ -3793,6 +3798,52 @@ export interface FoundryWhereInput {
 export interface FoundryWhereUniqueInput {
   id?: ID_Input
   name?: String
+}
+
+export interface ImagesCreateInput {
+  thumbnail?: FileCreateOneInput
+  full?: FileCreateOneInput
+}
+
+export interface ImagesCreateOneInput {
+  create?: ImagesCreateInput
+}
+
+export interface ImagesSubscriptionWhereInput {
+  AND?: ImagesSubscriptionWhereInput[] | ImagesSubscriptionWhereInput
+  OR?: ImagesSubscriptionWhereInput[] | ImagesSubscriptionWhereInput
+  NOT?: ImagesSubscriptionWhereInput[] | ImagesSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: ImagesWhereInput
+}
+
+export interface ImagesUpdateDataInput {
+  thumbnail?: FileUpdateOneInput
+  full?: FileUpdateOneInput
+}
+
+export interface ImagesUpdateOneInput {
+  create?: ImagesCreateInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: ImagesUpdateDataInput
+  upsert?: ImagesUpsertNestedInput
+}
+
+export interface ImagesUpsertNestedInput {
+  update: ImagesUpdateDataInput
+  create: ImagesCreateInput
+}
+
+export interface ImagesWhereInput {
+  AND?: ImagesWhereInput[] | ImagesWhereInput
+  OR?: ImagesWhereInput[] | ImagesWhereInput
+  NOT?: ImagesWhereInput[] | ImagesWhereInput
+  thumbnail?: FileWhereInput
+  full?: FileWhereInput
 }
 
 export interface TypefaceCreateInput {
@@ -4408,11 +4459,10 @@ export interface UserWhereUniqueInput {
 export interface WebsiteCreateInput {
   isPublished?: Boolean
   title: String
-  thumbnail: String
   slug?: String
   url: String
-  image: String
   featured?: Boolean
+  images?: ImagesCreateOneInput
   addedBy: UserCreateOneWithoutWebsitesInput
   typefaces?: TypefaceCreateManyWithoutUsedByInput
 }
@@ -4430,22 +4480,20 @@ export interface WebsiteCreateManyWithoutTypefacesInput {
 export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: Boolean
   title: String
-  thumbnail: String
   slug?: String
   url: String
-  image: String
   featured?: Boolean
+  images?: ImagesCreateOneInput
   typefaces?: TypefaceCreateManyWithoutUsedByInput
 }
 
 export interface WebsiteCreateWithoutTypefacesInput {
   isPublished?: Boolean
   title: String
-  thumbnail: String
   slug?: String
   url: String
-  image: String
   featured?: Boolean
+  images?: ImagesCreateOneInput
   addedBy: UserCreateOneWithoutWebsitesInput
 }
 
@@ -4483,20 +4531,6 @@ export interface WebsiteScalarWhereInput {
   title_not_starts_with?: String
   title_ends_with?: String
   title_not_ends_with?: String
-  thumbnail?: String
-  thumbnail_not?: String
-  thumbnail_in?: String[] | String
-  thumbnail_not_in?: String[] | String
-  thumbnail_lt?: String
-  thumbnail_lte?: String
-  thumbnail_gt?: String
-  thumbnail_gte?: String
-  thumbnail_contains?: String
-  thumbnail_not_contains?: String
-  thumbnail_starts_with?: String
-  thumbnail_not_starts_with?: String
-  thumbnail_ends_with?: String
-  thumbnail_not_ends_with?: String
   slug?: String
   slug_not?: String
   slug_in?: String[] | String
@@ -4525,20 +4559,6 @@ export interface WebsiteScalarWhereInput {
   url_not_starts_with?: String
   url_ends_with?: String
   url_not_ends_with?: String
-  image?: String
-  image_not?: String
-  image_in?: String[] | String
-  image_not_in?: String[] | String
-  image_lt?: String
-  image_lte?: String
-  image_gt?: String
-  image_gte?: String
-  image_contains?: String
-  image_not_contains?: String
-  image_starts_with?: String
-  image_not_starts_with?: String
-  image_ends_with?: String
-  image_not_ends_with?: String
   featured?: Boolean
   featured_not?: Boolean
 }
@@ -4557,11 +4577,10 @@ export interface WebsiteSubscriptionWhereInput {
 export interface WebsiteUpdateInput {
   isPublished?: Boolean
   title?: String
-  thumbnail?: String
   slug?: String
   url?: String
-  image?: String
   featured?: Boolean
+  images?: ImagesUpdateOneInput
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces?: TypefaceUpdateManyWithoutUsedByInput
 }
@@ -4569,20 +4588,16 @@ export interface WebsiteUpdateInput {
 export interface WebsiteUpdateManyDataInput {
   isPublished?: Boolean
   title?: String
-  thumbnail?: String
   slug?: String
   url?: String
-  image?: String
   featured?: Boolean
 }
 
 export interface WebsiteUpdateManyMutationInput {
   isPublished?: Boolean
   title?: String
-  thumbnail?: String
   slug?: String
   url?: String
-  image?: String
   featured?: Boolean
 }
 
@@ -4616,22 +4631,20 @@ export interface WebsiteUpdateManyWithWhereNestedInput {
 export interface WebsiteUpdateWithoutAddedByDataInput {
   isPublished?: Boolean
   title?: String
-  thumbnail?: String
   slug?: String
   url?: String
-  image?: String
   featured?: Boolean
+  images?: ImagesUpdateOneInput
   typefaces?: TypefaceUpdateManyWithoutUsedByInput
 }
 
 export interface WebsiteUpdateWithoutTypefacesDataInput {
   isPublished?: Boolean
   title?: String
-  thumbnail?: String
   slug?: String
   url?: String
-  image?: String
   featured?: Boolean
+  images?: ImagesUpdateOneInput
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput
 }
 
@@ -4691,20 +4704,6 @@ export interface WebsiteWhereInput {
   title_not_starts_with?: String
   title_ends_with?: String
   title_not_ends_with?: String
-  thumbnail?: String
-  thumbnail_not?: String
-  thumbnail_in?: String[] | String
-  thumbnail_not_in?: String[] | String
-  thumbnail_lt?: String
-  thumbnail_lte?: String
-  thumbnail_gt?: String
-  thumbnail_gte?: String
-  thumbnail_contains?: String
-  thumbnail_not_contains?: String
-  thumbnail_starts_with?: String
-  thumbnail_not_starts_with?: String
-  thumbnail_ends_with?: String
-  thumbnail_not_ends_with?: String
   slug?: String
   slug_not?: String
   slug_in?: String[] | String
@@ -4733,22 +4732,9 @@ export interface WebsiteWhereInput {
   url_not_starts_with?: String
   url_ends_with?: String
   url_not_ends_with?: String
-  image?: String
-  image_not?: String
-  image_in?: String[] | String
-  image_not_in?: String[] | String
-  image_lt?: String
-  image_lte?: String
-  image_gt?: String
-  image_gte?: String
-  image_contains?: String
-  image_not_contains?: String
-  image_starts_with?: String
-  image_not_starts_with?: String
-  image_ends_with?: String
-  image_not_ends_with?: String
   featured?: Boolean
   featured_not?: Boolean
+  images?: ImagesWhereInput
   addedBy?: UserWhereInput
   typefaces_every?: TypefaceWhereInput
   typefaces_some?: TypefaceWhereInput
@@ -4776,6 +4762,10 @@ export interface AggregateFile {
 }
 
 export interface AggregateFoundry {
+  count: Int
+}
+
+export interface AggregateImages {
   count: Int
 }
 
@@ -4921,6 +4911,36 @@ export interface FoundrySubscriptionPayload {
   previousValues?: FoundryPreviousValues
 }
 
+export interface Images {
+  thumbnail?: File
+  full?: File
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface ImagesConnection {
+  pageInfo: PageInfo
+  edges: ImagesEdge[]
+  aggregate: AggregateImages
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface ImagesEdge {
+  node: Images
+  cursor: String
+}
+
+export interface ImagesSubscriptionPayload {
+  mutation: MutationType
+  node?: Images
+  updatedFields?: String[]
+}
+
 /*
  * Information about pagination in a connection.
 
@@ -5026,10 +5046,9 @@ export interface Website extends Node {
   id: ID_Output
   isPublished: Boolean
   title: String
-  thumbnail: String
+  images?: Images
   slug?: String
   url: String
-  image: String
   addedBy: User
   typefaces?: Typeface[]
   featured: Boolean
@@ -5058,10 +5077,8 @@ export interface WebsitePreviousValues {
   id: ID_Output
   isPublished: Boolean
   title: String
-  thumbnail: String
   slug?: String
   url: String
-  image: String
   featured: Boolean
 }
 

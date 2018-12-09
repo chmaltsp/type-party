@@ -5,6 +5,8 @@ import { StaticRouter } from 'react-router-dom';
 
 import 'cross-fetch/polyfill';
 
+import { resetIdCounter } from 'downshift';
+
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 
@@ -52,6 +54,10 @@ server
     sheet.collectStyles(<App />);
 
     const styleTags = sheet.getStyleTags();
+
+    // Necessary for downshift to work in SSR
+    // https://github.com/paypal/downshift#resetidcounter
+    resetIdCounter();
     const markup = renderToString(
       <ApolloProvider client={client}>
         <StaticRouter context={context} location={req.url}>

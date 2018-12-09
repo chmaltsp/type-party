@@ -8,17 +8,30 @@ import MediaUpload from '../../components/MediaUpload';
 import styled from 'sc';
 import * as Yup from 'yup';
 
-import { MutateProps, Mutation } from 'react-apollo';
-import { UPLOAD_IMAGE } from './mutation';
+import { ChildMutateProps, MutateProps, Mutation } from 'react-apollo';
+import { ADD_WEBSITE, UPLOAD_IMAGE } from './mutation';
 
-import { Field, FieldProps, Form as FormBase, Formik, FormikActions } from 'formik';
-import Autocomplete from '../../components/Autocomplete';
+import {
+  Field,
+  FieldProps,
+  Form as FormBase,
+  Formik,
+  FormikActions,
+  FormikProps,
+} from 'formik';
 
+import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
+import { AddWebsite_addWebsite, AddWebsiteVariables } from './__generated__/AddWebsite';
+import TypefaceTypeahead from './TypefaceTypeahead';
 
 export interface InputValues {
   thumbnail: File | null;
+  full: File | null;
   slug: string;
+  title: string;
+  url: string;
+  typefaces: AddTypeface_addTypeface[];
 }
 
 export interface Typeface {
@@ -56,14 +69,18 @@ const SubmitButton = styled.button.attrs({
   margin: ${({ theme }) => theme.baseSpacing * 2}px 0;
   border-radius: ${({ theme }) => theme.baseSpacing / 2}px;
   color: ${({ theme }) => theme.colors.black};
+  cursor: pointer;
   padding: ${({ theme }) => theme.baseSpacing}px ${({ theme }) => theme.baseSpacing * 2}px;
 `;
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Site name is required'),
   slug: Yup.string()
     .required('Website Slug is required')
     .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Must be a valid slug eg.. my-slug'),
+  title: Yup.string().required('Site name is required'),
+  url: Yup.string()
+    .required('Url field is required')
+    .url('Must be a valid URL'),
 });
 
 const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
@@ -73,7 +90,9 @@ const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
 interface SiteFormState {
   showAddTypeface: boolean;
 }
-class SiteForm extends React.PureComponent<{}, SiteFormState> {
+
+type Props = ChildMutateProps<FormikProps<InputValues>>;
+class SiteForm extends React.PureComponent<Props, SiteFormState> {
   public state = {
     showAddTypeface: false,
   };
@@ -82,6 +101,10 @@ class SiteForm extends React.PureComponent<{}, SiteFormState> {
     this.setState({
       showAddTypeface: !this.state.showAddTypeface,
     });
+  }
+
+  private handleAddTypeface = (typeface: AddTypeface_addTypeface) => {
+    this.props.setFieldValue('typefaces', [...this.props.values.typefaces, typeface]);
   }
 
   public render() {
@@ -114,8 +137,7 @@ class SiteForm extends React.PureComponent<{}, SiteFormState> {
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     const file =
                       event.currentTarget.files && event.currentTarget.files[0];
-                    const { setFieldValue } = props.form;
-                    setFieldValue('thumbnail', file);
+                    this.props.setFieldValue('thumbnail', file);
                   }}
                   {...props}
                 />
@@ -125,46 +147,35 @@ class SiteForm extends React.PureComponent<{}, SiteFormState> {
         </LeftColumn>
         <RightColumn>
           <Field
-            name="name"
-            render={(props: FieldProps<InputValues>) => {
+            name="title"
+            render={(props: FieldProps<AddWebsiteVariables>) => {
               return <Input label="Site Name" {...props} />;
             }}
           />
           <Field
-            name="websiteUrl"
-            render={(props: FieldProps<InputValues>) => {
+            name="url"
+            render={(props: FieldProps<AddWebsiteVariables>) => {
               return <Input label="Website Url" placeholder="http://" {...props} />;
             }}
           />
           <Field
             name="slug"
-            render={(props: FieldProps<InputValues>) => {
+            render={(props: FieldProps<AddWebsiteVariables>) => {
               return <Input label="Website Slug" placeholder="website-slug" {...props} />;
             }}
           />
-          <Field
-            name="typefaces"
-            render={(props: FieldProps<InputValues>) => {
-              return (
-                <Autocomplete<{ name?: string; value: string }>
-                  value={props.field.value}
-                  items={[{ value: 'typeface' }]}
-                  label="Typeface(s)"
-                  handleOnChange={selection =>
-                    props.form.setFieldValue('typefaces', selection)
-                  }
-                  itemToString={item => (item && item.name) || ''}
-                />
-              );
-            }}
-          />
-          <div>
-            <AddTypefaceButton rounded={true} onClick={this.toggleTypefaceForm}>
-              + Add New Typeface
-            </AddTypefaceButton>
-          </div>
-          {this.state.showAddTypeface && <TypefaceForm />}
-          <SubmitButton>Publish Website</SubmitButton>
+          <TypefaceTypeahead />
+          {!this.state.showAddTypeface && (
+            <div>
+              <AddTypefaceButton rounded={true} onClick={this.toggleTypefaceForm}>
+                + Add New Typeface
+              </AddTypefaceButton>
+            </div>
+          )}
+          {this.state.showAddTypeface && (
+            <TypefaceForm handleSubmit={this.handleAddTypeface} />
+          )}
+          <SubmitButton onSubmit={this.props.submitForm}>Publish Website</SubmitButton>
         </RightColumn>
       </Form>
     );
@@ -176,30 +187,32 @@ const WrappedForm: React.SFC<{}> = () => {
     console.log(values);
   };
   return (
-    <Mutation mutation={UPLOAD_IMAGE}>
+    <Mutation<AddWebsite_addWebsite, AddWebsiteVariables> mutation={ADD_WEBSITE}>
       {(mutate, { data, loading }) => (
         <React.Fragment>
           <Formik
             initialValues={{
-              name: '',
+              full: null,
               slug: '',
               thumbnail: null,
+              title: '',
               typefaces: [],
+              url: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-            // onSubmit={async ({ thumbnail }) => {
-
-            //   const response = await mutate({
-            //     variables: {
-            //       file: thumbnail,
-            //     },
-            //   });
-            //   console.log(response);
-            // }}
+            onSubmit={async (values: InputValues) => {
+              console.log(values);
+              // const response = await mutate({
+              //   variables: {
+              //     input: {
+              //       ...values,
+              //     },
+              //   },
+              // });
+              // console.log(response);
+            }}
             component={SiteForm}
           />
-          {!loading && data && <img src={data.uploadImage.url} />}
         </React.Fragment>
       )}
     </Mutation>

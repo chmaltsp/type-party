@@ -18,13 +18,17 @@ type Website {
   id: ID! @unique
   isPublished: Boolean! @default(value: "false")
   title: String!
-  thumbnail: String!  
+  images: Images
   slug: String
   url: String!
-  image: String!
   addedBy: User! @relation(name: "WebsitesUser")
   typefaces: [Typeface!]!
   featured: Boolean! @default(value: "false")
+}
+
+type Images {
+  thumbnail: File @relation(name: "ThumbnailFile")
+  full: File @relation(name: "FullFile")
 }
 
 type Designer {

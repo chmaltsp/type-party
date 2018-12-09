@@ -11,13 +11,17 @@ import Input from '../../components/Input';
 
 import { AddDesigner_addDesigner } from 'src/components/DesignerForm/__generated__/AddDesigner';
 import { AddFoundry_addFoundry } from 'src/components/FoundryForm/__generated__/AddFoundry';
-import { AddTypeface, AddTypefaceVariables } from './__generated__/AddTypeface';
+import {
+  AddTypeface,
+  AddTypeface_addTypeface,
+  AddTypefaceVariables,
+} from './__generated__/AddTypeface';
 import DesignerTypeahead from './DesignerTypeahead';
 import FoundryTypeahead from './FoundryTypeahead';
 import { ADD_TYPEFACE } from './mutation';
 
 export interface TypefaceFormProps {
-  handleSubmit?: () => void;
+  handleSubmit?: (typeface: any) => void;
 }
 
 interface TypefaceFormState {
@@ -50,7 +54,7 @@ const ButtonWrapper = styled(Flex)`
 
 const Publish = styled(ButtonBase)``;
 
-type Props = ChildMutateProps<{}, AddTypeface, AddTypefaceVariables>;
+type Props = ChildMutateProps<TypefaceFormProps, AddTypeface, AddTypefaceVariables>;
 
 class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   public state = {
@@ -88,6 +92,10 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
       });
 
       console.log(response);
+
+      if (response && response.data && this.props.handleSubmit) {
+        this.props.handleSubmit(response.data.addTypeface);
+      }
     } catch (error) {
       console.log(error);
     }

@@ -4,12 +4,16 @@ import { Field, FieldProps } from 'formik';
 import { ChildProps, graphql } from 'react-apollo';
 
 import Autocomplete from '../../components/Autocomplete';
-import { FindDesigner, FindDesignerVariables } from './__generated__/FindDesigner';
+import {
+  FindTypeface,
+  FindTypeface_findTypefaces,
+  FindTypefaceVariables,
+} from './__generated__/FindTypeface';
 import { InputValues } from './Form';
-import { SEARCH_DESIGNER } from './queries';
+import { SEARCH_TYPEFACE } from './queries';
 
-export class DesignerTypeahead extends React.PureComponent<
-  ChildProps<{}, FindDesigner, FindDesignerVariables>,
+export class TypefaceTypeahead extends React.PureComponent<
+  ChildProps<{}, FindTypeface, FindTypefaceVariables>,
   any
 > {
   public handleSearch = async (search: string | null) => {
@@ -22,24 +26,16 @@ export class DesignerTypeahead extends React.PureComponent<
   public render() {
     return (
       <Field
-        name="designers"
+        name="typefaces"
         render={(fieldProps: FieldProps<InputValues>) => {
           return (
-            <Autocomplete<{ name?: string; id: string; value: string }>
-              items={
-                (this.props.data &&
-                  this.props.data.findDesigners &&
-                  this.props.data.findDesigners.map(designer => ({
-                    ...designer,
-                    value: designer.name,
-                  }))) ||
-                []
-              }
+            <Autocomplete<FindTypeface_findTypefaces>
+              items={(this.props.data && this.props.data.findTypefaces) || []}
               value={fieldProps.field.value}
-              label="Designer(s)"
+              label="Typeface(s)"
               handleSearch={this.handleSearch}
               handleOnChange={selection =>
-                fieldProps.form.setFieldValue('designers', selection)
+                fieldProps.form.setFieldValue('typefaces', selection)
               }
               itemToString={item => (item && item.name) || ''}
             />
@@ -50,10 +46,10 @@ export class DesignerTypeahead extends React.PureComponent<
   }
 }
 
-export default graphql<any, FindDesigner, FindDesignerVariables>(SEARCH_DESIGNER, {
+export default graphql<any, FindTypeface, FindTypefaceVariables>(SEARCH_TYPEFACE, {
   options: {
     variables: {
       search: '',
     },
   },
-})(DesignerTypeahead);
+})(TypefaceTypeahead);

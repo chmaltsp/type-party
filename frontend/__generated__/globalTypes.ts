@@ -10,6 +10,15 @@ export enum Role {
   SUBSCRIBER = "SUBSCRIBER",
 }
 
+export interface AddWebsiteInput {
+  full: any;
+  thumbnail: any;
+  title: string;
+  url: string;
+  slug: string;
+  typefaces: string[];
+}
+
 export interface DesignerCreateInput {
   name: string;
   url: string;
@@ -33,6 +42,23 @@ export interface DesignerWhereUniqueInput {
   name?: string | null;
 }
 
+export interface FileCreateInput {
+  filename: string;
+  mimetype: string;
+  encoding: string;
+  url: string;
+}
+
+export interface FileCreateOneInput {
+  create?: FileCreateInput | null;
+  connect?: FileWhereUniqueInput | null;
+}
+
+export interface FileWhereUniqueInput {
+  id?: string | null;
+  url?: string | null;
+}
+
 export interface FoundryCreateInput {
   name: string;
   url: string;
@@ -54,6 +80,15 @@ export interface FoundryCreateWithoutTypefacesInput {
 export interface FoundryWhereUniqueInput {
   id?: string | null;
   name?: string | null;
+}
+
+export interface ImagesCreateInput {
+  thumbnail?: FileCreateOneInput | null;
+  full?: FileCreateOneInput | null;
+}
+
+export interface ImagesCreateOneInput {
+  create?: ImagesCreateInput | null;
 }
 
 export interface TypefaceCreateInput {
@@ -190,10 +225,9 @@ export interface WebsiteCreateManyWithoutTypefacesInput {
 export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: boolean | null;
   title: string;
-  thumbnail: string;
+  images?: ImagesCreateOneInput | null;
   slug?: string | null;
   url: string;
-  image: string;
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
   featured?: boolean | null;
 }
@@ -201,10 +235,9 @@ export interface WebsiteCreateWithoutAddedByInput {
 export interface WebsiteCreateWithoutTypefacesInput {
   isPublished?: boolean | null;
   title: string;
-  thumbnail: string;
+  images?: ImagesCreateOneInput | null;
   slug?: string | null;
   url: string;
-  image: string;
   addedBy: UserCreateOneWithoutWebsitesInput;
   featured?: boolean | null;
 }
