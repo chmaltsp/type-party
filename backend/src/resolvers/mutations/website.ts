@@ -12,6 +12,7 @@ export const website: WebsiteResolvers = {
     const fullFile = await processUpload(args.input.full, ctx);
     const thumbnailFile = await processUpload(args.input.thumbnail, ctx);
 
+    // Clean up input for createWebsite
     delete args.input.full;
     delete args.input.thumbnail;
     return ctx.client.createWebsite({
@@ -41,21 +42,5 @@ export const website: WebsiteResolvers = {
         },
       },
     });
-    // return ctx.db.mutation.createWebsite(
-    //   {
-    //     data: {
-    //       title,
-    //       thumbnail,
-    //       url,
-    //       image,
-    //       isPublished: false,
-    //       featured: false,
-    //       addedBy: {
-    //         connect: { id: userId },
-    //       },
-    //     },
-    //   },
-    //   info
-    // );
   },
 };
