@@ -8,19 +8,11 @@ import MediaUpload from '../../components/MediaUpload';
 import styled from 'sc';
 import * as Yup from 'yup';
 
-import { ChildMutateProps, MutateProps, Mutation } from 'react-apollo';
-import { ADD_WEBSITE, UPLOAD_IMAGE } from './mutation';
+import { ChildMutateProps, Mutation } from 'react-apollo';
+import { ADD_WEBSITE } from './mutation';
 
-import {
-  Field,
-  FieldProps,
-  Form as FormBase,
-  Formik,
-  FormikActions,
-  FormikProps,
-} from 'formik';
+import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
 
-import { type } from 'os';
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
 import { AddWebsite_addWebsite, AddWebsiteVariables } from './__generated__/AddWebsite';
