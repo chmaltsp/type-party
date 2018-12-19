@@ -59,6 +59,17 @@ const FieldName = styled(FieldNameBase)`
   top: -20px;
 `.withComponent('span');
 
+const ImagePreview = styled.img`
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+`;
+
 export function MediaUpload({
   field,
   onChange,
@@ -69,6 +80,7 @@ export function MediaUpload({
     <FieldSet>
       <FieldName>{label}</FieldName>
       <FileUpload id={field.name} onChange={onChange} />
+      <ImagePreview src={field.value && URL.createObjectURL(field.value)} />
       <Label htmlFor={field.name} />
       <Error show={form.touched[field.name] && form.errors[field.name]}>
         {form.errors[field.name]}
