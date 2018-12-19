@@ -9,6 +9,11 @@ import { schemaDirectives } from './schema-directives';
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
+  cors: {
+    origin: '*',
+    preflightContinue: true,
+  },
+
   // @ts-ignore
   resolvers,
   schemaDirectives,
@@ -31,12 +36,18 @@ const server = new GraphQLServer({
 });
 
 server.express.post(server.options.endpoint, checkJwt, (err, req, res, next) => {
-  if (err)
+  if (err) {
+    // return res.send({
+    //   error: {
+    //     message: err.message
+    //   }
+    // }, 401)
     return res.status(401).json({
       error: {
         message: err.message,
       },
     });
+  }
   next();
 });
 
