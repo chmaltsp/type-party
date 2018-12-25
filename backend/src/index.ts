@@ -6,13 +6,10 @@ import resolvers from './resolvers';
 import { checkJwt } from './middleware/checkJwt';
 
 import { schemaDirectives } from './schema-directives';
+import { Request } from 'express';
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
-  cors: {
-    origin: '*',
-    preflightContinue: true,
-  },
 
   // @ts-ignore
   resolvers,
@@ -35,7 +32,7 @@ const server = new GraphQLServer({
   }),
 });
 
-server.express.post(server.options.endpoint, checkJwt, (err, req, res, next) => {
+server.express.post(server.options.endpoint, checkJwt, (err, req: Request, res, next) => {
   if (err) {
     // return res.send({
     //   error: {
@@ -54,6 +51,10 @@ server.express.post(server.options.endpoint, checkJwt, (err, req, res, next) => 
 server.start(
   {
     debug: true,
+    cors: {
+      origin: ['http://localhost:3000'],
+      methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'DELETE', 'PATCH'],
+    },
   },
   () => console.log(`Server is running on http://localhost:4000`)
 );

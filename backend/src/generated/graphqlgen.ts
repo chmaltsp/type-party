@@ -2749,6 +2749,7 @@ export namespace MutationResolvers {
   }
   export interface WebsiteWhereUniqueInput {
     id: string | null;
+    title: string | null;
   }
   export interface FoundryWhereUniqueInput {
     id: string | null;
@@ -2928,6 +2929,7 @@ export namespace MutationResolvers {
 export namespace AuthPayloadResolvers {
   export const defaultResolvers = {
     token: (parent: AuthPayload) => parent.token,
+    user: (parent: AuthPayload) => parent.user,
   };
 
   export type TokenResolver = (

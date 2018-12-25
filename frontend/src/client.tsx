@@ -57,7 +57,7 @@ const errorLink = onError((error: any) => {
   console.log(error);
 });
 
-const link = ApolloLink.from([authLink, errorLink, stateLink, uploadLink]);
+const link = ApolloLink.from([authLink, stateLink, errorLink, uploadLink]);
 
 const client = new ApolloClient({
   cache: appCache,
