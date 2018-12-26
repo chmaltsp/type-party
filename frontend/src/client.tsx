@@ -19,7 +19,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { ServerError } from 'apollo-link-http-common';
 import { ApolloProvider } from 'react-apollo';
 import App from './App';
-import { removeToken } from './utils/auth';
+import { getToken, removeToken } from './utils/auth';
 
 const uri = process.env.RAZZLE_API_URL || 'https://tp-backend-zocaxqjnyl.now.sh';
 
@@ -42,7 +42,7 @@ const stateLink = withClientState({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('tpt');
+  const token = getToken();
 
   const allHeaders = {
     ...headers,
