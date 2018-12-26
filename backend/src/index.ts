@@ -3,6 +3,7 @@ import { Prisma } from './generated/prisma';
 import { Prisma as PrismaClient } from './generated/prisma-client';
 import resolvers from './resolvers';
 
+import * as cors from 'cors';
 import { checkJwt } from './middleware/checkJwt';
 
 import { schemaDirectives } from './schema-directives';
@@ -32,13 +33,17 @@ const server = new GraphQLServer({
   }),
 });
 
+server.express.use(
+  cors({
+    origin: ['http://localhost:3000'],
+
+    methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'DELETE', 'PATCH'],
+    // preflightContinue: true,
+  })
+);
 server.express.post(server.options.endpoint, checkJwt, (err, req: Request, res, next) => {
   if (err) {
-    // return res.send({
-    //   error: {
-    //     message: err.message
-    //   }
-    // }, 401)
+    console.log(err);
     return res.status(401).json({
       error: {
         message: err.message,
@@ -51,10 +56,8 @@ server.express.post(server.options.endpoint, checkJwt, (err, req: Request, res, 
 server.start(
   {
     debug: true,
-    cors: {
-      origin: ['http://localhost:3000'],
-      methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'DELETE', 'PATCH'],
-    },
   },
-  () => console.log(`Server is running on http://localhost:4000`)
+  options => {
+    console.log(`Server is running on http://localhost:4000`, options);
+  }
 );

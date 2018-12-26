@@ -16,8 +16,10 @@ import { onError } from 'apollo-link-error';
 
 import { createUploadLink } from 'apollo-upload-client';
 
+import { ServerError } from 'apollo-link-http-common';
 import { ApolloProvider } from 'react-apollo';
 import App from './App';
+import { removeToken } from './utils/auth';
 
 const uri = process.env.RAZZLE_API_URL || 'https://tp-backend-zocaxqjnyl.now.sh';
 
@@ -53,9 +55,34 @@ const authLink = setContext((_, { headers }) => {
   return { headers: allHeaders };
 });
 
-const errorLink = onError((error: any) => {
-  console.log(error);
-});
+const errorLink = onError(
+  ({ networkError, graphQLErrors, response, operation, forward }) => {
+    if (networkError) {
+      const error = networkError as ServerError;
+
+      console.log(error.result);
+
+      if (error.statusCode === 401) {
+        appCache.writeData({
+          data: {
+            loggedIn: false,
+          },
+          id: 'auth',
+        });
+        // Clear JWT
+        removeToken();
+
+        // Retry the request after deleting token... may be janky but works for now.
+        const oldHeaders = operation.getContext().headers;
+        delete oldHeaders.Authorization;
+        operation.setContext({
+          ...oldHeaders,
+        });
+        return forward(operation);
+      }
+    }
+  }
+);
 
 const link = ApolloLink.from([authLink, stateLink, errorLink, uploadLink]);
 

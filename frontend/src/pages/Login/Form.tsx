@@ -20,6 +20,8 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { LoginMutation, LoginMutationVariables } from './__generated__/LoginMutation';
 import validation from './validation';
 
+import { setToken } from '../../utils/auth';
+
 export interface LoginFormProps {
   mutate?: () => void;
 }
@@ -49,7 +51,7 @@ class LoginForm extends React.PureComponent<
       });
 
       if (response && response.data) {
-        localStorage.setItem('tpt', response.data.login.token);
+        setToken(response.data.login.token);
         this.props.history.push('/');
         actions.setSubmitting(false);
       }
