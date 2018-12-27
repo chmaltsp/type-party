@@ -1,0 +1,7 @@
+type Auth {
+    loggedIn: Boolean!
+}
+
+extend type Query {
+    auth: Auth
+}

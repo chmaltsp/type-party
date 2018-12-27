@@ -8,7 +8,7 @@ import {
   FormikActions,
   FormikProps,
 } from 'formik';
-import { ChildMutateProps, ChildProps, graphql } from 'react-apollo';
+import { ChildMutateProps, graphql, withApollo, WithApolloClient } from 'react-apollo';
 
 import LOGIN_MUTATION from './mutation';
 
@@ -20,6 +20,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { LoginMutation, LoginMutationVariables } from './__generated__/LoginMutation';
 import validation from './validation';
 
+import { AUTH_STATUS } from '../../components/ProtectedRoute/query';
 import { setToken } from '../../utils/auth';
 
 export interface LoginFormProps {
@@ -38,8 +39,11 @@ const Button = styled(ButtonBase)`
 `;
 
 class LoginForm extends React.PureComponent<
-  ChildMutateProps<RouteComponentProps, LoginMutation, LoginMutationVariables>,
-  any
+  ChildMutateProps<
+    RouteComponentProps & WithApolloClient<{}>,
+    LoginMutation,
+    LoginMutationVariables
+  >
 > {
   private handleSubmit = async (
     values: LoginMutationVariables,
@@ -52,8 +56,16 @@ class LoginForm extends React.PureComponent<
 
       if (response && response.data) {
         setToken(response.data.login.token);
-        this.props.history.push('/');
+
+        this.props.client.writeData({
+          data: {
+            __typename: 'Auth',
+            loggedIn: true,
+          },
+        });
+
         actions.setSubmitting(false);
+        this.props.history.push('/');
       }
     } catch (error) {
       actions.setSubmitting(false);
@@ -62,6 +74,7 @@ class LoginForm extends React.PureComponent<
     }
   }
   public render() {
+    console.log(this.props);
     return (
       <Formik<LoginMutationVariables>
         initialValues={{
@@ -96,6 +109,8 @@ class LoginForm extends React.PureComponent<
   }
 }
 
-export default withRouter(
-  graphql<any, LoginMutation, LoginMutationVariables>(LOGIN_MUTATION)(LoginForm)
+export default withApollo<any>(
+  withRouter(
+    graphql<any, LoginMutation, LoginMutationVariables>(LOGIN_MUTATION)(LoginForm)
+  )
 );

@@ -15,13 +15,15 @@ import { theme } from './styles/theme';
 // Inject global styles
 import './styles/global';
 
+import ProtectedRoute from './components/ProtectedRoute';
+
 const App = () => (
   <ThemeProvider theme={theme}>
     <>
       <Header />
       <Switch>
         <Route exact={true} path="/" component={Home} />
-        <Route exact={true} path="/add-site" component={AddSite} />
+        <ProtectedRoute exact={true} path="/add-site" component={AddSite} />
         <Route exact={true} path="/add-typeface" component={AddTypeface} />
         <Route exact={true} path="/login" component={Login} />
       </Switch>

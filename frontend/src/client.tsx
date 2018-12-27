@@ -3,7 +3,9 @@ import * as ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import { ApolloLink, InMemoryCache } from 'apollo-boost';
+import { ApolloLink } from 'apollo-boost';
+
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { ApolloClient } from 'apollo-client';
 
@@ -19,6 +21,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { ServerError } from 'apollo-link-http-common';
 import { ApolloProvider } from 'react-apollo';
 import App from './App';
+import { AUTH_STATUS } from './components/ProtectedRoute/query';
 import { getToken, removeToken } from './utils/auth';
 
 const uri = process.env.RAZZLE_API_URL || 'https://tp-backend-zocaxqjnyl.now.sh';
@@ -34,8 +37,8 @@ const stateLink = withClientState({
   cache: appCache,
   defaults: {
     auth: {
-      __typename: 'auth',
-      loggedIn: false,
+      __typename: 'Auth',
+      loggedIn: getToken() ? true : false,
     },
   },
   resolvers: {},
@@ -60,25 +63,27 @@ const errorLink = onError(
     if (networkError) {
       const error = networkError as ServerError;
 
-      console.log(error.result);
-
       if (error.statusCode === 401) {
-        appCache.writeData({
+        appCache.writeQuery({
           data: {
-            loggedIn: false,
+            auth: {
+              __typename: 'Auth',
+              loggedIn: false,
+            },
           },
-          id: 'auth',
+          query: AUTH_STATUS,
         });
+
         // Clear JWT
         removeToken();
 
         // Retry the request after deleting token... may be janky but works for now.
-        const oldHeaders = operation.getContext().headers;
-        delete oldHeaders.Authorization;
-        operation.setContext({
-          ...oldHeaders,
-        });
-        return forward(operation);
+        // const oldHeaders = operation.getContext().headers;
+        // delete oldHeaders.Authorization;
+        // operation.setContext({
+        //   ...oldHeaders,
+        // });
+        // return forward(operation);
       }
     }
   }
