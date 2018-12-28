@@ -7,6 +7,7 @@ import { Query } from 'react-apollo';
 
 import ButtonBase from '../../components/Button';
 import Card from '../../components/Card';
+import { GetWebsites } from './__generated__/GetWebsites';
 
 const Button = styled(ButtonBase)`
   margin-top: ${({ theme }) => theme.spacing.md}px;
@@ -33,12 +34,13 @@ interface Site {
   id: string;
 }
 
-const GET_WEBSITES = gql`
+export const GET_WEBSITES = gql`
   query GetWebsites {
     websites {
       title
       url
       id
+      slug
     }
   }
 `;
@@ -48,15 +50,18 @@ const GET_WEBSITES = gql`
 
 export const WebsitePanel: React.SFC<{}> = props => {
   return (
-    <Query query={GET_WEBSITES}>
+    <Query<GetWebsites> query={GET_WEBSITES}>
       {({ data, loading, error }) => {
         console.log(data);
         return (
           <Wrapper>
             <Grid>
               {!loading &&
-                data.websites.map(({ title, url, id }: Site) => {
-                  return <Card key={title + id} title={title} imgUrl={url} />;
+                data &&
+                data.websites.map(({ title, url, id, slug }) => {
+                  return (
+                    <Card key={title + id} title={title} slug={slug || ''} imgUrl={url} />
+                  );
                 })}
             </Grid>
             <Button>Load More</Button>
