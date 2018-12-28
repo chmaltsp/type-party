@@ -40,11 +40,11 @@ interface CardProps {
 const Card: React.SFC<CardProps> = ({ title, imgUrl, slug, secondary }) => {
   return (
     <Wrapper>
-      <LinkBase to={`/${slug}`}>
+      <LinkBase to={`/site/${slug}`}>
         <Image src={imgUrl} />
       </LinkBase>
       <ContentWrapper>
-        <Title to={`/${slug}`}>{title}</Title>
+        <Title to={`/site/${slug}`}>{title}</Title>
         {secondary && <SecordaryWrapper>{secondary}</SecordaryWrapper>}
       </ContentWrapper>
     </Wrapper>

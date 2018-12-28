@@ -10,6 +10,7 @@ export interface GetWebsites_websites {
   title: string;
   url: string;
   id: string;
+  slug: string | null;
 }
 
 export interface GetWebsites {

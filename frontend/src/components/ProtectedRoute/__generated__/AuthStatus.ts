@@ -6,7 +6,7 @@
 // ====================================================
 
 export interface AuthStatus_auth {
-  __typename: 'Auth';
+  __typename: "Auth";
   loggedIn: boolean;
 }
 
