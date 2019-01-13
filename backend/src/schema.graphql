@@ -29,7 +29,7 @@ type Query {
   findTypefaces(search: String!): [Typeface!]!
   findDesigners(search: String!): [Designer!]!
   findFoundries(search: String!): [Foundry!]!
-
+  website(slug: String!): Website!
 }
 
 input TypefaceInput {

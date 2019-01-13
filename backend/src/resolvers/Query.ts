@@ -50,4 +50,41 @@ export const Query: QueryResolvers.Type = {
       },
     });
   },
+  website: async (parent, args, ctx) => {
+    const input = {
+      slug: args.slug,
+    };
+    const exists = await ctx.client.$exists.website(input);
+
+    if (!exists) {
+      throw new Error(`${args.slug} is not a website`);
+    }
+
+    const website = await ctx.client.website(input);
+
+    console.log(website);
+    const full = await ctx.client
+      .website(input)
+      .images()
+      .full();
+
+    const thumbnail = await ctx.client
+      .website({
+        slug: args.slug,
+      })
+      .images()
+      .thumbnail();
+
+    const typefaces = await ctx.client.website(input).typefaces();
+    // return {
+    //   ...website,
+    //   images: {
+    //     full,
+    //     thumbnail,
+    //   },
+    //   typefaces,
+    // };
+
+    return ctx.client.website(input);
+  },
 };

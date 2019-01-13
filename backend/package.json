@@ -9,7 +9,9 @@
     "playground": "graphql playground --port 3500",
     "format": "prettier --write  **/*.ts",
     "build": "rimraf dist && tsc",
-    "generate:resolvers": "graphqlgen"
+    "generate:resolvers": "graphqlgen",
+    "prisma:deploy": "prisma deploy",
+    "prisma:token": "prisma token"
   },
   "dependencies": {
     "@types/shortid": "^0.0.29",
@@ -19,14 +21,15 @@
     "graphql-tools": "4.0.3",
     "graphql-yoga": "1.16.9",
     "jsonwebtoken": "8.2.0",
-    "prisma-binding": "2.2.8",
-    "prisma-client-lib": "^1.21.0",
+    "prisma-binding": "2.2.14",
+    "prisma-client-lib": "^1.24.0",
     "shortid": "^2.2.8"
   },
   "resolutions": {
     "graphql": "14.0.2"
   },
   "devDependencies": {
+    "@divyenduz/ts-graphql-plugin": "^0.1.0",
     "@types/aws-sdk": "^2.7.0",
     "@types/bcryptjs": "2.4.1",
     "@types/debug": "^0.0.30",
@@ -40,7 +43,7 @@
     "nodemon": "1.17.2",
     "npm-run-all": "4.1.2",
     "prettier": "^1.11.1",
-    "prisma": "1.23.2",
+    "prisma": "1.24.0",
     "rimraf": "2.6.2",
     "ts-node": "6.0.3",
     "typescript": "3.1.1"

@@ -88,6 +88,54 @@ type DesignerPreviousValues {
   url: String!
 }
 
+input DesignerScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  url: String
+  url_not: String
+  url_in: [String!]
+  url_not_in: [String!]
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  AND: [DesignerScalarWhereInput!]
+  OR: [DesignerScalarWhereInput!]
+  NOT: [DesignerScalarWhereInput!]
+}
+
 type DesignerSubscriptionPayload {
   mutation: MutationType!
   node: Designer
@@ -113,6 +161,11 @@ input DesignerUpdateInput {
   addedBy: UserUpdateOneRequiredInput
 }
 
+input DesignerUpdateManyDataInput {
+  name: String
+  url: String
+}
+
 input DesignerUpdateManyMutationInput {
   name: String
   url: String
@@ -125,6 +178,13 @@ input DesignerUpdateManyWithoutTypefacesInput {
   disconnect: [DesignerWhereUniqueInput!]
   update: [DesignerUpdateWithWhereUniqueWithoutTypefacesInput!]
   upsert: [DesignerUpsertWithWhereUniqueWithoutTypefacesInput!]
+  deleteMany: [DesignerScalarWhereInput!]
+  updateMany: [DesignerUpdateManyWithWhereNestedInput!]
+}
+
+input DesignerUpdateManyWithWhereNestedInput {
+  where: DesignerScalarWhereInput!
+  data: DesignerUpdateManyDataInput!
 }
 
 input DesignerUpdateWithoutTypefacesDataInput {
@@ -428,13 +488,13 @@ type FoundryConnection {
 input FoundryCreateInput {
   name: String!
   url: String!
-  typefaces: TypefaceCreateManyWithoutFoundryInput
+  typefaces: TypefaceCreateManyWithoutFoundriesInput
   addedBy: UserCreateOneInput!
 }
 
-input FoundryCreateOneWithoutTypefacesInput {
-  create: FoundryCreateWithoutTypefacesInput
-  connect: FoundryWhereUniqueInput
+input FoundryCreateManyWithoutTypefacesInput {
+  create: [FoundryCreateWithoutTypefacesInput!]
+  connect: [FoundryWhereUniqueInput!]
 }
 
 input FoundryCreateWithoutTypefacesInput {
@@ -467,6 +527,54 @@ type FoundryPreviousValues {
   url: String!
 }
 
+input FoundryScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  url: String
+  url_not: String
+  url_in: [String!]
+  url_not_in: [String!]
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  AND: [FoundryScalarWhereInput!]
+  OR: [FoundryScalarWhereInput!]
+  NOT: [FoundryScalarWhereInput!]
+}
+
 type FoundrySubscriptionPayload {
   mutation: MutationType!
   node: Foundry
@@ -488,8 +596,13 @@ input FoundrySubscriptionWhereInput {
 input FoundryUpdateInput {
   name: String
   url: String
-  typefaces: TypefaceUpdateManyWithoutFoundryInput
+  typefaces: TypefaceUpdateManyWithoutFoundriesInput
   addedBy: UserUpdateOneRequiredInput
+}
+
+input FoundryUpdateManyDataInput {
+  name: String
+  url: String
 }
 
 input FoundryUpdateManyMutationInput {
@@ -497,13 +610,20 @@ input FoundryUpdateManyMutationInput {
   url: String
 }
 
-input FoundryUpdateOneWithoutTypefacesInput {
-  create: FoundryCreateWithoutTypefacesInput
-  update: FoundryUpdateWithoutTypefacesDataInput
-  upsert: FoundryUpsertWithoutTypefacesInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: FoundryWhereUniqueInput
+input FoundryUpdateManyWithoutTypefacesInput {
+  create: [FoundryCreateWithoutTypefacesInput!]
+  delete: [FoundryWhereUniqueInput!]
+  connect: [FoundryWhereUniqueInput!]
+  disconnect: [FoundryWhereUniqueInput!]
+  update: [FoundryUpdateWithWhereUniqueWithoutTypefacesInput!]
+  upsert: [FoundryUpsertWithWhereUniqueWithoutTypefacesInput!]
+  deleteMany: [FoundryScalarWhereInput!]
+  updateMany: [FoundryUpdateManyWithWhereNestedInput!]
+}
+
+input FoundryUpdateManyWithWhereNestedInput {
+  where: FoundryScalarWhereInput!
+  data: FoundryUpdateManyDataInput!
 }
 
 input FoundryUpdateWithoutTypefacesDataInput {
@@ -512,7 +632,13 @@ input FoundryUpdateWithoutTypefacesDataInput {
   addedBy: UserUpdateOneRequiredInput
 }
 
-input FoundryUpsertWithoutTypefacesInput {
+input FoundryUpdateWithWhereUniqueWithoutTypefacesInput {
+  where: FoundryWhereUniqueInput!
+  data: FoundryUpdateWithoutTypefacesDataInput!
+}
+
+input FoundryUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: FoundryWhereUniqueInput!
   update: FoundryUpdateWithoutTypefacesDataInput!
   create: FoundryCreateWithoutTypefacesInput!
 }
@@ -575,6 +701,8 @@ input FoundryWhereUniqueInput {
 }
 
 type Images {
+  id: ID!
+  website: Website
   thumbnail: File
   full: File
 }
@@ -586,12 +714,19 @@ type ImagesConnection {
 }
 
 input ImagesCreateInput {
+  website: WebsiteCreateOneWithoutImagesInput
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
 }
 
-input ImagesCreateOneInput {
-  create: ImagesCreateInput
+input ImagesCreateOneWithoutWebsiteInput {
+  create: ImagesCreateWithoutWebsiteInput
+  connect: ImagesWhereUniqueInput
+}
+
+input ImagesCreateWithoutWebsiteInput {
+  thumbnail: FileCreateOneInput
+  full: FileCreateOneInput
 }
 
 type ImagesEdge {
@@ -608,10 +743,15 @@ enum ImagesOrderByInput {
   updatedAt_DESC
 }
 
+type ImagesPreviousValues {
+  id: ID!
+}
+
 type ImagesSubscriptionPayload {
   mutation: MutationType!
   node: Images
   updatedFields: [String!]
+  previousValues: ImagesPreviousValues
 }
 
 input ImagesSubscriptionWhereInput {
@@ -625,30 +765,56 @@ input ImagesSubscriptionWhereInput {
   NOT: [ImagesSubscriptionWhereInput!]
 }
 
-input ImagesUpdateDataInput {
+input ImagesUpdateInput {
+  website: WebsiteUpdateOneWithoutImagesInput
   thumbnail: FileUpdateOneInput
   full: FileUpdateOneInput
 }
 
-input ImagesUpdateOneInput {
-  create: ImagesCreateInput
-  update: ImagesUpdateDataInput
-  upsert: ImagesUpsertNestedInput
+input ImagesUpdateOneWithoutWebsiteInput {
+  create: ImagesCreateWithoutWebsiteInput
+  update: ImagesUpdateWithoutWebsiteDataInput
+  upsert: ImagesUpsertWithoutWebsiteInput
   delete: Boolean
   disconnect: Boolean
+  connect: ImagesWhereUniqueInput
 }
 
-input ImagesUpsertNestedInput {
-  update: ImagesUpdateDataInput!
-  create: ImagesCreateInput!
+input ImagesUpdateWithoutWebsiteDataInput {
+  thumbnail: FileUpdateOneInput
+  full: FileUpdateOneInput
+}
+
+input ImagesUpsertWithoutWebsiteInput {
+  update: ImagesUpdateWithoutWebsiteDataInput!
+  create: ImagesCreateWithoutWebsiteInput!
 }
 
 input ImagesWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  website: WebsiteWhereInput
   thumbnail: FileWhereInput
   full: FileWhereInput
   AND: [ImagesWhereInput!]
   OR: [ImagesWhereInput!]
   NOT: [ImagesWhereInput!]
+}
+
+input ImagesWhereUniqueInput {
+  id: ID
 }
 
 scalar Long
@@ -673,6 +839,9 @@ type Mutation {
   deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
   createImages(data: ImagesCreateInput!): Images!
+  updateImages(data: ImagesUpdateInput!, where: ImagesWhereUniqueInput!): Images
+  upsertImages(where: ImagesWhereUniqueInput!, create: ImagesCreateInput!, update: ImagesUpdateInput!): Images!
+  deleteImages(where: ImagesWhereUniqueInput!): Images
   deleteManyImageses(where: ImagesWhereInput): BatchPayload!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
@@ -721,6 +890,7 @@ type Query {
   foundry(where: FoundryWhereUniqueInput!): Foundry
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
+  images(where: ImagesWhereUniqueInput!): Images
   imageses(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Images]!
   imagesesConnection(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImagesConnection!
   typeface(where: TypefaceWhereUniqueInput!): Typeface
@@ -758,7 +928,7 @@ type Typeface {
   slug: String!
   usedBy(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   addedBy: User!
-  foundry: Foundry
+  foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry!]
   designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer!]
 }
 
@@ -775,7 +945,7 @@ input TypefaceCreateInput {
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutTypefacesInput
+  foundries: FoundryCreateManyWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -789,8 +959,8 @@ input TypefaceCreateManyWithoutDesignersInput {
   connect: [TypefaceWhereUniqueInput!]
 }
 
-input TypefaceCreateManyWithoutFoundryInput {
-  create: [TypefaceCreateWithoutFoundryInput!]
+input TypefaceCreateManyWithoutFoundriesInput {
+  create: [TypefaceCreateWithoutFoundriesInput!]
   connect: [TypefaceWhereUniqueInput!]
 }
 
@@ -805,7 +975,7 @@ input TypefaceCreateWithoutAddedByInput {
   description: String
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
-  foundry: FoundryCreateOneWithoutTypefacesInput
+  foundries: FoundryCreateManyWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -816,10 +986,10 @@ input TypefaceCreateWithoutDesignersInput {
   slug: String!
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutTypefacesInput
+  foundries: FoundryCreateManyWithoutTypefacesInput
 }
 
-input TypefaceCreateWithoutFoundryInput {
+input TypefaceCreateWithoutFoundriesInput {
   name: String!
   downloadUrl: String!
   description: String
@@ -835,7 +1005,7 @@ input TypefaceCreateWithoutUsedByInput {
   description: String
   slug: String!
   addedBy: UserCreateOneWithoutTypefacesInput!
-  foundry: FoundryCreateOneWithoutTypefacesInput
+  foundries: FoundryCreateManyWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
 }
 
@@ -869,6 +1039,82 @@ type TypefacePreviousValues {
   slug: String!
 }
 
+input TypefaceScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  downloadUrl: String
+  downloadUrl_not: String
+  downloadUrl_in: [String!]
+  downloadUrl_not_in: [String!]
+  downloadUrl_lt: String
+  downloadUrl_lte: String
+  downloadUrl_gt: String
+  downloadUrl_gte: String
+  downloadUrl_contains: String
+  downloadUrl_not_contains: String
+  downloadUrl_starts_with: String
+  downloadUrl_not_starts_with: String
+  downloadUrl_ends_with: String
+  downloadUrl_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  slug: String
+  slug_not: String
+  slug_in: [String!]
+  slug_not_in: [String!]
+  slug_lt: String
+  slug_lte: String
+  slug_gt: String
+  slug_gte: String
+  slug_contains: String
+  slug_not_contains: String
+  slug_starts_with: String
+  slug_not_starts_with: String
+  slug_ends_with: String
+  slug_not_ends_with: String
+  AND: [TypefaceScalarWhereInput!]
+  OR: [TypefaceScalarWhereInput!]
+  NOT: [TypefaceScalarWhereInput!]
+}
+
 type TypefaceSubscriptionPayload {
   mutation: MutationType!
   node: Typeface
@@ -894,8 +1140,15 @@ input TypefaceUpdateInput {
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutTypefacesInput
+  foundries: FoundryUpdateManyWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
+}
+
+input TypefaceUpdateManyDataInput {
+  name: String
+  downloadUrl: String
+  description: String
+  slug: String
 }
 
 input TypefaceUpdateManyMutationInput {
@@ -912,6 +1165,8 @@ input TypefaceUpdateManyWithoutAddedByInput {
   disconnect: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutAddedByInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutAddedByInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
 input TypefaceUpdateManyWithoutDesignersInput {
@@ -921,15 +1176,19 @@ input TypefaceUpdateManyWithoutDesignersInput {
   disconnect: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutDesignersInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutDesignersInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
-input TypefaceUpdateManyWithoutFoundryInput {
-  create: [TypefaceCreateWithoutFoundryInput!]
+input TypefaceUpdateManyWithoutFoundriesInput {
+  create: [TypefaceCreateWithoutFoundriesInput!]
   delete: [TypefaceWhereUniqueInput!]
   connect: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
-  update: [TypefaceUpdateWithWhereUniqueWithoutFoundryInput!]
-  upsert: [TypefaceUpsertWithWhereUniqueWithoutFoundryInput!]
+  update: [TypefaceUpdateWithWhereUniqueWithoutFoundriesInput!]
+  upsert: [TypefaceUpsertWithWhereUniqueWithoutFoundriesInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
 input TypefaceUpdateManyWithoutUsedByInput {
@@ -939,6 +1198,13 @@ input TypefaceUpdateManyWithoutUsedByInput {
   disconnect: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutUsedByInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutUsedByInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
+}
+
+input TypefaceUpdateManyWithWhereNestedInput {
+  where: TypefaceScalarWhereInput!
+  data: TypefaceUpdateManyDataInput!
 }
 
 input TypefaceUpdateWithoutAddedByDataInput {
@@ -947,7 +1213,7 @@ input TypefaceUpdateWithoutAddedByDataInput {
   description: String
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutTypefacesInput
+  foundries: FoundryUpdateManyWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -958,10 +1224,10 @@ input TypefaceUpdateWithoutDesignersDataInput {
   slug: String
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutTypefacesInput
+  foundries: FoundryUpdateManyWithoutTypefacesInput
 }
 
-input TypefaceUpdateWithoutFoundryDataInput {
+input TypefaceUpdateWithoutFoundriesDataInput {
   name: String
   downloadUrl: String
   description: String
@@ -977,7 +1243,7 @@ input TypefaceUpdateWithoutUsedByDataInput {
   description: String
   slug: String
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
-  foundry: FoundryUpdateOneWithoutTypefacesInput
+  foundries: FoundryUpdateManyWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
 }
 
@@ -991,9 +1257,9 @@ input TypefaceUpdateWithWhereUniqueWithoutDesignersInput {
   data: TypefaceUpdateWithoutDesignersDataInput!
 }
 
-input TypefaceUpdateWithWhereUniqueWithoutFoundryInput {
+input TypefaceUpdateWithWhereUniqueWithoutFoundriesInput {
   where: TypefaceWhereUniqueInput!
-  data: TypefaceUpdateWithoutFoundryDataInput!
+  data: TypefaceUpdateWithoutFoundriesDataInput!
 }
 
 input TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
@@ -1013,10 +1279,10 @@ input TypefaceUpsertWithWhereUniqueWithoutDesignersInput {
   create: TypefaceCreateWithoutDesignersInput!
 }
 
-input TypefaceUpsertWithWhereUniqueWithoutFoundryInput {
+input TypefaceUpsertWithWhereUniqueWithoutFoundriesInput {
   where: TypefaceWhereUniqueInput!
-  update: TypefaceUpdateWithoutFoundryDataInput!
-  create: TypefaceCreateWithoutFoundryInput!
+  update: TypefaceUpdateWithoutFoundriesDataInput!
+  create: TypefaceCreateWithoutFoundriesInput!
 }
 
 input TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
@@ -1100,7 +1366,9 @@ input TypefaceWhereInput {
   usedBy_some: WebsiteWhereInput
   usedBy_none: WebsiteWhereInput
   addedBy: UserWhereInput
-  foundry: FoundryWhereInput
+  foundries_every: FoundryWhereInput
+  foundries_some: FoundryWhereInput
+  foundries_none: FoundryWhereInput
   designers_every: DesignerWhereInput
   designers_some: DesignerWhereInput
   designers_none: DesignerWhereInput
@@ -1112,6 +1380,7 @@ input TypefaceWhereInput {
 input TypefaceWhereUniqueInput {
   id: ID
   name: String
+  slug: String
 }
 
 type User {
@@ -1374,6 +1643,7 @@ input UserWhereUniqueInput {
 
 type Website {
   id: ID!
+  createdAt: DateTime!
   isPublished: Boolean!
   title: String!
   images: Images
@@ -1393,7 +1663,7 @@ type WebsiteConnection {
 input WebsiteCreateInput {
   isPublished: Boolean
   title: String!
-  images: ImagesCreateOneInput
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
@@ -1411,12 +1681,27 @@ input WebsiteCreateManyWithoutTypefacesInput {
   connect: [WebsiteWhereUniqueInput!]
 }
 
+input WebsiteCreateOneWithoutImagesInput {
+  create: WebsiteCreateWithoutImagesInput
+  connect: WebsiteWhereUniqueInput
+}
+
 input WebsiteCreateWithoutAddedByInput {
   isPublished: Boolean
   title: String!
-  images: ImagesCreateOneInput
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
+  typefaces: TypefaceCreateManyWithoutUsedByInput
+  featured: Boolean
+}
+
+input WebsiteCreateWithoutImagesInput {
+  isPublished: Boolean
+  title: String!
+  slug: String
+  url: String!
+  addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
   featured: Boolean
 }
@@ -1424,7 +1709,7 @@ input WebsiteCreateWithoutAddedByInput {
 input WebsiteCreateWithoutTypefacesInput {
   isPublished: Boolean
   title: String!
-  images: ImagesCreateOneInput
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
@@ -1439,6 +1724,8 @@ type WebsiteEdge {
 enum WebsiteOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
   isPublished_ASC
   isPublished_DESC
   title_ASC
@@ -1449,19 +1736,92 @@ enum WebsiteOrderByInput {
   url_DESC
   featured_ASC
   featured_DESC
-  createdAt_ASC
-  createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
 
 type WebsitePreviousValues {
   id: ID!
+  createdAt: DateTime!
   isPublished: Boolean!
   title: String!
   slug: String
   url: String!
   featured: Boolean!
+}
+
+input WebsiteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  isPublished: Boolean
+  isPublished_not: Boolean
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  slug: String
+  slug_not: String
+  slug_in: [String!]
+  slug_not_in: [String!]
+  slug_lt: String
+  slug_lte: String
+  slug_gt: String
+  slug_gte: String
+  slug_contains: String
+  slug_not_contains: String
+  slug_starts_with: String
+  slug_not_starts_with: String
+  slug_ends_with: String
+  slug_not_ends_with: String
+  url: String
+  url_not: String
+  url_in: [String!]
+  url_not_in: [String!]
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  featured: Boolean
+  featured_not: Boolean
+  AND: [WebsiteScalarWhereInput!]
+  OR: [WebsiteScalarWhereInput!]
+  NOT: [WebsiteScalarWhereInput!]
 }
 
 type WebsiteSubscriptionPayload {
@@ -1485,11 +1845,19 @@ input WebsiteSubscriptionWhereInput {
 input WebsiteUpdateInput {
   isPublished: Boolean
   title: String
-  images: ImagesUpdateOneInput
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
+  featured: Boolean
+}
+
+input WebsiteUpdateManyDataInput {
+  isPublished: Boolean
+  title: String
+  slug: String
+  url: String
   featured: Boolean
 }
 
@@ -1508,6 +1876,8 @@ input WebsiteUpdateManyWithoutAddedByInput {
   disconnect: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutAddedByInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutAddedByInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
 }
 
 input WebsiteUpdateManyWithoutTypefacesInput {
@@ -1517,14 +1887,40 @@ input WebsiteUpdateManyWithoutTypefacesInput {
   disconnect: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTypefacesInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutTypefacesInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
+}
+
+input WebsiteUpdateManyWithWhereNestedInput {
+  where: WebsiteScalarWhereInput!
+  data: WebsiteUpdateManyDataInput!
+}
+
+input WebsiteUpdateOneWithoutImagesInput {
+  create: WebsiteCreateWithoutImagesInput
+  update: WebsiteUpdateWithoutImagesDataInput
+  upsert: WebsiteUpsertWithoutImagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: WebsiteWhereUniqueInput
 }
 
 input WebsiteUpdateWithoutAddedByDataInput {
   isPublished: Boolean
   title: String
-  images: ImagesUpdateOneInput
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
+  typefaces: TypefaceUpdateManyWithoutUsedByInput
+  featured: Boolean
+}
+
+input WebsiteUpdateWithoutImagesDataInput {
+  isPublished: Boolean
+  title: String
+  slug: String
+  url: String
+  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
   featured: Boolean
 }
@@ -1532,7 +1928,7 @@ input WebsiteUpdateWithoutAddedByDataInput {
 input WebsiteUpdateWithoutTypefacesDataInput {
   isPublished: Boolean
   title: String
-  images: ImagesUpdateOneInput
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
@@ -1547,6 +1943,11 @@ input WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
 input WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
   where: WebsiteWhereUniqueInput!
   data: WebsiteUpdateWithoutTypefacesDataInput!
+}
+
+input WebsiteUpsertWithoutImagesInput {
+  update: WebsiteUpdateWithoutImagesDataInput!
+  create: WebsiteCreateWithoutImagesInput!
 }
 
 input WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
@@ -1576,6 +1977,14 @@ input WebsiteWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   isPublished: Boolean
   isPublished_not: Boolean
   title: String
@@ -1635,4 +2044,5 @@ input WebsiteWhereInput {
 input WebsiteWhereUniqueInput {
   id: ID
   title: String
+  slug: String
 }

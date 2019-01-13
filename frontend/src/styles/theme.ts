@@ -8,6 +8,11 @@ export const theme = {
     greyDDD: '#DDD',
     white: '#FFF',
   },
+  font: {
+    sizes: {
+      md: '18px',
+    },
+  },
   spacing: {
     xs: 8,
     // tslint:disable-next-line:object-literal-sort-keys

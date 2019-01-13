@@ -29,11 +29,6 @@ interface TypefaceFormState {
   showFoundryForm: boolean;
 }
 
-interface Designer {
-  name: string;
-  id: string;
-  value: string;
-}
 export interface InputValues {
   designers: AddDesigner_addDesigner[];
   foundries: AddFoundry_addFoundry[];
@@ -85,6 +80,11 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
             designers: {
               connect: values.designers.map(designer => ({
                 id: designer.id,
+              })),
+            },
+            foundries: {
+              connect: values.foundries.map(foundry => ({
+                id: foundry.id,
               })),
             },
           },
@@ -201,6 +201,4 @@ const WrappedForm = graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE
   TypefaceForm
 );
 
-export default compose(graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE))(
-  WrappedForm
-);
+export default WrappedForm;
