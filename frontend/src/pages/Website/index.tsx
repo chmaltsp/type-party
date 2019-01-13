@@ -3,9 +3,25 @@ import styled from 'sc';
 
 import { Container } from '../../components/Container';
 import Flex from '../../components/Flex';
+import Link from '../../components/Link';
 import PageTitle from '../../components/PageTitle';
+import Text from '../../components/Text';
 
-export interface WebsiteProps {}
+import { ChildDataProps, graphql } from 'react-apollo';
+import { RouteComponentProps } from 'react-router';
+import ButtonBase, { ButtonA } from '../../components/Button';
+import { MMMDDDYYYY } from '../../utils/dateFormat';
+import { GetWebsite, GetWebsiteVariables } from './__generated__/GetWebsite';
+import { GET_WEBSITE } from './queries';
+
+interface Params {
+  slug: string;
+}
+export type WebsiteProps = ChildDataProps<
+  RouteComponentProps<Params>,
+  GetWebsite,
+  GetWebsiteVariables
+>;
 
 const DetailWrapper = styled(Flex)`
   flex-direction: row;
@@ -14,29 +30,66 @@ const DetailWrapper = styled(Flex)`
 const Image = styled.img`
   flex: 1;
   width: 50%;
-  min-height: 419px;
+  height: 419px;
   background-color: ${({ theme }) => theme.colors.greyC4C};
 `;
 
-const WebisteInfo = styled(Flex)`
+const WebsiteInfo = styled(Flex)`
   flex: 1;
   padding: 0 ${({ theme }) => theme.spacing.md}px;
   width: 50%;
+  flex-direction: column;
 `;
 
-const Title = styled.h1``;
+const Title = styled(PageTitle)`
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
 
-export default class Website extends React.PureComponent<WebsiteProps, any> {
+const Button = styled(ButtonBase)`
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+`;
+
+export class Website extends React.PureComponent<WebsiteProps, any> {
   public render() {
+    if (!this.props.data || !this.props.data.website) {
+      return null;
+    }
+
+    let fullImageUrl;
+
+    if (this.props.data.website.images && this.props.data.website.images.full) {
+      fullImageUrl = this.props.data.website.images.full.url;
+    }
+
     return (
       <Container>
         <DetailWrapper>
-          <Image src="" />
-          <WebisteInfo>
-            <PageTitle>Adam Ho</PageTitle>
-          </WebisteInfo>
+          <Image src={fullImageUrl || ''} />
+          <WebsiteInfo>
+            <Title>{this.props.data.website.title}</Title>
+            <Text>Posted on -- {MMMDDDYYYY(this.props.data.website.createdAt)}</Text>
+            <Text>Fonts used -- </Text>
+            <div>
+              <ButtonA href={this.props.data.website.url} black={true}>
+                View Site
+              </ButtonA>
+            </div>
+          </WebsiteInfo>
         </DetailWrapper>
       </Container>
     );
   }
 }
+
+export default graphql<RouteComponentProps<Params>, GetWebsite, GetWebsiteVariables, any>(
+  GET_WEBSITE,
+  {
+    options: props => {
+      return {
+        variables: {
+          slug: props.match.params.slug,
+        },
+      };
+    },
+  }
+)(Website);

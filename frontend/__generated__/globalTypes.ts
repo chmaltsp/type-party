@@ -62,13 +62,13 @@ export interface FileWhereUniqueInput {
 export interface FoundryCreateInput {
   name: string;
   url: string;
-  typefaces?: TypefaceCreateManyWithoutFoundryInput | null;
+  typefaces?: TypefaceCreateManyWithoutFoundriesInput | null;
   addedBy: UserCreateOneInput;
 }
 
-export interface FoundryCreateOneWithoutTypefacesInput {
-  create?: FoundryCreateWithoutTypefacesInput | null;
-  connect?: FoundryWhereUniqueInput | null;
+export interface FoundryCreateManyWithoutTypefacesInput {
+  create?: FoundryCreateWithoutTypefacesInput[] | null;
+  connect?: FoundryWhereUniqueInput[] | null;
 }
 
 export interface FoundryCreateWithoutTypefacesInput {
@@ -82,13 +82,18 @@ export interface FoundryWhereUniqueInput {
   name?: string | null;
 }
 
-export interface ImagesCreateInput {
+export interface ImagesCreateOneWithoutWebsiteInput {
+  create?: ImagesCreateWithoutWebsiteInput | null;
+  connect?: ImagesWhereUniqueInput | null;
+}
+
+export interface ImagesCreateWithoutWebsiteInput {
   thumbnail?: FileCreateOneInput | null;
   full?: FileCreateOneInput | null;
 }
 
-export interface ImagesCreateOneInput {
-  create?: ImagesCreateInput | null;
+export interface ImagesWhereUniqueInput {
+  id?: string | null;
 }
 
 export interface TypefaceCreateInput {
@@ -98,7 +103,7 @@ export interface TypefaceCreateInput {
   slug: string;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
   addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
@@ -112,8 +117,8 @@ export interface TypefaceCreateManyWithoutDesignersInput {
   connect?: TypefaceWhereUniqueInput[] | null;
 }
 
-export interface TypefaceCreateManyWithoutFoundryInput {
-  create?: TypefaceCreateWithoutFoundryInput[] | null;
+export interface TypefaceCreateManyWithoutFoundriesInput {
+  create?: TypefaceCreateWithoutFoundriesInput[] | null;
   connect?: TypefaceWhereUniqueInput[] | null;
 }
 
@@ -128,7 +133,7 @@ export interface TypefaceCreateWithoutAddedByInput {
   description?: string | null;
   slug: string;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
-  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
@@ -139,10 +144,10 @@ export interface TypefaceCreateWithoutDesignersInput {
   slug: string;
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
   addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null;
 }
 
-export interface TypefaceCreateWithoutFoundryInput {
+export interface TypefaceCreateWithoutFoundriesInput {
   name: string;
   downloadUrl: string;
   description?: string | null;
@@ -158,13 +163,14 @@ export interface TypefaceCreateWithoutUsedByInput {
   description?: string | null;
   slug: string;
   addedBy: UserCreateOneWithoutTypefacesInput;
-  foundry?: FoundryCreateOneWithoutTypefacesInput | null;
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
 export interface TypefaceWhereUniqueInput {
   id?: string | null;
   name?: string | null;
+  slug?: string | null;
 }
 
 export interface UserCreateInput {
@@ -225,7 +231,7 @@ export interface WebsiteCreateManyWithoutTypefacesInput {
 export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: boolean | null;
   title: string;
-  images?: ImagesCreateOneInput | null;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
@@ -235,7 +241,7 @@ export interface WebsiteCreateWithoutAddedByInput {
 export interface WebsiteCreateWithoutTypefacesInput {
   isPublished?: boolean | null;
   title: string;
-  images?: ImagesCreateOneInput | null;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
   addedBy: UserCreateOneWithoutWebsitesInput;
@@ -245,6 +251,7 @@ export interface WebsiteCreateWithoutTypefacesInput {
 export interface WebsiteWhereUniqueInput {
   id?: string | null;
   title?: string | null;
+  slug?: string | null;
 }
 
 //==============================================================

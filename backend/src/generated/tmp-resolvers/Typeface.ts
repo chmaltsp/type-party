@@ -12,7 +12,7 @@ export const Typeface: TypefaceResolvers.Type = {
   addedBy: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
-  foundry: (parent, args, ctx) => {
+  foundries: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
   designers: (parent, args, ctx) => {

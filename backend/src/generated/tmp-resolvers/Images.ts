@@ -6,6 +6,9 @@ import { ImagesResolvers } from '../graphqlgen';
 export const Images: ImagesResolvers.Type = {
   ...ImagesResolvers.defaultResolvers,
 
+  website: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   thumbnail: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },

@@ -8,6 +8,11 @@
     "outDir": "dist",
     "lib": [
       "esnext", "dom"
+    ],
+    "plugins": [
+      {
+        "name": "@divyenduz/ts-graphql-plugin"
+      }
     ]
   }
 }

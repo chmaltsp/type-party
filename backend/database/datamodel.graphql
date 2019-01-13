@@ -16,10 +16,11 @@ type User {
 
 type Website {
   id: ID! @unique
+  createdAt: DateTime!
   isPublished: Boolean! @default(value: "false")
   title: String! @unique
-  images: Images
-  slug: String
+  images: Images @relation(name: "WebsiteImages")
+  slug: String @unique
   url: String!
   addedBy: User! @relation(name: "WebsitesUser")
   typefaces: [Typeface!]!
@@ -27,6 +28,8 @@ type Website {
 }
 
 type Images {
+  id: ID! @unique
+  website: Website @relation(name: "WebsiteImages")
   thumbnail: File @relation(name: "ThumbnailFile")
   full: File @relation(name: "FullFile")
 }
@@ -44,10 +47,10 @@ type Typeface {
   name: String! @unique
   downloadUrl: String!
   description: String
-  slug: String!
+  slug: String! @unique
   usedBy: [Website!]!
   addedBy: User! @relation(name: "TypefaceUser")
-  foundry: Foundry @relation(name: "TypefaceFoundry")
+  foundries: [Foundry!]! @relation(name: "TypefaceFoundry")
   designers: [Designer!]! @relation(name: "TypefaceDesigner")
 }
 

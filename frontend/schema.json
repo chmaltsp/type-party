@@ -213,6 +213,37 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "website",
+            "description": "",
+            "args": [
+              {
+                "name": "slug",
+                "description": "",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Website",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -373,6 +404,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -582,6 +629,16 @@
       },
       {
         "kind": "SCALAR",
+        "name": "DateTime",
+        "description": "",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
         "name": "Boolean",
         "description": "The `Boolean` scalar type represents `true` or `false`.",
         "fields": null,
@@ -595,6 +652,34 @@
         "name": "Images",
         "description": "",
         "fields": [
+          {
+            "name": "id",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "website",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Website",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "thumbnail",
             "description": "",
@@ -745,16 +830,6 @@
         ],
         "inputFields": null,
         "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "DateTime",
-        "description": "",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -1585,7 +1660,27 @@
             "defaultValue": null
           },
           {
-            "name": "foundry",
+            "name": "foundries_every",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FoundryWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "foundries_some",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FoundryWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "foundries_none",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -1841,6 +1936,102 @@
             "type": {
               "kind": "SCALAR",
               "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt_not",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt_in",
+            "description": "",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt_not_in",
+            "description": "",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt_lt",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt_lte",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt_gt",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "createdAt_gte",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
               "ofType": null
             },
             "defaultValue": null
@@ -2468,6 +2659,172 @@
         "description": "",
         "fields": null,
         "inputFields": [
+          {
+            "name": "id",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_in",
+            "description": "",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_in",
+            "description": "",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_lt",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_lte",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_gt",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_gte",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_contains",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_contains",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_starts_with",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_starts_with",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_ends_with",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id_not_ends_with",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "website",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "WebsiteWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
           {
             "name": "thumbnail",
             "description": "",
@@ -5829,13 +6186,92 @@
             "deprecationReason": null
           },
           {
-            "name": "foundry",
+            "name": "foundries",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "where",
+                "description": "",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "FoundryWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "description": "",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "FoundryOrderByInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "skip",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "first",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
-              "kind": "OBJECT",
-              "name": "Foundry",
-              "ofType": null
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Foundry",
+                  "ofType": null
+                }
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -5958,6 +6394,18 @@
             "deprecationReason": null
           },
           {
+            "name": "createdAt_ASC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt_DESC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "isPublished_ASC",
             "description": "",
             "isDeprecated": false,
@@ -6013,6 +6461,65 @@
           },
           {
             "name": "featured_DESC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt_ASC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt_DESC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "FoundryOrderByInput",
+        "description": "",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "id_ASC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id_DESC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_ASC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_DESC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url_ASC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url_DESC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -6924,11 +7431,11 @@
             "defaultValue": null
           },
           {
-            "name": "foundry",
+            "name": "foundries",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FoundryCreateOneWithoutTypefacesInput",
+              "name": "FoundryCreateManyWithoutTypefacesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -7030,7 +7537,7 @@
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ImagesCreateOneInput",
+              "name": "ImagesCreateOneWithoutWebsiteInput",
               "ofType": null
             },
             "defaultValue": null
@@ -7090,7 +7597,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ImagesCreateOneInput",
+        "name": "ImagesCreateOneWithoutWebsiteInput",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -7099,7 +7606,17 @@
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ImagesCreateInput",
+              "name": "ImagesCreateWithoutWebsiteInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "connect",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImagesWhereUniqueInput",
               "ofType": null
             },
             "defaultValue": null
@@ -7111,7 +7628,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ImagesCreateInput",
+        "name": "ImagesCreateWithoutWebsiteInput",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -7260,6 +7777,27 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ImagesWhereUniqueInput",
+        "description": "",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
               "ofType": null
             },
             "defaultValue": null
@@ -7489,11 +8027,11 @@
             "defaultValue": null
           },
           {
-            "name": "foundry",
+            "name": "foundries",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FoundryCreateOneWithoutTypefacesInput",
+              "name": "FoundryCreateManyWithoutTypefacesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -7515,7 +8053,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "FoundryCreateOneWithoutTypefacesInput",
+        "name": "FoundryCreateManyWithoutTypefacesInput",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -7523,9 +8061,17 @@
             "name": "create",
             "description": "",
             "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FoundryCreateWithoutTypefacesInput",
-              "ofType": null
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "FoundryCreateWithoutTypefacesInput",
+                  "ofType": null
+                }
+              }
             },
             "defaultValue": null
           },
@@ -7533,9 +8079,17 @@
             "name": "connect",
             "description": "",
             "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FoundryWhereUniqueInput",
-              "ofType": null
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "FoundryWhereUniqueInput",
+                  "ofType": null
+                }
+              }
             },
             "defaultValue": null
           }
@@ -7793,7 +8347,7 @@
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ImagesCreateOneInput",
+              "name": "ImagesCreateOneWithoutWebsiteInput",
               "ofType": null
             },
             "defaultValue": null
@@ -7967,11 +8521,11 @@
             "defaultValue": null
           },
           {
-            "name": "foundry",
+            "name": "foundries",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FoundryCreateOneWithoutTypefacesInput",
+              "name": "FoundryCreateManyWithoutTypefacesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -8282,6 +8836,16 @@
               "ofType": null
             },
             "defaultValue": null
+          },
+          {
+            "name": "slug",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
           }
         ],
         "interfaces": null,
@@ -8306,6 +8870,16 @@
           },
           {
             "name": "title",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "slug",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -8389,7 +8963,7 @@
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "TypefaceCreateManyWithoutFoundryInput",
+              "name": "TypefaceCreateManyWithoutFoundriesInput",
               "ofType": null
             },
             "defaultValue": null
@@ -8415,7 +8989,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "TypefaceCreateManyWithoutFoundryInput",
+        "name": "TypefaceCreateManyWithoutFoundriesInput",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -8430,7 +9004,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "TypefaceCreateWithoutFoundryInput",
+                  "name": "TypefaceCreateWithoutFoundriesInput",
                   "ofType": null
                 }
               }
@@ -8462,7 +9036,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "TypefaceCreateWithoutFoundryInput",
+        "name": "TypefaceCreateWithoutFoundriesInput",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -8750,11 +9324,11 @@
             "defaultValue": null
           },
           {
-            "name": "foundry",
+            "name": "foundries",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FoundryCreateOneWithoutTypefacesInput",
+              "name": "FoundryCreateManyWithoutTypefacesInput",
               "ofType": null
             },
             "defaultValue": null
