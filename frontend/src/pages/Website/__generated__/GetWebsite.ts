@@ -5,6 +5,12 @@
 // GraphQL query operation: GetWebsite
 // ====================================================
 
+export interface GetWebsite_website_typefaces {
+  __typename: "Typeface";
+  name: string;
+  slug: string;
+}
+
 export interface GetWebsite_website_images_full {
   __typename: "File";
   createdAt: any;
@@ -22,6 +28,7 @@ export interface GetWebsite_website {
   title: string;
   url: string;
   createdAt: any;
+  typefaces: GetWebsite_website_typefaces[] | null;
   images: GetWebsite_website_images | null;
 }
 
