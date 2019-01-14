@@ -3,13 +3,13 @@ import styled from 'sc';
 
 import { Container } from '../../components/Container';
 import Flex from '../../components/Flex';
-import Link from '../../components/Link';
 import PageTitle from '../../components/PageTitle';
 import Text from '../../components/Text';
 
 import { ChildDataProps, graphql } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
-import ButtonBase, { ButtonA } from '../../components/Button';
+import { ButtonA } from '../../components/Button';
+import LinkList from '../../components/LinkList';
 import { MMMDDDYYYY } from '../../utils/dateFormat';
 import { GetWebsite, GetWebsiteVariables } from './__generated__/GetWebsite';
 import { GET_WEBSITE } from './queries';
@@ -45,7 +45,7 @@ const Title = styled(PageTitle)`
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
-const Button = styled(ButtonBase)`
+const Button = styled(ButtonA)`
   margin-top: ${({ theme }) => theme.spacing.lg}px;
 `;
 
@@ -56,6 +56,8 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
     }
 
     let fullImageUrl;
+
+    console.log(this.props.data);
 
     if (this.props.data.website.images && this.props.data.website.images.full) {
       fullImageUrl = this.props.data.website.images.full.url;
@@ -68,11 +70,13 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
           <WebsiteInfo>
             <Title>{this.props.data.website.title}</Title>
             <Text>Posted on -- {MMMDDDYYYY(this.props.data.website.createdAt)}</Text>
-            <Text>Fonts used -- </Text>
+            <Text>
+              Fonts used -- <LinkList links={this.props.data.website.typefaces || []} />
+            </Text>
             <div>
-              <ButtonA href={this.props.data.website.url} black={true}>
+              <Button href={this.props.data.website.url} black={true}>
                 View Site
-              </ButtonA>
+              </Button>
             </div>
           </WebsiteInfo>
         </DetailWrapper>

@@ -7,6 +7,10 @@ export const GET_WEBSITE = gql`
       title
       url
       createdAt
+      typefaces {
+        name
+        slug
+      }
       images {
         full {
           createdAt
