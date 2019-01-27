@@ -1,7 +1,11 @@
 import styled from 'sc';
 
-const Flex = styled.div`
+interface FlexProps {
+  flexDirection?: 'row' | 'column';
+}
+const Flex = styled.div<FlexProps>`
   display: Flex;
+  flex-direction: ${props => props.flexDirection || 'row'};
 `;
 
 export default Flex;

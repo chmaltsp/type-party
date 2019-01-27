@@ -24,7 +24,15 @@ directive @isOwner(
 type Query {
   me: User @isAuthenticated
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
-  websites: [Website!]!
+  websites(
+    where: WebsiteWhereInput
+    orderBy: WebsiteOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Website]!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
   findDesigners(search: String!): [Designer!]!

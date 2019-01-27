@@ -30,7 +30,7 @@ const SecordaryWrapper = styled.div`
   margin-top: ${({ theme }) => theme.spacing.xs}px;
 `;
 
-interface CardProps {
+export interface CardProps {
   title?: string;
   imgUrl?: string;
   slug?: string;
