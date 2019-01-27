@@ -32,7 +32,7 @@ type Query {
     before: String
     first: Int
     last: Int
-  ): [Website]!
+  ): [Website!]!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
   findDesigners(search: String!): [Designer!]!
