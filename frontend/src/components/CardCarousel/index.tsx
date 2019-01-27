@@ -12,7 +12,7 @@ export class CardCarousel extends React.PureComponent<CardCarouselProps, any> {
     return (
       <Flex>
         {cards.map(card => (
-          <Card {...card} />
+          <Card key={card.title} {...card} />
         ))}
       </Flex>
     );
