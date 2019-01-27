@@ -28,12 +28,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-interface Site {
-  title: string;
-  url: string;
-  id: string;
-}
-
 export const GET_WEBSITES = gql`
   query GetWebsites {
     websites {
