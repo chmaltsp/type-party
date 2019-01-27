@@ -1,5 +1,7 @@
 import { ctxUser } from '../utils';
 import { QueryResolvers } from '../generated/graphqlgen';
+import { forwardTo } from 'prisma-binding';
+import { Website } from '../generated/prisma-client';
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
@@ -25,9 +27,7 @@ export const Query: QueryResolvers.Type = {
       info
     );
   },
-  websites(parent, args, ctx, info) {
-    return ctx.db.query.websites({}, info);
-  },
+  websites: forwardTo('db'),
   findTypefaces: (parent, args, ctx) => {
     return ctx.client.typefaces({
       where: {
@@ -59,31 +59,6 @@ export const Query: QueryResolvers.Type = {
     if (!exists) {
       throw new Error(`${args.slug} is not a website`);
     }
-
-    const website = await ctx.client.website(input);
-
-    console.log(website);
-    const full = await ctx.client
-      .website(input)
-      .images()
-      .full();
-
-    const thumbnail = await ctx.client
-      .website({
-        slug: args.slug,
-      })
-      .images()
-      .thumbnail();
-
-    const typefaces = await ctx.client.website(input).typefaces();
-    // return {
-    //   ...website,
-    //   images: {
-    //     full,
-    //     thumbnail,
-    //   },
-    //   typefaces,
-    // };
 
     return ctx.client.website(input);
   },

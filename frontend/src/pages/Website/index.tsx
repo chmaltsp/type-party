@@ -12,6 +12,7 @@ import { ButtonA } from '../../components/Button';
 import LinkList from '../../components/LinkList';
 import { MMMDDDYYYY } from '../../utils/dateFormat';
 import { GetWebsite, GetWebsiteVariables } from './__generated__/GetWebsite';
+import KeepExploring from './KeepExploring';
 import { GET_WEBSITE } from './queries';
 
 interface Params {
@@ -47,6 +48,16 @@ const Title = styled(PageTitle)`
 
 const Button = styled(ButtonA)`
   margin-top: ${({ theme }) => theme.spacing.lg}px;
+  display: inline-block;
+`;
+
+const Line = styled.hr`
+  width: 100%;
+  color: ${({ theme }) => theme.colors.black};
+  opacity: 0.2;
+  margin-top: ${props => props.theme.baseSpacing * 12}px;
+  margin-bottom: 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export class Website extends React.PureComponent<WebsiteProps, any> {
@@ -56,8 +67,6 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
     }
 
     let fullImageUrl;
-
-    console.log(this.props.data);
 
     if (this.props.data.website.images && this.props.data.website.images.full) {
       fullImageUrl = this.props.data.website.images.full.url;
@@ -80,6 +89,8 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
             </div>
           </WebsiteInfo>
         </DetailWrapper>
+        <Line />
+        <KeepExploring />
       </Container>
     );
   }
