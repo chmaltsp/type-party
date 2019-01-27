@@ -1,7 +1,6 @@
 import { ctxUser } from '../utils';
 import { QueryResolvers } from '../generated/graphqlgen';
 import { forwardTo } from 'prisma-binding';
-import { Website } from '../generated/prisma-client';
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,

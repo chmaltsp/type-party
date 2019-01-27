@@ -20,3 +20,13 @@ export const GET_WEBSITE = gql`
     }
   }
 `;
+
+export const KEEP_EXPLORING = gql`
+  query KeepExploringQuery {
+    websites {
+      title
+      slug
+      url
+    }
+  }
+`;

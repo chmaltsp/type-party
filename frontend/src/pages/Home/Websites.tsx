@@ -58,6 +58,7 @@ export const WebsitePanel: React.SFC<{}> = props => {
             <Grid>
               {!loading &&
                 data &&
+                data.websites &&
                 data.websites.map(({ title, url, id, slug }) => {
                   return (
                     <Card key={title + id} title={title} slug={slug || ''} imgUrl={url} />

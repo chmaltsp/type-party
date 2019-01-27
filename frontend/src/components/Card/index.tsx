@@ -33,7 +33,7 @@ const SecordaryWrapper = styled.div`
 export interface CardProps {
   title?: string;
   imgUrl?: string;
-  slug?: string;
+  slug?: string | null;
   secondary?: string | React.ReactNode;
 }
 
