@@ -20,19 +20,19 @@ directive @isOwner(
 ) on FIELD_DEFINITION | QUERY | MUTATION
 
 
-
 type Query {
   me: User @isAuthenticated
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
-  websites(
-    where: WebsiteWhereInput
-    orderBy: WebsiteOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [Website!]!
+  websites: [Website!]!
+  # websites(
+  #   where: WebsiteWhereInput
+  #   orderBy: WebsiteOrderByInput
+  #   skip: Int
+  #   after: String
+  #   before: String
+  #   first: Int
+  #   last: Int
+  # ): [Website!]!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
   findDesigners(search: String!): [Designer!]!
