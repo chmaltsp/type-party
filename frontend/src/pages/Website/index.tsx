@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'sc';
 
-import { Container } from '../../components/Container';
+import { Container as ContainerBase } from '../../components/Container';
 import Flex from '../../components/Flex';
 import PageTitle from '../../components/PageTitle';
 import Text from '../../components/Text';
@@ -58,6 +58,10 @@ const Line = styled.hr`
   margin-top: ${props => props.theme.baseSpacing * 12}px;
   margin-bottom: 0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+const Container = styled(ContainerBase)`
+  margin-bottom: ${props => props.theme.baseSpacing * 15}px;
 `;
 
 export class Website extends React.PureComponent<WebsiteProps, any> {

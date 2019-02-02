@@ -27,6 +27,16 @@ export const KEEP_EXPLORING = gql`
       title
       slug
       url
+      images {
+        thumbnail {
+          createdAt
+          url
+        }
+      }
+      typefaces {
+        slug
+        name
+      }
     }
   }
 `;

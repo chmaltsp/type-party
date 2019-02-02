@@ -3,10 +3,14 @@ import * as React from 'react';
 import { em } from 'polished';
 import { ChildDataProps, graphql } from 'react-apollo';
 import styled from 'sc';
-import { CardProps } from 'src/components/Card';
+import { CardProps } from '../../components/Card';
 import { CardCarousel } from '../../components/CardCarousel';
 import Flex from '../../components/Flex';
-import { KeepExploringQuery } from './__generated__/KeepExploringQuery';
+import LinkList from '../../components/LinkList';
+import {
+  KeepExploringQuery,
+  KeepExploringQuery_websites,
+} from './__generated__/KeepExploringQuery';
 import { KEEP_EXPLORING } from './queries';
 
 const H2 = styled.h3`
@@ -15,32 +19,59 @@ const H2 = styled.h3`
   margin-top: ${({ theme }) => theme.baseSpacing * 12}px;
 `;
 
-// export interface KeepExploringProps {}
+export interface KeepExploringProps {
+  cards: CardProps[];
+}
 
 export class KeepExploring extends React.PureComponent<
-  ChildDataProps<{}, KeepExploringQuery>,
+  ChildDataProps<KeepExploringProps, KeepExploringQuery>,
   any
 > {
   public render() {
-    console.log(this.props);
-
-    const cards: CardProps[] =
-      (this.props.data.websites &&
-        this.props.data.websites.map(website => ({
-          slug: website.slug || '',
-          title: website.title,
-        }))) ||
-      [];
+    const { cards } = this.props;
 
     return (
       <Flex flexDirection="column">
         <H2>Keep Exploring</H2>
-        <CardCarousel
-          cards={(this.props.data.websites && this.props.data.websites) || []}
-        />
+        <CardCarousel cards={cards} />
       </Flex>
     );
   }
 }
 
-export default graphql<{}, KeepExploringQuery, any, any>(KEEP_EXPLORING)(KeepExploring);
+const selectCards = (websites: KeepExploringQuery_websites[]): CardProps[] => {
+  return websites.map(website => ({
+    imgUrl:
+      (website.images &&
+        website.images &&
+        website.images.thumbnail &&
+        website.images.thumbnail.url) ||
+      '',
+    secondary: (
+      <span>
+        Fonts --{' '}
+        <LinkList
+          links={
+            (website.typefaces &&
+              website.typefaces.map(font => ({
+                name: font.name,
+                slug: font.slug,
+              }))) ||
+            []
+          }
+        />
+      </span>
+    ),
+    // secondary: website.typefaces && website.typefaces,
+    slug: website.slug || '',
+    title: website.title,
+  }));
+};
+
+export default graphql<{}, KeepExploringQuery, any, any>(KEEP_EXPLORING, {
+  props: props => {
+    return {
+      cards: selectCards((props.data && props.data.websites) || []),
+    };
+  },
+})(KeepExploring);

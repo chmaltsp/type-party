@@ -403,6 +403,7 @@ input DesignerUpdateManyMutationInput {
 input DesignerUpdateManyWithoutTypefacesInput {
   create: [DesignerCreateWithoutTypefacesInput!]
   connect: [DesignerWhereUniqueInput!]
+  set: [DesignerWhereUniqueInput!]
   disconnect: [DesignerWhereUniqueInput!]
   delete: [DesignerWhereUniqueInput!]
   update: [DesignerUpdateWithWhereUniqueWithoutTypefacesInput!]
@@ -1229,6 +1230,7 @@ input FoundryUpdateManyMutationInput {
 input FoundryUpdateManyWithoutTypefacesInput {
   create: [FoundryCreateWithoutTypefacesInput!]
   connect: [FoundryWhereUniqueInput!]
+  set: [FoundryWhereUniqueInput!]
   disconnect: [FoundryWhereUniqueInput!]
   delete: [FoundryWhereUniqueInput!]
   update: [FoundryUpdateWithWhereUniqueWithoutTypefacesInput!]
@@ -2103,6 +2105,7 @@ input TypefaceUpdateManyMutationInput {
 input TypefaceUpdateManyWithoutAddedByInput {
   create: [TypefaceCreateWithoutAddedByInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutAddedByInput!]
@@ -2114,6 +2117,7 @@ input TypefaceUpdateManyWithoutAddedByInput {
 input TypefaceUpdateManyWithoutDesignersInput {
   create: [TypefaceCreateWithoutDesignersInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutDesignersInput!]
@@ -2125,6 +2129,7 @@ input TypefaceUpdateManyWithoutDesignersInput {
 input TypefaceUpdateManyWithoutFoundriesInput {
   create: [TypefaceCreateWithoutFoundriesInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutFoundriesInput!]
@@ -2136,6 +2141,7 @@ input TypefaceUpdateManyWithoutFoundriesInput {
 input TypefaceUpdateManyWithoutUsedByInput {
   create: [TypefaceCreateWithoutUsedByInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutUsedByInput!]
@@ -3249,6 +3255,7 @@ input WebsiteUpdateManyMutationInput {
 input WebsiteUpdateManyWithoutAddedByInput {
   create: [WebsiteCreateWithoutAddedByInput!]
   connect: [WebsiteWhereUniqueInput!]
+  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutAddedByInput!]
@@ -3260,6 +3267,7 @@ input WebsiteUpdateManyWithoutAddedByInput {
 input WebsiteUpdateManyWithoutTypefacesInput {
   create: [WebsiteCreateWithoutTypefacesInput!]
   connect: [WebsiteWhereUniqueInput!]
+  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTypefacesInput!]
@@ -3753,6 +3761,7 @@ export interface DesignerUpdateManyMutationInput {
 export interface DesignerUpdateManyWithoutTypefacesInput {
   create?: DesignerCreateWithoutTypefacesInput[] | DesignerCreateWithoutTypefacesInput | null
   connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
+  set?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   disconnect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   delete?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   update?: DesignerUpdateWithWhereUniqueWithoutTypefacesInput[] | DesignerUpdateWithWhereUniqueWithoutTypefacesInput | null
@@ -4092,6 +4101,7 @@ export interface FoundryUpdateManyMutationInput {
 export interface FoundryUpdateManyWithoutTypefacesInput {
   create?: FoundryCreateWithoutTypefacesInput[] | FoundryCreateWithoutTypefacesInput | null
   connect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
+  set?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   disconnect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   delete?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   update?: FoundryUpdateWithWhereUniqueWithoutTypefacesInput[] | FoundryUpdateWithWhereUniqueWithoutTypefacesInput | null
@@ -4444,6 +4454,7 @@ export interface TypefaceUpdateManyMutationInput {
 export interface TypefaceUpdateManyWithoutAddedByInput {
   create?: TypefaceCreateWithoutAddedByInput[] | TypefaceCreateWithoutAddedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutAddedByInput[] | TypefaceUpdateWithWhereUniqueWithoutAddedByInput | null
@@ -4455,6 +4466,7 @@ export interface TypefaceUpdateManyWithoutAddedByInput {
 export interface TypefaceUpdateManyWithoutDesignersInput {
   create?: TypefaceCreateWithoutDesignersInput[] | TypefaceCreateWithoutDesignersInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutDesignersInput[] | TypefaceUpdateWithWhereUniqueWithoutDesignersInput | null
@@ -4466,6 +4478,7 @@ export interface TypefaceUpdateManyWithoutDesignersInput {
 export interface TypefaceUpdateManyWithoutFoundriesInput {
   create?: TypefaceCreateWithoutFoundriesInput[] | TypefaceCreateWithoutFoundriesInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutFoundriesInput[] | TypefaceUpdateWithWhereUniqueWithoutFoundriesInput | null
@@ -4477,6 +4490,7 @@ export interface TypefaceUpdateManyWithoutFoundriesInput {
 export interface TypefaceUpdateManyWithoutUsedByInput {
   create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutUsedByInput[] | TypefaceUpdateWithWhereUniqueWithoutUsedByInput | null
@@ -5042,6 +5056,7 @@ export interface WebsiteUpdateManyMutationInput {
 export interface WebsiteUpdateManyWithoutAddedByInput {
   create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutAddedByInput[] | WebsiteUpdateWithWhereUniqueWithoutAddedByInput | null
@@ -5053,6 +5068,7 @@ export interface WebsiteUpdateManyWithoutAddedByInput {
 export interface WebsiteUpdateManyWithoutTypefacesInput {
   create?: WebsiteCreateWithoutTypefacesInput[] | WebsiteCreateWithoutTypefacesInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput | null

@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import App from './App';
 
+import ScrollToTop from './components/ScrollToTop';
 import { createClient } from './utils/apolloClient';
 
 const client = createClient();
@@ -13,7 +14,9 @@ const client = createClient();
 ReactDOM.hydrate(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <App />
+      <ScrollToTop>
+        <App />
+      </ScrollToTop>
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root')

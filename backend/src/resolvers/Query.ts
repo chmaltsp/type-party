@@ -1,6 +1,5 @@
 import { ctxUser } from '../utils';
 import { QueryResolvers } from '../generated/graphqlgen';
-import { forwardTo } from 'prisma-binding';
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
@@ -26,7 +25,9 @@ export const Query: QueryResolvers.Type = {
       info
     );
   },
-  websites: forwardTo('db'),
+  websites(parent, args, ctx) {
+    return ctx.client.websites({});
+  },
   findTypefaces: (parent, args, ctx) => {
     return ctx.client.typefaces({
       where: {

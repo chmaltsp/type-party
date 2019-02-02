@@ -35,11 +35,12 @@ export interface CardProps {
   imgUrl?: string;
   slug?: string | null;
   secondary?: string | React.ReactNode;
+  className?: string;
 }
 
-const Card: React.SFC<CardProps> = ({ title, imgUrl, slug, secondary }) => {
+const Card: React.SFC<CardProps> = ({ title, imgUrl, slug, secondary, className }) => {
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <LinkBase to={`/site/${slug}`}>
         <Image src={imgUrl} />
       </LinkBase>
