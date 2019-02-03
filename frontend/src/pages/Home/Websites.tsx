@@ -2,12 +2,13 @@ import * as React from 'react';
 
 import styled, { media } from 'sc';
 
-import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 
 import ButtonBase from '../../components/Button';
-import Card from '../../components/Card';
-import { GetWebsites } from './__generated__/GetWebsites';
+import Card, { CardProps } from '../../components/Card';
+import LinkList from '../../components/LinkList';
+import { GetWebsites, GetWebsites_websites } from './__generated__/GetWebsites';
+import { GET_WEBSITES } from './queries';
 
 const Button = styled(ButtonBase)`
   margin-top: ${({ theme }) => theme.spacing.md}px;
@@ -28,17 +29,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const GET_WEBSITES = gql`
-  query GetWebsites {
-    websites {
-      title
-      url
-      id
-      slug
-    }
-  }
-`;
-
 // export interface WebsitePanelProps {
 // }
 
@@ -46,17 +36,14 @@ export const WebsitePanel: React.SFC<{}> = props => {
   return (
     <Query<GetWebsites> query={GET_WEBSITES}>
       {({ data, loading, error }) => {
+        const cards = selectCards((data && data.websites) || []);
         console.log(data);
         return (
           <Wrapper>
             <Grid>
               {!loading &&
-                data &&
-                data.websites &&
-                data.websites.map(({ title, url, id, slug }) => {
-                  return (
-                    <Card key={title + id} title={title} slug={slug || ''} imgUrl={url} />
-                  );
+                cards.map(card => {
+                  return <Card key={card.title} {...card} />;
                 })}
             </Grid>
             <Button>Load More</Button>
@@ -65,6 +52,34 @@ export const WebsitePanel: React.SFC<{}> = props => {
       }}
     </Query>
   );
+};
+
+const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
+  return websites.map(website => ({
+    imgUrl:
+      (website.images &&
+        website.images &&
+        website.images.thumbnail &&
+        website.images.thumbnail.url) ||
+      '',
+    secondary: (
+      <span>
+        Fonts --{'  '}
+        <LinkList
+          links={
+            (website.typefaces &&
+              website.typefaces.map(font => ({
+                name: font.name,
+                slug: font.slug,
+              }))) ||
+            []
+          }
+        />
+      </span>
+    ),
+    slug: website.slug || '',
+    title: website.title,
+  }));
 };
 
 export default WebsitePanel;

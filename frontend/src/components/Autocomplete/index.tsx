@@ -1,12 +1,7 @@
 import * as React from 'react';
 import styled from 'sc';
 
-import {
-  ControllerStateAndHelpers,
-  GetItemPropsOptions,
-  StateChangeOptions,
-  StateChangeTypes,
-} from 'downshift';
+import { ControllerStateAndHelpers } from 'downshift';
 
 import { InputBase, InputWrapper as AutoCompleteWrapper, Label } from '../Input';
 

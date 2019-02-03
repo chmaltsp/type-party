@@ -6,14 +6,21 @@ import FlexBase from '../Flex';
 
 import closeImg from './close-x.svg';
 
-const Wrapper = styled(FlexBase)`
-  background-color: ${({ theme }) => theme.colors.black};
-  padding: ${({ theme }) => theme.spacing.xs}px;
-  border-radius: ${({ theme }) => theme.borderRadius};
+interface WhiteProps {
+  white?: boolean;
+  rounded?: boolean;
+}
+const Wrapper = styled<WhiteProps, any>(FlexBase)`
+  background-color: ${({ theme, white }) =>
+    white ? theme.colors.white : theme.colors.black};
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme, rounded }) => (rounded ? theme.spacing.sm : theme.spacing.xs)}px;
+  border-radius: ${({ theme, rounded }) => (rounded ? '100px' : theme.borderRadius)};
+  border: ${({ white, theme }) => (white ? `1px solid  ${theme.colors.black}` : 'none')};
 `;
 
-const Text = styled.span`
-  color: ${({ theme }) => theme.colors.white};
+const Text = styled.span<WhiteProps>`
+  color: ${({ theme, white }) => (white ? theme.colors.black : theme.colors.white)};
 `;
 
 const RemoveButton = styled.img`
@@ -21,15 +28,17 @@ const RemoveButton = styled.img`
 `;
 
 interface TagProps {
-  removeButtonProps: any;
+  removeButtonProps?: any;
+  white?: boolean;
+  rounded?: boolean;
   name: string;
 }
 
-const Tag: React.SFC<TagProps> = ({ name, removeButtonProps }) => {
+const Tag: React.SFC<TagProps> = ({ name, removeButtonProps, white, rounded }) => {
   return (
-    <Wrapper>
-      <Text>{name}</Text>
-      <RemoveButton src={closeImg} {...removeButtonProps} />
+    <Wrapper white={white} rounded={rounded}>
+      <Text white={white}>{name}</Text>
+      {removeButtonProps && <RemoveButton src={closeImg} {...removeButtonProps} />}
     </Wrapper>
   );
 };
