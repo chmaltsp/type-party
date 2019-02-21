@@ -4,7 +4,7 @@
 # import Typeface, TypefaceCreateInput from "./generated/prisma.graphql"
 # import Designer, DesignerCreateInput from "./generated/prisma.graphql"
 # import Foundry, FoundryCreateInput from "./generated/prisma.graphql"
-
+# import Tag, TagCreateInput from "./generated/prisma.graphql"
 
 scalar Upload
 
@@ -24,17 +24,9 @@ type Query {
   me: User @isAuthenticated
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
   websites: [Website!]!
-  # websites(
-  #   where: WebsiteWhereInput
-  #   orderBy: WebsiteOrderByInput
-  #   skip: Int
-  #   after: String
-  #   before: String
-  #   first: Int
-  #   last: Int
-  # ): [Website!]!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
+  findTags(search: String!): [Tag!]!
   findDesigners(search: String!): [Designer!]!
   findFoundries(search: String!): [Foundry!]!
   website(slug: String!): Website!
@@ -51,6 +43,7 @@ input AddWebsiteInput {
   url: String!
   slug: String!
   typefaces: [String!]!
+  tags: [String!]!
 }
 
 type Mutation {
@@ -60,6 +53,7 @@ type Mutation {
   addTypeface(input: TypefaceCreateInput): Typeface @isAuthenticated
   addFoundry(input: FoundryCreateInput): Foundry @isAuthenticated
   addDesigner(input: DesignerCreateInput): Designer @isAuthenticated
+  addTag(input: TagCreateInput): Tag @isAuthenticated
   uploadImage(file: Upload!): File
 }
 

@@ -17,6 +17,10 @@ export const GET_WEBSITE = gql`
           url
         }
       }
+      tags {
+        name
+        id
+      }
     }
   }
 `;

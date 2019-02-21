@@ -39,7 +39,9 @@ export const Container = styled(ContainerBase)`
 export const TagWrapper = styled.div`
   margin-top: ${({ theme }) => theme.spacing.md}px;
   display: flex;
+  flex-wrap: wrap;
   > div {
     margin-right: ${({ theme }) => theme.spacing.sm}px;
+    margin-top: ${({ theme }) => theme.spacing.sm}px;
   }
 `;

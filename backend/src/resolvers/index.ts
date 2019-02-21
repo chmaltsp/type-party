@@ -11,6 +11,7 @@ import { foundry } from './mutations/foundry';
 import { Website } from './Website';
 import { User } from './User';
 import { Resolvers } from '../generated/graphqlgen';
+import { tag } from './mutations/tag';
 
 const resolvers: Pick<
   Resolvers,
@@ -24,6 +25,7 @@ const resolvers: Pick<
     ...file,
     ...typeface,
     ...designer,
+    ...tag,
   },
   AuthPayload,
   User,

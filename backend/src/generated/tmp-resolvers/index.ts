@@ -11,6 +11,7 @@ import { File } from './File';
 import { Typeface } from './Typeface';
 import { Foundry } from './Foundry';
 import { Designer } from './Designer';
+import { Tag } from './Tag';
 import { Mutation } from './Mutation';
 import { AuthPayload } from './AuthPayload';
 
@@ -23,6 +24,7 @@ export const resolvers: Resolvers = {
   Typeface,
   Foundry,
   Designer,
+  Tag,
   Mutation,
   AuthPayload,
 };

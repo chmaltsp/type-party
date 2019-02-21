@@ -14,6 +14,10 @@ type AggregateImages {
   count: Int!
 }
 
+type AggregateTag {
+  count: Int!
+}
+
 type AggregateTypeface {
   count: Int!
 }
@@ -843,6 +847,12 @@ type Mutation {
   upsertImages(where: ImagesWhereUniqueInput!, create: ImagesCreateInput!, update: ImagesUpdateInput!): Images!
   deleteImages(where: ImagesWhereUniqueInput!): Images
   deleteManyImageses(where: ImagesWhereInput): BatchPayload!
+  createTag(data: TagCreateInput!): Tag!
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteManyTags(where: TagWhereInput): BatchPayload!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
   updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
@@ -893,6 +903,9 @@ type Query {
   images(where: ImagesWhereUniqueInput!): Images
   imageses(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Images]!
   imagesesConnection(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImagesConnection!
+  tag(where: TagWhereUniqueInput!): Tag
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   typeface(where: TypefaceWhereUniqueInput!): Typeface
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
   typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
@@ -915,9 +928,194 @@ type Subscription {
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
   images(where: ImagesSubscriptionWhereInput): ImagesSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  website(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
+}
+
+type TagConnection {
+  pageInfo: PageInfo!
+  edges: [TagEdge]!
+  aggregate: AggregateTag!
+}
+
+input TagCreateInput {
+  name: String!
+  website: WebsiteCreateManyWithoutTagsInput
+}
+
+input TagCreateManyWithoutWebsiteInput {
+  create: [TagCreateWithoutWebsiteInput!]
+  connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateWithoutWebsiteInput {
+  name: String!
+}
+
+type TagEdge {
+  node: Tag!
+  cursor: String!
+}
+
+enum TagOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type TagPreviousValues {
+  id: ID!
+  name: String!
+}
+
+input TagScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  NOT: [TagScalarWhereInput!]
+}
+
+type TagSubscriptionPayload {
+  mutation: MutationType!
+  node: Tag
+  updatedFields: [String!]
+  previousValues: TagPreviousValues
+}
+
+input TagSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TagWhereInput
+  AND: [TagSubscriptionWhereInput!]
+  OR: [TagSubscriptionWhereInput!]
+  NOT: [TagSubscriptionWhereInput!]
+}
+
+input TagUpdateInput {
+  name: String
+  website: WebsiteUpdateManyWithoutTagsInput
+}
+
+input TagUpdateManyDataInput {
+  name: String
+}
+
+input TagUpdateManyMutationInput {
+  name: String
+}
+
+input TagUpdateManyWithoutWebsiteInput {
+  create: [TagCreateWithoutWebsiteInput!]
+  delete: [TagWhereUniqueInput!]
+  connect: [TagWhereUniqueInput!]
+  disconnect: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutWebsiteInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutWebsiteInput!]
+  deleteMany: [TagScalarWhereInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+}
+
+input TagUpdateManyWithWhereNestedInput {
+  where: TagScalarWhereInput!
+  data: TagUpdateManyDataInput!
+}
+
+input TagUpdateWithoutWebsiteDataInput {
+  name: String
+}
+
+input TagUpdateWithWhereUniqueWithoutWebsiteInput {
+  where: TagWhereUniqueInput!
+  data: TagUpdateWithoutWebsiteDataInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutWebsiteInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutWebsiteDataInput!
+  create: TagCreateWithoutWebsiteInput!
+}
+
+input TagWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  website_every: WebsiteWhereInput
+  website_some: WebsiteWhereInput
+  website_none: WebsiteWhereInput
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
+}
+
+input TagWhereUniqueInput {
+  id: ID
 }
 
 type Typeface {
@@ -1652,6 +1850,7 @@ type Website {
   addedBy: User!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   featured: Boolean!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
 }
 
 type WebsiteConnection {
@@ -1669,10 +1868,16 @@ input WebsiteCreateInput {
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
   featured: Boolean
+  tags: TagCreateManyWithoutWebsiteInput
 }
 
 input WebsiteCreateManyWithoutAddedByInput {
   create: [WebsiteCreateWithoutAddedByInput!]
+  connect: [WebsiteWhereUniqueInput!]
+}
+
+input WebsiteCreateManyWithoutTagsInput {
+  create: [WebsiteCreateWithoutTagsInput!]
   connect: [WebsiteWhereUniqueInput!]
 }
 
@@ -1694,11 +1899,24 @@ input WebsiteCreateWithoutAddedByInput {
   url: String!
   typefaces: TypefaceCreateManyWithoutUsedByInput
   featured: Boolean
+  tags: TagCreateManyWithoutWebsiteInput
 }
 
 input WebsiteCreateWithoutImagesInput {
   isPublished: Boolean
   title: String!
+  slug: String
+  url: String!
+  addedBy: UserCreateOneWithoutWebsitesInput!
+  typefaces: TypefaceCreateManyWithoutUsedByInput
+  featured: Boolean
+  tags: TagCreateManyWithoutWebsiteInput
+}
+
+input WebsiteCreateWithoutTagsInput {
+  isPublished: Boolean
+  title: String!
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
@@ -1714,6 +1932,7 @@ input WebsiteCreateWithoutTypefacesInput {
   url: String!
   addedBy: UserCreateOneWithoutWebsitesInput!
   featured: Boolean
+  tags: TagCreateManyWithoutWebsiteInput
 }
 
 type WebsiteEdge {
@@ -1851,6 +2070,7 @@ input WebsiteUpdateInput {
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
   featured: Boolean
+  tags: TagUpdateManyWithoutWebsiteInput
 }
 
 input WebsiteUpdateManyDataInput {
@@ -1876,6 +2096,17 @@ input WebsiteUpdateManyWithoutAddedByInput {
   disconnect: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutAddedByInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutAddedByInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
+}
+
+input WebsiteUpdateManyWithoutTagsInput {
+  create: [WebsiteCreateWithoutTagsInput!]
+  delete: [WebsiteWhereUniqueInput!]
+  connect: [WebsiteWhereUniqueInput!]
+  disconnect: [WebsiteWhereUniqueInput!]
+  update: [WebsiteUpdateWithWhereUniqueWithoutTagsInput!]
+  upsert: [WebsiteUpsertWithWhereUniqueWithoutTagsInput!]
   deleteMany: [WebsiteScalarWhereInput!]
   updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
 }
@@ -1913,11 +2144,24 @@ input WebsiteUpdateWithoutAddedByDataInput {
   url: String
   typefaces: TypefaceUpdateManyWithoutUsedByInput
   featured: Boolean
+  tags: TagUpdateManyWithoutWebsiteInput
 }
 
 input WebsiteUpdateWithoutImagesDataInput {
   isPublished: Boolean
   title: String
+  slug: String
+  url: String
+  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
+  typefaces: TypefaceUpdateManyWithoutUsedByInput
+  featured: Boolean
+  tags: TagUpdateManyWithoutWebsiteInput
+}
+
+input WebsiteUpdateWithoutTagsDataInput {
+  isPublished: Boolean
+  title: String
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
@@ -1933,11 +2177,17 @@ input WebsiteUpdateWithoutTypefacesDataInput {
   url: String
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   featured: Boolean
+  tags: TagUpdateManyWithoutWebsiteInput
 }
 
 input WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput!
   data: WebsiteUpdateWithoutAddedByDataInput!
+}
+
+input WebsiteUpdateWithWhereUniqueWithoutTagsInput {
+  where: WebsiteWhereUniqueInput!
+  data: WebsiteUpdateWithoutTagsDataInput!
 }
 
 input WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
@@ -1954,6 +2204,12 @@ input WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput!
   update: WebsiteUpdateWithoutAddedByDataInput!
   create: WebsiteCreateWithoutAddedByInput!
+}
+
+input WebsiteUpsertWithWhereUniqueWithoutTagsInput {
+  where: WebsiteWhereUniqueInput!
+  update: WebsiteUpdateWithoutTagsDataInput!
+  create: WebsiteCreateWithoutTagsInput!
 }
 
 input WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
@@ -2036,6 +2292,9 @@ input WebsiteWhereInput {
   typefaces_none: TypefaceWhereInput
   featured: Boolean
   featured_not: Boolean
+  tags_every: TagWhereInput
+  tags_some: TagWhereInput
+  tags_none: TagWhereInput
   AND: [WebsiteWhereInput!]
   OR: [WebsiteWhereInput!]
   NOT: [WebsiteWhereInput!]

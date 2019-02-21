@@ -15,4 +15,7 @@ export const Website: WebsiteResolvers.Type = {
   typefaces: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  tags: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };
