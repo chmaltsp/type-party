@@ -36,6 +36,11 @@ export const website: WebsiteResolvers = {
           id: typeface,
         })),
       },
+      tags: {
+        connect: args.input.tags.map(tag => ({
+          id: tag,
+        })),
+      },
       addedBy: {
         connect: {
           id: userId,

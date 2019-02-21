@@ -50,6 +50,13 @@ export const Query: QueryResolvers.Type = {
       },
     });
   },
+  findTags: (parent, args, ctx) => {
+    return ctx.client.tags({
+      where: {
+        name_contains: args.search,
+      },
+    });
+  },
   website: async (parent, args, ctx) => {
     const input = {
       slug: args.slug,

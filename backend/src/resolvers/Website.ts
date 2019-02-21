@@ -7,9 +7,12 @@ export const Website: WebsiteResolvers.Type = {
     return ctx.client.website({ id: parent.id }).images();
   },
   addedBy: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented');
+    return ctx.client.website({ id: parent.id }).addedBy();
   },
   typefaces: (parent, args, ctx) => {
     return ctx.client.website({ id: parent.id }).typefaces();
+  },
+  tags: (parent, args, ctx) => {
+    return ctx.client.website({ id: parent.id }).tags();
   },
 };

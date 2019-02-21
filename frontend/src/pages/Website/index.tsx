@@ -58,9 +58,10 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
               </Button>
             </div>
             <TagWrapper>
-              <Tag rounded={true} white={true} name="My Tag" />
-              <Tag rounded={true} white={true} name="My Tag" />
-              <Tag rounded={true} white={true} name="My Tag" />
+              {this.props.data.website.tags &&
+                this.props.data.website.tags.map(tag => {
+                  return <Tag key={tag.id} rounded={true} white={true} name={tag.name} />;
+                })}
             </TagWrapper>
           </WebsiteInfo>
         </DetailWrapper>

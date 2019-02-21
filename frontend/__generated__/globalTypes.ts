@@ -17,6 +17,7 @@ export interface AddWebsiteInput {
   url: string;
   slug: string;
   typefaces: string[];
+  tags: string[];
 }
 
 export interface DesignerCreateInput {
@@ -93,6 +94,24 @@ export interface ImagesCreateWithoutWebsiteInput {
 }
 
 export interface ImagesWhereUniqueInput {
+  id?: string | null;
+}
+
+export interface TagCreateInput {
+  name: string;
+  website?: WebsiteCreateManyWithoutTagsInput | null;
+}
+
+export interface TagCreateManyWithoutWebsiteInput {
+  create?: TagCreateWithoutWebsiteInput[] | null;
+  connect?: TagWhereUniqueInput[] | null;
+}
+
+export interface TagCreateWithoutWebsiteInput {
+  name: string;
+}
+
+export interface TagWhereUniqueInput {
   id?: string | null;
 }
 
@@ -223,6 +242,11 @@ export interface WebsiteCreateManyWithoutAddedByInput {
   connect?: WebsiteWhereUniqueInput[] | null;
 }
 
+export interface WebsiteCreateManyWithoutTagsInput {
+  create?: WebsiteCreateWithoutTagsInput[] | null;
+  connect?: WebsiteWhereUniqueInput[] | null;
+}
+
 export interface WebsiteCreateManyWithoutTypefacesInput {
   create?: WebsiteCreateWithoutTypefacesInput[] | null;
   connect?: WebsiteWhereUniqueInput[] | null;
@@ -236,6 +260,18 @@ export interface WebsiteCreateWithoutAddedByInput {
   url: string;
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
   featured?: boolean | null;
+  tags?: TagCreateManyWithoutWebsiteInput | null;
+}
+
+export interface WebsiteCreateWithoutTagsInput {
+  isPublished?: boolean | null;
+  title: string;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
+  slug?: string | null;
+  url: string;
+  addedBy: UserCreateOneWithoutWebsitesInput;
+  typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
+  featured?: boolean | null;
 }
 
 export interface WebsiteCreateWithoutTypefacesInput {
@@ -246,6 +282,7 @@ export interface WebsiteCreateWithoutTypefacesInput {
   url: string;
   addedBy: UserCreateOneWithoutWebsitesInput;
   featured?: boolean | null;
+  tags?: TagCreateManyWithoutWebsiteInput | null;
 }
 
 export interface WebsiteWhereUniqueInput {

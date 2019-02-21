@@ -9,3 +9,12 @@ export const SEARCH_TYPEFACE = gql`
     }
   }
 `;
+
+export const SEARCH_TAG = gql`
+  query FindTag($search: String!) {
+    findTags(search: $search) {
+      name
+      id
+    }
+  }
+`;

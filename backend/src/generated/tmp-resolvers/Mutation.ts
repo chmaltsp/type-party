@@ -23,6 +23,9 @@ export const Mutation: MutationResolvers.Type = {
   addDesigner: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  addTag: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   uploadImage: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },

@@ -22,6 +22,12 @@ export interface GetWebsite_website_images {
   full: GetWebsite_website_images_full | null;
 }
 
+export interface GetWebsite_website_tags {
+  __typename: "Tag";
+  name: string;
+  id: string;
+}
+
 export interface GetWebsite_website {
   __typename: "Website";
   slug: string | null;
@@ -30,6 +36,7 @@ export interface GetWebsite_website {
   createdAt: any;
   typefaces: GetWebsite_website_typefaces[] | null;
   images: GetWebsite_website_images | null;
+  tags: GetWebsite_website_tags[] | null;
 }
 
 export interface GetWebsite {

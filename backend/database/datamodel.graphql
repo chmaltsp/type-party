@@ -25,6 +25,7 @@ type Website {
   addedBy: User! @relation(name: "WebsitesUser")
   typefaces: [Typeface!]!
   featured: Boolean! @default(value: "false")
+  tags: [Tag!]! @relation(name: "WebsiteTags")
 }
 
 type Images {
@@ -32,6 +33,12 @@ type Images {
   website: Website @relation(name: "WebsiteImages")
   thumbnail: File @relation(name: "ThumbnailFile")
   full: File @relation(name: "FullFile")
+}
+
+type Tag {
+  id: ID! @unique
+  name: String!
+  website: [Website!]! @relation(name: "TagWebsite")
 }
 
 type Designer {

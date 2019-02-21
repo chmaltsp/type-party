@@ -4,7 +4,7 @@ interface FlexProps {
   flexDirection?: 'row' | 'column';
 }
 const Flex = styled.div<FlexProps>`
-  display: Flex;
+  display: flex;
   flex-direction: ${props => props.flexDirection || 'row'};
 `;
 

@@ -1,22 +1,22 @@
 import * as React from 'react';
 
-import ButtonBase from '../../components/Button';
-import Flex from '../../components/Flex';
 import Input from '../../components/Input';
 import MediaUpload from '../../components/MediaUpload';
-
-import styled from 'sc';
-import * as Yup from 'yup';
 
 import { ChildMutateProps, Mutation } from 'react-apollo';
 import { ADD_WEBSITE } from './mutation';
 
-import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
+import { Field, FieldProps, Formik, FormikProps } from 'formik';
 
+import TagForm from '../../components/TagForm';
+import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
 import { AddWebsite_addWebsite, AddWebsiteVariables } from './__generated__/AddWebsite';
+import { AddTypefaceButton, Form, LeftColumn, RightColumn, SubmitButton } from './styles';
+import TagTypeahead from './TagTypeahead';
 import TypefaceTypeahead from './TypefaceTypeahead';
+import { validationSchema } from './validationSchema';
 
 export interface InputValues {
   thumbnail: File | null;
@@ -25,59 +25,12 @@ export interface InputValues {
   title: string;
   url: string;
   typefaces: AddTypeface_addTypeface[];
+  tags: AddTag_addTag[];
 }
 
 export interface Typeface {
   value: string;
 }
-const LeftColumn = styled(Flex)`
-  flex: 1;
-  max-width: 469px;
-  flex-direction: column;
-`;
-
-const AddTypefaceButton = styled(ButtonBase)`
-  /* width: 200px; */
-`;
-
-const RightColumn = styled(Flex)`
-  margin-left: ${({ theme }) => theme.baseSpacing * 13 + 'px'};
-  max-width: 569px;
-  flex-direction: column;
-  flex: 1;
-`;
-
-const Form = styled(FormBase)`
-  margin: ${props => props.theme.baseSpacing * 2}px auto;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-`;
-
-const SubmitButton = styled.button.attrs({
-  type: 'submit',
-})`
-  background-color: transparent;
-  border: 2px ${({ theme }) => theme.colors.black} solid;
-  margin: ${({ theme }) => theme.baseSpacing * 2}px 0;
-  border-radius: ${({ theme }) => theme.baseSpacing / 2}px;
-  color: ${({ theme }) => theme.colors.black};
-  cursor: pointer;
-  padding: ${({ theme }) => theme.baseSpacing}px ${({ theme }) => theme.baseSpacing * 2}px;
-`;
-
-const validationSchema = Yup.object().shape({
-  full: Yup.mixed().required('Full size image is required'),
-  slug: Yup.string()
-    .required('Website Slug is required')
-    .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Must be a valid slug eg.. my-slug'),
-  thumbnail: Yup.mixed().required('Thumbnail is required'),
-  title: Yup.string().required('Site name is required'),
-  url: Yup.string()
-    .required('Url field is required')
-    .url('Must be a valid URL'),
-});
-
 const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
   console.log(event.currentTarget.files);
 };
@@ -100,6 +53,10 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
 
   private handleAddTypeface = (typeface: AddTypeface_addTypeface) => {
     this.props.setFieldValue('typefaces', [...this.props.values.typefaces, typeface]);
+  }
+
+  private handleAddTag = (tag: AddTag_addTag) => {
+    this.props.setFieldValue('tags', [...this.props.values.tags, tag]);
   }
 
   public render() {
@@ -159,6 +116,8 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
               return <Input label="Website Slug" placeholder="website-slug" {...props} />;
             }}
           />
+          <TagTypeahead />
+          <TagForm handleSubmit={this.handleAddTag} />
           <TypefaceTypeahead />
           {!this.state.showAddTypeface && (
             <div>
@@ -189,6 +148,7 @@ const WrappedForm: React.SFC<{}> = () => {
             initialValues={{
               full: null,
               slug: '',
+              tags: [],
               thumbnail: null,
               title: '',
               typefaces: [],
@@ -201,6 +161,7 @@ const WrappedForm: React.SFC<{}> = () => {
                 variables: {
                   input: {
                     ...values,
+                    tags: values.tags.map(tag => tag.id),
                     typefaces: values.typefaces.map(typeface => typeface.id),
                   },
                 },
