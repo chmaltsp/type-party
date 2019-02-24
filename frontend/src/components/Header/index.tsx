@@ -4,6 +4,8 @@ import MobileNav from './Mobile';
 
 import { Link, Logo, MenuLink, NavlinksWrapper, Star, Wrapper } from './styles';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 interface NavLink {
   to: string;
   text: string | React.ReactNode;
@@ -61,7 +63,9 @@ class Header extends React.Component<{}, HeaderState> {
     return (
       <React.Fragment>
         <Wrapper>
-          <Logo />
+          <RouterLink to="/">
+            <Logo />
+          </RouterLink>
           <Star />
           <MenuLink onClick={this.handleMenuToggle}>Menu</MenuLink>
           <NavlinksWrapper>

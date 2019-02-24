@@ -44,7 +44,8 @@ const Logo = styled(LogoBase)`
   width: ${em(80)};
   ${media.tablet`
     display: none;
-  `} ${media.desktop`
+  `}
+  ${media.desktop`
     width: ${em(72)};
     height: ${em(72)};
   `};
