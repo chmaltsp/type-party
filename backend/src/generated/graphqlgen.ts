@@ -165,6 +165,13 @@ export namespace QueryResolvers {
     info: GraphQLResolveInfo
   ) => Website | Promise<Website>;
 
+  export type TypefacesResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Typeface[] | Promise<Typeface[]>;
+
   export interface Type {
     me: (
       parent: undefined,
@@ -228,6 +235,13 @@ export namespace QueryResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Website | Promise<Website>;
+
+    typefaces: (
+      parent: undefined,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Typeface[] | Promise<Typeface[]>;
   }
 }
 

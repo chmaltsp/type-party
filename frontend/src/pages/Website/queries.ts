@@ -22,6 +22,9 @@ export const GET_WEBSITE = gql`
         id
       }
     }
+    auth @client {
+      loggedIn
+    }
   }
 `;
 

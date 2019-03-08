@@ -3,20 +3,15 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: FindTypeface
+// GraphQL query operation: GetTypefaces
 // ====================================================
 
-export interface FindTypeface_findTypefaces {
+export interface GetTypefaces_typefaces {
   __typename: "Typeface";
   name: string;
-  id: string;
-  downloadUrl: string;
+  slug: string;
 }
 
-export interface FindTypeface {
-  findTypefaces: FindTypeface_findTypefaces[];
-}
-
-export interface FindTypefaceVariables {
-  search: string;
+export interface GetTypefaces {
+  typefaces: GetTypefaces_typefaces[];
 }
