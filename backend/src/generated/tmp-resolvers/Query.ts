@@ -32,4 +32,7 @@ export const Query: QueryResolvers.Type = {
   website: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  typefaces: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };

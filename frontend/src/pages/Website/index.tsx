@@ -4,6 +4,7 @@ import Text from '../../components/Text';
 
 import { ChildDataProps, graphql } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
+import Link from '../../components/Link';
 import LinkList from '../../components/LinkList';
 import Tag from '../../components/Tag';
 import { MMMDDDYYYY } from '../../utils/dateFormat';
@@ -36,6 +37,10 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
       return null;
     }
 
+    console.log(this.props.data);
+
+    const loggedIn =
+      this.props.data && this.props.data.auth && this.props.data.auth.loggedIn;
     let fullImageUrl;
 
     if (this.props.data.website.images && this.props.data.website.images.full) {
@@ -48,7 +53,15 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
           <Image src={fullImageUrl || ''} />
           <WebsiteInfo>
             <Title>{this.props.data.website.title}</Title>
-            <Text>Posted on -- {MMMDDDYYYY(this.props.data.website.createdAt)}</Text>
+            <Text>
+              Posted on -- {MMMDDDYYYY(this.props.data.website.createdAt)}{' '}
+              {loggedIn && (
+                <>
+                  {' '}
+                  -- <Link to={`/add-site/${this.props.data.website.slug}`}> Edit</Link>
+                </>
+              )}
+            </Text>
             <Text>
               Fonts used -- <LinkList links={this.props.data.website.typefaces || []} />
             </Text>

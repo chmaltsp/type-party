@@ -57,6 +57,9 @@ export const Query: QueryResolvers.Type = {
       },
     });
   },
+  typefaces: async (parent, args, ctx) => {
+    return ctx.client.typefaces({});
+  },
   website: async (parent, args, ctx) => {
     const input = {
       slug: args.slug,

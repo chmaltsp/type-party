@@ -4,5 +4,6 @@ module.exports = {
       name: 'backend',
       localSchemaFile: './schema.json',
     },
+    excludes: ['src/clientSchema.graphql'],
   },
 };

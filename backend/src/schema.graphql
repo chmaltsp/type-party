@@ -30,6 +30,7 @@ type Query {
   findDesigners(search: String!): [Designer!]!
   findFoundries(search: String!): [Foundry!]!
   website(slug: String!): Website!
+  typefaces: [Typeface!]!
 }
 
 input TypefaceInput {

@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -39,8 +40,14 @@ export interface GetWebsite_website {
   tags: GetWebsite_website_tags[] | null;
 }
 
+export interface GetWebsite_auth {
+  __typename: "Auth";
+  loggedIn: boolean;
+}
+
 export interface GetWebsite {
   website: GetWebsite_website;
+  auth: GetWebsite_auth | null;
 }
 
 export interface GetWebsiteVariables {
