@@ -8,6 +8,7 @@ export interface MediaUploadProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   children?: any;
   label: string;
+  previewUrl?: string;
 }
 
 interface LabelProps {
@@ -75,12 +76,16 @@ export function MediaUpload({
   onChange,
   label,
   form,
+  previewUrl,
 }: MediaUploadProps & FieldProps) {
+  console.log(previewUrl);
   return (
     <FieldSet>
       <FieldName>{label}</FieldName>
       <FileUpload id={field.name} onChange={onChange} />
-      <ImagePreview src={field.value && URL.createObjectURL(field.value)} />
+      <ImagePreview
+        src={(field.value && URL.createObjectURL(field.value)) || previewUrl}
+      />
       <Label htmlFor={field.name} />
       <Error show={form.touched[field.name] && form.errors[field.name]}>
         {form.errors[field.name]}
