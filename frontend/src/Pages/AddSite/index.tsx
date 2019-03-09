@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'sc';
 
 import { em } from 'polished';
+import { RouteComponentProps } from 'react-router';
 import Form from './Form';
 
 const Container = styled.div`
@@ -17,14 +18,15 @@ const PageTitle = styled.h2`
   font-weight: normal;
   margin: 0;
 `;
+
 // export interface AddSiteProps {
 // }
 
-export const AddSite = () => {
+export const AddSite: React.SFC<RouteComponentProps<{ slug: string }>> = props => {
   return (
     <Container>
       <PageTitle>Add / Edit Website</PageTitle>
-      <Form />
+      <Form slug={props.match.params.slug} />
     </Container>
   );
 };

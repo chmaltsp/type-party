@@ -3,7 +3,7 @@ import * as React from 'react';
 import Input from '../../components/Input';
 import MediaUpload from '../../components/MediaUpload';
 
-import { ChildMutateProps, Mutation } from 'react-apollo';
+import { ChildDataProps, graphql, Mutation } from 'react-apollo';
 import { ADD_WEBSITE } from './mutation';
 
 import { Field, FieldProps, Formik, FormikProps } from 'formik';
@@ -13,6 +13,13 @@ import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
 import { AddWebsite_addWebsite, AddWebsiteVariables } from './__generated__/AddWebsite';
+import {
+  EditWebsite,
+  EditWebsite_website_images_full,
+  EditWebsite_website_images_thumbnail,
+  EditWebsiteVariables,
+} from './__generated__/EditWebsite';
+import { EDIT_WEBISTE } from './queries';
 import { AddTypefaceButton, Form, LeftColumn, RightColumn, SubmitButton } from './styles';
 import TagTypeahead from './TagTypeahead';
 import TypefaceTypeahead from './TypefaceTypeahead';
@@ -39,7 +46,7 @@ interface SiteFormState {
   showAddTypeface: boolean;
 }
 
-type Props = ChildMutateProps<FormikProps<InputValues>>;
+type Props = FormikProps<InputValues> & ImageProps;
 class SiteForm extends React.PureComponent<Props, SiteFormState> {
   public state = {
     showAddTypeface: false,
@@ -60,6 +67,7 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
   }
 
   public render() {
+    console.log(this.props);
     return (
       <Form>
         <LeftColumn>
@@ -75,6 +83,7 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
                     const { setFieldValue } = props.form;
                     setFieldValue('full', file);
                   }}
+                  previewUrl={(this.props.full && this.props.full.url) || undefined}
                   {...props}
                 />
               );
@@ -91,6 +100,9 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
                       event.currentTarget.files && event.currentTarget.files[0];
                     this.props.setFieldValue('thumbnail', file);
                   }}
+                  previewUrl={
+                    (this.props.thumbnail && this.props.thumbnail.url) || undefined
+                  }
                   {...props}
                 />
               );
@@ -136,23 +148,28 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
   }
 }
 
-const WrappedForm: React.SFC<{}> = () => {
-  const handleSubmit = async (values: InputValues) => {
-    console.log(values);
-  };
+interface ImageProps {
+  full: EditWebsite_website_images_full | null;
+  thumbnail: EditWebsite_website_images_thumbnail | null;
+}
+
+const WrappedForm: React.SFC<ChildDataProps<{}, EditWebsite>> = props => {
+  const website = props.data && props.data.website;
+
   return (
     <Mutation<AddWebsite_addWebsite, AddWebsiteVariables> mutation={ADD_WEBSITE}>
       {(mutate, { data, loading }) => (
         <React.Fragment>
           <Formik
+            enableReinitialize={true}
             initialValues={{
               full: null,
-              slug: '',
-              tags: [],
+              slug: (website && website.slug) || '',
+              tags: (website && website.tags) || [],
               thumbnail: null,
-              title: '',
-              typefaces: [],
-              url: '',
+              title: (website && website.title) || '',
+              typefaces: (website && website.typefaces) || [],
+              url: (website && website.url) || '',
             }}
             validationSchema={validationSchema}
             onSubmit={async (values: InputValues) => {
@@ -168,7 +185,15 @@ const WrappedForm: React.SFC<{}> = () => {
               });
               console.log(response);
             }}
-            component={SiteForm}
+            render={(formikProps: FormikProps<InputValues>) => (
+              <SiteForm
+                {...formikProps}
+                full={(website && website.images && website.images.full) || null}
+                thumbnail={
+                  (website && website.images && website.images.thumbnail) || null
+                }
+              />
+            )}
           />
         </React.Fragment>
       )}
@@ -180,8 +205,23 @@ interface Response {
   id: string;
 }
 
-// const WrappedFormWithMutation = graphql<{}, Response, InputValues>(UPLOAD_IMAGE, {})(
-//   WrappedForm
-// );
+interface WrappedFormProps {
+  slug: string;
+}
 
-export default WrappedForm;
+const WrappedFormWithQuery = graphql<
+  WrappedFormProps,
+  EditWebsite,
+  EditWebsiteVariables,
+  any
+>(EDIT_WEBISTE, {
+  options: ({ slug }) => {
+    return {
+      variables: {
+        slug,
+      },
+    };
+  },
+})(WrappedForm);
+
+export default WrappedFormWithQuery;
