@@ -14,6 +14,9 @@ export const Mutation: MutationResolvers.Type = {
   addWebsite: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  updateWebsite: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   addTypeface: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },

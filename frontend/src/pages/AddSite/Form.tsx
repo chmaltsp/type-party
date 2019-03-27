@@ -3,8 +3,8 @@ import * as React from 'react';
 import Input from '../../components/Input';
 import MediaUpload from '../../components/MediaUpload';
 
-import { ChildDataProps, graphql, Mutation } from 'react-apollo';
-import { ADD_WEBSITE } from './mutation';
+import { ChildDataProps, compose, graphql } from 'react-apollo';
+import { ADD_WEBSITE, UPDATE_WEBSITE } from './mutation';
 
 import { Field, FieldProps, Formik, FormikProps } from 'formik';
 
@@ -12,13 +12,22 @@ import TagForm from '../../components/TagForm';
 import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
-import { AddWebsite_addWebsite, AddWebsiteVariables } from './__generated__/AddWebsite';
+import {
+  AddWebsite,
+  AddWebsite_addWebsite,
+  AddWebsiteVariables,
+} from './__generated__/AddWebsite';
 import {
   EditWebsite,
   EditWebsite_website_images_full,
   EditWebsite_website_images_thumbnail,
   EditWebsiteVariables,
 } from './__generated__/EditWebsite';
+import {
+  UpdateWebsite,
+  UpdateWebsite_updateWebsite,
+  UpdateWebsiteVariables,
+} from './__generated__/UpdateWebsite';
 import { EDIT_WEBISTE } from './queries';
 import { AddTypefaceButton, Form, LeftColumn, RightColumn, SubmitButton } from './styles';
 import TagTypeahead from './TagTypeahead';
@@ -153,51 +162,49 @@ interface ImageProps {
   thumbnail: EditWebsite_website_images_thumbnail | null;
 }
 
-const WrappedForm: React.SFC<ChildDataProps<{}, EditWebsite>> = props => {
+interface AllProps extends ChildDataProps<WrappedFormProps, EditWebsite> {
+  updateWebsite: (data: UpdateWebsiteVariables) => UpdateWebsite_updateWebsite;
+  addWebsite: (data: AddWebsiteVariables) => AddWebsite_addWebsite;
+}
+
+const WrappedForm: React.SFC<AllProps> = props => {
   const website = props.data && props.data.website;
 
+  console.log(props);
   return (
-    <Mutation<AddWebsite_addWebsite, AddWebsiteVariables> mutation={ADD_WEBSITE}>
-      {(mutate, { data, loading }) => (
-        <React.Fragment>
-          <Formik
-            enableReinitialize={true}
-            initialValues={{
-              full: null,
-              slug: (website && website.slug) || '',
-              tags: (website && website.tags) || [],
-              thumbnail: null,
-              title: (website && website.title) || '',
-              typefaces: (website && website.typefaces) || [],
-              url: (website && website.url) || '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={async (values: InputValues) => {
-              console.log(values);
-              const response = await mutate({
-                variables: {
-                  input: {
-                    ...values,
-                    tags: values.tags.map(tag => tag.id),
-                    typefaces: values.typefaces.map(typeface => typeface.id),
-                  },
-                },
-              });
-              console.log(response);
-            }}
-            render={(formikProps: FormikProps<InputValues>) => (
-              <SiteForm
-                {...formikProps}
-                full={(website && website.images && website.images.full) || null}
-                thumbnail={
-                  (website && website.images && website.images.thumbnail) || null
-                }
-              />
-            )}
+    <React.Fragment>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{
+          full: null,
+          slug: (website && website.slug) || '',
+          tags: (website && website.tags) || [],
+          thumbnail: null,
+          title: (website && website.title) || '',
+          typefaces: (website && website.typefaces) || [],
+          url: (website && website.url) || '',
+        }}
+        validationSchema={validationSchema}
+        onSubmit={async (values: InputValues) => {
+          console.log(values);
+          const response = await props.updateWebsite({
+            input: {
+              ...values,
+              tags: values.tags.map(tag => tag.id),
+              typefaces: values.typefaces.map(typeface => typeface.id),
+            },
+          });
+          console.log(response);
+        }}
+        render={(formikProps: FormikProps<InputValues>) => (
+          <SiteForm
+            {...formikProps}
+            full={(website && website.images && website.images.full) || null}
+            thumbnail={(website && website.images && website.images.thumbnail) || null}
           />
-        </React.Fragment>
-      )}
-    </Mutation>
+        )}
+      />
+    </React.Fragment>
   );
 };
 
@@ -209,19 +216,34 @@ interface WrappedFormProps {
   slug: string;
 }
 
-const WrappedFormWithQuery = graphql<
-  WrappedFormProps,
-  EditWebsite,
-  EditWebsiteVariables,
-  any
->(EDIT_WEBISTE, {
-  options: ({ slug }) => {
-    return {
-      variables: {
-        slug,
+const ComposedWrappedForm = compose(
+  graphql<WrappedFormProps, UpdateWebsite, UpdateWebsiteVariables, any>(UPDATE_WEBSITE, {
+    props: ({ mutate }) => ({
+      updateWebsite: async (variables: UpdateWebsiteVariables) => {
+        if (mutate) {
+          await mutate({ variables });
+        }
       },
-    };
-  },
-})(WrappedForm);
+    }),
+  }),
+  graphql<WrappedFormProps, AddWebsite, AddWebsiteVariables, any>(ADD_WEBSITE, {
+    props: ({ mutate }) => ({
+      addWebsite: async (variables: UpdateWebsiteVariables) => {
+        if (mutate) {
+          await mutate({ variables });
+        }
+      },
+    }),
+  }),
+  graphql<WrappedFormProps, EditWebsite, EditWebsiteVariables, any>(EDIT_WEBISTE, {
+    options: ({ slug }) => {
+      return {
+        variables: {
+          slug,
+        },
+      };
+    },
+  })
+)(WrappedForm);
 
-export default WrappedFormWithQuery;
+export default ComposedWrappedForm;
