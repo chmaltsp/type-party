@@ -172,39 +172,37 @@ const WrappedForm: React.SFC<AllProps> = props => {
 
   console.log(props);
   return (
-    <React.Fragment>
-      <Formik
-        enableReinitialize={true}
-        initialValues={{
-          full: null,
-          slug: (website && website.slug) || '',
-          tags: (website && website.tags) || [],
-          thumbnail: null,
-          title: (website && website.title) || '',
-          typefaces: (website && website.typefaces) || [],
-          url: (website && website.url) || '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={async (values: InputValues) => {
-          console.log(values);
-          const response = await props.updateWebsite({
-            input: {
-              ...values,
-              tags: values.tags.map(tag => tag.id),
-              typefaces: values.typefaces.map(typeface => typeface.id),
-            },
-          });
-          console.log(response);
-        }}
-        render={(formikProps: FormikProps<InputValues>) => (
-          <SiteForm
-            {...formikProps}
-            full={(website && website.images && website.images.full) || null}
-            thumbnail={(website && website.images && website.images.thumbnail) || null}
-          />
-        )}
-      />
-    </React.Fragment>
+    <Formik
+      enableReinitialize={true}
+      initialValues={{
+        full: null,
+        slug: (website && website.slug) || '',
+        tags: (website && website.tags) || [],
+        thumbnail: null,
+        title: (website && website.title) || '',
+        typefaces: (website && website.typefaces) || [],
+        url: (website && website.url) || '',
+      }}
+      validationSchema={validationSchema}
+      onSubmit={async (values: InputValues) => {
+        console.log(values);
+        const response = await props[props.slug ? 'updateWebsite' : 'addWebsite']({
+          input: {
+            ...values,
+            tags: values.tags.map(tag => tag.id),
+            typefaces: values.typefaces.map(typeface => typeface.id),
+          },
+        });
+        console.log(response);
+      }}
+      render={(formikProps: FormikProps<InputValues>) => (
+        <SiteForm
+          {...formikProps}
+          full={(website && website.images && website.images.full) || null}
+          thumbnail={(website && website.images && website.images.thumbnail) || null}
+        />
+      )}
+    />
   );
 };
 
@@ -221,7 +219,7 @@ const ComposedWrappedForm = compose(
     props: ({ mutate }) => ({
       updateWebsite: async (variables: UpdateWebsiteVariables) => {
         if (mutate) {
-          await mutate({ variables });
+          return mutate({ variables });
         }
       },
     }),
@@ -230,7 +228,7 @@ const ComposedWrappedForm = compose(
     props: ({ mutate }) => ({
       addWebsite: async (variables: UpdateWebsiteVariables) => {
         if (mutate) {
-          await mutate({ variables });
+          return mutate({ variables });
         }
       },
     }),
