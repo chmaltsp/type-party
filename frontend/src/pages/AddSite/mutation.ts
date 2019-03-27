@@ -26,6 +26,18 @@ export const UPDATE_WEBSITE = gql`
       id
       url
       title
+      images {
+        full {
+          url
+          id
+          filename
+        }
+        thumbnail {
+          url
+          id
+          filename
+        }
+      }
     }
   }
 `;
