@@ -1,4 +1,5 @@
 import { gql } from 'apollo-boost';
+import { WebsiteFragments } from '../../fragments/website';
 
 export const UPLOAD_IMAGE = gql`
   mutation uploadImage($file: Upload!) {
@@ -21,23 +22,14 @@ export const ADD_WEBSITE = gql`
 `;
 
 export const UPDATE_WEBSITE = gql`
-  mutation UpdateWebsite($input: AddWebsiteInput!) {
+  mutation UpdateWebsite($input: UpdateWebsiteInput!) {
     updateWebsite(input: $input) {
-      id
-      url
-      title
-      images {
-        full {
-          url
-          id
-          filename
-        }
-        thumbnail {
-          url
-          id
-          filename
-        }
-      }
+      ...WebsiteInfo
+      ...WebsiteTypefaces
+      ...WebsiteImages
     }
   }
+  ${WebsiteFragments.fragments.info}
+  ${WebsiteFragments.fragments.typefaces}
+  ${WebsiteFragments.fragments.images}
 `;

@@ -3557,6 +3557,15 @@ export namespace MutationResolvers {
     typefaces: string[];
     tags: string[];
   }
+  export interface UpdateWebsiteInput {
+    full: string | null;
+    thumbnail: string | null;
+    title: string;
+    url: string;
+    slug: string;
+    typefaces: string[];
+    tags: string[];
+  }
   export interface TypefaceCreateInput {
     name: string;
     downloadUrl: string;
@@ -3803,7 +3812,7 @@ export namespace MutationResolvers {
   }
 
   export interface ArgsUpdateWebsite {
-    input: AddWebsiteInput | null;
+    input: UpdateWebsiteInput | null;
   }
 
   export interface ArgsAddTypeface {

@@ -12,6 +12,13 @@ export interface EditWebsite_website_tags {
   name: string;
 }
 
+export interface EditWebsite_website_typefaces {
+  __typename: "Typeface";
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface EditWebsite_website_images_full {
   __typename: "File";
   url: string;
@@ -32,13 +39,6 @@ export interface EditWebsite_website_images {
   thumbnail: EditWebsite_website_images_thumbnail | null;
 }
 
-export interface EditWebsite_website_typefaces {
-  __typename: "Typeface";
-  id: string;
-  name: string;
-  slug: string;
-}
-
 export interface EditWebsite_website {
   __typename: "Website";
   id: string;
@@ -47,8 +47,8 @@ export interface EditWebsite_website {
   isPublished: boolean;
   url: string;
   tags: EditWebsite_website_tags[] | null;
-  images: EditWebsite_website_images | null;
   typefaces: EditWebsite_website_typefaces[] | null;
+  images: EditWebsite_website_images | null;
 }
 
 export interface EditWebsite {
