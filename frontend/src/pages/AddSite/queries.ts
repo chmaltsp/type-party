@@ -1,4 +1,5 @@
 import { gql } from 'apollo-boost';
+import { WebsiteFragments } from '../../fragments/website';
 
 export const SEARCH_TYPEFACE = gql`
   query FindTypeface($search: String!) {
@@ -22,32 +23,39 @@ export const SEARCH_TAG = gql`
 export const EDIT_WEBISTE = gql`
   query EditWebsite($slug: String!) {
     website(slug: $slug) {
-      id
-      slug
-      title
-      isPublished
-      url
-      tags {
-        id
-        name
-      }
-      images {
-        full {
-          url
-          id
-          filename
-        }
-        thumbnail {
-          url
-          id
-          filename
-        }
-      }
-      typefaces {
-        id
-        name
-        slug
-      }
+      #   id
+      #   slug
+      #   title
+      #   isPublished
+      #   url
+      #   tags {
+      #     id
+      #     name
+      #   }
+      #   images {
+      #     full {
+      #       url
+      #       id
+      #       filename
+      #     }
+      #     thumbnail {
+      #       url
+      #       id
+      #       filename
+      #     }
+      #   }
+      #   typefaces {
+      #     id
+      #     name
+      #     slug
+      #   }
+      # }
+      ...WebsiteInfo
+      ...WebsiteTypefaces
+      ...WebsiteImages
     }
   }
+  ${WebsiteFragments.fragments.info}
+  ${WebsiteFragments.fragments.typefaces}
+  ${WebsiteFragments.fragments.images}
 `;
