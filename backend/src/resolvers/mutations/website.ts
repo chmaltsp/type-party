@@ -10,8 +10,42 @@ export const website: WebsiteResolvers = {
   async updateWebsite(parent, args, ctx: Context, info) {
     const { userId } = ctxUser(ctx);
 
-    const fullFile = await processUpload(args.input.full, ctx);
-    const thumbnailFile = await processUpload(args.input.thumbnail, ctx);
+    let fullFile;
+    if (args.input.full) {
+      fullFile = await processUpload(args.input.full, ctx);
+    }
+    let thumbnailFile;
+    if (args.input.thumbnail) {
+      thumbnailFile = await processUpload(args.input.thumbnail, ctx);
+    }
+
+    const updateImages = () => {
+      if (!fullFile && !thumbnailFile) return {};
+      const images = {
+        update: {
+          full: {},
+          thumbnail: {},
+        },
+      };
+
+      if (thumbnailFile) {
+        images.update.full = {
+          connect: {
+            id: thumbnailFile.id,
+          },
+        };
+      }
+
+      if (thumbnailFile) {
+        images.update.thumbnail = {
+          connect: {
+            id: thumbnailFile.id,
+          },
+        };
+      }
+
+      return images;
+    };
 
     // Clean up input for createWebsite
     delete args.input.full;
@@ -22,20 +56,7 @@ export const website: WebsiteResolvers = {
       },
       data: {
         ...args.input,
-        images: {
-          create: {
-            full: {
-              connect: {
-                id: fullFile.id,
-              },
-            },
-            thumbnail: {
-              connect: {
-                id: thumbnailFile.id,
-              },
-            },
-          },
-        },
+        images: updateImages(),
         typefaces: {
           connect: args.input.typefaces.map(typeface => ({
             id: typeface,

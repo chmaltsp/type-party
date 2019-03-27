@@ -193,6 +193,16 @@ export interface TypefaceWhereUniqueInput {
   slug?: string | null;
 }
 
+export interface UpdateWebsiteInput {
+  full?: any | null;
+  thumbnail?: any | null;
+  title: string;
+  url: string;
+  slug: string;
+  typefaces: string[];
+  tags: string[];
+}
+
 export interface UserCreateInput {
   email: string;
   password: string;

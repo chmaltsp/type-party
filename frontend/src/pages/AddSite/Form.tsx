@@ -183,7 +183,7 @@ const WrappedForm: React.SFC<AllProps> = props => {
         typefaces: (website && website.typefaces) || [],
         url: (website && website.url) || '',
       }}
-      validationSchema={validationSchema}
+      validationSchema={validationSchema(!!props.slug)}
       onSubmit={async (values: InputValues) => {
         console.log(values);
         const response = await props[props.slug ? 'updateWebsite' : 'addWebsite']({
