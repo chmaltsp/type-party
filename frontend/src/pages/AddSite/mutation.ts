@@ -19,3 +19,13 @@ export const ADD_WEBSITE = gql`
     }
   }
 `;
+
+export const UPDATE_WEBSITE = gql`
+  mutation UpdateWebsite($input: AddWebsiteInput!) {
+    updateWebsite(input: $input) {
+      id
+      url
+      title
+    }
+  }
+`;

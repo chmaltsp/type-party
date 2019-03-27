@@ -3802,6 +3802,10 @@ export namespace MutationResolvers {
     input: AddWebsiteInput | null;
   }
 
+  export interface ArgsUpdateWebsite {
+    input: AddWebsiteInput | null;
+  }
+
   export interface ArgsAddTypeface {
     input: TypefaceCreateInput | null;
   }
@@ -3839,6 +3843,13 @@ export namespace MutationResolvers {
   export type AddWebsiteResolver = (
     parent: undefined,
     args: ArgsAddWebsite,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Website | Promise<Website>;
+
+  export type UpdateWebsiteResolver = (
+    parent: undefined,
+    args: ArgsUpdateWebsite,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Website | Promise<Website>;
@@ -3896,6 +3907,13 @@ export namespace MutationResolvers {
     addWebsite: (
       parent: undefined,
       args: ArgsAddWebsite,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Website | Promise<Website>;
+
+    updateWebsite: (
+      parent: undefined,
+      args: ArgsUpdateWebsite,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Website | Promise<Website>;
