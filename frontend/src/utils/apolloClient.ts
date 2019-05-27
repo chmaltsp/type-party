@@ -1,6 +1,8 @@
 import { createUploadLink } from 'apollo-upload-client';
 
-import { ApolloClient, InMemoryCache } from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { withClientState } from 'apollo-link-state';
 
@@ -52,36 +54,36 @@ export const createClient = () => {
     return { headers: allHeaders };
   });
 
-  const errorLink = onError(
-    ({ networkError, graphQLErrors, response, operation, forward }) => {
-      if (networkError) {
-        const error = networkError as ServerError;
+  const errorLink = onError(({ networkError, operation, forward }) => {
+    if (networkError) {
+      const error = networkError as ServerError;
 
-        if (error.statusCode === 401) {
-          appCache.writeQuery({
-            data: {
-              auth: {
-                __typename: 'Auth',
-                loggedIn: false,
-              },
+      if (error.statusCode === 401) {
+        appCache.writeQuery({
+          data: {
+            auth: {
+              __typename: 'Auth',
+              loggedIn: false,
             },
-            query: AUTH_STATUS,
-          });
+          },
+          query: AUTH_STATUS,
+        });
 
-          // Clear JWT
-          removeToken();
+        // Clear JWT
+        removeToken();
 
-          // Retry the request after deleting token... may be janky but works for now.
-          const oldHeaders = operation.getContext().headers;
-          delete oldHeaders.Authorization;
-          operation.setContext({
-            ...oldHeaders,
-          });
-          return forward(operation);
-        }
+        // Retry the request after deleting token... may be janky but works for now.
+        const oldHeaders = operation.getContext().headers;
+        delete oldHeaders.Authorization;
+        operation.setContext({
+          ...oldHeaders,
+        });
+        return forward(operation);
       }
+      return forward(operation);
     }
-  );
+    return forward(operation);
+  });
 
   const link = ApolloLink.from([authLink, stateLink, errorLink, uploadLink]);
 

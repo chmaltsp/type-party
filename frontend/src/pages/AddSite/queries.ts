@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 import { WebsiteFragments } from '../../fragments/website';
 
 export const SEARCH_TYPEFACE = gql`
