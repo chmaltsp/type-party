@@ -2,5 +2,6 @@
     "parser": "typescript",
     "printWidth": 90,
     "trailingComma": "es5",
-    "singleQuote": true
+    "singleQuote": true,
+    "semi": true
 }

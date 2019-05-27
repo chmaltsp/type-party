@@ -47,9 +47,6 @@ export interface InputValues {
 export interface Typeface {
   value: string;
 }
-const handleUpload = (event: React.SyntheticEvent<HTMLInputElement>) => {
-  console.log(event.currentTarget.files);
-};
 
 interface SiteFormState {
   showAddTypeface: boolean;
