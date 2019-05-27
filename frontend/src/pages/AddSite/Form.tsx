@@ -65,15 +65,15 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
     this.setState({
       showAddTypeface: !this.state.showAddTypeface,
     });
-  }
+  };
 
   private handleAddTypeface = (typeface: AddTypeface_addTypeface) => {
     this.props.setFieldValue('typefaces', [...this.props.values.typefaces, typeface]);
-  }
+  };
 
   private handleAddTag = (tag: AddTag_addTag) => {
     this.props.setFieldValue('tags', [...this.props.values.tags, tag]);
-  }
+  };
 
   public render() {
     console.log(this.props);
@@ -206,10 +206,6 @@ const WrappedForm: React.SFC<AllProps> = props => {
   );
 };
 
-interface Response {
-  id: string;
-}
-
 interface WrappedFormProps {
   slug: string;
 }
@@ -226,7 +222,7 @@ const ComposedWrappedForm = compose(
   }),
   graphql<WrappedFormProps, AddWebsite, AddWebsiteVariables, any>(ADD_WEBSITE, {
     props: ({ mutate }) => ({
-      addWebsite: async (variables: UpdateWebsiteVariables) => {
+      addWebsite: async (variables: AddWebsiteVariables) => {
         if (mutate) {
           return mutate({ variables });
         }
