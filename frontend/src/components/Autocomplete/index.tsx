@@ -3,7 +3,7 @@ import styled from 'sc';
 
 import { ControllerStateAndHelpers } from 'downshift';
 
-import { InputBase, InputWrapper as AutoCompleteWrapper, Label } from '../Input';
+import { InputWrapper as AutoCompleteWrapper, Label } from '../Input';
 
 import Flex from '../Flex';
 import Tag from '../Tag';
@@ -62,7 +62,7 @@ export default class Autocomplete<Item> extends React.Component<AutocompleteProp
   private handleOnchange = (selection: any) => {
     console.log('You selected', selection);
     this.props.handleOnChange(selection);
-  }
+  };
 
   private handleOnInputEnter = (event: React.KeyboardEvent) => {
     // Callback on Enter only to add to list etc...
@@ -70,7 +70,7 @@ export default class Autocomplete<Item> extends React.Component<AutocompleteProp
       console.log('ON ENTER', event.which);
       event.preventDefault();
     }
-  }
+  };
 
   public render() {
     return (
@@ -112,7 +112,7 @@ export default class Autocomplete<Item> extends React.Component<AutocompleteProp
               <Input
                 {...getInputProps({
                   onKeyDown: this.handleOnInputEnter,
-                  onKeyUp: event => {
+                  onKeyUp: (event: React.KeyboardEvent) => {
                     const currentSelection = selectedItem || [];
                     if (event.key === 'Backspace' && !inputValue) {
                       removeItem(currentSelection[currentSelection.length - 1]);
@@ -121,7 +121,7 @@ export default class Autocomplete<Item> extends React.Component<AutocompleteProp
                       this.props.handleSearch(inputValue);
                     }
                   },
-                })}
+                }) as any}
               />
             </InputWrapper>
             <ListWrapper {...getMenuProps()}>
@@ -152,6 +152,7 @@ export default class Autocomplete<Item> extends React.Component<AutocompleteProp
                           item,
                           key: index + this.props.itemToString(item),
                         } as any)}
+                        key={index + this.props.itemToString(item)}
                       >
                         {this.props.itemToString(item)}
                       </ListItem>
