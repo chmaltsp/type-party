@@ -166,8 +166,6 @@ interface AllProps extends ChildDataProps<WrappedFormProps, EditWebsite> {
 
 const WrappedForm: React.SFC<AllProps> = props => {
   const website = props.data && props.data.website;
-
-  console.log(props);
   return (
     <Formik
       enableReinitialize={true}
