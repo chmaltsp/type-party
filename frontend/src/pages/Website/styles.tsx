@@ -12,6 +12,7 @@ export const Image = styled.img`
   height: 419px;
   background-color: ${({ theme }) => theme.colors.greyC4C};
 `;
+
 export const WebsiteInfo = styled(Flex)`
   flex: 1;
   padding: 0 ${({ theme }) => theme.spacing.md}px;
