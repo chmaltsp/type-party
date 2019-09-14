@@ -37,8 +37,6 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
       return null;
     }
 
-    console.log(this.props.data);
-
     const loggedIn =
       this.props.data && this.props.data.auth && this.props.data.auth.loggedIn;
     let fullImageUrl;
