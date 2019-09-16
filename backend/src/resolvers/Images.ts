@@ -5,7 +5,9 @@ export const Images: ImagesResolvers.Type = {
   website: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
-
+  typeface: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   thumbnail: (parent, args, ctx) => {
     return ctx.client
       .images({

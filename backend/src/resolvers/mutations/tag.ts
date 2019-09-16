@@ -11,7 +11,7 @@ export const tag: TagResolvers = {
     });
 
     if (exists) {
-      throw new Error('This foundry already exists');
+      throw new Error('This tag already exists');
     }
 
     return ctx.client.createTag({

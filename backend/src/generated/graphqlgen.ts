@@ -15,21 +15,6 @@ import { AuthPayload } from '../types/auth';
 import { Context } from '../utils';
 
 type Role = 'ADMIN' | 'SUBSCRIBER';
-type TypefaceOrderByInput =
-  | 'id_ASC'
-  | 'id_DESC'
-  | 'name_ASC'
-  | 'name_DESC'
-  | 'downloadUrl_ASC'
-  | 'downloadUrl_DESC'
-  | 'description_ASC'
-  | 'description_DESC'
-  | 'slug_ASC'
-  | 'slug_DESC'
-  | 'createdAt_ASC'
-  | 'createdAt_DESC'
-  | 'updatedAt_ASC'
-  | 'updatedAt_DESC';
 type WebsiteOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
@@ -54,10 +39,25 @@ type FoundryOrderByInput =
   | 'name_DESC'
   | 'url_ASC'
   | 'url_DESC'
-  | 'createdAt_ASC'
-  | 'createdAt_DESC'
   | 'updatedAt_ASC'
-  | 'updatedAt_DESC';
+  | 'updatedAt_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC';
+type TypefaceOrderByInput =
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'downloadUrl_ASC'
+  | 'downloadUrl_DESC'
+  | 'description_ASC'
+  | 'description_DESC'
+  | 'slug_ASC'
+  | 'slug_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC';
 type DesignerOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
@@ -65,22 +65,26 @@ type DesignerOrderByInput =
   | 'name_DESC'
   | 'url_ASC'
   | 'url_DESC'
-  | 'createdAt_ASC'
-  | 'createdAt_DESC'
   | 'updatedAt_ASC'
-  | 'updatedAt_DESC';
+  | 'updatedAt_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC';
 type TagOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
   | 'name_ASC'
   | 'name_DESC'
-  | 'createdAt_ASC'
-  | 'createdAt_DESC'
   | 'updatedAt_ASC'
-  | 'updatedAt_DESC';
+  | 'updatedAt_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
+
+  export interface ArgsWebsite {
+    slug: string;
+  }
 
   export interface ArgsFindTypefaces {
     search: string;
@@ -98,7 +102,7 @@ export namespace QueryResolvers {
     search: string;
   }
 
-  export interface ArgsWebsite {
+  export interface ArgsTypeface {
     slug: string;
   }
 
@@ -115,6 +119,13 @@ export namespace QueryResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User[] | Promise<User[]>;
+
+  export type WebsiteResolver = (
+    parent: undefined,
+    args: ArgsWebsite,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Website | Promise<Website>;
 
   export type WebsitesResolver = (
     parent: undefined,
@@ -158,12 +169,12 @@ export namespace QueryResolvers {
     info: GraphQLResolveInfo
   ) => Foundry[] | Promise<Foundry[]>;
 
-  export type WebsiteResolver = (
+  export type TypefaceResolver = (
     parent: undefined,
-    args: ArgsWebsite,
+    args: ArgsTypeface,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Website | Promise<Website>;
+  ) => Typeface | Promise<Typeface>;
 
   export type TypefacesResolver = (
     parent: undefined,
@@ -186,6 +197,13 @@ export namespace QueryResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User[] | Promise<User[]>;
+
+    website: (
+      parent: undefined,
+      args: ArgsWebsite,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Website | Promise<Website>;
 
     websites: (
       parent: undefined,
@@ -229,12 +247,12 @@ export namespace QueryResolvers {
       info: GraphQLResolveInfo
     ) => Foundry[] | Promise<Foundry[]>;
 
-    website: (
+    typeface: (
       parent: undefined,
-      args: ArgsWebsite,
+      args: ArgsTypeface,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Website | Promise<Website>;
+    ) => Typeface | Promise<Typeface>;
 
     typefaces: (
       parent: undefined,
@@ -338,6 +356,9 @@ export namespace WebsiteResolvers {
   };
 
   export interface TypefaceWhereInput {
+    AND: TypefaceWhereInput[];
+    OR: TypefaceWhereInput[];
+    NOT: TypefaceWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -418,11 +439,15 @@ export namespace WebsiteResolvers {
     designers_every: DesignerWhereInput | null;
     designers_some: DesignerWhereInput | null;
     designers_none: DesignerWhereInput | null;
-    AND: TypefaceWhereInput[];
-    OR: TypefaceWhereInput[];
-    NOT: TypefaceWhereInput[];
+    tags_every: TagWhereInput | null;
+    tags_some: TagWhereInput | null;
+    tags_none: TagWhereInput | null;
+    images: ImagesWhereInput | null;
   }
   export interface WebsiteWhereInput {
+    AND: WebsiteWhereInput[];
+    OR: WebsiteWhereInput[];
+    NOT: WebsiteWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -461,7 +486,6 @@ export namespace WebsiteResolvers {
     title_not_starts_with: string | null;
     title_ends_with: string | null;
     title_not_ends_with: string | null;
-    images: ImagesWhereInput | null;
     slug: string | null;
     slug_not: string | null;
     slug_in: string[];
@@ -490,20 +514,21 @@ export namespace WebsiteResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
+    featured: boolean | null;
+    featured_not: boolean | null;
+    images: ImagesWhereInput | null;
     addedBy: UserWhereInput | null;
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    featured: boolean | null;
-    featured_not: boolean | null;
     tags_every: TagWhereInput | null;
     tags_some: TagWhereInput | null;
     tags_none: TagWhereInput | null;
-    AND: WebsiteWhereInput[];
-    OR: WebsiteWhereInput[];
-    NOT: WebsiteWhereInput[];
   }
   export interface ImagesWhereInput {
+    AND: ImagesWhereInput[];
+    OR: ImagesWhereInput[];
+    NOT: ImagesWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -521,11 +546,12 @@ export namespace WebsiteResolvers {
     website: WebsiteWhereInput | null;
     thumbnail: FileWhereInput | null;
     full: FileWhereInput | null;
-    AND: ImagesWhereInput[];
-    OR: ImagesWhereInput[];
-    NOT: ImagesWhereInput[];
+    typeface: TypefaceWhereInput | null;
   }
   export interface FileWhereInput {
+    AND: FileWhereInput[];
+    OR: FileWhereInput[];
+    NOT: FileWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -612,11 +638,11 @@ export namespace WebsiteResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    AND: FileWhereInput[];
-    OR: FileWhereInput[];
-    NOT: FileWhereInput[];
   }
   export interface UserWhereInput {
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -683,113 +709,11 @@ export namespace WebsiteResolvers {
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    AND: UserWhereInput[];
-    OR: UserWhereInput[];
-    NOT: UserWhereInput[];
-  }
-  export interface FoundryWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: FoundryWhereInput[];
-    OR: FoundryWhereInput[];
-    NOT: FoundryWhereInput[];
-  }
-  export interface DesignerWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: DesignerWhereInput[];
-    OR: DesignerWhereInput[];
-    NOT: DesignerWhereInput[];
   }
   export interface TagWhereInput {
+    AND: TagWhereInput[];
+    OR: TagWhereInput[];
+    NOT: TagWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -821,9 +745,111 @@ export namespace WebsiteResolvers {
     website_every: WebsiteWhereInput | null;
     website_some: WebsiteWhereInput | null;
     website_none: WebsiteWhereInput | null;
-    AND: TagWhereInput[];
-    OR: TagWhereInput[];
-    NOT: TagWhereInput[];
+    typeface_every: TypefaceWhereInput | null;
+    typeface_some: TypefaceWhereInput | null;
+    typeface_none: TypefaceWhereInput | null;
+  }
+  export interface FoundryWhereInput {
+    AND: FoundryWhereInput[];
+    OR: FoundryWhereInput[];
+    NOT: FoundryWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
+  }
+  export interface DesignerWhereInput {
+    AND: DesignerWhereInput[];
+    OR: DesignerWhereInput[];
+    NOT: DesignerWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
   }
 
   export interface ArgsTypefaces {
@@ -1036,6 +1062,13 @@ export namespace ImagesResolvers {
     info: GraphQLResolveInfo
   ) => File | null | Promise<File | null>;
 
+  export type TypefaceResolver = (
+    parent: Images,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Typeface | null | Promise<Typeface | null>;
+
   export interface Type {
     id: (
       parent: Images,
@@ -1064,6 +1097,13 @@ export namespace ImagesResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => File | null | Promise<File | null>;
+
+    typeface: (
+      parent: Images,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Typeface | null | Promise<Typeface | null>;
   }
 }
 
@@ -1190,6 +1230,9 @@ export namespace TypefaceResolvers {
   };
 
   export interface WebsiteWhereInput {
+    AND: WebsiteWhereInput[];
+    OR: WebsiteWhereInput[];
+    NOT: WebsiteWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -1228,7 +1271,6 @@ export namespace TypefaceResolvers {
     title_not_starts_with: string | null;
     title_ends_with: string | null;
     title_not_ends_with: string | null;
-    images: ImagesWhereInput | null;
     slug: string | null;
     slug_not: string | null;
     slug_in: string[];
@@ -1257,20 +1299,21 @@ export namespace TypefaceResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
+    featured: boolean | null;
+    featured_not: boolean | null;
+    images: ImagesWhereInput | null;
     addedBy: UserWhereInput | null;
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    featured: boolean | null;
-    featured_not: boolean | null;
     tags_every: TagWhereInput | null;
     tags_some: TagWhereInput | null;
     tags_none: TagWhereInput | null;
-    AND: WebsiteWhereInput[];
-    OR: WebsiteWhereInput[];
-    NOT: WebsiteWhereInput[];
   }
   export interface ImagesWhereInput {
+    AND: ImagesWhereInput[];
+    OR: ImagesWhereInput[];
+    NOT: ImagesWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -1288,305 +1331,12 @@ export namespace TypefaceResolvers {
     website: WebsiteWhereInput | null;
     thumbnail: FileWhereInput | null;
     full: FileWhereInput | null;
-    AND: ImagesWhereInput[];
-    OR: ImagesWhereInput[];
-    NOT: ImagesWhereInput[];
-  }
-  export interface UserWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    email: string | null;
-    email_not: string | null;
-    email_in: string[];
-    email_not_in: string[];
-    email_lt: string | null;
-    email_lte: string | null;
-    email_gt: string | null;
-    email_gte: string | null;
-    email_contains: string | null;
-    email_not_contains: string | null;
-    email_starts_with: string | null;
-    email_not_starts_with: string | null;
-    email_ends_with: string | null;
-    email_not_ends_with: string | null;
-    password: string | null;
-    password_not: string | null;
-    password_in: string[];
-    password_not_in: string[];
-    password_lt: string | null;
-    password_lte: string | null;
-    password_gt: string | null;
-    password_gte: string | null;
-    password_contains: string | null;
-    password_not_contains: string | null;
-    password_starts_with: string | null;
-    password_not_starts_with: string | null;
-    password_ends_with: string | null;
-    password_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    role: Role | null;
-    role_not: Role | null;
-    role_in: Role[];
-    role_not_in: Role[];
-    websites_every: WebsiteWhereInput | null;
-    websites_some: WebsiteWhereInput | null;
-    websites_none: WebsiteWhereInput | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    AND: UserWhereInput[];
-    OR: UserWhereInput[];
-    NOT: UserWhereInput[];
-  }
-  export interface TypefaceWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    downloadUrl: string | null;
-    downloadUrl_not: string | null;
-    downloadUrl_in: string[];
-    downloadUrl_not_in: string[];
-    downloadUrl_lt: string | null;
-    downloadUrl_lte: string | null;
-    downloadUrl_gt: string | null;
-    downloadUrl_gte: string | null;
-    downloadUrl_contains: string | null;
-    downloadUrl_not_contains: string | null;
-    downloadUrl_starts_with: string | null;
-    downloadUrl_not_starts_with: string | null;
-    downloadUrl_ends_with: string | null;
-    downloadUrl_not_ends_with: string | null;
-    description: string | null;
-    description_not: string | null;
-    description_in: string[];
-    description_not_in: string[];
-    description_lt: string | null;
-    description_lte: string | null;
-    description_gt: string | null;
-    description_gte: string | null;
-    description_contains: string | null;
-    description_not_contains: string | null;
-    description_starts_with: string | null;
-    description_not_starts_with: string | null;
-    description_ends_with: string | null;
-    description_not_ends_with: string | null;
-    slug: string | null;
-    slug_not: string | null;
-    slug_in: string[];
-    slug_not_in: string[];
-    slug_lt: string | null;
-    slug_lte: string | null;
-    slug_gt: string | null;
-    slug_gte: string | null;
-    slug_contains: string | null;
-    slug_not_contains: string | null;
-    slug_starts_with: string | null;
-    slug_not_starts_with: string | null;
-    slug_ends_with: string | null;
-    slug_not_ends_with: string | null;
-    usedBy_every: WebsiteWhereInput | null;
-    usedBy_some: WebsiteWhereInput | null;
-    usedBy_none: WebsiteWhereInput | null;
-    addedBy: UserWhereInput | null;
-    foundries_every: FoundryWhereInput | null;
-    foundries_some: FoundryWhereInput | null;
-    foundries_none: FoundryWhereInput | null;
-    designers_every: DesignerWhereInput | null;
-    designers_some: DesignerWhereInput | null;
-    designers_none: DesignerWhereInput | null;
-    AND: TypefaceWhereInput[];
-    OR: TypefaceWhereInput[];
-    NOT: TypefaceWhereInput[];
-  }
-  export interface FoundryWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: FoundryWhereInput[];
-    OR: FoundryWhereInput[];
-    NOT: FoundryWhereInput[];
-  }
-  export interface DesignerWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: DesignerWhereInput[];
-    OR: DesignerWhereInput[];
-    NOT: DesignerWhereInput[];
-  }
-  export interface TagWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    website_every: WebsiteWhereInput | null;
-    website_some: WebsiteWhereInput | null;
-    website_none: WebsiteWhereInput | null;
-    AND: TagWhereInput[];
-    OR: TagWhereInput[];
-    NOT: TagWhereInput[];
+    typeface: TypefaceWhereInput | null;
   }
   export interface FileWhereInput {
+    AND: FileWhereInput[];
+    OR: FileWhereInput[];
+    NOT: FileWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -1673,9 +1423,307 @@ export namespace TypefaceResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    AND: FileWhereInput[];
-    OR: FileWhereInput[];
-    NOT: FileWhereInput[];
+  }
+  export interface TypefaceWhereInput {
+    AND: TypefaceWhereInput[];
+    OR: TypefaceWhereInput[];
+    NOT: TypefaceWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    downloadUrl: string | null;
+    downloadUrl_not: string | null;
+    downloadUrl_in: string[];
+    downloadUrl_not_in: string[];
+    downloadUrl_lt: string | null;
+    downloadUrl_lte: string | null;
+    downloadUrl_gt: string | null;
+    downloadUrl_gte: string | null;
+    downloadUrl_contains: string | null;
+    downloadUrl_not_contains: string | null;
+    downloadUrl_starts_with: string | null;
+    downloadUrl_not_starts_with: string | null;
+    downloadUrl_ends_with: string | null;
+    downloadUrl_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    slug: string | null;
+    slug_not: string | null;
+    slug_in: string[];
+    slug_not_in: string[];
+    slug_lt: string | null;
+    slug_lte: string | null;
+    slug_gt: string | null;
+    slug_gte: string | null;
+    slug_contains: string | null;
+    slug_not_contains: string | null;
+    slug_starts_with: string | null;
+    slug_not_starts_with: string | null;
+    slug_ends_with: string | null;
+    slug_not_ends_with: string | null;
+    usedBy_every: WebsiteWhereInput | null;
+    usedBy_some: WebsiteWhereInput | null;
+    usedBy_none: WebsiteWhereInput | null;
+    addedBy: UserWhereInput | null;
+    foundries_every: FoundryWhereInput | null;
+    foundries_some: FoundryWhereInput | null;
+    foundries_none: FoundryWhereInput | null;
+    designers_every: DesignerWhereInput | null;
+    designers_some: DesignerWhereInput | null;
+    designers_none: DesignerWhereInput | null;
+    tags_every: TagWhereInput | null;
+    tags_some: TagWhereInput | null;
+    tags_none: TagWhereInput | null;
+    images: ImagesWhereInput | null;
+  }
+  export interface UserWhereInput {
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    email: string | null;
+    email_not: string | null;
+    email_in: string[];
+    email_not_in: string[];
+    email_lt: string | null;
+    email_lte: string | null;
+    email_gt: string | null;
+    email_gte: string | null;
+    email_contains: string | null;
+    email_not_contains: string | null;
+    email_starts_with: string | null;
+    email_not_starts_with: string | null;
+    email_ends_with: string | null;
+    email_not_ends_with: string | null;
+    password: string | null;
+    password_not: string | null;
+    password_in: string[];
+    password_not_in: string[];
+    password_lt: string | null;
+    password_lte: string | null;
+    password_gt: string | null;
+    password_gte: string | null;
+    password_contains: string | null;
+    password_not_contains: string | null;
+    password_starts_with: string | null;
+    password_not_starts_with: string | null;
+    password_ends_with: string | null;
+    password_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    role: Role | null;
+    role_not: Role | null;
+    role_in: Role[];
+    role_not_in: Role[];
+    websites_every: WebsiteWhereInput | null;
+    websites_some: WebsiteWhereInput | null;
+    websites_none: WebsiteWhereInput | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+  }
+  export interface FoundryWhereInput {
+    AND: FoundryWhereInput[];
+    OR: FoundryWhereInput[];
+    NOT: FoundryWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
+  }
+  export interface DesignerWhereInput {
+    AND: DesignerWhereInput[];
+    OR: DesignerWhereInput[];
+    NOT: DesignerWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
+  }
+  export interface TagWhereInput {
+    AND: TagWhereInput[];
+    OR: TagWhereInput[];
+    NOT: TagWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    website_every: WebsiteWhereInput | null;
+    website_some: WebsiteWhereInput | null;
+    website_none: WebsiteWhereInput | null;
+    typeface_every: TypefaceWhereInput | null;
+    typeface_some: TypefaceWhereInput | null;
+    typeface_none: TypefaceWhereInput | null;
   }
 
   export interface ArgsUsedBy {
@@ -1701,6 +1749,16 @@ export namespace TypefaceResolvers {
   export interface ArgsDesigners {
     where: DesignerWhereInput | null;
     orderBy: DesignerOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsTags {
+    where: TagWhereInput | null;
+    orderBy: TagOrderByInput | null;
     skip: number | null;
     after: string | null;
     before: string | null;
@@ -1771,6 +1829,20 @@ export namespace TypefaceResolvers {
     info: GraphQLResolveInfo
   ) => Designer[] | Promise<Designer[]>;
 
+  export type TagsResolver = (
+    parent: Typeface,
+    args: ArgsTags,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Tag[] | Promise<Tag[]>;
+
+  export type ImagesResolver = (
+    parent: Typeface,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Images | null | Promise<Images | null>;
+
   export interface Type {
     id: (
       parent: Typeface,
@@ -1834,6 +1906,20 @@ export namespace TypefaceResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Designer[] | Promise<Designer[]>;
+
+    tags: (
+      parent: Typeface,
+      args: ArgsTags,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Tag[] | Promise<Tag[]>;
+
+    images: (
+      parent: Typeface,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Images | null | Promise<Images | null>;
   }
 }
 
@@ -1845,6 +1931,9 @@ export namespace FoundryResolvers {
   };
 
   export interface TypefaceWhereInput {
+    AND: TypefaceWhereInput[];
+    OR: TypefaceWhereInput[];
+    NOT: TypefaceWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -1925,11 +2014,15 @@ export namespace FoundryResolvers {
     designers_every: DesignerWhereInput | null;
     designers_some: DesignerWhereInput | null;
     designers_none: DesignerWhereInput | null;
-    AND: TypefaceWhereInput[];
-    OR: TypefaceWhereInput[];
-    NOT: TypefaceWhereInput[];
+    tags_every: TagWhereInput | null;
+    tags_some: TagWhereInput | null;
+    tags_none: TagWhereInput | null;
+    images: ImagesWhereInput | null;
   }
   export interface WebsiteWhereInput {
+    AND: WebsiteWhereInput[];
+    OR: WebsiteWhereInput[];
+    NOT: WebsiteWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -1968,7 +2061,6 @@ export namespace FoundryResolvers {
     title_not_starts_with: string | null;
     title_ends_with: string | null;
     title_not_ends_with: string | null;
-    images: ImagesWhereInput | null;
     slug: string | null;
     slug_not: string | null;
     slug_in: string[];
@@ -1997,20 +2089,21 @@ export namespace FoundryResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
+    featured: boolean | null;
+    featured_not: boolean | null;
+    images: ImagesWhereInput | null;
     addedBy: UserWhereInput | null;
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    featured: boolean | null;
-    featured_not: boolean | null;
     tags_every: TagWhereInput | null;
     tags_some: TagWhereInput | null;
     tags_none: TagWhereInput | null;
-    AND: WebsiteWhereInput[];
-    OR: WebsiteWhereInput[];
-    NOT: WebsiteWhereInput[];
   }
   export interface ImagesWhereInput {
+    AND: ImagesWhereInput[];
+    OR: ImagesWhereInput[];
+    NOT: ImagesWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2028,11 +2121,12 @@ export namespace FoundryResolvers {
     website: WebsiteWhereInput | null;
     thumbnail: FileWhereInput | null;
     full: FileWhereInput | null;
-    AND: ImagesWhereInput[];
-    OR: ImagesWhereInput[];
-    NOT: ImagesWhereInput[];
+    typeface: TypefaceWhereInput | null;
   }
   export interface FileWhereInput {
+    AND: FileWhereInput[];
+    OR: FileWhereInput[];
+    NOT: FileWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2119,11 +2213,11 @@ export namespace FoundryResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    AND: FileWhereInput[];
-    OR: FileWhereInput[];
-    NOT: FileWhereInput[];
   }
   export interface UserWhereInput {
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2190,113 +2284,11 @@ export namespace FoundryResolvers {
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    AND: UserWhereInput[];
-    OR: UserWhereInput[];
-    NOT: UserWhereInput[];
-  }
-  export interface FoundryWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: FoundryWhereInput[];
-    OR: FoundryWhereInput[];
-    NOT: FoundryWhereInput[];
-  }
-  export interface DesignerWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: DesignerWhereInput[];
-    OR: DesignerWhereInput[];
-    NOT: DesignerWhereInput[];
   }
   export interface TagWhereInput {
+    AND: TagWhereInput[];
+    OR: TagWhereInput[];
+    NOT: TagWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2328,9 +2320,111 @@ export namespace FoundryResolvers {
     website_every: WebsiteWhereInput | null;
     website_some: WebsiteWhereInput | null;
     website_none: WebsiteWhereInput | null;
-    AND: TagWhereInput[];
-    OR: TagWhereInput[];
-    NOT: TagWhereInput[];
+    typeface_every: TypefaceWhereInput | null;
+    typeface_some: TypefaceWhereInput | null;
+    typeface_none: TypefaceWhereInput | null;
+  }
+  export interface FoundryWhereInput {
+    AND: FoundryWhereInput[];
+    OR: FoundryWhereInput[];
+    NOT: FoundryWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
+  }
+  export interface DesignerWhereInput {
+    AND: DesignerWhereInput[];
+    OR: DesignerWhereInput[];
+    NOT: DesignerWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
   }
 
   export interface ArgsTypefaces {
@@ -2424,6 +2518,9 @@ export namespace DesignerResolvers {
   };
 
   export interface TypefaceWhereInput {
+    AND: TypefaceWhereInput[];
+    OR: TypefaceWhereInput[];
+    NOT: TypefaceWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2504,11 +2601,15 @@ export namespace DesignerResolvers {
     designers_every: DesignerWhereInput | null;
     designers_some: DesignerWhereInput | null;
     designers_none: DesignerWhereInput | null;
-    AND: TypefaceWhereInput[];
-    OR: TypefaceWhereInput[];
-    NOT: TypefaceWhereInput[];
+    tags_every: TagWhereInput | null;
+    tags_some: TagWhereInput | null;
+    tags_none: TagWhereInput | null;
+    images: ImagesWhereInput | null;
   }
   export interface WebsiteWhereInput {
+    AND: WebsiteWhereInput[];
+    OR: WebsiteWhereInput[];
+    NOT: WebsiteWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2547,7 +2648,6 @@ export namespace DesignerResolvers {
     title_not_starts_with: string | null;
     title_ends_with: string | null;
     title_not_ends_with: string | null;
-    images: ImagesWhereInput | null;
     slug: string | null;
     slug_not: string | null;
     slug_in: string[];
@@ -2576,20 +2676,21 @@ export namespace DesignerResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
+    featured: boolean | null;
+    featured_not: boolean | null;
+    images: ImagesWhereInput | null;
     addedBy: UserWhereInput | null;
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    featured: boolean | null;
-    featured_not: boolean | null;
     tags_every: TagWhereInput | null;
     tags_some: TagWhereInput | null;
     tags_none: TagWhereInput | null;
-    AND: WebsiteWhereInput[];
-    OR: WebsiteWhereInput[];
-    NOT: WebsiteWhereInput[];
   }
   export interface ImagesWhereInput {
+    AND: ImagesWhereInput[];
+    OR: ImagesWhereInput[];
+    NOT: ImagesWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2607,11 +2708,12 @@ export namespace DesignerResolvers {
     website: WebsiteWhereInput | null;
     thumbnail: FileWhereInput | null;
     full: FileWhereInput | null;
-    AND: ImagesWhereInput[];
-    OR: ImagesWhereInput[];
-    NOT: ImagesWhereInput[];
+    typeface: TypefaceWhereInput | null;
   }
   export interface FileWhereInput {
+    AND: FileWhereInput[];
+    OR: FileWhereInput[];
+    NOT: FileWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2698,11 +2800,11 @@ export namespace DesignerResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    AND: FileWhereInput[];
-    OR: FileWhereInput[];
-    NOT: FileWhereInput[];
   }
   export interface UserWhereInput {
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2769,113 +2871,11 @@ export namespace DesignerResolvers {
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    AND: UserWhereInput[];
-    OR: UserWhereInput[];
-    NOT: UserWhereInput[];
-  }
-  export interface FoundryWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: FoundryWhereInput[];
-    OR: FoundryWhereInput[];
-    NOT: FoundryWhereInput[];
-  }
-  export interface DesignerWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: DesignerWhereInput[];
-    OR: DesignerWhereInput[];
-    NOT: DesignerWhereInput[];
   }
   export interface TagWhereInput {
+    AND: TagWhereInput[];
+    OR: TagWhereInput[];
+    NOT: TagWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -2907,9 +2907,111 @@ export namespace DesignerResolvers {
     website_every: WebsiteWhereInput | null;
     website_some: WebsiteWhereInput | null;
     website_none: WebsiteWhereInput | null;
-    AND: TagWhereInput[];
-    OR: TagWhereInput[];
-    NOT: TagWhereInput[];
+    typeface_every: TypefaceWhereInput | null;
+    typeface_some: TypefaceWhereInput | null;
+    typeface_none: TypefaceWhereInput | null;
+  }
+  export interface FoundryWhereInput {
+    AND: FoundryWhereInput[];
+    OR: FoundryWhereInput[];
+    NOT: FoundryWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
+  }
+  export interface DesignerWhereInput {
+    AND: DesignerWhereInput[];
+    OR: DesignerWhereInput[];
+    NOT: DesignerWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
   }
 
   export interface ArgsTypefaces {
@@ -3002,6 +3104,9 @@ export namespace TagResolvers {
   };
 
   export interface WebsiteWhereInput {
+    AND: WebsiteWhereInput[];
+    OR: WebsiteWhereInput[];
+    NOT: WebsiteWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -3040,7 +3145,6 @@ export namespace TagResolvers {
     title_not_starts_with: string | null;
     title_ends_with: string | null;
     title_not_ends_with: string | null;
-    images: ImagesWhereInput | null;
     slug: string | null;
     slug_not: string | null;
     slug_in: string[];
@@ -3069,20 +3173,21 @@ export namespace TagResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
+    featured: boolean | null;
+    featured_not: boolean | null;
+    images: ImagesWhereInput | null;
     addedBy: UserWhereInput | null;
     typefaces_every: TypefaceWhereInput | null;
     typefaces_some: TypefaceWhereInput | null;
     typefaces_none: TypefaceWhereInput | null;
-    featured: boolean | null;
-    featured_not: boolean | null;
     tags_every: TagWhereInput | null;
     tags_some: TagWhereInput | null;
     tags_none: TagWhereInput | null;
-    AND: WebsiteWhereInput[];
-    OR: WebsiteWhereInput[];
-    NOT: WebsiteWhereInput[];
   }
   export interface ImagesWhereInput {
+    AND: ImagesWhereInput[];
+    OR: ImagesWhereInput[];
+    NOT: ImagesWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -3100,305 +3205,12 @@ export namespace TagResolvers {
     website: WebsiteWhereInput | null;
     thumbnail: FileWhereInput | null;
     full: FileWhereInput | null;
-    AND: ImagesWhereInput[];
-    OR: ImagesWhereInput[];
-    NOT: ImagesWhereInput[];
-  }
-  export interface UserWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    email: string | null;
-    email_not: string | null;
-    email_in: string[];
-    email_not_in: string[];
-    email_lt: string | null;
-    email_lte: string | null;
-    email_gt: string | null;
-    email_gte: string | null;
-    email_contains: string | null;
-    email_not_contains: string | null;
-    email_starts_with: string | null;
-    email_not_starts_with: string | null;
-    email_ends_with: string | null;
-    email_not_ends_with: string | null;
-    password: string | null;
-    password_not: string | null;
-    password_in: string[];
-    password_not_in: string[];
-    password_lt: string | null;
-    password_lte: string | null;
-    password_gt: string | null;
-    password_gte: string | null;
-    password_contains: string | null;
-    password_not_contains: string | null;
-    password_starts_with: string | null;
-    password_not_starts_with: string | null;
-    password_ends_with: string | null;
-    password_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    role: Role | null;
-    role_not: Role | null;
-    role_in: Role[];
-    role_not_in: Role[];
-    websites_every: WebsiteWhereInput | null;
-    websites_some: WebsiteWhereInput | null;
-    websites_none: WebsiteWhereInput | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    AND: UserWhereInput[];
-    OR: UserWhereInput[];
-    NOT: UserWhereInput[];
-  }
-  export interface TypefaceWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    downloadUrl: string | null;
-    downloadUrl_not: string | null;
-    downloadUrl_in: string[];
-    downloadUrl_not_in: string[];
-    downloadUrl_lt: string | null;
-    downloadUrl_lte: string | null;
-    downloadUrl_gt: string | null;
-    downloadUrl_gte: string | null;
-    downloadUrl_contains: string | null;
-    downloadUrl_not_contains: string | null;
-    downloadUrl_starts_with: string | null;
-    downloadUrl_not_starts_with: string | null;
-    downloadUrl_ends_with: string | null;
-    downloadUrl_not_ends_with: string | null;
-    description: string | null;
-    description_not: string | null;
-    description_in: string[];
-    description_not_in: string[];
-    description_lt: string | null;
-    description_lte: string | null;
-    description_gt: string | null;
-    description_gte: string | null;
-    description_contains: string | null;
-    description_not_contains: string | null;
-    description_starts_with: string | null;
-    description_not_starts_with: string | null;
-    description_ends_with: string | null;
-    description_not_ends_with: string | null;
-    slug: string | null;
-    slug_not: string | null;
-    slug_in: string[];
-    slug_not_in: string[];
-    slug_lt: string | null;
-    slug_lte: string | null;
-    slug_gt: string | null;
-    slug_gte: string | null;
-    slug_contains: string | null;
-    slug_not_contains: string | null;
-    slug_starts_with: string | null;
-    slug_not_starts_with: string | null;
-    slug_ends_with: string | null;
-    slug_not_ends_with: string | null;
-    usedBy_every: WebsiteWhereInput | null;
-    usedBy_some: WebsiteWhereInput | null;
-    usedBy_none: WebsiteWhereInput | null;
-    addedBy: UserWhereInput | null;
-    foundries_every: FoundryWhereInput | null;
-    foundries_some: FoundryWhereInput | null;
-    foundries_none: FoundryWhereInput | null;
-    designers_every: DesignerWhereInput | null;
-    designers_some: DesignerWhereInput | null;
-    designers_none: DesignerWhereInput | null;
-    AND: TypefaceWhereInput[];
-    OR: TypefaceWhereInput[];
-    NOT: TypefaceWhereInput[];
-  }
-  export interface FoundryWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: FoundryWhereInput[];
-    OR: FoundryWhereInput[];
-    NOT: FoundryWhereInput[];
-  }
-  export interface DesignerWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    url: string | null;
-    url_not: string | null;
-    url_in: string[];
-    url_not_in: string[];
-    url_lt: string | null;
-    url_lte: string | null;
-    url_gt: string | null;
-    url_gte: string | null;
-    url_contains: string | null;
-    url_not_contains: string | null;
-    url_starts_with: string | null;
-    url_not_starts_with: string | null;
-    url_ends_with: string | null;
-    url_not_ends_with: string | null;
-    typefaces_every: TypefaceWhereInput | null;
-    typefaces_some: TypefaceWhereInput | null;
-    typefaces_none: TypefaceWhereInput | null;
-    addedBy: UserWhereInput | null;
-    AND: DesignerWhereInput[];
-    OR: DesignerWhereInput[];
-    NOT: DesignerWhereInput[];
-  }
-  export interface TagWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    website_every: WebsiteWhereInput | null;
-    website_some: WebsiteWhereInput | null;
-    website_none: WebsiteWhereInput | null;
-    AND: TagWhereInput[];
-    OR: TagWhereInput[];
-    NOT: TagWhereInput[];
+    typeface: TypefaceWhereInput | null;
   }
   export interface FileWhereInput {
+    AND: FileWhereInput[];
+    OR: FileWhereInput[];
+    NOT: FileWhereInput[];
     id: string | null;
     id_not: string | null;
     id_in: string[];
@@ -3485,14 +3297,322 @@ export namespace TagResolvers {
     url_not_starts_with: string | null;
     url_ends_with: string | null;
     url_not_ends_with: string | null;
-    AND: FileWhereInput[];
-    OR: FileWhereInput[];
-    NOT: FileWhereInput[];
+  }
+  export interface TypefaceWhereInput {
+    AND: TypefaceWhereInput[];
+    OR: TypefaceWhereInput[];
+    NOT: TypefaceWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    downloadUrl: string | null;
+    downloadUrl_not: string | null;
+    downloadUrl_in: string[];
+    downloadUrl_not_in: string[];
+    downloadUrl_lt: string | null;
+    downloadUrl_lte: string | null;
+    downloadUrl_gt: string | null;
+    downloadUrl_gte: string | null;
+    downloadUrl_contains: string | null;
+    downloadUrl_not_contains: string | null;
+    downloadUrl_starts_with: string | null;
+    downloadUrl_not_starts_with: string | null;
+    downloadUrl_ends_with: string | null;
+    downloadUrl_not_ends_with: string | null;
+    description: string | null;
+    description_not: string | null;
+    description_in: string[];
+    description_not_in: string[];
+    description_lt: string | null;
+    description_lte: string | null;
+    description_gt: string | null;
+    description_gte: string | null;
+    description_contains: string | null;
+    description_not_contains: string | null;
+    description_starts_with: string | null;
+    description_not_starts_with: string | null;
+    description_ends_with: string | null;
+    description_not_ends_with: string | null;
+    slug: string | null;
+    slug_not: string | null;
+    slug_in: string[];
+    slug_not_in: string[];
+    slug_lt: string | null;
+    slug_lte: string | null;
+    slug_gt: string | null;
+    slug_gte: string | null;
+    slug_contains: string | null;
+    slug_not_contains: string | null;
+    slug_starts_with: string | null;
+    slug_not_starts_with: string | null;
+    slug_ends_with: string | null;
+    slug_not_ends_with: string | null;
+    usedBy_every: WebsiteWhereInput | null;
+    usedBy_some: WebsiteWhereInput | null;
+    usedBy_none: WebsiteWhereInput | null;
+    addedBy: UserWhereInput | null;
+    foundries_every: FoundryWhereInput | null;
+    foundries_some: FoundryWhereInput | null;
+    foundries_none: FoundryWhereInput | null;
+    designers_every: DesignerWhereInput | null;
+    designers_some: DesignerWhereInput | null;
+    designers_none: DesignerWhereInput | null;
+    tags_every: TagWhereInput | null;
+    tags_some: TagWhereInput | null;
+    tags_none: TagWhereInput | null;
+    images: ImagesWhereInput | null;
+  }
+  export interface UserWhereInput {
+    AND: UserWhereInput[];
+    OR: UserWhereInput[];
+    NOT: UserWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    email: string | null;
+    email_not: string | null;
+    email_in: string[];
+    email_not_in: string[];
+    email_lt: string | null;
+    email_lte: string | null;
+    email_gt: string | null;
+    email_gte: string | null;
+    email_contains: string | null;
+    email_not_contains: string | null;
+    email_starts_with: string | null;
+    email_not_starts_with: string | null;
+    email_ends_with: string | null;
+    email_not_ends_with: string | null;
+    password: string | null;
+    password_not: string | null;
+    password_in: string[];
+    password_not_in: string[];
+    password_lt: string | null;
+    password_lte: string | null;
+    password_gt: string | null;
+    password_gte: string | null;
+    password_contains: string | null;
+    password_not_contains: string | null;
+    password_starts_with: string | null;
+    password_not_starts_with: string | null;
+    password_ends_with: string | null;
+    password_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    role: Role | null;
+    role_not: Role | null;
+    role_in: Role[];
+    role_not_in: Role[];
+    websites_every: WebsiteWhereInput | null;
+    websites_some: WebsiteWhereInput | null;
+    websites_none: WebsiteWhereInput | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+  }
+  export interface FoundryWhereInput {
+    AND: FoundryWhereInput[];
+    OR: FoundryWhereInput[];
+    NOT: FoundryWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
+  }
+  export interface DesignerWhereInput {
+    AND: DesignerWhereInput[];
+    OR: DesignerWhereInput[];
+    NOT: DesignerWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    url: string | null;
+    url_not: string | null;
+    url_in: string[];
+    url_not_in: string[];
+    url_lt: string | null;
+    url_lte: string | null;
+    url_gt: string | null;
+    url_gte: string | null;
+    url_contains: string | null;
+    url_not_contains: string | null;
+    url_starts_with: string | null;
+    url_not_starts_with: string | null;
+    url_ends_with: string | null;
+    url_not_ends_with: string | null;
+    typefaces_every: TypefaceWhereInput | null;
+    typefaces_some: TypefaceWhereInput | null;
+    typefaces_none: TypefaceWhereInput | null;
+    addedBy: UserWhereInput | null;
+  }
+  export interface TagWhereInput {
+    AND: TagWhereInput[];
+    OR: TagWhereInput[];
+    NOT: TagWhereInput[];
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    website_every: WebsiteWhereInput | null;
+    website_some: WebsiteWhereInput | null;
+    website_none: WebsiteWhereInput | null;
+    typeface_every: TypefaceWhereInput | null;
+    typeface_some: TypefaceWhereInput | null;
+    typeface_none: TypefaceWhereInput | null;
   }
 
   export interface ArgsWebsite {
     where: WebsiteWhereInput | null;
     orderBy: WebsiteOrderByInput | null;
+    skip: number | null;
+    after: string | null;
+    before: string | null;
+    first: number | null;
+    last: number | null;
+  }
+
+  export interface ArgsTypeface {
+    where: TypefaceWhereInput | null;
+    orderBy: TypefaceOrderByInput | null;
     skip: number | null;
     after: string | null;
     before: string | null;
@@ -3521,6 +3641,13 @@ export namespace TagResolvers {
     info: GraphQLResolveInfo
   ) => Website[] | Promise<Website[]>;
 
+  export type TypefaceResolver = (
+    parent: Tag,
+    args: ArgsTypeface,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Typeface[] | Promise<Typeface[]>;
+
   export interface Type {
     id: (
       parent: Tag,
@@ -3542,6 +3669,13 @@ export namespace TagResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Website[] | Promise<Website[]>;
+
+    typeface: (
+      parent: Tag,
+      args: ArgsTypeface,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Typeface[] | Promise<Typeface[]>;
   }
 }
 
@@ -3566,15 +3700,36 @@ export namespace MutationResolvers {
     typefaces: string[];
     tags: string[];
   }
-  export interface TypefaceCreateInput {
+  export interface AddTypefaceInput {
+    name: string;
+    downloadUrl: string;
+    description: string | null;
+    slug: string;
+    foundries: string[];
+    designers: string[];
+    tags: string[];
+    full: string;
+  }
+  export interface FoundryCreateInput {
+    name: string;
+    url: string;
+    typefaces: TypefaceCreateManyWithoutFoundriesInput | null;
+    addedBy: UserCreateOneInput;
+  }
+  export interface TypefaceCreateManyWithoutFoundriesInput {
+    create: TypefaceCreateWithoutFoundriesInput[];
+    connect: TypefaceWhereUniqueInput[];
+  }
+  export interface TypefaceCreateWithoutFoundriesInput {
     name: string;
     downloadUrl: string;
     description: string | null;
     slug: string;
     usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
     addedBy: UserCreateOneWithoutTypefacesInput;
-    foundries: FoundryCreateManyWithoutTypefacesInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
+    tags: TagCreateManyWithoutTypefaceInput | null;
+    images: ImagesCreateOneWithoutTypefaceInput | null;
   }
   export interface WebsiteCreateManyWithoutTypefacesInput {
     create: WebsiteCreateWithoutTypefacesInput[];
@@ -3583,11 +3738,11 @@ export namespace MutationResolvers {
   export interface WebsiteCreateWithoutTypefacesInput {
     isPublished: boolean | null;
     title: string;
-    images: ImagesCreateOneWithoutWebsiteInput | null;
     slug: string | null;
     url: string;
-    addedBy: UserCreateOneWithoutWebsitesInput;
     featured: boolean | null;
+    images: ImagesCreateOneWithoutWebsiteInput | null;
+    addedBy: UserCreateOneWithoutWebsitesInput;
     tags: TagCreateManyWithoutWebsiteInput | null;
   }
   export interface ImagesCreateOneWithoutWebsiteInput {
@@ -3597,6 +3752,7 @@ export namespace MutationResolvers {
   export interface ImagesCreateWithoutWebsiteInput {
     thumbnail: FileCreateOneInput | null;
     full: FileCreateOneInput | null;
+    typeface: TypefaceCreateOneWithoutImagesInput | null;
   }
   export interface FileCreateOneInput {
     create: FileCreateInput | null;
@@ -3612,32 +3768,60 @@ export namespace MutationResolvers {
     id: string | null;
     url: string | null;
   }
-  export interface ImagesWhereUniqueInput {
-    id: string | null;
+  export interface TypefaceCreateOneWithoutImagesInput {
+    create: TypefaceCreateWithoutImagesInput | null;
+    connect: TypefaceWhereUniqueInput | null;
   }
-  export interface UserCreateOneWithoutWebsitesInput {
-    create: UserCreateWithoutWebsitesInput | null;
-    connect: UserWhereUniqueInput | null;
-  }
-  export interface UserCreateWithoutWebsitesInput {
-    email: string;
-    password: string;
-    name: string;
-    role: Role | null;
-    typefaces: TypefaceCreateManyWithoutAddedByInput | null;
-  }
-  export interface TypefaceCreateManyWithoutAddedByInput {
-    create: TypefaceCreateWithoutAddedByInput[];
-    connect: TypefaceWhereUniqueInput[];
-  }
-  export interface TypefaceCreateWithoutAddedByInput {
+  export interface TypefaceCreateWithoutImagesInput {
     name: string;
     downloadUrl: string;
     description: string | null;
     slug: string;
     usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
+    addedBy: UserCreateOneWithoutTypefacesInput;
     foundries: FoundryCreateManyWithoutTypefacesInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
+    tags: TagCreateManyWithoutTypefaceInput | null;
+  }
+  export interface UserCreateOneWithoutTypefacesInput {
+    create: UserCreateWithoutTypefacesInput | null;
+    connect: UserWhereUniqueInput | null;
+  }
+  export interface UserCreateWithoutTypefacesInput {
+    email: string;
+    password: string;
+    name: string;
+    role: Role | null;
+    websites: WebsiteCreateManyWithoutAddedByInput | null;
+  }
+  export interface WebsiteCreateManyWithoutAddedByInput {
+    create: WebsiteCreateWithoutAddedByInput[];
+    connect: WebsiteWhereUniqueInput[];
+  }
+  export interface WebsiteCreateWithoutAddedByInput {
+    isPublished: boolean | null;
+    title: string;
+    slug: string | null;
+    url: string;
+    featured: boolean | null;
+    images: ImagesCreateOneWithoutWebsiteInput | null;
+    typefaces: TypefaceCreateManyWithoutUsedByInput | null;
+    tags: TagCreateManyWithoutWebsiteInput | null;
+  }
+  export interface TypefaceCreateManyWithoutUsedByInput {
+    create: TypefaceCreateWithoutUsedByInput[];
+    connect: TypefaceWhereUniqueInput[];
+  }
+  export interface TypefaceCreateWithoutUsedByInput {
+    name: string;
+    downloadUrl: string;
+    description: string | null;
+    slug: string;
+    addedBy: UserCreateOneWithoutTypefacesInput;
+    foundries: FoundryCreateManyWithoutTypefacesInput | null;
+    designers: DesignerCreateManyWithoutTypefacesInput | null;
+    tags: TagCreateManyWithoutTypefaceInput | null;
+    images: ImagesCreateOneWithoutTypefaceInput | null;
   }
   export interface FoundryCreateManyWithoutTypefacesInput {
     create: FoundryCreateWithoutTypefacesInput[];
@@ -3660,47 +3844,20 @@ export namespace MutationResolvers {
     websites: WebsiteCreateManyWithoutAddedByInput | null;
     typefaces: TypefaceCreateManyWithoutAddedByInput | null;
   }
-  export interface WebsiteCreateManyWithoutAddedByInput {
-    create: WebsiteCreateWithoutAddedByInput[];
-    connect: WebsiteWhereUniqueInput[];
-  }
-  export interface WebsiteCreateWithoutAddedByInput {
-    isPublished: boolean | null;
-    title: string;
-    images: ImagesCreateOneWithoutWebsiteInput | null;
-    slug: string | null;
-    url: string;
-    typefaces: TypefaceCreateManyWithoutUsedByInput | null;
-    featured: boolean | null;
-    tags: TagCreateManyWithoutWebsiteInput | null;
-  }
-  export interface TypefaceCreateManyWithoutUsedByInput {
-    create: TypefaceCreateWithoutUsedByInput[];
+  export interface TypefaceCreateManyWithoutAddedByInput {
+    create: TypefaceCreateWithoutAddedByInput[];
     connect: TypefaceWhereUniqueInput[];
   }
-  export interface TypefaceCreateWithoutUsedByInput {
+  export interface TypefaceCreateWithoutAddedByInput {
     name: string;
     downloadUrl: string;
     description: string | null;
     slug: string;
-    addedBy: UserCreateOneWithoutTypefacesInput;
+    usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
     foundries: FoundryCreateManyWithoutTypefacesInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
-  }
-  export interface UserCreateOneWithoutTypefacesInput {
-    create: UserCreateWithoutTypefacesInput | null;
-    connect: UserWhereUniqueInput | null;
-  }
-  export interface UserCreateWithoutTypefacesInput {
-    email: string;
-    password: string;
-    name: string;
-    role: Role | null;
-    websites: WebsiteCreateManyWithoutAddedByInput | null;
-  }
-  export interface UserWhereUniqueInput {
-    id: string | null;
-    email: string | null;
+    tags: TagCreateManyWithoutTypefaceInput | null;
+    images: ImagesCreateOneWithoutTypefaceInput | null;
   }
   export interface DesignerCreateManyWithoutTypefacesInput {
     create: DesignerCreateWithoutTypefacesInput[];
@@ -3715,10 +3872,73 @@ export namespace MutationResolvers {
     id: string | null;
     name: string | null;
   }
-  export interface TypefaceWhereUniqueInput {
-    id: string | null;
-    name: string | null;
+  export interface TagCreateManyWithoutTypefaceInput {
+    create: TagCreateWithoutTypefaceInput[];
+    connect: TagWhereUniqueInput[];
+  }
+  export interface TagCreateWithoutTypefaceInput {
+    name: string;
+    website: WebsiteCreateManyWithoutTagsInput | null;
+  }
+  export interface WebsiteCreateManyWithoutTagsInput {
+    create: WebsiteCreateWithoutTagsInput[];
+    connect: WebsiteWhereUniqueInput[];
+  }
+  export interface WebsiteCreateWithoutTagsInput {
+    isPublished: boolean | null;
+    title: string;
     slug: string | null;
+    url: string;
+    featured: boolean | null;
+    images: ImagesCreateOneWithoutWebsiteInput | null;
+    addedBy: UserCreateOneWithoutWebsitesInput;
+    typefaces: TypefaceCreateManyWithoutUsedByInput | null;
+  }
+  export interface UserCreateOneWithoutWebsitesInput {
+    create: UserCreateWithoutWebsitesInput | null;
+    connect: UserWhereUniqueInput | null;
+  }
+  export interface UserCreateWithoutWebsitesInput {
+    email: string;
+    password: string;
+    name: string;
+    role: Role | null;
+    typefaces: TypefaceCreateManyWithoutAddedByInput | null;
+  }
+  export interface UserWhereUniqueInput {
+    id: string | null;
+    email: string | null;
+  }
+  export interface WebsiteWhereUniqueInput {
+    id: string | null;
+    title: string | null;
+    slug: string | null;
+  }
+  export interface TagWhereUniqueInput {
+    id: string | null;
+  }
+  export interface ImagesCreateOneWithoutTypefaceInput {
+    create: ImagesCreateWithoutTypefaceInput | null;
+    connect: ImagesWhereUniqueInput | null;
+  }
+  export interface ImagesCreateWithoutTypefaceInput {
+    website: WebsiteCreateOneWithoutImagesInput | null;
+    thumbnail: FileCreateOneInput | null;
+    full: FileCreateOneInput | null;
+  }
+  export interface WebsiteCreateOneWithoutImagesInput {
+    create: WebsiteCreateWithoutImagesInput | null;
+    connect: WebsiteWhereUniqueInput | null;
+  }
+  export interface WebsiteCreateWithoutImagesInput {
+    isPublished: boolean | null;
+    title: string;
+    slug: string | null;
+    url: string;
+    featured: boolean | null;
+    addedBy: UserCreateOneWithoutWebsitesInput;
+    typefaces: TypefaceCreateManyWithoutUsedByInput | null;
+    tags: TagCreateManyWithoutWebsiteInput | null;
   }
   export interface TagCreateManyWithoutWebsiteInput {
     create: TagCreateWithoutWebsiteInput[];
@@ -3726,37 +3946,34 @@ export namespace MutationResolvers {
   }
   export interface TagCreateWithoutWebsiteInput {
     name: string;
+    typeface: TypefaceCreateManyWithoutTagsInput | null;
   }
-  export interface TagWhereUniqueInput {
-    id: string | null;
-  }
-  export interface WebsiteWhereUniqueInput {
-    id: string | null;
-    title: string | null;
-    slug: string | null;
-  }
-  export interface FoundryWhereUniqueInput {
-    id: string | null;
-    name: string | null;
-  }
-  export interface FoundryCreateInput {
-    name: string;
-    url: string;
-    typefaces: TypefaceCreateManyWithoutFoundriesInput | null;
-    addedBy: UserCreateOneInput;
-  }
-  export interface TypefaceCreateManyWithoutFoundriesInput {
-    create: TypefaceCreateWithoutFoundriesInput[];
+  export interface TypefaceCreateManyWithoutTagsInput {
+    create: TypefaceCreateWithoutTagsInput[];
     connect: TypefaceWhereUniqueInput[];
   }
-  export interface TypefaceCreateWithoutFoundriesInput {
+  export interface TypefaceCreateWithoutTagsInput {
     name: string;
     downloadUrl: string;
     description: string | null;
     slug: string;
     usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
     addedBy: UserCreateOneWithoutTypefacesInput;
+    foundries: FoundryCreateManyWithoutTypefacesInput | null;
     designers: DesignerCreateManyWithoutTypefacesInput | null;
+    images: ImagesCreateOneWithoutTypefaceInput | null;
+  }
+  export interface TypefaceWhereUniqueInput {
+    id: string | null;
+    name: string | null;
+    slug: string | null;
+  }
+  export interface ImagesWhereUniqueInput {
+    id: string | null;
+  }
+  export interface FoundryWhereUniqueInput {
+    id: string | null;
+    name: string | null;
   }
   export interface DesignerCreateInput {
     name: string;
@@ -3776,24 +3993,13 @@ export namespace MutationResolvers {
     usedBy: WebsiteCreateManyWithoutTypefacesInput | null;
     addedBy: UserCreateOneWithoutTypefacesInput;
     foundries: FoundryCreateManyWithoutTypefacesInput | null;
+    tags: TagCreateManyWithoutTypefaceInput | null;
+    images: ImagesCreateOneWithoutTypefaceInput | null;
   }
   export interface TagCreateInput {
     name: string;
     website: WebsiteCreateManyWithoutTagsInput | null;
-  }
-  export interface WebsiteCreateManyWithoutTagsInput {
-    create: WebsiteCreateWithoutTagsInput[];
-    connect: WebsiteWhereUniqueInput[];
-  }
-  export interface WebsiteCreateWithoutTagsInput {
-    isPublished: boolean | null;
-    title: string;
-    images: ImagesCreateOneWithoutWebsiteInput | null;
-    slug: string | null;
-    url: string;
-    addedBy: UserCreateOneWithoutWebsitesInput;
-    typefaces: TypefaceCreateManyWithoutUsedByInput | null;
-    featured: boolean | null;
+    typeface: TypefaceCreateManyWithoutTagsInput | null;
   }
 
   export interface ArgsSignup {
@@ -3816,7 +4022,7 @@ export namespace MutationResolvers {
   }
 
   export interface ArgsAddTypeface {
-    input: TypefaceCreateInput | null;
+    input: AddTypefaceInput | null;
   }
 
   export interface ArgsAddFoundry {

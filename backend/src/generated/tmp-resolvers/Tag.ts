@@ -9,4 +9,7 @@ export const Tag: TagResolvers.Type = {
   website: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  typeface: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };

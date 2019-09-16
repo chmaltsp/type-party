@@ -10,6 +10,7 @@ import { Field, FieldProps, Formik, FormikProps } from 'formik';
 
 import TagForm from '../../components/TagForm';
 import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
+import TagTypeahead from '../../components/TagTypeahead';
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
 import {
@@ -30,7 +31,6 @@ import {
 } from './__generated__/UpdateWebsite';
 import { EDIT_WEBISTE } from './queries';
 import { AddTypefaceButton, Form, LeftColumn, RightColumn, SubmitButton } from './styles';
-import TagTypeahead from './TagTypeahead';
 import TypefaceTypeahead from './TypefaceTypeahead';
 import { validationSchema } from './validationSchema';
 

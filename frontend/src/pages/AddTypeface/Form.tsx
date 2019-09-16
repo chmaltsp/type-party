@@ -11,6 +11,7 @@ import Input from '../../components/Input';
 
 import { AddDesigner_addDesigner } from 'src/components/DesignerForm/__generated__/AddDesigner';
 import { AddFoundry_addFoundry } from 'src/components/FoundryForm/__generated__/AddFoundry';
+import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import {
   AddTypeface,
   AddTypeface_addTypeface,
@@ -19,6 +20,11 @@ import {
 import DesignerTypeahead from './DesignerTypeahead';
 import FoundryTypeahead from './FoundryTypeahead';
 import { ADD_TYPEFACE } from './mutation';
+
+import MediaUpload from '../../components/MediaUpload';
+import TagForm from '../../components/TagForm';
+import TagTypeahead from '../../components/TagTypeahead';
+import { validationSchema } from './validationSchema';
 
 export interface TypefaceFormProps {
   handleSubmit?: (typeface: any) => void;
@@ -36,6 +42,12 @@ export interface InputValues {
   description: string;
   slug: string;
   name: string;
+  tags: AddTag_addTag[];
+  full: File | null;
+}
+
+interface ImageProps {
+  full: EditType | null;
 }
 
 const Form = styled.div`
@@ -61,13 +73,13 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
     this.setState({
       showDesignerForm: !this.state.showDesignerForm,
     });
-  }
+  };
 
   private toggleFoundryForm = () => {
     this.setState({
       showFoundryForm: !this.state.showFoundryForm,
     });
-  }
+  };
   public handleOnSubmit = async (values: InputValues) => {
     console.log(values);
 
@@ -87,11 +99,12 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                 id: foundry.id,
               })),
             },
+            tags: {
+              connect: values.tags.map(tag => ({ id: tag.id })),
+            },
           },
         },
       });
-
-      console.log(response);
 
       if (response && response.data && this.props.handleSubmit) {
         this.props.handleSubmit(response.data.addTypeface);
@@ -100,14 +113,22 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
       console.log(error);
     }
     // this.props.handleSubmit();
-  }
+  };
+
+  private handleAddTag = (formProps: FormikProps<InputValues>) => (
+    tag: AddTag_addTag
+  ) => {
+    console.log('in handleAddTag', tag);
+
+    formProps.setFieldValue('tags', [...formProps.values.tags, tag]);
+  };
 
   public handleAddNewFoundry = (formProps: FormikProps<InputValues>) => (
     foundry: AddFoundry_addFoundry
   ) => {
     formProps.setFieldValue('foundries', [...formProps.values.foundries, foundry]);
     this.toggleFoundryForm();
-  }
+  };
 
   public handleAddNewDesigner = (formProps: FormikProps<InputValues>) => (
     designer: AddDesigner_addDesigner
@@ -119,80 +140,116 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
 
     formProps.setFieldValue('designers', [...formProps.values.designers, newDesigner]);
     this.toggleDesignerForm();
-  }
+  };
 
   public render() {
     console.log(this.props);
     return (
-      <Formik<InputValues>
-        initialValues={{
-          description: '',
-          designers: [],
-          downloadUrl: '',
-          foundries: [],
-          name: '',
-          slug: '',
-        }}
-        onSubmit={this.handleOnSubmit}
-        render={(props: FormikProps<InputValues>) => {
-          return (
-            <Form>
-              <Field
-                name="name"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return <Input label="Typeface Name" {...fieldProps} />;
-                }}
-              />
-              <Field
-                name="downloadUrl"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return <Input label="Typeface Download Url" {...fieldProps} />;
-                }}
-              />
-              <Field
-                name="description"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return <Input textarea={true} label="Description" {...fieldProps} />;
-                }}
-              />
-              <DesignerTypeahead />
-              {!this.state.showDesignerForm && (
-                <div>
-                  <ButtonBase rounded={true} onClick={this.toggleDesignerForm}>
-                    + Add Designer
-                  </ButtonBase>
-                </div>
-              )}
-              {this.state.showDesignerForm && (
-                <DesignerForm handleSubmit={this.handleAddNewDesigner(props)} />
-              )}
-              <FoundryTypeahead />
-              {!this.state.showFoundryForm && (
-                <div>
-                  <ButtonBase
-                    rounded={true}
-                    type="button"
-                    onClick={this.toggleFoundryForm}
-                  >
-                    + Add Foundry
-                  </ButtonBase>
-                </div>
-              )}
-              {this.state.showFoundryForm && (
-                <FoundryForm
-                  handleSubmit={this.handleAddNewFoundry(props)}
-                  onCancel={this.toggleFoundryForm}
+      <div>
+        <Formik<InputValues>
+          initialValues={{
+            description: '',
+            designers: [],
+            downloadUrl: '',
+            foundries: [],
+            name: '',
+            slug: '',
+            tags: [],
+          }}
+          validationSchema={validationSchema}
+          onSubmit={this.handleOnSubmit}
+          render={(props: FormikProps<InputValues>) => {
+            return (
+              <Form>
+                <Field
+                  name="name"
+                  render={(fieldProps: FieldProps<InputValues>) => {
+                    return <Input label="Typeface Name" {...fieldProps} />;
+                  }}
                 />
-              )}
-              <ButtonWrapper>
-                <Publish type="button" black={true} onClick={props.submitForm}>
-                  Submit Typeface
-                </Publish>
-              </ButtonWrapper>
-            </Form>
-          );
-        }}
-      />
+                <Field
+                  name="downloadUrl"
+                  render={(fieldProps: FieldProps<InputValues>) => {
+                    return <Input label="Typeface Download Url" {...fieldProps} />;
+                  }}
+                />
+                <Field
+                  name="description"
+                  render={(fieldProps: FieldProps<InputValues>) => {
+                    return <Input textarea={true} label="Description" {...fieldProps} />;
+                  }}
+                />
+                <Field
+                  name="slug"
+                  render={(fieldProps: FieldProps<InputValues>) => {
+                    return (
+                      <Input
+                        label="Typeface Slug"
+                        placeholder="typeface-slug"
+                        {...fieldProps}
+                      />
+                    );
+                  }}
+                />
+                <Field
+                  name="full"
+                  render={(fieldProps: FieldProps<InputValues>) => {
+                    return (
+                      <MediaUpload
+                        label="Large Asset"
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                          const file =
+                            event.currentTarget.files && event.currentTarget.files[0];
+                          const { setFieldValue } = fieldProps.form;
+                          setFieldValue('full', file);
+                        }}
+                        previewUrl={(this.props.full && this.props.full.url) || undefined}
+                        {...props}
+                      />
+                    );
+                  }}
+                />
+                <TagTypeahead />
+                <TagForm handleSubmit={this.handleAddTag(props)} />
+                <DesignerTypeahead />
+                {!this.state.showDesignerForm && (
+                  <div>
+                    <ButtonBase rounded={true} onClick={this.toggleDesignerForm}>
+                      + Add Designer
+                    </ButtonBase>
+                  </div>
+                )}
+                {this.state.showDesignerForm && (
+                  <DesignerForm handleSubmit={this.handleAddNewDesigner(props)} />
+                )}
+                <FoundryTypeahead />
+                {!this.state.showFoundryForm && (
+                  <div>
+                    <ButtonBase
+                      rounded={true}
+                      type="button"
+                      onClick={this.toggleFoundryForm}
+                    >
+                      + Add Foundry
+                    </ButtonBase>
+                  </div>
+                )}
+                {this.state.showFoundryForm && (
+                  <FoundryForm
+                    handleSubmit={this.handleAddNewFoundry(props)}
+                    onCancel={this.toggleFoundryForm}
+                  />
+                )}
+                <ButtonWrapper>
+                  <Publish type="button" black={true} onClick={props.submitForm}>
+                    Submit Typeface
+                  </Publish>
+                </ButtonWrapper>
+              </Form>
+            );
+          }}
+        />
+      </div>
     );
   }
 }

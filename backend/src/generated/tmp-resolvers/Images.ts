@@ -15,4 +15,7 @@ export const Images: ImagesResolvers.Type = {
   full: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  typeface: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
 };

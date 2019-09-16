@@ -7,6 +7,7 @@ models:
     - ./src/generated/prisma-client/index.ts
     - ./src/types/auth.ts
     - ./src/types/website.ts
+    - ./src/types/typeface.ts
 
 
 output: ./src/generated/graphqlgen.ts

@@ -11,6 +11,17 @@ export enum Role {
   SUBSCRIBER = "SUBSCRIBER",
 }
 
+export interface AddTypefaceInput {
+  name: string;
+  downloadUrl: string;
+  description?: string | null;
+  slug: string;
+  foundries: string[];
+  designers: string[];
+  tags: string[];
+  full: any;
+}
+
 export interface AddWebsiteInput {
   full: any;
   thumbnail: any;
@@ -84,14 +95,26 @@ export interface FoundryWhereUniqueInput {
   name?: string | null;
 }
 
+export interface ImagesCreateOneWithoutTypefaceInput {
+  create?: ImagesCreateWithoutTypefaceInput | null;
+  connect?: ImagesWhereUniqueInput | null;
+}
+
 export interface ImagesCreateOneWithoutWebsiteInput {
   create?: ImagesCreateWithoutWebsiteInput | null;
   connect?: ImagesWhereUniqueInput | null;
 }
 
+export interface ImagesCreateWithoutTypefaceInput {
+  website?: WebsiteCreateOneWithoutImagesInput | null;
+  thumbnail?: FileCreateOneInput | null;
+  full?: FileCreateOneInput | null;
+}
+
 export interface ImagesCreateWithoutWebsiteInput {
   thumbnail?: FileCreateOneInput | null;
   full?: FileCreateOneInput | null;
+  typeface?: TypefaceCreateOneWithoutImagesInput | null;
 }
 
 export interface ImagesWhereUniqueInput {
@@ -101,6 +124,12 @@ export interface ImagesWhereUniqueInput {
 export interface TagCreateInput {
   name: string;
   website?: WebsiteCreateManyWithoutTagsInput | null;
+  typeface?: TypefaceCreateManyWithoutTagsInput | null;
+}
+
+export interface TagCreateManyWithoutTypefaceInput {
+  create?: TagCreateWithoutTypefaceInput[] | null;
+  connect?: TagWhereUniqueInput[] | null;
 }
 
 export interface TagCreateManyWithoutWebsiteInput {
@@ -108,23 +137,18 @@ export interface TagCreateManyWithoutWebsiteInput {
   connect?: TagWhereUniqueInput[] | null;
 }
 
+export interface TagCreateWithoutTypefaceInput {
+  name: string;
+  website?: WebsiteCreateManyWithoutTagsInput | null;
+}
+
 export interface TagCreateWithoutWebsiteInput {
   name: string;
+  typeface?: TypefaceCreateManyWithoutTagsInput | null;
 }
 
 export interface TagWhereUniqueInput {
   id?: string | null;
-}
-
-export interface TypefaceCreateInput {
-  name: string;
-  downloadUrl: string;
-  description?: string | null;
-  slug: string;
-  usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
-  addedBy: UserCreateOneWithoutTypefacesInput;
-  foundries?: FoundryCreateManyWithoutTypefacesInput | null;
-  designers?: DesignerCreateManyWithoutTypefacesInput | null;
 }
 
 export interface TypefaceCreateManyWithoutAddedByInput {
@@ -142,9 +166,19 @@ export interface TypefaceCreateManyWithoutFoundriesInput {
   connect?: TypefaceWhereUniqueInput[] | null;
 }
 
+export interface TypefaceCreateManyWithoutTagsInput {
+  create?: TypefaceCreateWithoutTagsInput[] | null;
+  connect?: TypefaceWhereUniqueInput[] | null;
+}
+
 export interface TypefaceCreateManyWithoutUsedByInput {
   create?: TypefaceCreateWithoutUsedByInput[] | null;
   connect?: TypefaceWhereUniqueInput[] | null;
+}
+
+export interface TypefaceCreateOneWithoutImagesInput {
+  create?: TypefaceCreateWithoutImagesInput | null;
+  connect?: TypefaceWhereUniqueInput | null;
 }
 
 export interface TypefaceCreateWithoutAddedByInput {
@@ -155,6 +189,8 @@ export interface TypefaceCreateWithoutAddedByInput {
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
   foundries?: FoundryCreateManyWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
+  tags?: TagCreateManyWithoutTypefaceInput | null;
+  images?: ImagesCreateOneWithoutTypefaceInput | null;
 }
 
 export interface TypefaceCreateWithoutDesignersInput {
@@ -165,6 +201,8 @@ export interface TypefaceCreateWithoutDesignersInput {
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
   addedBy: UserCreateOneWithoutTypefacesInput;
   foundries?: FoundryCreateManyWithoutTypefacesInput | null;
+  tags?: TagCreateManyWithoutTypefaceInput | null;
+  images?: ImagesCreateOneWithoutTypefaceInput | null;
 }
 
 export interface TypefaceCreateWithoutFoundriesInput {
@@ -175,6 +213,32 @@ export interface TypefaceCreateWithoutFoundriesInput {
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
   addedBy: UserCreateOneWithoutTypefacesInput;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
+  tags?: TagCreateManyWithoutTypefaceInput | null;
+  images?: ImagesCreateOneWithoutTypefaceInput | null;
+}
+
+export interface TypefaceCreateWithoutImagesInput {
+  name: string;
+  downloadUrl: string;
+  description?: string | null;
+  slug: string;
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
+  addedBy: UserCreateOneWithoutTypefacesInput;
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null;
+  designers?: DesignerCreateManyWithoutTypefacesInput | null;
+  tags?: TagCreateManyWithoutTypefaceInput | null;
+}
+
+export interface TypefaceCreateWithoutTagsInput {
+  name: string;
+  downloadUrl: string;
+  description?: string | null;
+  slug: string;
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput | null;
+  addedBy: UserCreateOneWithoutTypefacesInput;
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null;
+  designers?: DesignerCreateManyWithoutTypefacesInput | null;
+  images?: ImagesCreateOneWithoutTypefaceInput | null;
 }
 
 export interface TypefaceCreateWithoutUsedByInput {
@@ -185,6 +249,8 @@ export interface TypefaceCreateWithoutUsedByInput {
   addedBy: UserCreateOneWithoutTypefacesInput;
   foundries?: FoundryCreateManyWithoutTypefacesInput | null;
   designers?: DesignerCreateManyWithoutTypefacesInput | null;
+  tags?: TagCreateManyWithoutTypefaceInput | null;
+  images?: ImagesCreateOneWithoutTypefaceInput | null;
 }
 
 export interface TypefaceWhereUniqueInput {
@@ -263,36 +329,52 @@ export interface WebsiteCreateManyWithoutTypefacesInput {
   connect?: WebsiteWhereUniqueInput[] | null;
 }
 
+export interface WebsiteCreateOneWithoutImagesInput {
+  create?: WebsiteCreateWithoutImagesInput | null;
+  connect?: WebsiteWhereUniqueInput | null;
+}
+
 export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: boolean | null;
   title: string;
-  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
-  typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
   featured?: boolean | null;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
+  typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
+  tags?: TagCreateManyWithoutWebsiteInput | null;
+}
+
+export interface WebsiteCreateWithoutImagesInput {
+  isPublished?: boolean | null;
+  title: string;
+  slug?: string | null;
+  url: string;
+  featured?: boolean | null;
+  addedBy: UserCreateOneWithoutWebsitesInput;
+  typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
   tags?: TagCreateManyWithoutWebsiteInput | null;
 }
 
 export interface WebsiteCreateWithoutTagsInput {
   isPublished?: boolean | null;
   title: string;
-  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
+  featured?: boolean | null;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
   addedBy: UserCreateOneWithoutWebsitesInput;
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
-  featured?: boolean | null;
 }
 
 export interface WebsiteCreateWithoutTypefacesInput {
   isPublished?: boolean | null;
   title: string;
-  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
-  addedBy: UserCreateOneWithoutWebsitesInput;
   featured?: boolean | null;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
+  addedBy: UserCreateOneWithoutWebsitesInput;
   tags?: TagCreateManyWithoutWebsiteInput | null;
 }
 
