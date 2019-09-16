@@ -11,6 +11,9 @@ export const Query: QueryResolvers.Type = {
   users: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  website: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   websites: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
@@ -29,7 +32,7 @@ export const Query: QueryResolvers.Type = {
   findFoundries: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
-  website: (parent, args, ctx) => {
+  typeface: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
   typefaces: (parent, args, ctx) => {

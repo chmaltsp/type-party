@@ -9,13 +9,14 @@ import { Images } from './Images';
 import { foundry } from './mutations/foundry';
 
 import { Website } from './Website';
+import { Typeface } from './Typeface';
 import { User } from './User';
 import { Resolvers } from '../generated/graphqlgen';
 import { tag } from './mutations/tag';
 
 const resolvers: Pick<
   Resolvers,
-  'Query' | 'Mutation' | 'AuthPayload' | 'User' | 'Website' | 'Images'
+  'Query' | 'Mutation' | 'AuthPayload' | 'User' | 'Website' | 'Images' | 'Typeface'
 > = {
   Query,
   Mutation: {
@@ -31,6 +32,7 @@ const resolvers: Pick<
   User,
   Images,
   Website,
+  Typeface,
 };
 
 export default resolvers;

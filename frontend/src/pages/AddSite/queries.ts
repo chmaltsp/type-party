@@ -11,15 +11,6 @@ export const SEARCH_TYPEFACE = gql`
   }
 `;
 
-export const SEARCH_TAG = gql`
-  query FindTag($search: String!) {
-    findTags(search: $search) {
-      name
-      id
-    }
-  }
-`;
-
 export const EDIT_WEBISTE = gql`
   query EditWebsite($slug: String!) {
     website(slug: $slug) {

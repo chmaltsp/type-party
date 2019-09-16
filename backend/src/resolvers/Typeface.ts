@@ -1,27 +1,27 @@
 // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
 // Please do not import this file directly but copy & paste to your application code.
 
-import { TypefaceResolvers } from '../graphqlgen';
+import { TypefaceResolvers } from '../generated/graphqlgen';
 
 export const Typeface: TypefaceResolvers.Type = {
   ...TypefaceResolvers.defaultResolvers,
 
   usedBy: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented');
+    return ctx.client.typeface({ id: parent.id }).usedBy();
   },
   addedBy: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented');
+    return ctx.client.typeface({ id: parent.id }).addedBy();
   },
   foundries: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented');
+    return ctx.client.typeface({ id: parent.id }).foundries();
   },
   designers: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented');
+    return ctx.client.typeface({ id: parent.id }).designers();
   },
   tags: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented');
+    return ctx.client.typeface({ id: parent.id }).tags();
   },
   images: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented');
+    return ctx.client.typeface({ id: parent.id }).images();
   },
 };

@@ -72,4 +72,16 @@ export const Query: QueryResolvers.Type = {
 
     return ctx.client.website(input);
   },
+  typeface: async (parent, args, ctx) => {
+    const input = {
+      slug: args.slug,
+    };
+    const exists = await ctx.client.$exists.typeface(input);
+
+    if (!exists) {
+      throw new Error(`${args.slug} is not a typeface`);
+    }
+
+    return ctx.client.typeface(input);
+  },
 };

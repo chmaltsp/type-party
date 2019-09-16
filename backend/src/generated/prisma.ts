@@ -4,101 +4,101 @@ import { Options } from 'graphql-binding'
 import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
+    websites: <T = Array<Website | null>>(args: { where?: WebsiteWhereInput | null, orderBy?: WebsiteOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     imageses: <T = Array<Images | null>>(args: { where?: ImagesWhereInput | null, orderBy?: ImagesOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tags: <T = Array<Tag | null>>(args: { where?: TagWhereInput | null, orderBy?: TagOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     designers: <T = Array<Designer | null>>(args: { where?: DesignerWhereInput | null, orderBy?: DesignerOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     typefaces: <T = Array<Typeface | null>>(args: { where?: TypefaceWhereInput | null, orderBy?: TypefaceOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     foundries: <T = Array<Foundry | null>>(args: { where?: FoundryWhereInput | null, orderBy?: FoundryOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tags: <T = Array<Tag | null>>(args: { where?: TagWhereInput | null, orderBy?: TagOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    websites: <T = Array<Website | null>>(args: { where?: WebsiteWhereInput | null, orderBy?: WebsiteOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     files: <T = Array<File | null>>(args: { where?: FileWhereInput | null, orderBy?: FileOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = Array<User | null>>(args: { where?: UserWhereInput | null, orderBy?: UserOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    website: <T = Website | null>(args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     images: <T = Images | null>(args: { where: ImagesWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    tag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     designer: <T = Designer | null>(args: { where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     typeface: <T = Typeface | null>(args: { where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     foundry: <T = Foundry | null>(args: { where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    tag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    website: <T = Website | null>(args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     file: <T = File | null>(args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    websitesConnection: <T = WebsiteConnection>(args: { where?: WebsiteWhereInput | null, orderBy?: WebsiteOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     imagesesConnection: <T = ImagesConnection>(args: { where?: ImagesWhereInput | null, orderBy?: ImagesOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tagsConnection: <T = TagConnection>(args: { where?: TagWhereInput | null, orderBy?: TagOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     designersConnection: <T = DesignerConnection>(args: { where?: DesignerWhereInput | null, orderBy?: DesignerOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     typefacesConnection: <T = TypefaceConnection>(args: { where?: TypefaceWhereInput | null, orderBy?: TypefaceOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     foundriesConnection: <T = FoundryConnection>(args: { where?: FoundryWhereInput | null, orderBy?: FoundryOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tagsConnection: <T = TagConnection>(args: { where?: TagWhereInput | null, orderBy?: TagOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    websitesConnection: <T = WebsiteConnection>(args: { where?: WebsiteWhereInput | null, orderBy?: WebsiteOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     filesConnection: <T = FileConnection>(args: { where?: FileWhereInput | null, orderBy?: FileOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput | null, orderBy?: UserOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
   }
 
 export interface Mutation {
+    createWebsite: <T = Website>(args: { data: WebsiteCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createImages: <T = Images>(args: { data: ImagesCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createTag: <T = Tag>(args: { data: TagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createDesigner: <T = Designer>(args: { data: DesignerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createTypeface: <T = Typeface>(args: { data: TypefaceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createFoundry: <T = Foundry>(args: { data: FoundryCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createTag: <T = Tag>(args: { data: TagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createWebsite: <T = Website>(args: { data: WebsiteCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createFile: <T = File>(args: { data: FileCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateWebsite: <T = Website | null>(args: { data: WebsiteUpdateInput, where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateImages: <T = Images | null>(args: { data: ImagesUpdateInput, where: ImagesWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    updateTag: <T = Tag | null>(args: { data: TagUpdateInput, where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateDesigner: <T = Designer | null>(args: { data: DesignerUpdateInput, where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateTypeface: <T = Typeface | null>(args: { data: TypefaceUpdateInput, where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateFoundry: <T = Foundry | null>(args: { data: FoundryUpdateInput, where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    updateTag: <T = Tag | null>(args: { data: TagUpdateInput, where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    updateWebsite: <T = Website | null>(args: { data: WebsiteUpdateInput, where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateFile: <T = File | null>(args: { data: FileUpdateInput, where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    deleteWebsite: <T = Website | null>(args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteImages: <T = Images | null>(args: { where: ImagesWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    deleteTag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteDesigner: <T = Designer | null>(args: { where: DesignerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteTypeface: <T = Typeface | null>(args: { where: TypefaceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteFoundry: <T = Foundry | null>(args: { where: FoundryWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    deleteTag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    deleteWebsite: <T = Website | null>(args: { where: WebsiteWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteFile: <T = File | null>(args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    upsertWebsite: <T = Website>(args: { where: WebsiteWhereUniqueInput, create: WebsiteCreateInput, update: WebsiteUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertImages: <T = Images>(args: { where: ImagesWhereUniqueInput, create: ImagesCreateInput, update: ImagesUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertTag: <T = Tag>(args: { where: TagWhereUniqueInput, create: TagCreateInput, update: TagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertDesigner: <T = Designer>(args: { where: DesignerWhereUniqueInput, create: DesignerCreateInput, update: DesignerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertTypeface: <T = Typeface>(args: { where: TypefaceWhereUniqueInput, create: TypefaceCreateInput, update: TypefaceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFoundry: <T = Foundry>(args: { where: FoundryWhereUniqueInput, create: FoundryCreateInput, update: FoundryUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertTag: <T = Tag>(args: { where: TagWhereUniqueInput, create: TagCreateInput, update: TagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertWebsite: <T = Website>(args: { where: WebsiteWhereUniqueInput, create: WebsiteCreateInput, update: WebsiteUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFile: <T = File>(args: { where: FileWhereUniqueInput, create: FileCreateInput, update: FileUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyWebsites: <T = BatchPayload>(args: { data: WebsiteUpdateManyMutationInput, where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateManyMutationInput, where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDesigners: <T = BatchPayload>(args: { data: DesignerUpdateManyMutationInput, where?: DesignerWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyTypefaces: <T = BatchPayload>(args: { data: TypefaceUpdateManyMutationInput, where?: TypefaceWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyFoundries: <T = BatchPayload>(args: { data: FoundryUpdateManyMutationInput, where?: FoundryWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateManyMutationInput, where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyWebsites: <T = BatchPayload>(args: { data: WebsiteUpdateManyMutationInput, where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyFiles: <T = BatchPayload>(args: { data: FileUpdateManyMutationInput, where?: FileWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateManyMutationInput, where?: UserWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyWebsites: <T = BatchPayload>(args: { where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyImageses: <T = BatchPayload>(args: { where?: ImagesWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDesigners: <T = BatchPayload>(args: { where?: DesignerWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyTypefaces: <T = BatchPayload>(args: { where?: TypefaceWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyFoundries: <T = BatchPayload>(args: { where?: FoundryWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyWebsites: <T = BatchPayload>(args: { where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyFiles: <T = BatchPayload>(args: { where?: FileWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
+    website: <T = WebsiteSubscriptionPayload | null>(args: { where?: WebsiteSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     images: <T = ImagesSubscriptionPayload | null>(args: { where?: ImagesSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
+    tag: <T = TagSubscriptionPayload | null>(args: { where?: TagSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     designer: <T = DesignerSubscriptionPayload | null>(args: { where?: DesignerSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     typeface: <T = TypefaceSubscriptionPayload | null>(args: { where?: TypefaceSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     foundry: <T = FoundrySubscriptionPayload | null>(args: { where?: FoundrySubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
-    tag: <T = TagSubscriptionPayload | null>(args: { where?: TagSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
-    website: <T = WebsiteSubscriptionPayload | null>(args: { where?: WebsiteSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     file: <T = FileSubscriptionPayload | null>(args: { where?: FileSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> ,
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> 
   }
 
 export interface Exists {
+  Website: (where?: WebsiteWhereInput) => Promise<boolean>
   Images: (where?: ImagesWhereInput) => Promise<boolean>
+  Tag: (where?: TagWhereInput) => Promise<boolean>
   Designer: (where?: DesignerWhereInput) => Promise<boolean>
   Typeface: (where?: TypefaceWhereInput) => Promise<boolean>
   Foundry: (where?: FoundryWhereInput) => Promise<boolean>
-  Tag: (where?: TagWhereInput) => Promise<boolean>
-  Website: (where?: WebsiteWhereInput) => Promise<boolean>
   File: (where?: FileWhereInput) => Promise<boolean>
   User: (where?: UserWhereInput) => Promise<boolean>
 }
@@ -1421,6 +1421,7 @@ type Images implements Node {
   website: Website
   thumbnail: File
   full: File
+  typeface: Typeface
 }
 
 """A connection to a list of items."""
@@ -1437,6 +1438,12 @@ input ImagesCreateInput {
   website: WebsiteCreateOneWithoutImagesInput
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
+  typeface: TypefaceCreateOneWithoutImagesInput
+}
+
+input ImagesCreateOneWithoutTypefaceInput {
+  create: ImagesCreateWithoutTypefaceInput
+  connect: ImagesWhereUniqueInput
 }
 
 input ImagesCreateOneWithoutWebsiteInput {
@@ -1444,9 +1451,16 @@ input ImagesCreateOneWithoutWebsiteInput {
   connect: ImagesWhereUniqueInput
 }
 
+input ImagesCreateWithoutTypefaceInput {
+  website: WebsiteCreateOneWithoutImagesInput
+  thumbnail: FileCreateOneInput
+  full: FileCreateOneInput
+}
+
 input ImagesCreateWithoutWebsiteInput {
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
+  typeface: TypefaceCreateOneWithoutImagesInput
 }
 
 """An edge in a connection."""
@@ -1514,6 +1528,16 @@ input ImagesUpdateInput {
   website: WebsiteUpdateOneWithoutImagesInput
   thumbnail: FileUpdateOneInput
   full: FileUpdateOneInput
+  typeface: TypefaceUpdateOneWithoutImagesInput
+}
+
+input ImagesUpdateOneWithoutTypefaceInput {
+  create: ImagesCreateWithoutTypefaceInput
+  connect: ImagesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ImagesUpdateWithoutTypefaceDataInput
+  upsert: ImagesUpsertWithoutTypefaceInput
 }
 
 input ImagesUpdateOneWithoutWebsiteInput {
@@ -1525,9 +1549,21 @@ input ImagesUpdateOneWithoutWebsiteInput {
   upsert: ImagesUpsertWithoutWebsiteInput
 }
 
+input ImagesUpdateWithoutTypefaceDataInput {
+  website: WebsiteUpdateOneWithoutImagesInput
+  thumbnail: FileUpdateOneInput
+  full: FileUpdateOneInput
+}
+
 input ImagesUpdateWithoutWebsiteDataInput {
   thumbnail: FileUpdateOneInput
   full: FileUpdateOneInput
+  typeface: TypefaceUpdateOneWithoutImagesInput
+}
+
+input ImagesUpsertWithoutTypefaceInput {
+  update: ImagesUpdateWithoutTypefaceDataInput!
+  create: ImagesCreateWithoutTypefaceInput!
 }
 
 input ImagesUpsertWithoutWebsiteInput {
@@ -1587,6 +1623,7 @@ input ImagesWhereInput {
   website: WebsiteWhereInput
   thumbnail: FileWhereInput
   full: FileWhereInput
+  typeface: TypefaceWhereInput
 }
 
 input ImagesWhereUniqueInput {
@@ -1600,51 +1637,51 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createWebsite(data: WebsiteCreateInput!): Website!
   createImages(data: ImagesCreateInput!): Images!
+  createTag(data: TagCreateInput!): Tag!
   createDesigner(data: DesignerCreateInput!): Designer!
   createTypeface(data: TypefaceCreateInput!): Typeface!
   createFoundry(data: FoundryCreateInput!): Foundry!
-  createTag(data: TagCreateInput!): Tag!
-  createWebsite(data: WebsiteCreateInput!): Website!
   createFile(data: FileCreateInput!): File!
   createUser(data: UserCreateInput!): User!
+  updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
   updateImages(data: ImagesUpdateInput!, where: ImagesWhereUniqueInput!): Images
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateDesigner(data: DesignerUpdateInput!, where: DesignerWhereUniqueInput!): Designer
   updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
   updateFoundry(data: FoundryUpdateInput!, where: FoundryWhereUniqueInput!): Foundry
-  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
-  updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteWebsite(where: WebsiteWhereUniqueInput!): Website
   deleteImages(where: ImagesWhereUniqueInput!): Images
+  deleteTag(where: TagWhereUniqueInput!): Tag
   deleteDesigner(where: DesignerWhereUniqueInput!): Designer
   deleteTypeface(where: TypefaceWhereUniqueInput!): Typeface
   deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
-  deleteTag(where: TagWhereUniqueInput!): Tag
-  deleteWebsite(where: WebsiteWhereUniqueInput!): Website
   deleteFile(where: FileWhereUniqueInput!): File
   deleteUser(where: UserWhereUniqueInput!): User
+  upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
   upsertImages(where: ImagesWhereUniqueInput!, create: ImagesCreateInput!, update: ImagesUpdateInput!): Images!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   upsertDesigner(where: DesignerWhereUniqueInput!, create: DesignerCreateInput!, update: DesignerUpdateInput!): Designer!
   upsertTypeface(where: TypefaceWhereUniqueInput!, create: TypefaceCreateInput!, update: TypefaceUpdateInput!): Typeface!
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
-  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
-  upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyWebsites(data: WebsiteUpdateManyMutationInput!, where: WebsiteWhereInput): BatchPayload!
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
   updateManyDesigners(data: DesignerUpdateManyMutationInput!, where: DesignerWhereInput): BatchPayload!
   updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
   updateManyFoundries(data: FoundryUpdateManyMutationInput!, where: FoundryWhereInput): BatchPayload!
-  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
-  updateManyWebsites(data: WebsiteUpdateManyMutationInput!, where: WebsiteWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
   deleteManyImageses(where: ImagesWhereInput): BatchPayload!
+  deleteManyTags(where: TagWhereInput): BatchPayload!
   deleteManyDesigners(where: DesignerWhereInput): BatchPayload!
   deleteManyTypefaces(where: TypefaceWhereInput): BatchPayload!
   deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
-  deleteManyTags(where: TagWhereInput): BatchPayload!
-  deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
@@ -1677,28 +1714,28 @@ type PageInfo {
 }
 
 type Query {
+  websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website]!
   imageses(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Images]!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
   designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer]!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
-  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
-  websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  website(where: WebsiteWhereUniqueInput!): Website
   images(where: ImagesWhereUniqueInput!): Images
+  tag(where: TagWhereUniqueInput!): Tag
   designer(where: DesignerWhereUniqueInput!): Designer
   typeface(where: TypefaceWhereUniqueInput!): Typeface
   foundry(where: FoundryWhereUniqueInput!): Foundry
-  tag(where: TagWhereUniqueInput!): Tag
-  website(where: WebsiteWhereUniqueInput!): Website
   file(where: FileWhereUniqueInput!): File
   user(where: UserWhereUniqueInput!): User
+  websitesConnection(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WebsiteConnection!
   imagesesConnection(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImagesConnection!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   designersConnection(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DesignerConnection!
   typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
   foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
-  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
-  websitesConnection(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WebsiteConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
@@ -1715,12 +1752,12 @@ enum Role {
 }
 
 type Subscription {
+  website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
   images(where: ImagesSubscriptionWhereInput): ImagesSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   designer(where: DesignerSubscriptionWhereInput): DesignerSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
   foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
-  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
-  website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
@@ -1729,6 +1766,7 @@ type Tag implements Node {
   id: ID!
   name: String!
   website(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
+  typeface(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
 }
 
 """A connection to a list of items."""
@@ -1743,12 +1781,28 @@ type TagConnection {
 
 input TagCreateInput {
   name: String!
-  website: WebsiteCreateManyInput
+  website: WebsiteCreateManyWithoutTagsInput
+  typeface: TypefaceCreateManyWithoutTagsInput
 }
 
-input TagCreateManyInput {
-  create: [TagCreateInput!]
+input TagCreateManyWithoutTypefaceInput {
+  create: [TagCreateWithoutTypefaceInput!]
   connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateManyWithoutWebsiteInput {
+  create: [TagCreateWithoutWebsiteInput!]
+  connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateWithoutTypefaceInput {
+  name: String!
+  website: WebsiteCreateManyWithoutTagsInput
+}
+
+input TagCreateWithoutWebsiteInput {
+  name: String!
+  typeface: TypefaceCreateManyWithoutTagsInput
 }
 
 """An edge in a connection."""
@@ -1906,34 +1960,42 @@ input TagSubscriptionWhereInput {
   node: TagWhereInput
 }
 
-input TagUpdateDataInput {
-  name: String
-  website: WebsiteUpdateManyInput
-}
-
 input TagUpdateInput {
   name: String
-  website: WebsiteUpdateManyInput
+  website: WebsiteUpdateManyWithoutTagsInput
+  typeface: TypefaceUpdateManyWithoutTagsInput
 }
 
 input TagUpdateManyDataInput {
   name: String
 }
 
-input TagUpdateManyInput {
-  create: [TagCreateInput!]
+input TagUpdateManyMutationInput {
+  name: String
+}
+
+input TagUpdateManyWithoutTypefaceInput {
+  create: [TagCreateWithoutTypefaceInput!]
   connect: [TagWhereUniqueInput!]
   set: [TagWhereUniqueInput!]
   disconnect: [TagWhereUniqueInput!]
   delete: [TagWhereUniqueInput!]
-  update: [TagUpdateWithWhereUniqueNestedInput!]
+  update: [TagUpdateWithWhereUniqueWithoutTypefaceInput!]
   updateMany: [TagUpdateManyWithWhereNestedInput!]
   deleteMany: [TagScalarWhereInput!]
-  upsert: [TagUpsertWithWhereUniqueNestedInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutTypefaceInput!]
 }
 
-input TagUpdateManyMutationInput {
-  name: String
+input TagUpdateManyWithoutWebsiteInput {
+  create: [TagCreateWithoutWebsiteInput!]
+  connect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  disconnect: [TagWhereUniqueInput!]
+  delete: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutWebsiteInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+  deleteMany: [TagScalarWhereInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutWebsiteInput!]
 }
 
 input TagUpdateManyWithWhereNestedInput {
@@ -1941,15 +2003,36 @@ input TagUpdateManyWithWhereNestedInput {
   data: TagUpdateManyDataInput!
 }
 
-input TagUpdateWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput!
-  data: TagUpdateDataInput!
+input TagUpdateWithoutTypefaceDataInput {
+  name: String
+  website: WebsiteUpdateManyWithoutTagsInput
 }
 
-input TagUpsertWithWhereUniqueNestedInput {
+input TagUpdateWithoutWebsiteDataInput {
+  name: String
+  typeface: TypefaceUpdateManyWithoutTagsInput
+}
+
+input TagUpdateWithWhereUniqueWithoutTypefaceInput {
   where: TagWhereUniqueInput!
-  update: TagUpdateDataInput!
-  create: TagCreateInput!
+  data: TagUpdateWithoutTypefaceDataInput!
+}
+
+input TagUpdateWithWhereUniqueWithoutWebsiteInput {
+  where: TagWhereUniqueInput!
+  data: TagUpdateWithoutWebsiteDataInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutTypefaceInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutTypefaceDataInput!
+  create: TagCreateWithoutTypefaceInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutWebsiteInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutWebsiteDataInput!
+  create: TagCreateWithoutWebsiteInput!
 }
 
 input TagWhereInput {
@@ -2044,6 +2127,9 @@ input TagWhereInput {
   website_every: WebsiteWhereInput
   website_some: WebsiteWhereInput
   website_none: WebsiteWhereInput
+  typeface_every: TypefaceWhereInput
+  typeface_some: TypefaceWhereInput
+  typeface_none: TypefaceWhereInput
 }
 
 input TagWhereUniqueInput {
@@ -2060,6 +2146,8 @@ type Typeface implements Node {
   addedBy: User!
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry!]
   designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer!]
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
+  images: Images
 }
 
 """A connection to a list of items."""
@@ -2081,6 +2169,8 @@ input TypefaceCreateInput {
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundries: FoundryCreateManyWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
+  tags: TagCreateManyWithoutTypefaceInput
+  images: ImagesCreateOneWithoutTypefaceInput
 }
 
 input TypefaceCreateManyWithoutAddedByInput {
@@ -2098,9 +2188,19 @@ input TypefaceCreateManyWithoutFoundriesInput {
   connect: [TypefaceWhereUniqueInput!]
 }
 
+input TypefaceCreateManyWithoutTagsInput {
+  create: [TypefaceCreateWithoutTagsInput!]
+  connect: [TypefaceWhereUniqueInput!]
+}
+
 input TypefaceCreateManyWithoutUsedByInput {
   create: [TypefaceCreateWithoutUsedByInput!]
   connect: [TypefaceWhereUniqueInput!]
+}
+
+input TypefaceCreateOneWithoutImagesInput {
+  create: TypefaceCreateWithoutImagesInput
+  connect: TypefaceWhereUniqueInput
 }
 
 input TypefaceCreateWithoutAddedByInput {
@@ -2111,6 +2211,8 @@ input TypefaceCreateWithoutAddedByInput {
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   foundries: FoundryCreateManyWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
+  tags: TagCreateManyWithoutTypefaceInput
+  images: ImagesCreateOneWithoutTypefaceInput
 }
 
 input TypefaceCreateWithoutDesignersInput {
@@ -2121,6 +2223,8 @@ input TypefaceCreateWithoutDesignersInput {
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundries: FoundryCreateManyWithoutTypefacesInput
+  tags: TagCreateManyWithoutTypefaceInput
+  images: ImagesCreateOneWithoutTypefaceInput
 }
 
 input TypefaceCreateWithoutFoundriesInput {
@@ -2131,6 +2235,32 @@ input TypefaceCreateWithoutFoundriesInput {
   usedBy: WebsiteCreateManyWithoutTypefacesInput
   addedBy: UserCreateOneWithoutTypefacesInput!
   designers: DesignerCreateManyWithoutTypefacesInput
+  tags: TagCreateManyWithoutTypefaceInput
+  images: ImagesCreateOneWithoutTypefaceInput
+}
+
+input TypefaceCreateWithoutImagesInput {
+  name: String!
+  downloadUrl: String!
+  description: String
+  slug: String!
+  usedBy: WebsiteCreateManyWithoutTypefacesInput
+  addedBy: UserCreateOneWithoutTypefacesInput!
+  foundries: FoundryCreateManyWithoutTypefacesInput
+  designers: DesignerCreateManyWithoutTypefacesInput
+  tags: TagCreateManyWithoutTypefaceInput
+}
+
+input TypefaceCreateWithoutTagsInput {
+  name: String!
+  downloadUrl: String!
+  description: String
+  slug: String!
+  usedBy: WebsiteCreateManyWithoutTypefacesInput
+  addedBy: UserCreateOneWithoutTypefacesInput!
+  foundries: FoundryCreateManyWithoutTypefacesInput
+  designers: DesignerCreateManyWithoutTypefacesInput
+  images: ImagesCreateOneWithoutTypefaceInput
 }
 
 input TypefaceCreateWithoutUsedByInput {
@@ -2141,6 +2271,8 @@ input TypefaceCreateWithoutUsedByInput {
   addedBy: UserCreateOneWithoutTypefacesInput!
   foundries: FoundryCreateManyWithoutTypefacesInput
   designers: DesignerCreateManyWithoutTypefacesInput
+  tags: TagCreateManyWithoutTypefaceInput
+  images: ImagesCreateOneWithoutTypefaceInput
 }
 
 """An edge in a connection."""
@@ -2436,6 +2568,8 @@ input TypefaceUpdateInput {
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundries: FoundryUpdateManyWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
+  tags: TagUpdateManyWithoutTypefaceInput
+  images: ImagesUpdateOneWithoutTypefaceInput
 }
 
 input TypefaceUpdateManyDataInput {
@@ -2488,6 +2622,18 @@ input TypefaceUpdateManyWithoutFoundriesInput {
   upsert: [TypefaceUpsertWithWhereUniqueWithoutFoundriesInput!]
 }
 
+input TypefaceUpdateManyWithoutTagsInput {
+  create: [TypefaceCreateWithoutTagsInput!]
+  connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
+  disconnect: [TypefaceWhereUniqueInput!]
+  delete: [TypefaceWhereUniqueInput!]
+  update: [TypefaceUpdateWithWhereUniqueWithoutTagsInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  upsert: [TypefaceUpsertWithWhereUniqueWithoutTagsInput!]
+}
+
 input TypefaceUpdateManyWithoutUsedByInput {
   create: [TypefaceCreateWithoutUsedByInput!]
   connect: [TypefaceWhereUniqueInput!]
@@ -2505,6 +2651,15 @@ input TypefaceUpdateManyWithWhereNestedInput {
   data: TypefaceUpdateManyDataInput!
 }
 
+input TypefaceUpdateOneWithoutImagesInput {
+  create: TypefaceCreateWithoutImagesInput
+  connect: TypefaceWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: TypefaceUpdateWithoutImagesDataInput
+  upsert: TypefaceUpsertWithoutImagesInput
+}
+
 input TypefaceUpdateWithoutAddedByDataInput {
   name: String
   downloadUrl: String
@@ -2513,6 +2668,8 @@ input TypefaceUpdateWithoutAddedByDataInput {
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   foundries: FoundryUpdateManyWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
+  tags: TagUpdateManyWithoutTypefaceInput
+  images: ImagesUpdateOneWithoutTypefaceInput
 }
 
 input TypefaceUpdateWithoutDesignersDataInput {
@@ -2523,6 +2680,8 @@ input TypefaceUpdateWithoutDesignersDataInput {
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundries: FoundryUpdateManyWithoutTypefacesInput
+  tags: TagUpdateManyWithoutTypefaceInput
+  images: ImagesUpdateOneWithoutTypefaceInput
 }
 
 input TypefaceUpdateWithoutFoundriesDataInput {
@@ -2533,6 +2692,32 @@ input TypefaceUpdateWithoutFoundriesDataInput {
   usedBy: WebsiteUpdateManyWithoutTypefacesInput
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
+  tags: TagUpdateManyWithoutTypefaceInput
+  images: ImagesUpdateOneWithoutTypefaceInput
+}
+
+input TypefaceUpdateWithoutImagesDataInput {
+  name: String
+  downloadUrl: String
+  description: String
+  slug: String
+  usedBy: WebsiteUpdateManyWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
+  foundries: FoundryUpdateManyWithoutTypefacesInput
+  designers: DesignerUpdateManyWithoutTypefacesInput
+  tags: TagUpdateManyWithoutTypefaceInput
+}
+
+input TypefaceUpdateWithoutTagsDataInput {
+  name: String
+  downloadUrl: String
+  description: String
+  slug: String
+  usedBy: WebsiteUpdateManyWithoutTypefacesInput
+  addedBy: UserUpdateOneRequiredWithoutTypefacesInput
+  foundries: FoundryUpdateManyWithoutTypefacesInput
+  designers: DesignerUpdateManyWithoutTypefacesInput
+  images: ImagesUpdateOneWithoutTypefaceInput
 }
 
 input TypefaceUpdateWithoutUsedByDataInput {
@@ -2543,6 +2728,8 @@ input TypefaceUpdateWithoutUsedByDataInput {
   addedBy: UserUpdateOneRequiredWithoutTypefacesInput
   foundries: FoundryUpdateManyWithoutTypefacesInput
   designers: DesignerUpdateManyWithoutTypefacesInput
+  tags: TagUpdateManyWithoutTypefaceInput
+  images: ImagesUpdateOneWithoutTypefaceInput
 }
 
 input TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
@@ -2560,9 +2747,19 @@ input TypefaceUpdateWithWhereUniqueWithoutFoundriesInput {
   data: TypefaceUpdateWithoutFoundriesDataInput!
 }
 
+input TypefaceUpdateWithWhereUniqueWithoutTagsInput {
+  where: TypefaceWhereUniqueInput!
+  data: TypefaceUpdateWithoutTagsDataInput!
+}
+
 input TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
   where: TypefaceWhereUniqueInput!
   data: TypefaceUpdateWithoutUsedByDataInput!
+}
+
+input TypefaceUpsertWithoutImagesInput {
+  update: TypefaceUpdateWithoutImagesDataInput!
+  create: TypefaceCreateWithoutImagesInput!
 }
 
 input TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
@@ -2581,6 +2778,12 @@ input TypefaceUpsertWithWhereUniqueWithoutFoundriesInput {
   where: TypefaceWhereUniqueInput!
   update: TypefaceUpdateWithoutFoundriesDataInput!
   create: TypefaceCreateWithoutFoundriesInput!
+}
+
+input TypefaceUpsertWithWhereUniqueWithoutTagsInput {
+  where: TypefaceWhereUniqueInput!
+  update: TypefaceUpdateWithoutTagsDataInput!
+  create: TypefaceCreateWithoutTagsInput!
 }
 
 input TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
@@ -2808,6 +3011,10 @@ input TypefaceWhereInput {
   designers_every: DesignerWhereInput
   designers_some: DesignerWhereInput
   designers_none: DesignerWhereInput
+  tags_every: TagWhereInput
+  tags_some: TagWhereInput
+  tags_none: TagWhereInput
+  images: ImagesWhereInput
 }
 
 input TypefaceWhereUniqueInput {
@@ -3251,16 +3458,16 @@ input WebsiteCreateInput {
   images: ImagesCreateOneWithoutWebsiteInput
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
-  tags: TagCreateManyInput
-}
-
-input WebsiteCreateManyInput {
-  create: [WebsiteCreateInput!]
-  connect: [WebsiteWhereUniqueInput!]
+  tags: TagCreateManyWithoutWebsiteInput
 }
 
 input WebsiteCreateManyWithoutAddedByInput {
   create: [WebsiteCreateWithoutAddedByInput!]
+  connect: [WebsiteWhereUniqueInput!]
+}
+
+input WebsiteCreateManyWithoutTagsInput {
+  create: [WebsiteCreateWithoutTagsInput!]
   connect: [WebsiteWhereUniqueInput!]
 }
 
@@ -3282,7 +3489,7 @@ input WebsiteCreateWithoutAddedByInput {
   featured: Boolean
   images: ImagesCreateOneWithoutWebsiteInput
   typefaces: TypefaceCreateManyWithoutUsedByInput
-  tags: TagCreateManyInput
+  tags: TagCreateManyWithoutWebsiteInput
 }
 
 input WebsiteCreateWithoutImagesInput {
@@ -3293,7 +3500,18 @@ input WebsiteCreateWithoutImagesInput {
   featured: Boolean
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
-  tags: TagCreateManyInput
+  tags: TagCreateManyWithoutWebsiteInput
+}
+
+input WebsiteCreateWithoutTagsInput {
+  isPublished: Boolean
+  title: String!
+  slug: String
+  url: String!
+  featured: Boolean
+  images: ImagesCreateOneWithoutWebsiteInput
+  addedBy: UserCreateOneWithoutWebsitesInput!
+  typefaces: TypefaceCreateManyWithoutUsedByInput
 }
 
 input WebsiteCreateWithoutTypefacesInput {
@@ -3304,7 +3522,7 @@ input WebsiteCreateWithoutTypefacesInput {
   featured: Boolean
   images: ImagesCreateOneWithoutWebsiteInput
   addedBy: UserCreateOneWithoutWebsitesInput!
-  tags: TagCreateManyInput
+  tags: TagCreateManyWithoutWebsiteInput
 }
 
 """An edge in a connection."""
@@ -3585,18 +3803,6 @@ input WebsiteSubscriptionWhereInput {
   node: WebsiteWhereInput
 }
 
-input WebsiteUpdateDataInput {
-  isPublished: Boolean
-  title: String
-  slug: String
-  url: String
-  featured: Boolean
-  images: ImagesUpdateOneWithoutWebsiteInput
-  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
-  typefaces: TypefaceUpdateManyWithoutUsedByInput
-  tags: TagUpdateManyInput
-}
-
 input WebsiteUpdateInput {
   isPublished: Boolean
   title: String
@@ -3606,7 +3812,7 @@ input WebsiteUpdateInput {
   images: ImagesUpdateOneWithoutWebsiteInput
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
-  tags: TagUpdateManyInput
+  tags: TagUpdateManyWithoutWebsiteInput
 }
 
 input WebsiteUpdateManyDataInput {
@@ -3615,18 +3821,6 @@ input WebsiteUpdateManyDataInput {
   slug: String
   url: String
   featured: Boolean
-}
-
-input WebsiteUpdateManyInput {
-  create: [WebsiteCreateInput!]
-  connect: [WebsiteWhereUniqueInput!]
-  set: [WebsiteWhereUniqueInput!]
-  disconnect: [WebsiteWhereUniqueInput!]
-  delete: [WebsiteWhereUniqueInput!]
-  update: [WebsiteUpdateWithWhereUniqueNestedInput!]
-  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
-  deleteMany: [WebsiteScalarWhereInput!]
-  upsert: [WebsiteUpsertWithWhereUniqueNestedInput!]
 }
 
 input WebsiteUpdateManyMutationInput {
@@ -3647,6 +3841,18 @@ input WebsiteUpdateManyWithoutAddedByInput {
   updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
   deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutAddedByInput!]
+}
+
+input WebsiteUpdateManyWithoutTagsInput {
+  create: [WebsiteCreateWithoutTagsInput!]
+  connect: [WebsiteWhereUniqueInput!]
+  set: [WebsiteWhereUniqueInput!]
+  disconnect: [WebsiteWhereUniqueInput!]
+  delete: [WebsiteWhereUniqueInput!]
+  update: [WebsiteUpdateWithWhereUniqueWithoutTagsInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
+  upsert: [WebsiteUpsertWithWhereUniqueWithoutTagsInput!]
 }
 
 input WebsiteUpdateManyWithoutTypefacesInput {
@@ -3683,7 +3889,7 @@ input WebsiteUpdateWithoutAddedByDataInput {
   featured: Boolean
   images: ImagesUpdateOneWithoutWebsiteInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
-  tags: TagUpdateManyInput
+  tags: TagUpdateManyWithoutWebsiteInput
 }
 
 input WebsiteUpdateWithoutImagesDataInput {
@@ -3694,7 +3900,18 @@ input WebsiteUpdateWithoutImagesDataInput {
   featured: Boolean
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
-  tags: TagUpdateManyInput
+  tags: TagUpdateManyWithoutWebsiteInput
+}
+
+input WebsiteUpdateWithoutTagsDataInput {
+  isPublished: Boolean
+  title: String
+  slug: String
+  url: String
+  featured: Boolean
+  images: ImagesUpdateOneWithoutWebsiteInput
+  addedBy: UserUpdateOneRequiredWithoutWebsitesInput
+  typefaces: TypefaceUpdateManyWithoutUsedByInput
 }
 
 input WebsiteUpdateWithoutTypefacesDataInput {
@@ -3705,17 +3922,17 @@ input WebsiteUpdateWithoutTypefacesDataInput {
   featured: Boolean
   images: ImagesUpdateOneWithoutWebsiteInput
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
-  tags: TagUpdateManyInput
-}
-
-input WebsiteUpdateWithWhereUniqueNestedInput {
-  where: WebsiteWhereUniqueInput!
-  data: WebsiteUpdateDataInput!
+  tags: TagUpdateManyWithoutWebsiteInput
 }
 
 input WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput!
   data: WebsiteUpdateWithoutAddedByDataInput!
+}
+
+input WebsiteUpdateWithWhereUniqueWithoutTagsInput {
+  where: WebsiteWhereUniqueInput!
+  data: WebsiteUpdateWithoutTagsDataInput!
 }
 
 input WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
@@ -3728,16 +3945,16 @@ input WebsiteUpsertWithoutImagesInput {
   create: WebsiteCreateWithoutImagesInput!
 }
 
-input WebsiteUpsertWithWhereUniqueNestedInput {
-  where: WebsiteWhereUniqueInput!
-  update: WebsiteUpdateDataInput!
-  create: WebsiteCreateInput!
-}
-
 input WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput!
   update: WebsiteUpdateWithoutAddedByDataInput!
   create: WebsiteCreateWithoutAddedByInput!
+}
+
+input WebsiteUpsertWithWhereUniqueWithoutTagsInput {
+  where: WebsiteWhereUniqueInput!
+  update: WebsiteUpdateWithoutTagsDataInput!
+  create: WebsiteCreateWithoutTagsInput!
 }
 
 input WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
@@ -4604,6 +4821,12 @@ export interface ImagesCreateInput {
   website?: WebsiteCreateOneWithoutImagesInput | null
   thumbnail?: FileCreateOneInput | null
   full?: FileCreateOneInput | null
+  typeface?: TypefaceCreateOneWithoutImagesInput | null
+}
+
+export interface ImagesCreateOneWithoutTypefaceInput {
+  create?: ImagesCreateWithoutTypefaceInput | null
+  connect?: ImagesWhereUniqueInput | null
 }
 
 export interface ImagesCreateOneWithoutWebsiteInput {
@@ -4611,9 +4834,16 @@ export interface ImagesCreateOneWithoutWebsiteInput {
   connect?: ImagesWhereUniqueInput | null
 }
 
+export interface ImagesCreateWithoutTypefaceInput {
+  website?: WebsiteCreateOneWithoutImagesInput | null
+  thumbnail?: FileCreateOneInput | null
+  full?: FileCreateOneInput | null
+}
+
 export interface ImagesCreateWithoutWebsiteInput {
   thumbnail?: FileCreateOneInput | null
   full?: FileCreateOneInput | null
+  typeface?: TypefaceCreateOneWithoutImagesInput | null
 }
 
 export interface ImagesSubscriptionWhereInput {
@@ -4631,6 +4861,16 @@ export interface ImagesUpdateInput {
   website?: WebsiteUpdateOneWithoutImagesInput | null
   thumbnail?: FileUpdateOneInput | null
   full?: FileUpdateOneInput | null
+  typeface?: TypefaceUpdateOneWithoutImagesInput | null
+}
+
+export interface ImagesUpdateOneWithoutTypefaceInput {
+  create?: ImagesCreateWithoutTypefaceInput | null
+  connect?: ImagesWhereUniqueInput | null
+  disconnect?: Boolean | null
+  delete?: Boolean | null
+  update?: ImagesUpdateWithoutTypefaceDataInput | null
+  upsert?: ImagesUpsertWithoutTypefaceInput | null
 }
 
 export interface ImagesUpdateOneWithoutWebsiteInput {
@@ -4642,9 +4882,21 @@ export interface ImagesUpdateOneWithoutWebsiteInput {
   upsert?: ImagesUpsertWithoutWebsiteInput | null
 }
 
+export interface ImagesUpdateWithoutTypefaceDataInput {
+  website?: WebsiteUpdateOneWithoutImagesInput | null
+  thumbnail?: FileUpdateOneInput | null
+  full?: FileUpdateOneInput | null
+}
+
 export interface ImagesUpdateWithoutWebsiteDataInput {
   thumbnail?: FileUpdateOneInput | null
   full?: FileUpdateOneInput | null
+  typeface?: TypefaceUpdateOneWithoutImagesInput | null
+}
+
+export interface ImagesUpsertWithoutTypefaceInput {
+  update: ImagesUpdateWithoutTypefaceDataInput
+  create: ImagesCreateWithoutTypefaceInput
 }
 
 export interface ImagesUpsertWithoutWebsiteInput {
@@ -4673,6 +4925,7 @@ export interface ImagesWhereInput {
   website?: WebsiteWhereInput | null
   thumbnail?: FileWhereInput | null
   full?: FileWhereInput | null
+  typeface?: TypefaceWhereInput | null
 }
 
 export interface ImagesWhereUniqueInput {
@@ -4681,12 +4934,28 @@ export interface ImagesWhereUniqueInput {
 
 export interface TagCreateInput {
   name: String
-  website?: WebsiteCreateManyInput | null
+  website?: WebsiteCreateManyWithoutTagsInput | null
+  typeface?: TypefaceCreateManyWithoutTagsInput | null
 }
 
-export interface TagCreateManyInput {
-  create?: TagCreateInput[] | TagCreateInput | null
+export interface TagCreateManyWithoutTypefaceInput {
+  create?: TagCreateWithoutTypefaceInput[] | TagCreateWithoutTypefaceInput | null
   connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+}
+
+export interface TagCreateManyWithoutWebsiteInput {
+  create?: TagCreateWithoutWebsiteInput[] | TagCreateWithoutWebsiteInput | null
+  connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+}
+
+export interface TagCreateWithoutTypefaceInput {
+  name: String
+  website?: WebsiteCreateManyWithoutTagsInput | null
+}
+
+export interface TagCreateWithoutWebsiteInput {
+  name: String
+  typeface?: TypefaceCreateManyWithoutTagsInput | null
 }
 
 export interface TagScalarWhereInput {
@@ -4734,34 +5003,42 @@ export interface TagSubscriptionWhereInput {
   node?: TagWhereInput | null
 }
 
-export interface TagUpdateDataInput {
-  name?: String | null
-  website?: WebsiteUpdateManyInput | null
-}
-
 export interface TagUpdateInput {
   name?: String | null
-  website?: WebsiteUpdateManyInput | null
+  website?: WebsiteUpdateManyWithoutTagsInput | null
+  typeface?: TypefaceUpdateManyWithoutTagsInput | null
 }
 
 export interface TagUpdateManyDataInput {
   name?: String | null
 }
 
-export interface TagUpdateManyInput {
-  create?: TagCreateInput[] | TagCreateInput | null
+export interface TagUpdateManyMutationInput {
+  name?: String | null
+}
+
+export interface TagUpdateManyWithoutTypefaceInput {
+  create?: TagCreateWithoutTypefaceInput[] | TagCreateWithoutTypefaceInput | null
   connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   set?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   delete?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
-  update?: TagUpdateWithWhereUniqueNestedInput[] | TagUpdateWithWhereUniqueNestedInput | null
+  update?: TagUpdateWithWhereUniqueWithoutTypefaceInput[] | TagUpdateWithWhereUniqueWithoutTypefaceInput | null
   updateMany?: TagUpdateManyWithWhereNestedInput[] | TagUpdateManyWithWhereNestedInput | null
   deleteMany?: TagScalarWhereInput[] | TagScalarWhereInput | null
-  upsert?: TagUpsertWithWhereUniqueNestedInput[] | TagUpsertWithWhereUniqueNestedInput | null
+  upsert?: TagUpsertWithWhereUniqueWithoutTypefaceInput[] | TagUpsertWithWhereUniqueWithoutTypefaceInput | null
 }
 
-export interface TagUpdateManyMutationInput {
-  name?: String | null
+export interface TagUpdateManyWithoutWebsiteInput {
+  create?: TagCreateWithoutWebsiteInput[] | TagCreateWithoutWebsiteInput | null
+  connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+  set?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+  disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+  delete?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+  update?: TagUpdateWithWhereUniqueWithoutWebsiteInput[] | TagUpdateWithWhereUniqueWithoutWebsiteInput | null
+  updateMany?: TagUpdateManyWithWhereNestedInput[] | TagUpdateManyWithWhereNestedInput | null
+  deleteMany?: TagScalarWhereInput[] | TagScalarWhereInput | null
+  upsert?: TagUpsertWithWhereUniqueWithoutWebsiteInput[] | TagUpsertWithWhereUniqueWithoutWebsiteInput | null
 }
 
 export interface TagUpdateManyWithWhereNestedInput {
@@ -4769,15 +5046,36 @@ export interface TagUpdateManyWithWhereNestedInput {
   data: TagUpdateManyDataInput
 }
 
-export interface TagUpdateWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput
-  data: TagUpdateDataInput
+export interface TagUpdateWithoutTypefaceDataInput {
+  name?: String | null
+  website?: WebsiteUpdateManyWithoutTagsInput | null
 }
 
-export interface TagUpsertWithWhereUniqueNestedInput {
+export interface TagUpdateWithoutWebsiteDataInput {
+  name?: String | null
+  typeface?: TypefaceUpdateManyWithoutTagsInput | null
+}
+
+export interface TagUpdateWithWhereUniqueWithoutTypefaceInput {
   where: TagWhereUniqueInput
-  update: TagUpdateDataInput
-  create: TagCreateInput
+  data: TagUpdateWithoutTypefaceDataInput
+}
+
+export interface TagUpdateWithWhereUniqueWithoutWebsiteInput {
+  where: TagWhereUniqueInput
+  data: TagUpdateWithoutWebsiteDataInput
+}
+
+export interface TagUpsertWithWhereUniqueWithoutTypefaceInput {
+  where: TagWhereUniqueInput
+  update: TagUpdateWithoutTypefaceDataInput
+  create: TagCreateWithoutTypefaceInput
+}
+
+export interface TagUpsertWithWhereUniqueWithoutWebsiteInput {
+  where: TagWhereUniqueInput
+  update: TagUpdateWithoutWebsiteDataInput
+  create: TagCreateWithoutWebsiteInput
 }
 
 export interface TagWhereInput {
@@ -4815,6 +5113,9 @@ export interface TagWhereInput {
   website_every?: WebsiteWhereInput | null
   website_some?: WebsiteWhereInput | null
   website_none?: WebsiteWhereInput | null
+  typeface_every?: TypefaceWhereInput | null
+  typeface_some?: TypefaceWhereInput | null
+  typeface_none?: TypefaceWhereInput | null
 }
 
 export interface TagWhereUniqueInput {
@@ -4830,6 +5131,8 @@ export interface TypefaceCreateInput {
   addedBy: UserCreateOneWithoutTypefacesInput
   foundries?: FoundryCreateManyWithoutTypefacesInput | null
   designers?: DesignerCreateManyWithoutTypefacesInput | null
+  tags?: TagCreateManyWithoutTypefaceInput | null
+  images?: ImagesCreateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceCreateManyWithoutAddedByInput {
@@ -4847,9 +5150,19 @@ export interface TypefaceCreateManyWithoutFoundriesInput {
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
 }
 
+export interface TypefaceCreateManyWithoutTagsInput {
+  create?: TypefaceCreateWithoutTagsInput[] | TypefaceCreateWithoutTagsInput | null
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+}
+
 export interface TypefaceCreateManyWithoutUsedByInput {
   create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+}
+
+export interface TypefaceCreateOneWithoutImagesInput {
+  create?: TypefaceCreateWithoutImagesInput | null
+  connect?: TypefaceWhereUniqueInput | null
 }
 
 export interface TypefaceCreateWithoutAddedByInput {
@@ -4860,6 +5173,8 @@ export interface TypefaceCreateWithoutAddedByInput {
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null
   foundries?: FoundryCreateManyWithoutTypefacesInput | null
   designers?: DesignerCreateManyWithoutTypefacesInput | null
+  tags?: TagCreateManyWithoutTypefaceInput | null
+  images?: ImagesCreateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceCreateWithoutDesignersInput {
@@ -4870,6 +5185,8 @@ export interface TypefaceCreateWithoutDesignersInput {
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null
   addedBy: UserCreateOneWithoutTypefacesInput
   foundries?: FoundryCreateManyWithoutTypefacesInput | null
+  tags?: TagCreateManyWithoutTypefaceInput | null
+  images?: ImagesCreateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceCreateWithoutFoundriesInput {
@@ -4880,6 +5197,32 @@ export interface TypefaceCreateWithoutFoundriesInput {
   usedBy?: WebsiteCreateManyWithoutTypefacesInput | null
   addedBy: UserCreateOneWithoutTypefacesInput
   designers?: DesignerCreateManyWithoutTypefacesInput | null
+  tags?: TagCreateManyWithoutTypefaceInput | null
+  images?: ImagesCreateOneWithoutTypefaceInput | null
+}
+
+export interface TypefaceCreateWithoutImagesInput {
+  name: String
+  downloadUrl: String
+  description?: String | null
+  slug: String
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput | null
+  addedBy: UserCreateOneWithoutTypefacesInput
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null
+  designers?: DesignerCreateManyWithoutTypefacesInput | null
+  tags?: TagCreateManyWithoutTypefaceInput | null
+}
+
+export interface TypefaceCreateWithoutTagsInput {
+  name: String
+  downloadUrl: String
+  description?: String | null
+  slug: String
+  usedBy?: WebsiteCreateManyWithoutTypefacesInput | null
+  addedBy: UserCreateOneWithoutTypefacesInput
+  foundries?: FoundryCreateManyWithoutTypefacesInput | null
+  designers?: DesignerCreateManyWithoutTypefacesInput | null
+  images?: ImagesCreateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceCreateWithoutUsedByInput {
@@ -4890,6 +5233,8 @@ export interface TypefaceCreateWithoutUsedByInput {
   addedBy: UserCreateOneWithoutTypefacesInput
   foundries?: FoundryCreateManyWithoutTypefacesInput | null
   designers?: DesignerCreateManyWithoutTypefacesInput | null
+  tags?: TagCreateManyWithoutTypefaceInput | null
+  images?: ImagesCreateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceScalarWhereInput {
@@ -4988,6 +5333,8 @@ export interface TypefaceUpdateInput {
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput | null
   foundries?: FoundryUpdateManyWithoutTypefacesInput | null
   designers?: DesignerUpdateManyWithoutTypefacesInput | null
+  tags?: TagUpdateManyWithoutTypefaceInput | null
+  images?: ImagesUpdateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceUpdateManyDataInput {
@@ -5040,6 +5387,18 @@ export interface TypefaceUpdateManyWithoutFoundriesInput {
   upsert?: TypefaceUpsertWithWhereUniqueWithoutFoundriesInput[] | TypefaceUpsertWithWhereUniqueWithoutFoundriesInput | null
 }
 
+export interface TypefaceUpdateManyWithoutTagsInput {
+  create?: TypefaceCreateWithoutTagsInput[] | TypefaceCreateWithoutTagsInput | null
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  update?: TypefaceUpdateWithWhereUniqueWithoutTagsInput[] | TypefaceUpdateWithWhereUniqueWithoutTagsInput | null
+  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
+  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
+  upsert?: TypefaceUpsertWithWhereUniqueWithoutTagsInput[] | TypefaceUpsertWithWhereUniqueWithoutTagsInput | null
+}
+
 export interface TypefaceUpdateManyWithoutUsedByInput {
   create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
@@ -5057,6 +5416,15 @@ export interface TypefaceUpdateManyWithWhereNestedInput {
   data: TypefaceUpdateManyDataInput
 }
 
+export interface TypefaceUpdateOneWithoutImagesInput {
+  create?: TypefaceCreateWithoutImagesInput | null
+  connect?: TypefaceWhereUniqueInput | null
+  disconnect?: Boolean | null
+  delete?: Boolean | null
+  update?: TypefaceUpdateWithoutImagesDataInput | null
+  upsert?: TypefaceUpsertWithoutImagesInput | null
+}
+
 export interface TypefaceUpdateWithoutAddedByDataInput {
   name?: String | null
   downloadUrl?: String | null
@@ -5065,6 +5433,8 @@ export interface TypefaceUpdateWithoutAddedByDataInput {
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput | null
   foundries?: FoundryUpdateManyWithoutTypefacesInput | null
   designers?: DesignerUpdateManyWithoutTypefacesInput | null
+  tags?: TagUpdateManyWithoutTypefaceInput | null
+  images?: ImagesUpdateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceUpdateWithoutDesignersDataInput {
@@ -5075,6 +5445,8 @@ export interface TypefaceUpdateWithoutDesignersDataInput {
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput | null
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput | null
   foundries?: FoundryUpdateManyWithoutTypefacesInput | null
+  tags?: TagUpdateManyWithoutTypefaceInput | null
+  images?: ImagesUpdateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceUpdateWithoutFoundriesDataInput {
@@ -5085,6 +5457,32 @@ export interface TypefaceUpdateWithoutFoundriesDataInput {
   usedBy?: WebsiteUpdateManyWithoutTypefacesInput | null
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput | null
   designers?: DesignerUpdateManyWithoutTypefacesInput | null
+  tags?: TagUpdateManyWithoutTypefaceInput | null
+  images?: ImagesUpdateOneWithoutTypefaceInput | null
+}
+
+export interface TypefaceUpdateWithoutImagesDataInput {
+  name?: String | null
+  downloadUrl?: String | null
+  description?: String | null
+  slug?: String | null
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput | null
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput | null
+  foundries?: FoundryUpdateManyWithoutTypefacesInput | null
+  designers?: DesignerUpdateManyWithoutTypefacesInput | null
+  tags?: TagUpdateManyWithoutTypefaceInput | null
+}
+
+export interface TypefaceUpdateWithoutTagsDataInput {
+  name?: String | null
+  downloadUrl?: String | null
+  description?: String | null
+  slug?: String | null
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput | null
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput | null
+  foundries?: FoundryUpdateManyWithoutTypefacesInput | null
+  designers?: DesignerUpdateManyWithoutTypefacesInput | null
+  images?: ImagesUpdateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceUpdateWithoutUsedByDataInput {
@@ -5095,6 +5493,8 @@ export interface TypefaceUpdateWithoutUsedByDataInput {
   addedBy?: UserUpdateOneRequiredWithoutTypefacesInput | null
   foundries?: FoundryUpdateManyWithoutTypefacesInput | null
   designers?: DesignerUpdateManyWithoutTypefacesInput | null
+  tags?: TagUpdateManyWithoutTypefaceInput | null
+  images?: ImagesUpdateOneWithoutTypefaceInput | null
 }
 
 export interface TypefaceUpdateWithWhereUniqueWithoutAddedByInput {
@@ -5112,9 +5512,19 @@ export interface TypefaceUpdateWithWhereUniqueWithoutFoundriesInput {
   data: TypefaceUpdateWithoutFoundriesDataInput
 }
 
+export interface TypefaceUpdateWithWhereUniqueWithoutTagsInput {
+  where: TypefaceWhereUniqueInput
+  data: TypefaceUpdateWithoutTagsDataInput
+}
+
 export interface TypefaceUpdateWithWhereUniqueWithoutUsedByInput {
   where: TypefaceWhereUniqueInput
   data: TypefaceUpdateWithoutUsedByDataInput
+}
+
+export interface TypefaceUpsertWithoutImagesInput {
+  update: TypefaceUpdateWithoutImagesDataInput
+  create: TypefaceCreateWithoutImagesInput
 }
 
 export interface TypefaceUpsertWithWhereUniqueWithoutAddedByInput {
@@ -5133,6 +5543,12 @@ export interface TypefaceUpsertWithWhereUniqueWithoutFoundriesInput {
   where: TypefaceWhereUniqueInput
   update: TypefaceUpdateWithoutFoundriesDataInput
   create: TypefaceCreateWithoutFoundriesInput
+}
+
+export interface TypefaceUpsertWithWhereUniqueWithoutTagsInput {
+  where: TypefaceWhereUniqueInput
+  update: TypefaceUpdateWithoutTagsDataInput
+  create: TypefaceCreateWithoutTagsInput
 }
 
 export interface TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
@@ -5225,6 +5641,10 @@ export interface TypefaceWhereInput {
   designers_every?: DesignerWhereInput | null
   designers_some?: DesignerWhereInput | null
   designers_none?: DesignerWhereInput | null
+  tags_every?: TagWhereInput | null
+  tags_some?: TagWhereInput | null
+  tags_none?: TagWhereInput | null
+  images?: ImagesWhereInput | null
 }
 
 export interface TypefaceWhereUniqueInput {
@@ -5447,16 +5867,16 @@ export interface WebsiteCreateInput {
   images?: ImagesCreateOneWithoutWebsiteInput | null
   addedBy: UserCreateOneWithoutWebsitesInput
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null
-  tags?: TagCreateManyInput | null
-}
-
-export interface WebsiteCreateManyInput {
-  create?: WebsiteCreateInput[] | WebsiteCreateInput | null
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  tags?: TagCreateManyWithoutWebsiteInput | null
 }
 
 export interface WebsiteCreateManyWithoutAddedByInput {
   create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput | null
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+}
+
+export interface WebsiteCreateManyWithoutTagsInput {
+  create?: WebsiteCreateWithoutTagsInput[] | WebsiteCreateWithoutTagsInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
 }
 
@@ -5478,7 +5898,7 @@ export interface WebsiteCreateWithoutAddedByInput {
   featured?: Boolean | null
   images?: ImagesCreateOneWithoutWebsiteInput | null
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null
-  tags?: TagCreateManyInput | null
+  tags?: TagCreateManyWithoutWebsiteInput | null
 }
 
 export interface WebsiteCreateWithoutImagesInput {
@@ -5489,7 +5909,18 @@ export interface WebsiteCreateWithoutImagesInput {
   featured?: Boolean | null
   addedBy: UserCreateOneWithoutWebsitesInput
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null
-  tags?: TagCreateManyInput | null
+  tags?: TagCreateManyWithoutWebsiteInput | null
+}
+
+export interface WebsiteCreateWithoutTagsInput {
+  isPublished?: Boolean | null
+  title: String
+  slug?: String | null
+  url: String
+  featured?: Boolean | null
+  images?: ImagesCreateOneWithoutWebsiteInput | null
+  addedBy: UserCreateOneWithoutWebsitesInput
+  typefaces?: TypefaceCreateManyWithoutUsedByInput | null
 }
 
 export interface WebsiteCreateWithoutTypefacesInput {
@@ -5500,7 +5931,7 @@ export interface WebsiteCreateWithoutTypefacesInput {
   featured?: Boolean | null
   images?: ImagesCreateOneWithoutWebsiteInput | null
   addedBy: UserCreateOneWithoutWebsitesInput
-  tags?: TagCreateManyInput | null
+  tags?: TagCreateManyWithoutWebsiteInput | null
 }
 
 export interface WebsiteScalarWhereInput {
@@ -5588,18 +6019,6 @@ export interface WebsiteSubscriptionWhereInput {
   node?: WebsiteWhereInput | null
 }
 
-export interface WebsiteUpdateDataInput {
-  isPublished?: Boolean | null
-  title?: String | null
-  slug?: String | null
-  url?: String | null
-  featured?: Boolean | null
-  images?: ImagesUpdateOneWithoutWebsiteInput | null
-  addedBy?: UserUpdateOneRequiredWithoutWebsitesInput | null
-  typefaces?: TypefaceUpdateManyWithoutUsedByInput | null
-  tags?: TagUpdateManyInput | null
-}
-
 export interface WebsiteUpdateInput {
   isPublished?: Boolean | null
   title?: String | null
@@ -5609,7 +6028,7 @@ export interface WebsiteUpdateInput {
   images?: ImagesUpdateOneWithoutWebsiteInput | null
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput | null
   typefaces?: TypefaceUpdateManyWithoutUsedByInput | null
-  tags?: TagUpdateManyInput | null
+  tags?: TagUpdateManyWithoutWebsiteInput | null
 }
 
 export interface WebsiteUpdateManyDataInput {
@@ -5618,18 +6037,6 @@ export interface WebsiteUpdateManyDataInput {
   slug?: String | null
   url?: String | null
   featured?: Boolean | null
-}
-
-export interface WebsiteUpdateManyInput {
-  create?: WebsiteCreateInput[] | WebsiteCreateInput | null
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
-  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
-  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
-  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
-  update?: WebsiteUpdateWithWhereUniqueNestedInput[] | WebsiteUpdateWithWhereUniqueNestedInput | null
-  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
-  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
-  upsert?: WebsiteUpsertWithWhereUniqueNestedInput[] | WebsiteUpsertWithWhereUniqueNestedInput | null
 }
 
 export interface WebsiteUpdateManyMutationInput {
@@ -5650,6 +6057,18 @@ export interface WebsiteUpdateManyWithoutAddedByInput {
   updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
   deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
   upsert?: WebsiteUpsertWithWhereUniqueWithoutAddedByInput[] | WebsiteUpsertWithWhereUniqueWithoutAddedByInput | null
+}
+
+export interface WebsiteUpdateManyWithoutTagsInput {
+  create?: WebsiteCreateWithoutTagsInput[] | WebsiteCreateWithoutTagsInput | null
+  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  update?: WebsiteUpdateWithWhereUniqueWithoutTagsInput[] | WebsiteUpdateWithWhereUniqueWithoutTagsInput | null
+  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
+  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
+  upsert?: WebsiteUpsertWithWhereUniqueWithoutTagsInput[] | WebsiteUpsertWithWhereUniqueWithoutTagsInput | null
 }
 
 export interface WebsiteUpdateManyWithoutTypefacesInput {
@@ -5686,7 +6105,7 @@ export interface WebsiteUpdateWithoutAddedByDataInput {
   featured?: Boolean | null
   images?: ImagesUpdateOneWithoutWebsiteInput | null
   typefaces?: TypefaceUpdateManyWithoutUsedByInput | null
-  tags?: TagUpdateManyInput | null
+  tags?: TagUpdateManyWithoutWebsiteInput | null
 }
 
 export interface WebsiteUpdateWithoutImagesDataInput {
@@ -5697,7 +6116,18 @@ export interface WebsiteUpdateWithoutImagesDataInput {
   featured?: Boolean | null
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput | null
   typefaces?: TypefaceUpdateManyWithoutUsedByInput | null
-  tags?: TagUpdateManyInput | null
+  tags?: TagUpdateManyWithoutWebsiteInput | null
+}
+
+export interface WebsiteUpdateWithoutTagsDataInput {
+  isPublished?: Boolean | null
+  title?: String | null
+  slug?: String | null
+  url?: String | null
+  featured?: Boolean | null
+  images?: ImagesUpdateOneWithoutWebsiteInput | null
+  addedBy?: UserUpdateOneRequiredWithoutWebsitesInput | null
+  typefaces?: TypefaceUpdateManyWithoutUsedByInput | null
 }
 
 export interface WebsiteUpdateWithoutTypefacesDataInput {
@@ -5708,17 +6138,17 @@ export interface WebsiteUpdateWithoutTypefacesDataInput {
   featured?: Boolean | null
   images?: ImagesUpdateOneWithoutWebsiteInput | null
   addedBy?: UserUpdateOneRequiredWithoutWebsitesInput | null
-  tags?: TagUpdateManyInput | null
-}
-
-export interface WebsiteUpdateWithWhereUniqueNestedInput {
-  where: WebsiteWhereUniqueInput
-  data: WebsiteUpdateDataInput
+  tags?: TagUpdateManyWithoutWebsiteInput | null
 }
 
 export interface WebsiteUpdateWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput
   data: WebsiteUpdateWithoutAddedByDataInput
+}
+
+export interface WebsiteUpdateWithWhereUniqueWithoutTagsInput {
+  where: WebsiteWhereUniqueInput
+  data: WebsiteUpdateWithoutTagsDataInput
 }
 
 export interface WebsiteUpdateWithWhereUniqueWithoutTypefacesInput {
@@ -5731,16 +6161,16 @@ export interface WebsiteUpsertWithoutImagesInput {
   create: WebsiteCreateWithoutImagesInput
 }
 
-export interface WebsiteUpsertWithWhereUniqueNestedInput {
-  where: WebsiteWhereUniqueInput
-  update: WebsiteUpdateDataInput
-  create: WebsiteCreateInput
-}
-
 export interface WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput
   update: WebsiteUpdateWithoutAddedByDataInput
   create: WebsiteCreateWithoutAddedByInput
+}
+
+export interface WebsiteUpsertWithWhereUniqueWithoutTagsInput {
+  where: WebsiteWhereUniqueInput
+  update: WebsiteUpdateWithoutTagsDataInput
+  create: WebsiteCreateWithoutTagsInput
 }
 
 export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
@@ -6012,6 +6442,7 @@ export interface Images extends Node {
   website?: Website | null
   thumbnail?: File | null
   full?: File | null
+  typeface?: Typeface | null
 }
 
 /*
@@ -6059,6 +6490,7 @@ export interface Tag extends Node {
   id: ID_Output
   name: String
   website?: Array<Website> | null
+  typeface?: Array<Typeface> | null
 }
 
 /*
@@ -6102,6 +6534,8 @@ export interface Typeface extends Node {
   addedBy: User
   foundries?: Array<Foundry> | null
   designers?: Array<Designer> | null
+  tags?: Array<Tag> | null
+  images?: Images | null
 }
 
 /*

@@ -23,19 +23,22 @@ directive @isOwner(
 type Query {
   me: User @isAuthenticated
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
+  website(slug: String!): Website!
   websites: [Website!]!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
   findTags(search: String!): [Tag!]!
   findDesigners(search: String!): [Designer!]!
   findFoundries(search: String!): [Foundry!]!
-  website(slug: String!): Website!
+  typeface(slug: String!): Typeface!
   typefaces: [Typeface!]!
 }
 
 input TypefaceInput {
   name: String!
 }
+
+
 
 input AddWebsiteInput {
   full: Upload!
@@ -45,6 +48,17 @@ input AddWebsiteInput {
   slug: String!
   typefaces: [String!]!
   tags: [String!]!
+}
+
+input AddTypefaceInput {
+  name: String!
+  downloadUrl: String!
+  description: String
+  slug: String!
+  foundries: [String!]!
+  designers: [String!]!
+  tags: [String!]!
+  full: Upload!
 }
 
 input UpdateWebsiteInput {
@@ -61,7 +75,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   addWebsite(input: AddWebsiteInput): Website!
   updateWebsite(input: UpdateWebsiteInput): Website!
-  addTypeface(input: TypefaceCreateInput): Typeface @isAuthenticated
+  addTypeface(input: AddTypefaceInput): Typeface @isAuthenticated
   addFoundry(input: FoundryCreateInput): Foundry @isAuthenticated
   addDesigner(input: DesignerCreateInput): Designer @isAuthenticated
   addTag(input: TagCreateInput): Tag @isAuthenticated

@@ -1,6 +1,3 @@
-# source: http://localhost:4466/backend/dev
-# timestamp: Sun Sep 15 2019 01:50:44 GMT+0100 (British Summer Time)
-
 type AggregateDesigner {
   count: Int!
 }
@@ -34,13 +31,12 @@ type AggregateWebsite {
 }
 
 type BatchPayload {
-  """The number of nodes that have been affected by the Batch operation."""
   count: Long!
 }
 
 scalar DateTime
 
-type Designer implements Node {
+type Designer {
   id: ID!
   name: String!
   url: String!
@@ -48,12 +44,8 @@ type Designer implements Node {
   addedBy: User!
 }
 
-"""A connection to a list of items."""
 type DesignerConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [DesignerEdge]!
   aggregate: AggregateDesigner!
 }
@@ -76,12 +68,8 @@ input DesignerCreateWithoutTypefacesInput {
   addedBy: UserCreateOneInput!
 }
 
-"""An edge in a connection."""
 type DesignerEdge {
-  """The item at the end of the edge."""
   node: Designer!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -92,10 +80,10 @@ enum DesignerOrderByInput {
   name_DESC
   url_ASC
   url_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type DesignerPreviousValues {
@@ -105,134 +93,51 @@ type DesignerPreviousValues {
 }
 
 input DesignerScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [DesignerScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [DesignerScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [DesignerScalarWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   url: String
-
-  """All values that are not equal to given value."""
   url_not: String
-
-  """All values that are contained in given list."""
   url_in: [String!]
-
-  """All values that are not contained in given list."""
   url_not_in: [String!]
-
-  """All values less than the given value."""
   url_lt: String
-
-  """All values less than or equal the given value."""
   url_lte: String
-
-  """All values greater than the given value."""
   url_gt: String
-
-  """All values greater than or equal the given value."""
   url_gte: String
-
-  """All values containing the given string."""
   url_contains: String
-
-  """All values not containing the given string."""
   url_not_contains: String
-
-  """All values starting with the given string."""
   url_starts_with: String
-
-  """All values not starting with the given string."""
   url_not_starts_with: String
-
-  """All values ending with the given string."""
   url_ends_with: String
-
-  """All values not ending with the given string."""
   url_not_ends_with: String
+  AND: [DesignerScalarWhereInput!]
+  OR: [DesignerScalarWhereInput!]
+  NOT: [DesignerScalarWhereInput!]
 }
 
 type DesignerSubscriptionPayload {
@@ -243,35 +148,14 @@ type DesignerSubscriptionPayload {
 }
 
 input DesignerSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [DesignerSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [DesignerSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [DesignerSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: DesignerWhereInput
+  AND: [DesignerSubscriptionWhereInput!]
+  OR: [DesignerSubscriptionWhereInput!]
+  NOT: [DesignerSubscriptionWhereInput!]
 }
 
 input DesignerUpdateInput {
@@ -293,14 +177,14 @@ input DesignerUpdateManyMutationInput {
 
 input DesignerUpdateManyWithoutTypefacesInput {
   create: [DesignerCreateWithoutTypefacesInput!]
+  delete: [DesignerWhereUniqueInput!]
   connect: [DesignerWhereUniqueInput!]
   set: [DesignerWhereUniqueInput!]
   disconnect: [DesignerWhereUniqueInput!]
-  delete: [DesignerWhereUniqueInput!]
   update: [DesignerUpdateWithWhereUniqueWithoutTypefacesInput!]
-  updateMany: [DesignerUpdateManyWithWhereNestedInput!]
-  deleteMany: [DesignerScalarWhereInput!]
   upsert: [DesignerUpsertWithWhereUniqueWithoutTypefacesInput!]
+  deleteMany: [DesignerScalarWhereInput!]
+  updateMany: [DesignerUpdateManyWithWhereNestedInput!]
 }
 
 input DesignerUpdateManyWithWhereNestedInput {
@@ -326,138 +210,55 @@ input DesignerUpsertWithWhereUniqueWithoutTypefacesInput {
 }
 
 input DesignerWhereInput {
-  """Logical AND on all given filters."""
-  AND: [DesignerWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [DesignerWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [DesignerWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   url: String
-
-  """All values that are not equal to given value."""
   url_not: String
-
-  """All values that are contained in given list."""
   url_in: [String!]
-
-  """All values that are not contained in given list."""
   url_not_in: [String!]
-
-  """All values less than the given value."""
   url_lt: String
-
-  """All values less than or equal the given value."""
   url_lte: String
-
-  """All values greater than the given value."""
   url_gt: String
-
-  """All values greater than or equal the given value."""
   url_gte: String
-
-  """All values containing the given string."""
   url_contains: String
-
-  """All values not containing the given string."""
   url_not_contains: String
-
-  """All values starting with the given string."""
   url_starts_with: String
-
-  """All values not starting with the given string."""
   url_not_starts_with: String
-
-  """All values ending with the given string."""
   url_ends_with: String
-
-  """All values not ending with the given string."""
   url_not_ends_with: String
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
   addedBy: UserWhereInput
+  AND: [DesignerWhereInput!]
+  OR: [DesignerWhereInput!]
+  NOT: [DesignerWhereInput!]
 }
 
 input DesignerWhereUniqueInput {
@@ -465,7 +266,7 @@ input DesignerWhereUniqueInput {
   name: String
 }
 
-type File implements Node {
+type File {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -475,12 +276,8 @@ type File implements Node {
   url: String!
 }
 
-"""A connection to a list of items."""
 type FileConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [FileEdge]!
   aggregate: AggregateFile!
 }
@@ -497,12 +294,8 @@ input FileCreateOneInput {
   connect: FileWhereUniqueInput
 }
 
-"""An edge in a connection."""
 type FileEdge {
-  """The item at the end of the edge."""
   node: File!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -541,35 +334,14 @@ type FileSubscriptionPayload {
 }
 
 input FileSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FileSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FileSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FileSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: FileWhereInput
+  AND: [FileSubscriptionWhereInput!]
+  OR: [FileSubscriptionWhereInput!]
+  NOT: [FileSubscriptionWhereInput!]
 }
 
 input FileUpdateDataInput {
@@ -595,11 +367,11 @@ input FileUpdateManyMutationInput {
 
 input FileUpdateOneInput {
   create: FileCreateInput
-  connect: FileWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: FileUpdateDataInput
   upsert: FileUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: FileWhereUniqueInput
 }
 
 input FileUpsertNestedInput {
@@ -608,258 +380,95 @@ input FileUpsertNestedInput {
 }
 
 input FileWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FileWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FileWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FileWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   createdAt: DateTime
-
-  """All values that are not equal to given value."""
   createdAt_not: DateTime
-
-  """All values that are contained in given list."""
   createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
   createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
   createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
   createdAt_lte: DateTime
-
-  """All values greater than the given value."""
   createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
   createdAt_gte: DateTime
   updatedAt: DateTime
-
-  """All values that are not equal to given value."""
   updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
   updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
   updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
   updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
   updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
   updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
   filename: String
-
-  """All values that are not equal to given value."""
   filename_not: String
-
-  """All values that are contained in given list."""
   filename_in: [String!]
-
-  """All values that are not contained in given list."""
   filename_not_in: [String!]
-
-  """All values less than the given value."""
   filename_lt: String
-
-  """All values less than or equal the given value."""
   filename_lte: String
-
-  """All values greater than the given value."""
   filename_gt: String
-
-  """All values greater than or equal the given value."""
   filename_gte: String
-
-  """All values containing the given string."""
   filename_contains: String
-
-  """All values not containing the given string."""
   filename_not_contains: String
-
-  """All values starting with the given string."""
   filename_starts_with: String
-
-  """All values not starting with the given string."""
   filename_not_starts_with: String
-
-  """All values ending with the given string."""
   filename_ends_with: String
-
-  """All values not ending with the given string."""
   filename_not_ends_with: String
   mimetype: String
-
-  """All values that are not equal to given value."""
   mimetype_not: String
-
-  """All values that are contained in given list."""
   mimetype_in: [String!]
-
-  """All values that are not contained in given list."""
   mimetype_not_in: [String!]
-
-  """All values less than the given value."""
   mimetype_lt: String
-
-  """All values less than or equal the given value."""
   mimetype_lte: String
-
-  """All values greater than the given value."""
   mimetype_gt: String
-
-  """All values greater than or equal the given value."""
   mimetype_gte: String
-
-  """All values containing the given string."""
   mimetype_contains: String
-
-  """All values not containing the given string."""
   mimetype_not_contains: String
-
-  """All values starting with the given string."""
   mimetype_starts_with: String
-
-  """All values not starting with the given string."""
   mimetype_not_starts_with: String
-
-  """All values ending with the given string."""
   mimetype_ends_with: String
-
-  """All values not ending with the given string."""
   mimetype_not_ends_with: String
   encoding: String
-
-  """All values that are not equal to given value."""
   encoding_not: String
-
-  """All values that are contained in given list."""
   encoding_in: [String!]
-
-  """All values that are not contained in given list."""
   encoding_not_in: [String!]
-
-  """All values less than the given value."""
   encoding_lt: String
-
-  """All values less than or equal the given value."""
   encoding_lte: String
-
-  """All values greater than the given value."""
   encoding_gt: String
-
-  """All values greater than or equal the given value."""
   encoding_gte: String
-
-  """All values containing the given string."""
   encoding_contains: String
-
-  """All values not containing the given string."""
   encoding_not_contains: String
-
-  """All values starting with the given string."""
   encoding_starts_with: String
-
-  """All values not starting with the given string."""
   encoding_not_starts_with: String
-
-  """All values ending with the given string."""
   encoding_ends_with: String
-
-  """All values not ending with the given string."""
   encoding_not_ends_with: String
   url: String
-
-  """All values that are not equal to given value."""
   url_not: String
-
-  """All values that are contained in given list."""
   url_in: [String!]
-
-  """All values that are not contained in given list."""
   url_not_in: [String!]
-
-  """All values less than the given value."""
   url_lt: String
-
-  """All values less than or equal the given value."""
   url_lte: String
-
-  """All values greater than the given value."""
   url_gt: String
-
-  """All values greater than or equal the given value."""
   url_gte: String
-
-  """All values containing the given string."""
   url_contains: String
-
-  """All values not containing the given string."""
   url_not_contains: String
-
-  """All values starting with the given string."""
   url_starts_with: String
-
-  """All values not starting with the given string."""
   url_not_starts_with: String
-
-  """All values ending with the given string."""
   url_ends_with: String
-
-  """All values not ending with the given string."""
   url_not_ends_with: String
+  AND: [FileWhereInput!]
+  OR: [FileWhereInput!]
+  NOT: [FileWhereInput!]
 }
 
 input FileWhereUniqueInput {
@@ -867,7 +476,7 @@ input FileWhereUniqueInput {
   url: String
 }
 
-type Foundry implements Node {
+type Foundry {
   id: ID!
   name: String!
   url: String!
@@ -875,12 +484,8 @@ type Foundry implements Node {
   addedBy: User!
 }
 
-"""A connection to a list of items."""
 type FoundryConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [FoundryEdge]!
   aggregate: AggregateFoundry!
 }
@@ -903,12 +508,8 @@ input FoundryCreateWithoutTypefacesInput {
   addedBy: UserCreateOneInput!
 }
 
-"""An edge in a connection."""
 type FoundryEdge {
-  """The item at the end of the edge."""
   node: Foundry!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -919,10 +520,10 @@ enum FoundryOrderByInput {
   name_DESC
   url_ASC
   url_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type FoundryPreviousValues {
@@ -932,134 +533,51 @@ type FoundryPreviousValues {
 }
 
 input FoundryScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FoundryScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FoundryScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FoundryScalarWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   url: String
-
-  """All values that are not equal to given value."""
   url_not: String
-
-  """All values that are contained in given list."""
   url_in: [String!]
-
-  """All values that are not contained in given list."""
   url_not_in: [String!]
-
-  """All values less than the given value."""
   url_lt: String
-
-  """All values less than or equal the given value."""
   url_lte: String
-
-  """All values greater than the given value."""
   url_gt: String
-
-  """All values greater than or equal the given value."""
   url_gte: String
-
-  """All values containing the given string."""
   url_contains: String
-
-  """All values not containing the given string."""
   url_not_contains: String
-
-  """All values starting with the given string."""
   url_starts_with: String
-
-  """All values not starting with the given string."""
   url_not_starts_with: String
-
-  """All values ending with the given string."""
   url_ends_with: String
-
-  """All values not ending with the given string."""
   url_not_ends_with: String
+  AND: [FoundryScalarWhereInput!]
+  OR: [FoundryScalarWhereInput!]
+  NOT: [FoundryScalarWhereInput!]
 }
 
 type FoundrySubscriptionPayload {
@@ -1070,35 +588,14 @@ type FoundrySubscriptionPayload {
 }
 
 input FoundrySubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FoundrySubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FoundrySubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FoundrySubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: FoundryWhereInput
+  AND: [FoundrySubscriptionWhereInput!]
+  OR: [FoundrySubscriptionWhereInput!]
+  NOT: [FoundrySubscriptionWhereInput!]
 }
 
 input FoundryUpdateInput {
@@ -1120,14 +617,14 @@ input FoundryUpdateManyMutationInput {
 
 input FoundryUpdateManyWithoutTypefacesInput {
   create: [FoundryCreateWithoutTypefacesInput!]
+  delete: [FoundryWhereUniqueInput!]
   connect: [FoundryWhereUniqueInput!]
   set: [FoundryWhereUniqueInput!]
   disconnect: [FoundryWhereUniqueInput!]
-  delete: [FoundryWhereUniqueInput!]
   update: [FoundryUpdateWithWhereUniqueWithoutTypefacesInput!]
-  updateMany: [FoundryUpdateManyWithWhereNestedInput!]
-  deleteMany: [FoundryScalarWhereInput!]
   upsert: [FoundryUpsertWithWhereUniqueWithoutTypefacesInput!]
+  deleteMany: [FoundryScalarWhereInput!]
+  updateMany: [FoundryUpdateManyWithWhereNestedInput!]
 }
 
 input FoundryUpdateManyWithWhereNestedInput {
@@ -1153,138 +650,55 @@ input FoundryUpsertWithWhereUniqueWithoutTypefacesInput {
 }
 
 input FoundryWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FoundryWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FoundryWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FoundryWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   url: String
-
-  """All values that are not equal to given value."""
   url_not: String
-
-  """All values that are contained in given list."""
   url_in: [String!]
-
-  """All values that are not contained in given list."""
   url_not_in: [String!]
-
-  """All values less than the given value."""
   url_lt: String
-
-  """All values less than or equal the given value."""
   url_lte: String
-
-  """All values greater than the given value."""
   url_gt: String
-
-  """All values greater than or equal the given value."""
   url_gte: String
-
-  """All values containing the given string."""
   url_contains: String
-
-  """All values not containing the given string."""
   url_not_contains: String
-
-  """All values starting with the given string."""
   url_starts_with: String
-
-  """All values not starting with the given string."""
   url_not_starts_with: String
-
-  """All values ending with the given string."""
   url_ends_with: String
-
-  """All values not ending with the given string."""
   url_not_ends_with: String
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
   addedBy: UserWhereInput
+  AND: [FoundryWhereInput!]
+  OR: [FoundryWhereInput!]
+  NOT: [FoundryWhereInput!]
 }
 
 input FoundryWhereUniqueInput {
@@ -1292,7 +706,7 @@ input FoundryWhereUniqueInput {
   name: String
 }
 
-type Images implements Node {
+type Images {
   id: ID!
   website: Website
   thumbnail: File
@@ -1300,12 +714,8 @@ type Images implements Node {
   typeface: Typeface
 }
 
-"""A connection to a list of items."""
 type ImagesConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [ImagesEdge]!
   aggregate: AggregateImages!
 }
@@ -1339,22 +749,18 @@ input ImagesCreateWithoutWebsiteInput {
   typeface: TypefaceCreateOneWithoutImagesInput
 }
 
-"""An edge in a connection."""
 type ImagesEdge {
-  """The item at the end of the edge."""
   node: Images!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
 enum ImagesOrderByInput {
   id_ASC
   id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ImagesPreviousValues {
@@ -1369,35 +775,14 @@ type ImagesSubscriptionPayload {
 }
 
 input ImagesSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ImagesSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ImagesSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ImagesSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: ImagesWhereInput
+  AND: [ImagesSubscriptionWhereInput!]
+  OR: [ImagesSubscriptionWhereInput!]
+  NOT: [ImagesSubscriptionWhereInput!]
 }
 
 input ImagesUpdateInput {
@@ -1409,20 +794,20 @@ input ImagesUpdateInput {
 
 input ImagesUpdateOneWithoutTypefaceInput {
   create: ImagesCreateWithoutTypefaceInput
-  connect: ImagesWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: ImagesUpdateWithoutTypefaceDataInput
   upsert: ImagesUpsertWithoutTypefaceInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ImagesWhereUniqueInput
 }
 
 input ImagesUpdateOneWithoutWebsiteInput {
   create: ImagesCreateWithoutWebsiteInput
-  connect: ImagesWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: ImagesUpdateWithoutWebsiteDataInput
   upsert: ImagesUpsertWithoutWebsiteInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ImagesWhereUniqueInput
 }
 
 input ImagesUpdateWithoutTypefaceDataInput {
@@ -1448,118 +833,83 @@ input ImagesUpsertWithoutWebsiteInput {
 }
 
 input ImagesWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ImagesWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ImagesWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ImagesWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   website: WebsiteWhereInput
   thumbnail: FileWhereInput
   full: FileWhereInput
   typeface: TypefaceWhereInput
+  AND: [ImagesWhereInput!]
+  OR: [ImagesWhereInput!]
+  NOT: [ImagesWhereInput!]
 }
 
 input ImagesWhereUniqueInput {
   id: ID
 }
 
-"""
-The `Long` scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
-"""
 scalar Long
 
 type Mutation {
-  createWebsite(data: WebsiteCreateInput!): Website!
-  createImages(data: ImagesCreateInput!): Images!
-  createTag(data: TagCreateInput!): Tag!
   createDesigner(data: DesignerCreateInput!): Designer!
-  createTypeface(data: TypefaceCreateInput!): Typeface!
-  createFoundry(data: FoundryCreateInput!): Foundry!
-  createFile(data: FileCreateInput!): File!
-  createUser(data: UserCreateInput!): User!
-  updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
-  updateImages(data: ImagesUpdateInput!, where: ImagesWhereUniqueInput!): Images
-  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateDesigner(data: DesignerUpdateInput!, where: DesignerWhereUniqueInput!): Designer
-  updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
-  updateFoundry(data: FoundryUpdateInput!, where: FoundryWhereUniqueInput!): Foundry
-  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteWebsite(where: WebsiteWhereUniqueInput!): Website
-  deleteImages(where: ImagesWhereUniqueInput!): Images
-  deleteTag(where: TagWhereUniqueInput!): Tag
-  deleteDesigner(where: DesignerWhereUniqueInput!): Designer
-  deleteTypeface(where: TypefaceWhereUniqueInput!): Typeface
-  deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
-  deleteFile(where: FileWhereUniqueInput!): File
-  deleteUser(where: UserWhereUniqueInput!): User
-  upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
-  upsertImages(where: ImagesWhereUniqueInput!, create: ImagesCreateInput!, update: ImagesUpdateInput!): Images!
-  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
-  upsertDesigner(where: DesignerWhereUniqueInput!, create: DesignerCreateInput!, update: DesignerUpdateInput!): Designer!
-  upsertTypeface(where: TypefaceWhereUniqueInput!, create: TypefaceCreateInput!, update: TypefaceUpdateInput!): Typeface!
-  upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
-  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyWebsites(data: WebsiteUpdateManyMutationInput!, where: WebsiteWhereInput): BatchPayload!
-  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
   updateManyDesigners(data: DesignerUpdateManyMutationInput!, where: DesignerWhereInput): BatchPayload!
-  updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
-  updateManyFoundries(data: FoundryUpdateManyMutationInput!, where: FoundryWhereInput): BatchPayload!
-  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
-  deleteManyImageses(where: ImagesWhereInput): BatchPayload!
-  deleteManyTags(where: TagWhereInput): BatchPayload!
+  upsertDesigner(where: DesignerWhereUniqueInput!, create: DesignerCreateInput!, update: DesignerUpdateInput!): Designer!
+  deleteDesigner(where: DesignerWhereUniqueInput!): Designer
   deleteManyDesigners(where: DesignerWhereInput): BatchPayload!
-  deleteManyTypefaces(where: TypefaceWhereInput): BatchPayload!
-  deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
+  createFile(data: FileCreateInput!): File!
+  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
+  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
+  deleteFile(where: FileWhereUniqueInput!): File
   deleteManyFiles(where: FileWhereInput): BatchPayload!
+  createFoundry(data: FoundryCreateInput!): Foundry!
+  updateFoundry(data: FoundryUpdateInput!, where: FoundryWhereUniqueInput!): Foundry
+  updateManyFoundries(data: FoundryUpdateManyMutationInput!, where: FoundryWhereInput): BatchPayload!
+  upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
+  deleteFoundry(where: FoundryWhereUniqueInput!): Foundry
+  deleteManyFoundries(where: FoundryWhereInput): BatchPayload!
+  createImages(data: ImagesCreateInput!): Images!
+  updateImages(data: ImagesUpdateInput!, where: ImagesWhereUniqueInput!): Images
+  upsertImages(where: ImagesWhereUniqueInput!, create: ImagesCreateInput!, update: ImagesUpdateInput!): Images!
+  deleteImages(where: ImagesWhereUniqueInput!): Images
+  deleteManyImageses(where: ImagesWhereInput): BatchPayload!
+  createTag(data: TagCreateInput!): Tag!
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteManyTags(where: TagWhereInput): BatchPayload!
+  createTypeface(data: TypefaceCreateInput!): Typeface!
+  updateTypeface(data: TypefaceUpdateInput!, where: TypefaceWhereUniqueInput!): Typeface
+  updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
+  upsertTypeface(where: TypefaceWhereUniqueInput!, create: TypefaceCreateInput!, update: TypefaceUpdateInput!): Typeface!
+  deleteTypeface(where: TypefaceWhereUniqueInput!): Typeface
+  deleteManyTypefaces(where: TypefaceWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createWebsite(data: WebsiteCreateInput!): Website!
+  updateWebsite(data: WebsiteUpdateInput!, where: WebsiteWhereUniqueInput!): Website
+  updateManyWebsites(data: WebsiteUpdateManyMutationInput!, where: WebsiteWhereInput): BatchPayload!
+  upsertWebsite(where: WebsiteWhereUniqueInput!, create: WebsiteCreateInput!, update: WebsiteUpdateInput!): Website!
+  deleteWebsite(where: WebsiteWhereUniqueInput!): Website
+  deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1568,58 +918,43 @@ enum MutationType {
   DELETED
 }
 
-"""An object with an ID"""
 interface Node {
-  """The id of the object."""
   id: ID!
 }
 
-"""Information about pagination in a connection."""
 type PageInfo {
-  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
   startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
   endCursor: String
 }
 
 type Query {
-  websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website]!
-  imageses(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Images]!
-  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
-  designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer]!
-  typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
-  foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
-  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  website(where: WebsiteWhereUniqueInput!): Website
-  images(where: ImagesWhereUniqueInput!): Images
-  tag(where: TagWhereUniqueInput!): Tag
   designer(where: DesignerWhereUniqueInput!): Designer
-  typeface(where: TypefaceWhereUniqueInput!): Typeface
-  foundry(where: FoundryWhereUniqueInput!): Foundry
-  file(where: FileWhereUniqueInput!): File
-  user(where: UserWhereUniqueInput!): User
-  websitesConnection(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WebsiteConnection!
-  imagesesConnection(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImagesConnection!
-  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
+  designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer]!
   designersConnection(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DesignerConnection!
-  typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
-  foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
+  file(where: FileWhereUniqueInput!): File
+  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  foundry(where: FoundryWhereUniqueInput!): Foundry
+  foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry]!
+  foundriesConnection(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FoundryConnection!
+  images(where: ImagesWhereUniqueInput!): Images
+  imageses(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Images]!
+  imagesesConnection(where: ImagesWhereInput, orderBy: ImagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImagesConnection!
+  tag(where: TagWhereUniqueInput!): Tag
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
+  typeface(where: TypefaceWhereUniqueInput!): Typeface
+  typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface]!
+  typefacesConnection(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypefaceConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
+  website(where: WebsiteWhereUniqueInput!): Website
+  websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website]!
+  websitesConnection(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WebsiteConnection!
+  node(id: ID!): Node
 }
 
 enum Role {
@@ -1628,29 +963,25 @@ enum Role {
 }
 
 type Subscription {
-  website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
+  designer(where: DesignerSubscriptionWhereInput): DesignerSubscriptionPayload
+  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
   images(where: ImagesSubscriptionWhereInput): ImagesSubscriptionPayload
   tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
-  designer(where: DesignerSubscriptionWhereInput): DesignerSubscriptionPayload
   typeface(where: TypefaceSubscriptionWhereInput): TypefaceSubscriptionPayload
-  foundry(where: FoundrySubscriptionWhereInput): FoundrySubscriptionPayload
-  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  website(where: WebsiteSubscriptionWhereInput): WebsiteSubscriptionPayload
 }
 
-type Tag implements Node {
+type Tag {
   id: ID!
   name: String!
   website(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typeface(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
 }
 
-"""A connection to a list of items."""
 type TagConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [TagEdge]!
   aggregate: AggregateTag!
 }
@@ -1681,12 +1012,8 @@ input TagCreateWithoutWebsiteInput {
   typeface: TypefaceCreateManyWithoutTagsInput
 }
 
-"""An edge in a connection."""
 type TagEdge {
-  """The item at the end of the edge."""
   node: Tag!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -1695,10 +1022,10 @@ enum TagOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type TagPreviousValues {
@@ -1707,94 +1034,37 @@ type TagPreviousValues {
 }
 
 input TagScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TagScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TagScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TagScalarWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
+  AND: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  NOT: [TagScalarWhereInput!]
 }
 
 type TagSubscriptionPayload {
@@ -1805,35 +1075,14 @@ type TagSubscriptionPayload {
 }
 
 input TagSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TagSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TagSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TagSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: TagWhereInput
+  AND: [TagSubscriptionWhereInput!]
+  OR: [TagSubscriptionWhereInput!]
+  NOT: [TagSubscriptionWhereInput!]
 }
 
 input TagUpdateInput {
@@ -1852,26 +1101,26 @@ input TagUpdateManyMutationInput {
 
 input TagUpdateManyWithoutTypefaceInput {
   create: [TagCreateWithoutTypefaceInput!]
+  delete: [TagWhereUniqueInput!]
   connect: [TagWhereUniqueInput!]
   set: [TagWhereUniqueInput!]
   disconnect: [TagWhereUniqueInput!]
-  delete: [TagWhereUniqueInput!]
   update: [TagUpdateWithWhereUniqueWithoutTypefaceInput!]
-  updateMany: [TagUpdateManyWithWhereNestedInput!]
-  deleteMany: [TagScalarWhereInput!]
   upsert: [TagUpsertWithWhereUniqueWithoutTypefaceInput!]
+  deleteMany: [TagScalarWhereInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
 }
 
 input TagUpdateManyWithoutWebsiteInput {
   create: [TagCreateWithoutWebsiteInput!]
+  delete: [TagWhereUniqueInput!]
   connect: [TagWhereUniqueInput!]
   set: [TagWhereUniqueInput!]
   disconnect: [TagWhereUniqueInput!]
-  delete: [TagWhereUniqueInput!]
   update: [TagUpdateWithWhereUniqueWithoutWebsiteInput!]
-  updateMany: [TagUpdateManyWithWhereNestedInput!]
-  deleteMany: [TagScalarWhereInput!]
   upsert: [TagUpsertWithWhereUniqueWithoutWebsiteInput!]
+  deleteMany: [TagScalarWhereInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
 }
 
 input TagUpdateManyWithWhereNestedInput {
@@ -1912,93 +1161,33 @@ input TagUpsertWithWhereUniqueWithoutWebsiteInput {
 }
 
 input TagWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TagWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TagWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TagWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   website_every: WebsiteWhereInput
   website_some: WebsiteWhereInput
@@ -2006,13 +1195,16 @@ input TagWhereInput {
   typeface_every: TypefaceWhereInput
   typeface_some: TypefaceWhereInput
   typeface_none: TypefaceWhereInput
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
 }
 
 input TagWhereUniqueInput {
   id: ID
 }
 
-type Typeface implements Node {
+type Typeface {
   id: ID!
   name: String!
   downloadUrl: String!
@@ -2026,12 +1218,8 @@ type Typeface implements Node {
   images: Images
 }
 
-"""A connection to a list of items."""
 type TypefaceConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [TypefaceEdge]!
   aggregate: AggregateTypeface!
 }
@@ -2151,12 +1339,8 @@ input TypefaceCreateWithoutUsedByInput {
   images: ImagesCreateOneWithoutTypefaceInput
 }
 
-"""An edge in a connection."""
 type TypefaceEdge {
-  """The item at the end of the edge."""
   node: Typeface!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -2171,10 +1355,10 @@ enum TypefaceOrderByInput {
   description_DESC
   slug_ASC
   slug_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type TypefacePreviousValues {
@@ -2186,214 +1370,79 @@ type TypefacePreviousValues {
 }
 
 input TypefaceScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TypefaceScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TypefaceScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TypefaceScalarWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   downloadUrl: String
-
-  """All values that are not equal to given value."""
   downloadUrl_not: String
-
-  """All values that are contained in given list."""
   downloadUrl_in: [String!]
-
-  """All values that are not contained in given list."""
   downloadUrl_not_in: [String!]
-
-  """All values less than the given value."""
   downloadUrl_lt: String
-
-  """All values less than or equal the given value."""
   downloadUrl_lte: String
-
-  """All values greater than the given value."""
   downloadUrl_gt: String
-
-  """All values greater than or equal the given value."""
   downloadUrl_gte: String
-
-  """All values containing the given string."""
   downloadUrl_contains: String
-
-  """All values not containing the given string."""
   downloadUrl_not_contains: String
-
-  """All values starting with the given string."""
   downloadUrl_starts_with: String
-
-  """All values not starting with the given string."""
   downloadUrl_not_starts_with: String
-
-  """All values ending with the given string."""
   downloadUrl_ends_with: String
-
-  """All values not ending with the given string."""
   downloadUrl_not_ends_with: String
   description: String
-
-  """All values that are not equal to given value."""
   description_not: String
-
-  """All values that are contained in given list."""
   description_in: [String!]
-
-  """All values that are not contained in given list."""
   description_not_in: [String!]
-
-  """All values less than the given value."""
   description_lt: String
-
-  """All values less than or equal the given value."""
   description_lte: String
-
-  """All values greater than the given value."""
   description_gt: String
-
-  """All values greater than or equal the given value."""
   description_gte: String
-
-  """All values containing the given string."""
   description_contains: String
-
-  """All values not containing the given string."""
   description_not_contains: String
-
-  """All values starting with the given string."""
   description_starts_with: String
-
-  """All values not starting with the given string."""
   description_not_starts_with: String
-
-  """All values ending with the given string."""
   description_ends_with: String
-
-  """All values not ending with the given string."""
   description_not_ends_with: String
   slug: String
-
-  """All values that are not equal to given value."""
   slug_not: String
-
-  """All values that are contained in given list."""
   slug_in: [String!]
-
-  """All values that are not contained in given list."""
   slug_not_in: [String!]
-
-  """All values less than the given value."""
   slug_lt: String
-
-  """All values less than or equal the given value."""
   slug_lte: String
-
-  """All values greater than the given value."""
   slug_gt: String
-
-  """All values greater than or equal the given value."""
   slug_gte: String
-
-  """All values containing the given string."""
   slug_contains: String
-
-  """All values not containing the given string."""
   slug_not_contains: String
-
-  """All values starting with the given string."""
   slug_starts_with: String
-
-  """All values not starting with the given string."""
   slug_not_starts_with: String
-
-  """All values ending with the given string."""
   slug_ends_with: String
-
-  """All values not ending with the given string."""
   slug_not_ends_with: String
+  AND: [TypefaceScalarWhereInput!]
+  OR: [TypefaceScalarWhereInput!]
+  NOT: [TypefaceScalarWhereInput!]
 }
 
 type TypefaceSubscriptionPayload {
@@ -2404,35 +1453,14 @@ type TypefaceSubscriptionPayload {
 }
 
 input TypefaceSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TypefaceSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TypefaceSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TypefaceSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: TypefaceWhereInput
+  AND: [TypefaceSubscriptionWhereInput!]
+  OR: [TypefaceSubscriptionWhereInput!]
+  NOT: [TypefaceSubscriptionWhereInput!]
 }
 
 input TypefaceUpdateInput {
@@ -2464,62 +1492,62 @@ input TypefaceUpdateManyMutationInput {
 
 input TypefaceUpdateManyWithoutAddedByInput {
   create: [TypefaceCreateWithoutAddedByInput!]
+  delete: [TypefaceWhereUniqueInput!]
   connect: [TypefaceWhereUniqueInput!]
   set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
-  delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutAddedByInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutAddedByInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
 input TypefaceUpdateManyWithoutDesignersInput {
   create: [TypefaceCreateWithoutDesignersInput!]
+  delete: [TypefaceWhereUniqueInput!]
   connect: [TypefaceWhereUniqueInput!]
   set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
-  delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutDesignersInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutDesignersInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
 input TypefaceUpdateManyWithoutFoundriesInput {
   create: [TypefaceCreateWithoutFoundriesInput!]
+  delete: [TypefaceWhereUniqueInput!]
   connect: [TypefaceWhereUniqueInput!]
   set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
-  delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutFoundriesInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutFoundriesInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
 input TypefaceUpdateManyWithoutTagsInput {
   create: [TypefaceCreateWithoutTagsInput!]
+  delete: [TypefaceWhereUniqueInput!]
   connect: [TypefaceWhereUniqueInput!]
   set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
-  delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutTagsInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutTagsInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
 input TypefaceUpdateManyWithoutUsedByInput {
   create: [TypefaceCreateWithoutUsedByInput!]
+  delete: [TypefaceWhereUniqueInput!]
   connect: [TypefaceWhereUniqueInput!]
   set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
-  delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutUsedByInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutUsedByInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
 }
 
 input TypefaceUpdateManyWithWhereNestedInput {
@@ -2529,11 +1557,11 @@ input TypefaceUpdateManyWithWhereNestedInput {
 
 input TypefaceUpdateOneWithoutImagesInput {
   create: TypefaceCreateWithoutImagesInput
-  connect: TypefaceWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: TypefaceUpdateWithoutImagesDataInput
   upsert: TypefaceUpsertWithoutImagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: TypefaceWhereUniqueInput
 }
 
 input TypefaceUpdateWithoutAddedByDataInput {
@@ -2669,213 +1697,75 @@ input TypefaceUpsertWithWhereUniqueWithoutUsedByInput {
 }
 
 input TypefaceWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TypefaceWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TypefaceWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TypefaceWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   downloadUrl: String
-
-  """All values that are not equal to given value."""
   downloadUrl_not: String
-
-  """All values that are contained in given list."""
   downloadUrl_in: [String!]
-
-  """All values that are not contained in given list."""
   downloadUrl_not_in: [String!]
-
-  """All values less than the given value."""
   downloadUrl_lt: String
-
-  """All values less than or equal the given value."""
   downloadUrl_lte: String
-
-  """All values greater than the given value."""
   downloadUrl_gt: String
-
-  """All values greater than or equal the given value."""
   downloadUrl_gte: String
-
-  """All values containing the given string."""
   downloadUrl_contains: String
-
-  """All values not containing the given string."""
   downloadUrl_not_contains: String
-
-  """All values starting with the given string."""
   downloadUrl_starts_with: String
-
-  """All values not starting with the given string."""
   downloadUrl_not_starts_with: String
-
-  """All values ending with the given string."""
   downloadUrl_ends_with: String
-
-  """All values not ending with the given string."""
   downloadUrl_not_ends_with: String
   description: String
-
-  """All values that are not equal to given value."""
   description_not: String
-
-  """All values that are contained in given list."""
   description_in: [String!]
-
-  """All values that are not contained in given list."""
   description_not_in: [String!]
-
-  """All values less than the given value."""
   description_lt: String
-
-  """All values less than or equal the given value."""
   description_lte: String
-
-  """All values greater than the given value."""
   description_gt: String
-
-  """All values greater than or equal the given value."""
   description_gte: String
-
-  """All values containing the given string."""
   description_contains: String
-
-  """All values not containing the given string."""
   description_not_contains: String
-
-  """All values starting with the given string."""
   description_starts_with: String
-
-  """All values not starting with the given string."""
   description_not_starts_with: String
-
-  """All values ending with the given string."""
   description_ends_with: String
-
-  """All values not ending with the given string."""
   description_not_ends_with: String
   slug: String
-
-  """All values that are not equal to given value."""
   slug_not: String
-
-  """All values that are contained in given list."""
   slug_in: [String!]
-
-  """All values that are not contained in given list."""
   slug_not_in: [String!]
-
-  """All values less than the given value."""
   slug_lt: String
-
-  """All values less than or equal the given value."""
   slug_lte: String
-
-  """All values greater than the given value."""
   slug_gt: String
-
-  """All values greater than or equal the given value."""
   slug_gte: String
-
-  """All values containing the given string."""
   slug_contains: String
-
-  """All values not containing the given string."""
   slug_not_contains: String
-
-  """All values starting with the given string."""
   slug_starts_with: String
-
-  """All values not starting with the given string."""
   slug_not_starts_with: String
-
-  """All values ending with the given string."""
   slug_ends_with: String
-
-  """All values not ending with the given string."""
   slug_not_ends_with: String
   usedBy_every: WebsiteWhereInput
   usedBy_some: WebsiteWhereInput
@@ -2891,6 +1781,9 @@ input TypefaceWhereInput {
   tags_some: TagWhereInput
   tags_none: TagWhereInput
   images: ImagesWhereInput
+  AND: [TypefaceWhereInput!]
+  OR: [TypefaceWhereInput!]
+  NOT: [TypefaceWhereInput!]
 }
 
 input TypefaceWhereUniqueInput {
@@ -2899,7 +1792,7 @@ input TypefaceWhereUniqueInput {
   slug: String
 }
 
-type User implements Node {
+type User {
   id: ID!
   email: String!
   password: String!
@@ -2909,12 +1802,8 @@ type User implements Node {
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
 }
 
-"""A connection to a list of items."""
 type UserConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [UserEdge]!
   aggregate: AggregateUser!
 }
@@ -2959,12 +1848,8 @@ input UserCreateWithoutWebsitesInput {
   typefaces: TypefaceCreateManyWithoutAddedByInput
 }
 
-"""An edge in a connection."""
 type UserEdge {
-  """The item at the end of the edge."""
   node: User!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -2979,10 +1864,10 @@ enum UserOrderByInput {
   name_DESC
   role_ASC
   role_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
@@ -3001,35 +1886,14 @@ type UserSubscriptionPayload {
 }
 
 input UserSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [UserSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [UserSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [UserSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
 }
 
 input UserUpdateDataInput {
@@ -3059,23 +1923,23 @@ input UserUpdateManyMutationInput {
 
 input UserUpdateOneRequiredInput {
   create: UserCreateInput
-  connect: UserWhereUniqueInput
   update: UserUpdateDataInput
   upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutTypefacesInput {
   create: UserCreateWithoutTypefacesInput
-  connect: UserWhereUniqueInput
   update: UserUpdateWithoutTypefacesDataInput
   upsert: UserUpsertWithoutTypefacesInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutWebsitesInput {
   create: UserCreateWithoutWebsitesInput
-  connect: UserWhereUniqueInput
   update: UserUpdateWithoutWebsitesDataInput
   upsert: UserUpsertWithoutWebsitesInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateWithoutTypefacesDataInput {
@@ -3110,183 +1974,65 @@ input UserUpsertWithoutWebsitesInput {
 }
 
 input UserWhereInput {
-  """Logical AND on all given filters."""
-  AND: [UserWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [UserWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [UserWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   email: String
-
-  """All values that are not equal to given value."""
   email_not: String
-
-  """All values that are contained in given list."""
   email_in: [String!]
-
-  """All values that are not contained in given list."""
   email_not_in: [String!]
-
-  """All values less than the given value."""
   email_lt: String
-
-  """All values less than or equal the given value."""
   email_lte: String
-
-  """All values greater than the given value."""
   email_gt: String
-
-  """All values greater than or equal the given value."""
   email_gte: String
-
-  """All values containing the given string."""
   email_contains: String
-
-  """All values not containing the given string."""
   email_not_contains: String
-
-  """All values starting with the given string."""
   email_starts_with: String
-
-  """All values not starting with the given string."""
   email_not_starts_with: String
-
-  """All values ending with the given string."""
   email_ends_with: String
-
-  """All values not ending with the given string."""
   email_not_ends_with: String
   password: String
-
-  """All values that are not equal to given value."""
   password_not: String
-
-  """All values that are contained in given list."""
   password_in: [String!]
-
-  """All values that are not contained in given list."""
   password_not_in: [String!]
-
-  """All values less than the given value."""
   password_lt: String
-
-  """All values less than or equal the given value."""
   password_lte: String
-
-  """All values greater than the given value."""
   password_gt: String
-
-  """All values greater than or equal the given value."""
   password_gte: String
-
-  """All values containing the given string."""
   password_contains: String
-
-  """All values not containing the given string."""
   password_not_contains: String
-
-  """All values starting with the given string."""
   password_starts_with: String
-
-  """All values not starting with the given string."""
   password_not_starts_with: String
-
-  """All values ending with the given string."""
   password_ends_with: String
-
-  """All values not ending with the given string."""
   password_not_ends_with: String
   name: String
-
-  """All values that are not equal to given value."""
   name_not: String
-
-  """All values that are contained in given list."""
   name_in: [String!]
-
-  """All values that are not contained in given list."""
   name_not_in: [String!]
-
-  """All values less than the given value."""
   name_lt: String
-
-  """All values less than or equal the given value."""
   name_lte: String
-
-  """All values greater than the given value."""
   name_gt: String
-
-  """All values greater than or equal the given value."""
   name_gte: String
-
-  """All values containing the given string."""
   name_contains: String
-
-  """All values not containing the given string."""
   name_not_contains: String
-
-  """All values starting with the given string."""
   name_starts_with: String
-
-  """All values not starting with the given string."""
   name_not_starts_with: String
-
-  """All values ending with the given string."""
   name_ends_with: String
-
-  """All values not ending with the given string."""
   name_not_ends_with: String
   role: Role
-
-  """All values that are not equal to given value."""
   role_not: Role
-
-  """All values that are contained in given list."""
   role_in: [Role!]
-
-  """All values that are not contained in given list."""
   role_not_in: [Role!]
   websites_every: WebsiteWhereInput
   websites_some: WebsiteWhereInput
@@ -3294,6 +2040,9 @@ input UserWhereInput {
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
 }
 
 input UserWhereUniqueInput {
@@ -3301,7 +2050,7 @@ input UserWhereUniqueInput {
   email: String
 }
 
-type Website implements Node {
+type Website {
   id: ID!
   createdAt: DateTime!
   isPublished: Boolean!
@@ -3315,12 +2064,8 @@ type Website implements Node {
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
 }
 
-"""A connection to a list of items."""
 type WebsiteConnection {
-  """Information to aid in pagination."""
   pageInfo: PageInfo!
-
-  """A list of edges."""
   edges: [WebsiteEdge]!
   aggregate: AggregateWebsite!
 }
@@ -3328,12 +2073,12 @@ type WebsiteConnection {
 input WebsiteCreateInput {
   isPublished: Boolean
   title: String!
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
-  featured: Boolean
-  images: ImagesCreateOneWithoutWebsiteInput
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
+  featured: Boolean
   tags: TagCreateManyWithoutWebsiteInput
 }
 
@@ -3360,11 +2105,11 @@ input WebsiteCreateOneWithoutImagesInput {
 input WebsiteCreateWithoutAddedByInput {
   isPublished: Boolean
   title: String!
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
-  featured: Boolean
-  images: ImagesCreateOneWithoutWebsiteInput
   typefaces: TypefaceCreateManyWithoutUsedByInput
+  featured: Boolean
   tags: TagCreateManyWithoutWebsiteInput
 }
 
@@ -3373,40 +2118,36 @@ input WebsiteCreateWithoutImagesInput {
   title: String!
   slug: String
   url: String!
-  featured: Boolean
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
+  featured: Boolean
   tags: TagCreateManyWithoutWebsiteInput
 }
 
 input WebsiteCreateWithoutTagsInput {
   isPublished: Boolean
   title: String!
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
-  featured: Boolean
-  images: ImagesCreateOneWithoutWebsiteInput
   addedBy: UserCreateOneWithoutWebsitesInput!
   typefaces: TypefaceCreateManyWithoutUsedByInput
+  featured: Boolean
 }
 
 input WebsiteCreateWithoutTypefacesInput {
   isPublished: Boolean
   title: String!
+  images: ImagesCreateOneWithoutWebsiteInput
   slug: String
   url: String!
-  featured: Boolean
-  images: ImagesCreateOneWithoutWebsiteInput
   addedBy: UserCreateOneWithoutWebsitesInput!
+  featured: Boolean
   tags: TagCreateManyWithoutWebsiteInput
 }
 
-"""An edge in a connection."""
 type WebsiteEdge {
-  """The item at the end of the edge."""
   node: Website!
-
-  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -3440,204 +2181,77 @@ type WebsitePreviousValues {
 }
 
 input WebsiteScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [WebsiteScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [WebsiteScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [WebsiteScalarWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   createdAt: DateTime
-
-  """All values that are not equal to given value."""
   createdAt_not: DateTime
-
-  """All values that are contained in given list."""
   createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
   createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
   createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
   createdAt_lte: DateTime
-
-  """All values greater than the given value."""
   createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
   createdAt_gte: DateTime
   isPublished: Boolean
-
-  """All values that are not equal to given value."""
   isPublished_not: Boolean
   title: String
-
-  """All values that are not equal to given value."""
   title_not: String
-
-  """All values that are contained in given list."""
   title_in: [String!]
-
-  """All values that are not contained in given list."""
   title_not_in: [String!]
-
-  """All values less than the given value."""
   title_lt: String
-
-  """All values less than or equal the given value."""
   title_lte: String
-
-  """All values greater than the given value."""
   title_gt: String
-
-  """All values greater than or equal the given value."""
   title_gte: String
-
-  """All values containing the given string."""
   title_contains: String
-
-  """All values not containing the given string."""
   title_not_contains: String
-
-  """All values starting with the given string."""
   title_starts_with: String
-
-  """All values not starting with the given string."""
   title_not_starts_with: String
-
-  """All values ending with the given string."""
   title_ends_with: String
-
-  """All values not ending with the given string."""
   title_not_ends_with: String
   slug: String
-
-  """All values that are not equal to given value."""
   slug_not: String
-
-  """All values that are contained in given list."""
   slug_in: [String!]
-
-  """All values that are not contained in given list."""
   slug_not_in: [String!]
-
-  """All values less than the given value."""
   slug_lt: String
-
-  """All values less than or equal the given value."""
   slug_lte: String
-
-  """All values greater than the given value."""
   slug_gt: String
-
-  """All values greater than or equal the given value."""
   slug_gte: String
-
-  """All values containing the given string."""
   slug_contains: String
-
-  """All values not containing the given string."""
   slug_not_contains: String
-
-  """All values starting with the given string."""
   slug_starts_with: String
-
-  """All values not starting with the given string."""
   slug_not_starts_with: String
-
-  """All values ending with the given string."""
   slug_ends_with: String
-
-  """All values not ending with the given string."""
   slug_not_ends_with: String
   url: String
-
-  """All values that are not equal to given value."""
   url_not: String
-
-  """All values that are contained in given list."""
   url_in: [String!]
-
-  """All values that are not contained in given list."""
   url_not_in: [String!]
-
-  """All values less than the given value."""
   url_lt: String
-
-  """All values less than or equal the given value."""
   url_lte: String
-
-  """All values greater than the given value."""
   url_gt: String
-
-  """All values greater than or equal the given value."""
   url_gte: String
-
-  """All values containing the given string."""
   url_contains: String
-
-  """All values not containing the given string."""
   url_not_contains: String
-
-  """All values starting with the given string."""
   url_starts_with: String
-
-  """All values not starting with the given string."""
   url_not_starts_with: String
-
-  """All values ending with the given string."""
   url_ends_with: String
-
-  """All values not ending with the given string."""
   url_not_ends_with: String
   featured: Boolean
-
-  """All values that are not equal to given value."""
   featured_not: Boolean
+  AND: [WebsiteScalarWhereInput!]
+  OR: [WebsiteScalarWhereInput!]
+  NOT: [WebsiteScalarWhereInput!]
 }
 
 type WebsiteSubscriptionPayload {
@@ -3648,46 +2262,25 @@ type WebsiteSubscriptionPayload {
 }
 
 input WebsiteSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [WebsiteSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [WebsiteSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [WebsiteSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
   mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
   updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
   updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
   updatedFields_contains_some: [String!]
   node: WebsiteWhereInput
+  AND: [WebsiteSubscriptionWhereInput!]
+  OR: [WebsiteSubscriptionWhereInput!]
+  NOT: [WebsiteSubscriptionWhereInput!]
 }
 
 input WebsiteUpdateInput {
   isPublished: Boolean
   title: String
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
-  featured: Boolean
-  images: ImagesUpdateOneWithoutWebsiteInput
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
+  featured: Boolean
   tags: TagUpdateManyWithoutWebsiteInput
 }
 
@@ -3709,38 +2302,38 @@ input WebsiteUpdateManyMutationInput {
 
 input WebsiteUpdateManyWithoutAddedByInput {
   create: [WebsiteCreateWithoutAddedByInput!]
+  delete: [WebsiteWhereUniqueInput!]
   connect: [WebsiteWhereUniqueInput!]
   set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
-  delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutAddedByInput!]
-  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
-  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutAddedByInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
 }
 
 input WebsiteUpdateManyWithoutTagsInput {
   create: [WebsiteCreateWithoutTagsInput!]
+  delete: [WebsiteWhereUniqueInput!]
   connect: [WebsiteWhereUniqueInput!]
   set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
-  delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTagsInput!]
-  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
-  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutTagsInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
 }
 
 input WebsiteUpdateManyWithoutTypefacesInput {
   create: [WebsiteCreateWithoutTypefacesInput!]
+  delete: [WebsiteWhereUniqueInput!]
   connect: [WebsiteWhereUniqueInput!]
   set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
-  delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTypefacesInput!]
-  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
-  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutTypefacesInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
 }
 
 input WebsiteUpdateManyWithWhereNestedInput {
@@ -3750,21 +2343,21 @@ input WebsiteUpdateManyWithWhereNestedInput {
 
 input WebsiteUpdateOneWithoutImagesInput {
   create: WebsiteCreateWithoutImagesInput
-  connect: WebsiteWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: WebsiteUpdateWithoutImagesDataInput
   upsert: WebsiteUpsertWithoutImagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: WebsiteWhereUniqueInput
 }
 
 input WebsiteUpdateWithoutAddedByDataInput {
   isPublished: Boolean
   title: String
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
-  featured: Boolean
-  images: ImagesUpdateOneWithoutWebsiteInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
+  featured: Boolean
   tags: TagUpdateManyWithoutWebsiteInput
 }
 
@@ -3773,31 +2366,31 @@ input WebsiteUpdateWithoutImagesDataInput {
   title: String
   slug: String
   url: String
-  featured: Boolean
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
+  featured: Boolean
   tags: TagUpdateManyWithoutWebsiteInput
 }
 
 input WebsiteUpdateWithoutTagsDataInput {
   isPublished: Boolean
   title: String
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
-  featured: Boolean
-  images: ImagesUpdateOneWithoutWebsiteInput
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
   typefaces: TypefaceUpdateManyWithoutUsedByInput
+  featured: Boolean
 }
 
 input WebsiteUpdateWithoutTypefacesDataInput {
   isPublished: Boolean
   title: String
+  images: ImagesUpdateOneWithoutWebsiteInput
   slug: String
   url: String
-  featured: Boolean
-  images: ImagesUpdateOneWithoutWebsiteInput
   addedBy: UserUpdateOneRequiredWithoutWebsitesInput
+  featured: Boolean
   tags: TagUpdateManyWithoutWebsiteInput
 }
 
@@ -3840,212 +2433,85 @@ input WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
 }
 
 input WebsiteWhereInput {
-  """Logical AND on all given filters."""
-  AND: [WebsiteWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [WebsiteWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [WebsiteWhereInput!]
   id: ID
-
-  """All values that are not equal to given value."""
   id_not: ID
-
-  """All values that are contained in given list."""
   id_in: [ID!]
-
-  """All values that are not contained in given list."""
   id_not_in: [ID!]
-
-  """All values less than the given value."""
   id_lt: ID
-
-  """All values less than or equal the given value."""
   id_lte: ID
-
-  """All values greater than the given value."""
   id_gt: ID
-
-  """All values greater than or equal the given value."""
   id_gte: ID
-
-  """All values containing the given string."""
   id_contains: ID
-
-  """All values not containing the given string."""
   id_not_contains: ID
-
-  """All values starting with the given string."""
   id_starts_with: ID
-
-  """All values not starting with the given string."""
   id_not_starts_with: ID
-
-  """All values ending with the given string."""
   id_ends_with: ID
-
-  """All values not ending with the given string."""
   id_not_ends_with: ID
   createdAt: DateTime
-
-  """All values that are not equal to given value."""
   createdAt_not: DateTime
-
-  """All values that are contained in given list."""
   createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
   createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
   createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
   createdAt_lte: DateTime
-
-  """All values greater than the given value."""
   createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
   createdAt_gte: DateTime
   isPublished: Boolean
-
-  """All values that are not equal to given value."""
   isPublished_not: Boolean
   title: String
-
-  """All values that are not equal to given value."""
   title_not: String
-
-  """All values that are contained in given list."""
   title_in: [String!]
-
-  """All values that are not contained in given list."""
   title_not_in: [String!]
-
-  """All values less than the given value."""
   title_lt: String
-
-  """All values less than or equal the given value."""
   title_lte: String
-
-  """All values greater than the given value."""
   title_gt: String
-
-  """All values greater than or equal the given value."""
   title_gte: String
-
-  """All values containing the given string."""
   title_contains: String
-
-  """All values not containing the given string."""
   title_not_contains: String
-
-  """All values starting with the given string."""
   title_starts_with: String
-
-  """All values not starting with the given string."""
   title_not_starts_with: String
-
-  """All values ending with the given string."""
   title_ends_with: String
-
-  """All values not ending with the given string."""
   title_not_ends_with: String
+  images: ImagesWhereInput
   slug: String
-
-  """All values that are not equal to given value."""
   slug_not: String
-
-  """All values that are contained in given list."""
   slug_in: [String!]
-
-  """All values that are not contained in given list."""
   slug_not_in: [String!]
-
-  """All values less than the given value."""
   slug_lt: String
-
-  """All values less than or equal the given value."""
   slug_lte: String
-
-  """All values greater than the given value."""
   slug_gt: String
-
-  """All values greater than or equal the given value."""
   slug_gte: String
-
-  """All values containing the given string."""
   slug_contains: String
-
-  """All values not containing the given string."""
   slug_not_contains: String
-
-  """All values starting with the given string."""
   slug_starts_with: String
-
-  """All values not starting with the given string."""
   slug_not_starts_with: String
-
-  """All values ending with the given string."""
   slug_ends_with: String
-
-  """All values not ending with the given string."""
   slug_not_ends_with: String
   url: String
-
-  """All values that are not equal to given value."""
   url_not: String
-
-  """All values that are contained in given list."""
   url_in: [String!]
-
-  """All values that are not contained in given list."""
   url_not_in: [String!]
-
-  """All values less than the given value."""
   url_lt: String
-
-  """All values less than or equal the given value."""
   url_lte: String
-
-  """All values greater than the given value."""
   url_gt: String
-
-  """All values greater than or equal the given value."""
   url_gte: String
-
-  """All values containing the given string."""
   url_contains: String
-
-  """All values not containing the given string."""
   url_not_contains: String
-
-  """All values starting with the given string."""
   url_starts_with: String
-
-  """All values not starting with the given string."""
   url_not_starts_with: String
-
-  """All values ending with the given string."""
   url_ends_with: String
-
-  """All values not ending with the given string."""
   url_not_ends_with: String
-  featured: Boolean
-
-  """All values that are not equal to given value."""
-  featured_not: Boolean
-  images: ImagesWhereInput
   addedBy: UserWhereInput
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
+  featured: Boolean
+  featured_not: Boolean
   tags_every: TagWhereInput
   tags_some: TagWhereInput
   tags_none: TagWhereInput
+  AND: [WebsiteWhereInput!]
+  OR: [WebsiteWhereInput!]
+  NOT: [WebsiteWhereInput!]
 }
 
 input WebsiteWhereUniqueInput {

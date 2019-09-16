@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { TypefaceCreateInput } from "./../../../../__generated__/globalTypes";
+import { AddTypefaceInput } from "./../../../../__generated__/globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: AddTypeface
@@ -19,5 +19,5 @@ export interface AddTypeface {
 }
 
 export interface AddTypefaceVariables {
-  input?: TypefaceCreateInput | null;
+  input?: AddTypefaceInput | null;
 }

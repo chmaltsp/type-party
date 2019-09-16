@@ -6,10 +6,9 @@ import { ChildProps, graphql } from 'react-apollo';
 import Autocomplete from '../../components/Autocomplete';
 
 import { FindTag, FindTag_findTags, FindTagVariables } from './__generated__/FindTag';
-import { InputValues } from './Form';
-import { SEARCH_TAG, SEARCH_TYPEFACE } from './queries';
+import { SEARCH_TAG } from './queries';
 
-export class TagTypeahead extends React.PureComponent<
+export class TagTypeahead<InputValues> extends React.PureComponent<
   ChildProps<{}, FindTag, FindTagVariables>,
   any
 > {
@@ -19,12 +18,13 @@ export class TagTypeahead extends React.PureComponent<
         search: search || '',
       });
     }
-  }
+  };
   public render() {
     return (
       <Field
         name="tags"
         render={(fieldProps: FieldProps<InputValues>) => {
+          console.log(fieldProps);
           return (
             <Autocomplete<FindTag_findTags>
               items={(this.props.data && this.props.data.findTags) || []}

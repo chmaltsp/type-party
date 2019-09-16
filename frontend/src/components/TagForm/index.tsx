@@ -50,6 +50,8 @@ export class TagForm extends React.PureComponent<
       });
 
       if (response && response.data) {
+        console.log(response.data);
+        console.log(this.props.handleSubmit);
         this.props.handleSubmit(response.data.addTag);
       }
     } catch (error) {
@@ -57,7 +59,7 @@ export class TagForm extends React.PureComponent<
         actions.setFieldError('name', error.graphQLErrors[0].message);
       }
     }
-  }
+  };
 
   public render() {
     return (
