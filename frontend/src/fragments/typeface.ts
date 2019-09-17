@@ -7,6 +7,7 @@ export const TypefaceFragments = {
         designers {
           id
           name
+          url
         }
       }
     `,
@@ -15,6 +16,7 @@ export const TypefaceFragments = {
         foundries {
           id
           name
+          url
         }
       }
     `,
@@ -40,6 +42,7 @@ export const TypefaceFragments = {
         slug
         name
         downloadUrl
+        description
         tags {
           id
           name

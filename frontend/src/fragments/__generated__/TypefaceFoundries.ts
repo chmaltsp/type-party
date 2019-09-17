@@ -10,6 +10,7 @@ export interface TypefaceFoundries_foundries {
   __typename: "Foundry";
   id: string;
   name: string;
+  url: string;
 }
 
 export interface TypefaceFoundries {

@@ -18,5 +18,6 @@ export interface TypefaceInfo {
   slug: string;
   name: string;
   downloadUrl: string;
+  description: string | null;
   tags: TypefaceInfo_tags[] | null;
 }

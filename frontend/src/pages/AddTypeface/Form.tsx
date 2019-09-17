@@ -24,6 +24,12 @@ import { ADD_TYPEFACE } from './mutation';
 import MediaUpload from '../../components/MediaUpload';
 import TagForm from '../../components/TagForm';
 import TagTypeahead from '../../components/TagTypeahead';
+import { EDIT_WEBISTE } from '../AddSite/queries';
+import {
+  EditTypeface,
+  EditTypeface_typeface_images_full,
+  EditTypefaceVariables,
+} from './__generated__/EditTypeface';
 import { validationSchema } from './validationSchema';
 
 export interface TypefaceFormProps {
@@ -46,10 +52,6 @@ export interface InputValues {
   full: File | null;
 }
 
-interface ImageProps {
-  full: EditType | null;
-}
-
 const Form = styled.div`
   max-width: 700px;
   margin-bottom: ${({ theme }) => theme.spacing.xl};
@@ -61,7 +63,11 @@ const ButtonWrapper = styled(Flex)`
 
 const Publish = styled(ButtonBase)``;
 
-type Props = ChildMutateProps<TypefaceFormProps, AddTypeface, AddTypefaceVariables>;
+interface ImageProps {
+  full: EditTypeface_typeface_images_full | null;
+}
+type Props = ChildMutateProps<TypefaceFormProps, AddTypeface, AddTypefaceVariables> &
+  ImageProps;
 
 class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   public state = {
@@ -88,20 +94,9 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
         variables: {
           input: {
             ...values,
-            addedBy: {},
-            designers: {
-              connect: values.designers.map(designer => ({
-                id: designer.id,
-              })),
-            },
-            foundries: {
-              connect: values.foundries.map(foundry => ({
-                id: foundry.id,
-              })),
-            },
-            tags: {
-              connect: values.tags.map(tag => ({ id: tag.id })),
-            },
+            designers: values.designers.map(designer => designer.id),
+            foundries: values.foundries.map(foundry => foundry.id),
+            tags: values.tags.map(tag => tag.id),
           },
         },
       });
@@ -152,6 +147,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
             designers: [],
             downloadUrl: '',
             foundries: [],
+            full: null,
             name: '',
             slug: '',
             tags: [],
@@ -204,7 +200,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                           setFieldValue('full', file);
                         }}
                         previewUrl={(this.props.full && this.props.full.url) || undefined}
-                        {...props}
+                        {...fieldProps}
                       />
                     );
                   }}
@@ -254,8 +250,21 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   }
 }
 
-const WrappedForm = graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE)(
-  TypefaceForm
-);
+interface WrappedFormProps {
+  slug: string;
+}
+
+const WrappedForm = compose(
+  graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE),
+  graphql<WrappedFormProps, EditTypeface, EditTypefaceVariables, any>(EDIT_WEBISTE, {
+    options: ({ slug }) => {
+      return {
+        variables: {
+          slug,
+        },
+      };
+    },
+  })
+)(TypefaceForm);
 
 export default WrappedForm;
