@@ -10,6 +10,8 @@ export const typeface: TypefaceMutations = {
   addTypeface: async (parent, args, ctx) => {
     const { userId } = ctxUser(ctx);
 
+    console.log(args);
+
     const fullFile = await processUpload(args.input.full, ctx);
 
     // Clean up input for createWebsite

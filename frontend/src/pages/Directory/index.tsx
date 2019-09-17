@@ -8,6 +8,8 @@ import PageTitle from '../../components/PageTitle';
 import { GetTypefaces } from './__generated__/GetTypefaces';
 import { GET_TYPEFACES } from './queries';
 
+import { Link } from '../../components/Link';
+
 export interface DirectoryProps {}
 
 const FontListWrapper = styled(FlexBase)`
@@ -40,7 +42,11 @@ export class Directory extends React.PureComponent<
         <FontListWrapper>
           <FontListUL>
             {fonts &&
-              fonts.map(font => <Font key={font.name + Math.random()}>{font.name}</Font>)}
+              fonts.map(font => (
+                <Font key={font.name + Math.random()}>
+                  <Link to={`typeface/${font.slug}`}>{font.name}</Link>
+                </Font>
+              ))}
           </FontListUL>
         </FontListWrapper>
       </Container>

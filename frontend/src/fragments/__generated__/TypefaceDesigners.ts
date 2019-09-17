@@ -10,6 +10,7 @@ export interface TypefaceDesigners_designers {
   __typename: "Designer";
   id: string;
   name: string;
+  url: string;
 }
 
 export interface TypefaceDesigners {

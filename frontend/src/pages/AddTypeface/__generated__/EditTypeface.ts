@@ -36,12 +36,14 @@ export interface EditTypeface_typeface_designers {
   __typename: "Designer";
   id: string;
   name: string;
+  url: string;
 }
 
 export interface EditTypeface_typeface_foundries {
   __typename: "Foundry";
   id: string;
   name: string;
+  url: string;
 }
 
 export interface EditTypeface_typeface {
@@ -50,6 +52,7 @@ export interface EditTypeface_typeface {
   slug: string;
   name: string;
   downloadUrl: string;
+  description: string | null;
   tags: EditTypeface_typeface_tags[] | null;
   images: EditTypeface_typeface_images | null;
   designers: EditTypeface_typeface_designers[] | null;
