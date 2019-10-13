@@ -2,15 +2,15 @@ import * as React from 'react';
 import styled from 'sc';
 
 import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
-import { ChildMutateProps, compose, graphql } from 'react-apollo';
+import { ChildDataProps, ChildMutateProps, compose, graphql } from 'react-apollo';
 import ButtonBase from '../../components/Button';
 import DesignerForm from '../../components/DesignerForm';
 import Flex from '../../components/Flex';
 import FoundryForm from '../../components/FoundryForm';
 import Input from '../../components/Input';
 
-import { AddDesigner_addDesigner } from 'src/components/DesignerForm/__generated__/AddDesigner';
-import { AddFoundry_addFoundry } from 'src/components/FoundryForm/__generated__/AddFoundry';
+import { AddDesigner_addDesigner } from '../../components/DesignerForm/__generated__/AddDesigner';
+import { AddFoundry_addFoundry } from '../../components/FoundryForm/__generated__/AddFoundry';
 import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import {
   AddTypeface,
@@ -19,8 +19,9 @@ import {
 } from './__generated__/AddTypeface';
 import DesignerTypeahead from './DesignerTypeahead';
 import FoundryTypeahead from './FoundryTypeahead';
-import { ADD_TYPEFACE } from './mutation';
+import { ADD_TYPEFACE, UPDATE_TYPEFACE } from './mutation';
 
+import { type } from 'os';
 import MediaUpload from '../../components/MediaUpload';
 import TagForm from '../../components/TagForm';
 import TagTypeahead from '../../components/TagTypeahead';
@@ -30,6 +31,12 @@ import {
   EditTypeface_typeface_images_full,
   EditTypefaceVariables,
 } from './__generated__/EditTypeface';
+import {
+  UpdateTypeface,
+  UpdateTypeface_updateTypeface,
+  UpdateTypefaceVariables,
+} from './__generated__/UpdateTypeface';
+import { EDIT_TYPEFACE } from './queries';
 import { validationSchema } from './validationSchema';
 
 export interface TypefaceFormProps {
@@ -66,10 +73,13 @@ const Publish = styled(ButtonBase)``;
 interface ImageProps {
   full: EditTypeface_typeface_images_full | null;
 }
-type Props = ChildMutateProps<TypefaceFormProps, AddTypeface, AddTypefaceVariables> &
-  ImageProps;
+interface AllProps extends ChildDataProps<WrappedFormProps, EditTypeface>, ImageProps {
+  addTypeface: (data: AddTypefaceVariables) => AddTypeface_addTypeface;
+  updateTypeface: (data: UpdateTypefaceVariables) => UpdateTypeface_updateTypeface;
+  handleSubmit?: (typeface: any) => void;
+}
 
-class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
+class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
   public state = {
     showDesignerForm: false,
     showFoundryForm: false,
@@ -87,8 +97,6 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
     });
   };
   public handleOnSubmit = async (values: InputValues) => {
-    console.log(values);
-
     const cleanInput = {
       ...values,
       designers: values.designers.map(designer => designer.id),
@@ -100,14 +108,14 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
     // Remove for compatibilty with nested form
     delete cleanInput.fullTypeface;
     try {
-      const response = await this.props.mutate({
-        variables: {
-          input: cleanInput,
-        },
+      const response = await this.props[
+        this.props.slug ? 'updateTypeface' : 'addTypeface'
+      ]({
+        input: cleanInput,
       });
 
-      if (response && response.data && this.props.handleSubmit) {
-        this.props.handleSubmit(response.data.addTypeface);
+      if (response && this.props.handleSubmit) {
+        this.props.handleSubmit(response);
       }
     } catch (error) {
       console.log(error);
@@ -118,8 +126,6 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   private handleAddTag = (formProps: FormikProps<InputValues>) => (
     tag: AddTag_addTag
   ) => {
-    console.log('in handleAddTag', tag);
-
     formProps.setFieldValue('tags', [...formProps.values.tags, tag]);
   };
 
@@ -144,18 +150,23 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
 
   public render() {
     console.log(this.props);
+
+    const typeface = this.props.data && this.props.data.typeface;
+
+    const full = typeface && typeface.images && typeface.images.full;
     return (
       <div>
         <Formik<InputValues>
+          enableReinitialize={true}
           initialValues={{
-            description: '',
-            designers: [],
-            downloadUrl: '',
-            foundries: [],
+            description: (typeface && typeface.description) || '',
+            designers: (typeface && typeface.designers) || [],
+            downloadUrl: (typeface && typeface.downloadUrl) || '',
+            foundries: (typeface && typeface.foundries) || [],
             fullTypeface: null,
-            name: '',
-            slug: '',
-            tags: [],
+            name: (typeface && typeface.name) || '',
+            slug: (typeface && typeface.slug) || '',
+            tags: (typeface && typeface.tags) || [],
           }}
           validationSchema={validationSchema}
           onSubmit={this.handleOnSubmit}
@@ -204,7 +215,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                           const { setFieldValue } = fieldProps.form;
                           setFieldValue('fullTypeface', file);
                         }}
-                        previewUrl={(this.props.full && this.props.full.url) || undefined}
+                        previewUrl={(full && full.url) || undefined}
                         {...fieldProps}
                       />
                     );
@@ -260,8 +271,16 @@ interface WrappedFormProps {
 }
 
 const WrappedForm = compose(
-  graphql<any, AddTypeface, AddTypefaceVariables>(ADD_TYPEFACE),
-  graphql<WrappedFormProps, EditTypeface, EditTypefaceVariables, any>(EDIT_WEBISTE, {
+  graphql<WrappedFormProps, AddTypeface, AddTypefaceVariables, any>(ADD_TYPEFACE, {
+    props: ({ mutate }) => ({
+      addTypeface: async (variables: AddTypefaceVariables) => {
+        if (mutate) {
+          return mutate({ variables });
+        }
+      },
+    }),
+  }),
+  graphql<WrappedFormProps, EditTypeface, EditTypefaceVariables, any>(EDIT_TYPEFACE, {
     options: ({ slug }) => {
       return {
         variables: {
@@ -269,7 +288,19 @@ const WrappedForm = compose(
         },
       };
     },
-  })
+  }),
+  graphql<WrappedFormProps, UpdateTypeface, UpdateTypefaceVariables, any>(
+    UPDATE_TYPEFACE,
+    {
+      props: ({ mutate }) => ({
+        updateTypeface: async (variables: UpdateTypefaceVariables) => {
+          if (mutate) {
+            return mutate({ variables });
+          }
+        },
+      }),
+    }
+  )
 )(TypefaceForm);
 
 export default WrappedForm;

@@ -3710,6 +3710,16 @@ export namespace MutationResolvers {
     tags: string[];
     full: string;
   }
+  export interface UpdateTypefaceInput {
+    name: string;
+    downloadUrl: string;
+    description: string | null;
+    slug: string;
+    foundries: string[];
+    designers: string[];
+    tags: string[];
+    full: string;
+  }
   export interface FoundryCreateInput {
     name: string;
     url: string;
@@ -4025,6 +4035,10 @@ export namespace MutationResolvers {
     input: AddTypefaceInput | null;
   }
 
+  export interface ArgsUpdateTypeface {
+    input: UpdateTypefaceInput | null;
+  }
+
   export interface ArgsAddFoundry {
     input: FoundryCreateInput | null;
   }
@@ -4072,6 +4086,13 @@ export namespace MutationResolvers {
   export type AddTypefaceResolver = (
     parent: undefined,
     args: ArgsAddTypeface,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Typeface | null | Promise<Typeface | null>;
+
+  export type UpdateTypefaceResolver = (
+    parent: undefined,
+    args: ArgsUpdateTypeface,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Typeface | null | Promise<Typeface | null>;
@@ -4136,6 +4157,13 @@ export namespace MutationResolvers {
     addTypeface: (
       parent: undefined,
       args: ArgsAddTypeface,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Typeface | null | Promise<Typeface | null>;
+
+    updateTypeface: (
+      parent: undefined,
+      args: ArgsUpdateTypeface,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Typeface | null | Promise<Typeface | null>;

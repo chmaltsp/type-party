@@ -20,6 +20,9 @@ export const Mutation: MutationResolvers.Type = {
   addTypeface: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  updateTypeface: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   addFoundry: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },

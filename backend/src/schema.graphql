@@ -38,8 +38,6 @@ input TypefaceInput {
   name: String!
 }
 
-
-
 input AddWebsiteInput {
   full: Upload!
   thumbnail: Upload!
@@ -70,12 +68,25 @@ input UpdateWebsiteInput {
   typefaces: [String!]!
   tags: [String!]!
 }
+
+input UpdateTypefaceInput {
+  name: String!
+  downloadUrl: String!
+  description: String
+  slug: String!
+  foundries: [String!]!
+  designers: [String!]!
+  tags: [String!]!
+  full: Upload!
+}
+
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   addWebsite(input: AddWebsiteInput): Website!
   updateWebsite(input: UpdateWebsiteInput): Website!
   addTypeface(input: AddTypefaceInput): Typeface @isAuthenticated
+  updateTypeface(input: UpdateTypefaceInput): Typeface @isAuthenticated
   addFoundry(input: FoundryCreateInput): Foundry @isAuthenticated
   addDesigner(input: DesignerCreateInput): Designer @isAuthenticated
   addTag(input: TagCreateInput): Tag @isAuthenticated

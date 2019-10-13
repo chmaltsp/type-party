@@ -1,16 +1,23 @@
-import styled from 'sc';
+import styled, { media } from 'sc';
 import { ButtonA } from '../../components/Button';
 import { Container as ContainerBase } from '../../components/Container';
 import Flex from '../../components/Flex';
 import PageTitle from '../../components/PageTitle';
 export const DetailWrapper = styled(Flex)`
   flex-direction: row;
+  ${media.tablet`
+    flex-direction: column;
+    margin: ${({ theme }: any) => theme.spacing.md}px 0;
+  `}
 `;
 export const Image = styled.img`
   flex: 1;
   width: 50%;
   height: 419px;
   background-color: ${({ theme }) => theme.colors.greyC4C};
+  ${media.tablet`
+    width: 100%;
+  `};
 `;
 
 export const WebsiteInfo = styled(Flex)`
@@ -18,6 +25,9 @@ export const WebsiteInfo = styled(Flex)`
   padding: 0 ${({ theme }) => theme.spacing.md}px;
   width: 50%;
   flex-direction: column;
+  ${media.tablet`
+    width: 100%;
+  `};
 `;
 export const Title = styled(PageTitle)`
   margin-bottom: ${({ theme }) => theme.spacing.md}px;

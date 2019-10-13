@@ -259,6 +259,17 @@ export interface TypefaceWhereUniqueInput {
   slug?: string | null;
 }
 
+export interface UpdateTypefaceInput {
+  name: string;
+  downloadUrl: string;
+  description?: string | null;
+  slug: string;
+  foundries: string[];
+  designers: string[];
+  tags: string[];
+  full: any;
+}
+
 export interface UpdateWebsiteInput {
   full?: any | null;
   thumbnail?: any | null;
