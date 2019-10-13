@@ -32,6 +32,7 @@ const App = () => (
         <ProtectedRoute exact={true} path="/add-site" component={AddSite} />
         <ProtectedRoute exact={true} path="/add-site/:slug" component={AddSite} />
         <ProtectedRoute exact={true} path="/add-typeface" component={AddTypeface} />
+        <ProtectedRoute exact={true} path="/add-typeface/:slug" component={AddTypeface} />
         <Route exact={true} path="/login" component={Login} />
       </Switch>
       <Footer />
