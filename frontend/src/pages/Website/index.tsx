@@ -61,7 +61,11 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
               )}
             </Text>
             <Text>
-              Fonts used -- <LinkList links={this.props.data.website.typefaces || []} />
+              Fonts used --{' '}
+              <LinkList
+                hrefPrefix="typeface"
+                links={this.props.data.website.typefaces || []}
+              />
             </Text>
             <div>
               <Button href={this.props.data.website.url} black={true}>

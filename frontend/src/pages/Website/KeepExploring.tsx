@@ -51,6 +51,7 @@ const selectCards = (websites: KeepExploringQuery_websites[]): CardProps[] => {
       <span>
         Fonts --{' '}
         <LinkList
+          hrefPrefix={'typeface'}
           links={
             (website.typefaces &&
               website.typefaces.map(font => ({
