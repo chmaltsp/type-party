@@ -49,7 +49,7 @@ export interface InputValues {
   slug: string;
   name: string;
   tags: AddTag_addTag[];
-  full: File | null;
+  fullTypeface: File | null;
 }
 
 const Form = styled.div`
@@ -89,15 +89,20 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
   public handleOnSubmit = async (values: InputValues) => {
     console.log(values);
 
+    const cleanInput = {
+      ...values,
+      designers: values.designers.map(designer => designer.id),
+      foundries: values.foundries.map(foundry => foundry.id),
+      full: values.fullTypeface,
+      tags: values.tags.map(tag => tag.id),
+    };
+
+    // Remove for compatibilty with nested form
+    delete cleanInput.fullTypeface;
     try {
       const response = await this.props.mutate({
         variables: {
-          input: {
-            ...values,
-            designers: values.designers.map(designer => designer.id),
-            foundries: values.foundries.map(foundry => foundry.id),
-            tags: values.tags.map(tag => tag.id),
-          },
+          input: cleanInput,
         },
       });
 
@@ -147,7 +152,7 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
             designers: [],
             downloadUrl: '',
             foundries: [],
-            full: null,
+            fullTypeface: null,
             name: '',
             slug: '',
             tags: [],
@@ -188,16 +193,16 @@ class TypefaceForm extends React.PureComponent<Props, TypefaceFormState> {
                   }}
                 />
                 <Field
-                  name="full"
+                  name="fullTypeface"
                   render={(fieldProps: FieldProps<InputValues>) => {
                     return (
                       <MediaUpload
-                        label="Large Asset"
+                        label="Large Typeface Asset"
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                           const file =
                             event.currentTarget.files && event.currentTarget.files[0];
                           const { setFieldValue } = fieldProps.form;
-                          setFieldValue('full', file);
+                          setFieldValue('fullTypeface', file);
                         }}
                         previewUrl={(this.props.full && this.props.full.url) || undefined}
                         {...fieldProps}

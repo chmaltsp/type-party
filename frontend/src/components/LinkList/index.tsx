@@ -7,13 +7,14 @@ interface LinkProps {
 }
 interface LinkListProps {
   links: LinkProps[];
+  hrefPrefix: string;
 }
 
-const LinkList: React.SFC<LinkListProps> = ({ links }) => {
+const LinkList: React.SFC<LinkListProps> = ({ links, hrefPrefix }) => {
   return (
     <React.Fragment>
       {links.map((link, index) => (
-        <Link key={link.name} to={link.slug}>
+        <Link key={link.name} to={'/' + hrefPrefix + '/' + link.slug}>
           {link.name}
           {index !== links.length - 1 && ', '}
         </Link>
