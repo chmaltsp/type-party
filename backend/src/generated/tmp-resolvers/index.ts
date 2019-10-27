@@ -8,7 +8,7 @@ import { User } from './User';
 import { Website } from './Website';
 import { Images } from './Images';
 import { File } from './File';
-import { Typeface } from './Typeface';
+import { Typeface } from '../../resolvers/Typeface';
 import { Foundry } from './Foundry';
 import { Designer } from './Designer';
 import { Tag } from './Tag';
