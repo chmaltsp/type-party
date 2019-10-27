@@ -189,7 +189,6 @@ const WrappedForm: React.SFC<AllProps> = props => {
             typefaces: values.typefaces.map(typeface => typeface.id),
           },
         });
-        console.log(response);
       }}
       render={(formikProps: FormikProps<InputValues>) => (
         <SiteForm
