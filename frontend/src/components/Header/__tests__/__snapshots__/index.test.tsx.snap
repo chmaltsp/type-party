@@ -3,7 +3,12 @@
 exports[`<Header /> should render without blowing up 1`] = `
 <Fragment>
   <styled.div>
-    <Styled(styled.img) />
+    <Link
+      replace={false}
+      to="/"
+    >
+      <Styled(styled.img) />
+    </Link>
     <Styled(styled.div) />
     <styled.div
       onClick={[Function]}
