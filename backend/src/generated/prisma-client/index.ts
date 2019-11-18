@@ -1039,22 +1039,16 @@ export interface UserUpdateOneRequiredWithoutTypefacesInput {
   connect?: UserWhereUniqueInput;
 }
 
-export interface WebsiteUpdateManyWithoutTagsInput {
-  create?: WebsiteCreateWithoutTagsInput[] | WebsiteCreateWithoutTagsInput;
-  delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput;
-  update?:
-    | WebsiteUpdateWithWhereUniqueWithoutTagsInput[]
-    | WebsiteUpdateWithWhereUniqueWithoutTagsInput;
-  upsert?:
-    | WebsiteUpsertWithWhereUniqueWithoutTagsInput[]
-    | WebsiteUpsertWithWhereUniqueWithoutTagsInput;
-  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput;
-  updateMany?:
-    | WebsiteUpdateManyWithWhereNestedInput[]
-    | WebsiteUpdateManyWithWhereNestedInput;
+export interface TypefaceUpdateWithoutFoundriesDataInput {
+  name?: String;
+  downloadUrl?: String;
+  description?: String;
+  slug?: String;
+  usedBy?: WebsiteUpdateManyWithoutTypefacesInput;
+  addedBy?: UserUpdateOneRequiredWithoutTypefacesInput;
+  designers?: DesignerUpdateManyWithoutTypefacesInput;
+  tags?: TagUpdateManyWithoutTypefaceInput;
+  images?: ImagesUpdateOneWithoutTypefaceInput;
 }
 
 export interface UserUpdateWithoutTypefacesDataInput {
@@ -1070,24 +1064,10 @@ export interface TypefaceUpdateWithWhereUniqueWithoutFoundriesInput {
   data: TypefaceUpdateWithoutFoundriesDataInput;
 }
 
-export interface TypefaceUpdateManyWithoutAddedByInput {
-  create?:
-    | TypefaceCreateWithoutAddedByInput[]
-    | TypefaceCreateWithoutAddedByInput;
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  update?:
-    | TypefaceUpdateWithWhereUniqueWithoutAddedByInput[]
-    | TypefaceUpdateWithWhereUniqueWithoutAddedByInput;
-  upsert?:
-    | TypefaceUpsertWithWhereUniqueWithoutAddedByInput[]
-    | TypefaceUpsertWithWhereUniqueWithoutAddedByInput;
-  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput;
-  updateMany?:
-    | TypefaceUpdateManyWithWhereNestedInput[]
-    | TypefaceUpdateManyWithWhereNestedInput;
+export interface WebsiteUpsertWithWhereUniqueWithoutTypefacesInput {
+  where: WebsiteWhereUniqueInput;
+  update: WebsiteUpdateWithoutTypefacesDataInput;
+  create: WebsiteCreateWithoutTypefacesInput;
 }
 
 export interface FoundryUpdateInput {
@@ -1134,12 +1114,12 @@ export interface FoundryCreateInput {
 
 export interface TypefaceUpdateManyWithoutUsedByInput {
   create?:
-    | FoundryCreateWithoutTypefacesInput[]
-    | FoundryCreateWithoutTypefacesInput;
-  delete?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput;
-  connect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput;
-  set?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput;
-  disconnect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput;
+    | TypefaceCreateWithoutUsedByInput[]
+    | TypefaceCreateWithoutUsedByInput;
+  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
+  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
   update?:
     | TypefaceUpdateWithWhereUniqueWithoutUsedByInput[]
     | TypefaceUpdateWithWhereUniqueWithoutUsedByInput;
@@ -2242,59 +2222,13 @@ export interface TypefaceWhereInput {
   designers_every?: DesignerWhereInput;
   designers_some?: DesignerWhereInput;
   designers_none?: DesignerWhereInput;
+  tags_every?: TagWhereInput;
+  tags_some?: TagWhereInput;
+  tags_none?: TagWhereInput;
+  images?: ImagesWhereInput;
   AND?: TypefaceWhereInput[] | TypefaceWhereInput;
   OR?: TypefaceWhereInput[] | TypefaceWhereInput;
   NOT?: TypefaceWhereInput[] | TypefaceWhereInput;
-}
-
-export interface TypefaceUpdateManyWithWhereNestedInput {
-  where: TypefaceScalarWhereInput;
-  data: TypefaceUpdateManyDataInput;
-}
-
-export type TagWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface TypefaceUpdateManyDataInput {
-  name?: String;
-  downloadUrl?: String;
-  description?: String;
-  slug?: String;
-}
-
-export type TypefaceWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  name?: String;
-  slug?: String;
-}>;
-
-export interface TagUpdateManyWithoutWebsiteInput {
-  create?: TagCreateWithoutWebsiteInput[] | TagCreateWithoutWebsiteInput;
-  delete?: TagWhereUniqueInput[] | TagWhereUniqueInput;
-  connect?: TagWhereUniqueInput[] | TagWhereUniqueInput;
-  set?: TagWhereUniqueInput[] | TagWhereUniqueInput;
-  disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput;
-  update?:
-    | TagUpdateWithWhereUniqueWithoutWebsiteInput[]
-    | TagUpdateWithWhereUniqueWithoutWebsiteInput;
-  upsert?:
-    | TagUpsertWithWhereUniqueWithoutWebsiteInput[]
-    | TagUpsertWithWhereUniqueWithoutWebsiteInput;
-  deleteMany?: TagScalarWhereInput[] | TagScalarWhereInput;
-  updateMany?:
-    | TagUpdateManyWithWhereNestedInput[]
-    | TagUpdateManyWithWhereNestedInput;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-}>;
-
-export interface TagUpdateWithWhereUniqueWithoutWebsiteInput {
-  where: TagWhereUniqueInput;
-  data: TagUpdateWithoutWebsiteDataInput;
 }
 
 export interface TypefaceUpdateWithoutTagsDataInput {
@@ -2609,39 +2543,8 @@ export interface UserUpsertWithoutTypefacesInput {
 
 export interface WebsiteUpsertWithWhereUniqueWithoutAddedByInput {
   where: WebsiteWhereUniqueInput;
-  update: WebsiteUpdateWithoutTagsDataInput;
-  create: WebsiteCreateWithoutTagsInput;
-}
-
-export interface DesignerUpdateManyMutationInput {
-  name?: String;
-  url?: String;
-}
-
-export interface ImagesUpdateInput {
-  website?: WebsiteUpdateOneWithoutImagesInput;
-  thumbnail?: FileUpdateOneInput;
-  full?: FileUpdateOneInput;
-}
-
-export interface TypefaceUpdateManyWithoutFoundriesInput {
-  create?:
-    | TypefaceCreateWithoutFoundriesInput[]
-    | TypefaceCreateWithoutFoundriesInput;
-  delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput;
-  update?:
-    | TypefaceUpdateWithWhereUniqueWithoutFoundriesInput[]
-    | TypefaceUpdateWithWhereUniqueWithoutFoundriesInput;
-  upsert?:
-    | TypefaceUpsertWithWhereUniqueWithoutFoundriesInput[]
-    | TypefaceUpsertWithWhereUniqueWithoutFoundriesInput;
-  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput;
-  updateMany?:
-    | TypefaceUpdateManyWithWhereNestedInput[]
-    | TypefaceUpdateManyWithWhereNestedInput;
+  update: WebsiteUpdateWithoutAddedByDataInput;
+  create: WebsiteCreateWithoutAddedByInput;
 }
 
 export interface TypefaceUpsertWithWhereUniqueWithoutUsedByInput {

@@ -1,0 +1,1994 @@
+{
+  "version": "1.16.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "TpEcr": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "TpEcr.template.json"
+      },
+      "metadata": {
+        "/TpEcr/tp-gql/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpgqlB437C3BE",
+            "trace": [
+              "new Repository (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecr/lib/repository.ts:405:22)",
+              "new TpEcr (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-ecr.ts:11:23)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:13:18)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpEcr/Exports/Output{\"Fn::GetAtt\":[\"tpgqlB437C3BE\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAtttpgqlB437C3BEArn71EE58F7",
+            "trace": [
+              "TpEcr.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
+              "TpGql.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
+              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
+              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
+              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
+              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
+              "Object.onceWrapper (events.js:277:13)",
+              "process.emit (events.js:189:13)",
+              "process.EventEmitter.emit (domain.js:441:20)",
+              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
+              "process.topLevelDomainCallback (domain.js:120:23)"
+            ]
+          }
+        ],
+        "/TpEcr/Exports/Output{\"Ref\":\"tpgqlB437C3BE\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputReftpgqlB437C3BEA006BE53",
+            "trace": [
+              "TpEcr.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
+              "TpGql.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
+              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
+              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
+              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
+              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
+              "Object.onceWrapper (events.js:277:13)",
+              "process.emit (events.js:189:13)",
+              "process.EventEmitter.emit (domain.js:441:20)",
+              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
+              "process.topLevelDomainCallback (domain.js:120:23)"
+            ]
+          }
+        ]
+      }
+    },
+    "TpStagingVpc": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "TpStagingVpc.template.json"
+      },
+      "metadata": {
+        "/TpStagingVpc/TpStagingVpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpc0552B696",
+            "trace": [
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:994:21)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet1Subnet7A16B9AB",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1311:20)",
+              "new PublicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1526:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1177:32)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet1RouteTable2C4C13DE",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1328:19)",
+              "new PublicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1526:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1177:32)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet1RouteTableAssociation17481B4D",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1334:5)",
+              "new PublicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1526:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1177:32)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet1DefaultRouteB9F3BD17",
+            "trace": [
+              "PublicSubnet.addDefaultInternetRoute (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1350:19)",
+              "Vpc.publicSubnets.forEach.publicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1038:22)",
+              "Array.forEach (<anonymous>)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1037:46)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet1EIP8CFE37FF",
+            "trace": [
+              "PublicSubnet.addNatGateway (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1538:21)",
+              "NatGateway.configureNat (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/nat.ts:118:27)",
+              "Vpc.createNatGateways (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1129:14)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1044:14)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet1NATGateway0C011263",
+            "trace": [
+              "PublicSubnet.addNatGateway (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1536:17)",
+              "NatGateway.configureNat (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/nat.ts:118:27)",
+              "Vpc.createNatGateways (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1129:14)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1044:14)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet2Subnet22BF3FA4",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1311:20)",
+              "new PublicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1526:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1177:32)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet2RouteTable51D04341",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1328:19)",
+              "new PublicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1526:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1177:32)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet2RouteTableAssociationD9DAC89B",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1334:5)",
+              "new PublicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1526:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1177:32)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet2DefaultRouteC74C62AF",
+            "trace": [
+              "PublicSubnet.addDefaultInternetRoute (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1350:19)",
+              "Vpc.publicSubnets.forEach.publicSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1038:22)",
+              "Array.forEach (<anonymous>)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1037:46)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet2EIP637A2D22",
+            "trace": [
+              "PublicSubnet.addNatGateway (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1538:21)",
+              "NatGateway.configureNat (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/nat.ts:118:27)",
+              "Vpc.createNatGateways (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1129:14)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1044:14)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPublicSubnet2NATGateway320AE1B7",
+            "trace": [
+              "PublicSubnet.addNatGateway (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1536:17)",
+              "NatGateway.configureNat (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/nat.ts:118:27)",
+              "Vpc.createNatGateways (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1129:14)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1044:14)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet1SubnetCA201919",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1311:20)",
+              "new PrivateSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1565:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1182:33)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet1RouteTable23424ED9",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1328:19)",
+              "new PrivateSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1565:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1182:33)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet1RouteTableAssociation492EF9F2",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1334:5)",
+              "new PrivateSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1565:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1182:33)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet1DefaultRoute6A0971DB",
+            "trace": [
+              "PrivateSubnet.addRoute (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1396:19)",
+              "NatGateway.configureNat (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/nat.ts:124:11)",
+              "Vpc.createNatGateways (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1129:14)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1044:14)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet2Subnet014FE1A6",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1311:20)",
+              "new PrivateSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1565:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1182:33)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet2RouteTableA0AC293C",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1328:19)",
+              "new PrivateSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1565:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1182:33)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet2RouteTableAssociation5A21B901",
+            "trace": [
+              "new Subnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1334:5)",
+              "new PrivateSubnet (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1565:5)",
+              "availabilityZones.forEach (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1182:33)",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1159:28)",
+              "Vpc.createSubnets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1154:12)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1022:10)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcPrivateSubnet2DefaultRoute47A1A3BA",
+            "trace": [
+              "PrivateSubnet.addRoute (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1396:19)",
+              "NatGateway.configureNat (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/nat.ts:124:11)",
+              "Vpc.createNatGateways (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1129:14)",
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1044:14)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcIGWB7165CF1",
+            "trace": [
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1029:19)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/TpStagingVpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpStagingVpcVPCGWD3E304A3",
+            "trace": [
+              "new Vpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1032:19)",
+              "new TpVpc (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-vpc.ts:12:16)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:17:20)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/Exports/Output{\"Ref\":\"TpStagingVpc0552B696\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefTpStagingVpc0552B6968434A80B",
+            "trace": [
+              "TpVpc.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
+              "TpGql.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
+              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
+              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
+              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
+              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
+              "Object.onceWrapper (events.js:277:13)",
+              "process.emit (events.js:189:13)",
+              "process.EventEmitter.emit (domain.js:441:20)",
+              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
+              "process.topLevelDomainCallback (domain.js:120:23)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/Exports/Output{\"Ref\":\"TpStagingVpcPrivateSubnet1SubnetCA201919\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefTpStagingVpcPrivateSubnet1SubnetCA2019197D954055",
+            "trace": [
+              "TpVpc.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
+              "TpGql.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
+              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
+              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
+              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
+              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
+              "Object.onceWrapper (events.js:277:13)",
+              "process.emit (events.js:189:13)",
+              "process.EventEmitter.emit (domain.js:441:20)",
+              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
+              "process.topLevelDomainCallback (domain.js:120:23)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/Exports/Output{\"Ref\":\"TpStagingVpcPrivateSubnet2Subnet014FE1A6\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefTpStagingVpcPrivateSubnet2Subnet014FE1A64B56F281",
+            "trace": [
+              "TpVpc.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
+              "TpGql.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
+              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
+              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
+              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
+              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
+              "Object.onceWrapper (events.js:277:13)",
+              "process.emit (events.js:189:13)",
+              "process.EventEmitter.emit (domain.js:441:20)",
+              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
+              "process.topLevelDomainCallback (domain.js:120:23)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/Exports/Output{\"Ref\":\"TpStagingVpcPublicSubnet1Subnet7A16B9AB\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefTpStagingVpcPublicSubnet1Subnet7A16B9AB1BA81CE5",
+            "trace": [
+              "TpVpc.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
+              "TpGql.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
+              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
+              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
+              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
+              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
+              "Object.onceWrapper (events.js:277:13)",
+              "process.emit (events.js:189:13)",
+              "process.EventEmitter.emit (domain.js:441:20)",
+              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
+              "process.topLevelDomainCallback (domain.js:120:23)"
+            ]
+          }
+        ],
+        "/TpStagingVpc/Exports/Output{\"Ref\":\"TpStagingVpcPublicSubnet2Subnet22BF3FA4\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefTpStagingVpcPublicSubnet2Subnet22BF3FA43F8B13F3",
+            "trace": [
+              "TpVpc.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
+              "TpGql.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
+              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
+              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
+              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
+              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
+              "Object.onceWrapper (events.js:277:13)",
+              "process.emit (events.js:189:13)",
+              "process.EventEmitter.emit (domain.js:441:20)",
+              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
+              "process.topLevelDomainCallback (domain.js:120:23)"
+            ]
+          }
+        ]
+      }
+    },
+    "TpGqlStaging": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "TpGqlStaging.template.json"
+      },
+      "dependencies": [
+        "TpStagingVpc",
+        "TpStagingVpc",
+        "TpStagingVpc",
+        "TpStagingVpc",
+        "TpStagingVpc",
+        "TpStagingVpc",
+        "TpStagingVpc",
+        "TpEcr",
+        "TpEcr",
+        "TpEcr",
+        "TpStagingVpc",
+        "TpStagingVpc"
+      ],
+      "metadata": {
+        "/TpGqlStaging/TpGqlStagingCluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterB550A0C3",
+            "trace": [
+              "new Cluster (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:99:21)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:15:21)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroup92090D7A",
+            "trace": [
+              "new SecurityGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:323:26)",
+              "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:417:26)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D3:32768-65535": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D33276865535C0291D1D",
+            "trace": [
+              "SecurityGroup.addIngressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:76:7)",
+              "SecurityGroup.addIngressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:340:13)",
+              "other.connections._securityGroupRules.forEachAndForever.rule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:154:23)",
+              "ReactiveList.forEachAndForever (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:267:7)",
+              "_securityGroups.forEachAndForever.securityGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:153:45)",
+              "ReactiveList.forEachAndForever (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:267:7)",
+              "Connections.allowFrom (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:152:26)",
+              "ApplicationListener.registerConnectable (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-listener.ts:303:29)",
+              "ApplicationTargetGroup.registerConnectable (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:146:16)",
+              "Object.attachToApplicationTargetGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:382:21)",
+              "Ec2Service.attachToApplicationTargetGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:347:43)",
+              "ApplicationTargetGroup.addTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:120:29)",
+              "ApplicationLoadBalancedEc2Service.addServiceAsTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:351:22)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:133:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleCE332D2B",
+            "trace": [
+              "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
+              "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:425:31)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy5BACAF53",
+            "trace": [
+              "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
+              "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
+              "AutoScalingGroup.addToRolePolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:596:15)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:204:22)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceProfile59F89E4C",
+            "trace": [
+              "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:432:24)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LaunchConfig": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLaunchConfig30B3493D",
+            "trace": [
+              "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:442:26)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/ASG": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupASG20F0A0DC",
+            "trace": [
+              "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:525:29)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleBAC890BE",
+            "trace": [
+              "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
+              "new Function (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function.ts:414:31)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:52:16)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy74190C8E",
+            "trace": [
+              "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
+              "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
+              "Function.addToRolePolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:215:15)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:74:8)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunction27113695",
+            "trace": [
+              "new Function (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function.ts:434:35)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:52:16)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068A7ABDCAF",
+            "trace": [
+              "Function.addPermission (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:197:5)",
+              "LambdaSubscription.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns-subscriptions/lib/lambda.ts:27:13)",
+              "Topic.addSubscription (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/topic-base.ts:59:45)",
+              "FunctionHook.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling-hooktargets/lib/lambda-hook.ts:19:11)",
+              "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:103:50)",
+              "AutoScalingGroup.addLifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:240:12)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionTopic5C9197A4",
+            "trace": [
+              "new Subscription (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/subscription.ts:89:5)",
+              "Topic.addSubscription (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/topic-base.ts:70:5)",
+              "FunctionHook.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling-hooktargets/lib/lambda-hook.ts:19:11)",
+              "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:103:50)",
+              "AutoScalingGroup.addLifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:240:12)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole5A328D44",
+            "trace": [
+              "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
+              "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:99:31)",
+              "AutoScalingGroup.addLifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:240:12)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy2DC048A6",
+            "trace": [
+              "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
+              "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
+              "Function.addToPrincipal (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/grant.ts:147:61)",
+              "Function.addToPrincipalOrResource (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/grant.ts:117:26)",
+              "Topic.grantPublish (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/topic-base.ts:97:22)",
+              "TopicHook.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling-hooktargets/lib/topic-hook.ts:13:16)",
+              "FunctionHook.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling-hooktargets/lib/lambda-hook.ts:20:33)",
+              "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:103:50)",
+              "AutoScalingGroup.addLifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:240:12)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic028574CB",
+            "trace": [
+              "new Topic (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/topic.ts:53:22)",
+              "FunctionHook.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling-hooktargets/lib/lambda-hook.ts:18:19)",
+              "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:103:50)",
+              "AutoScalingGroup.addLifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:240:12)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHook7661B5BE",
+            "trace": [
+              "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:105:22)",
+              "AutoScalingGroup.addLifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:240:12)",
+              "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
+              "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:288:9)",
+              "Function.valueForTypedStringParameter (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:358:17)",
+              "EcsOptimizedAmi.getImage (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:369:37)",
+              "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:437:44)",
+              "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceLB9B16DD39",
+            "trace": [
+              "new BaseLoadBalancer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/shared/base-load-balancer.ts:137:22)",
+              "new ApplicationLoadBalancer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-load-balancer.ts:64:5)",
+              "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:282:81)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceLBSecurityGroup498C313F",
+            "trace": [
+              "new SecurityGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:323:26)",
+              "new ApplicationLoadBalancer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-load-balancer.ts:70:49)",
+              "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:282:81)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/to TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D89:32768-65535": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceLBSecurityGrouptoTpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D893276865535B8598BB5",
+            "trace": [
+              "SecurityGroup.addEgressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:94:7)",
+              "SecurityGroup.addEgressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:369:13)",
+              "other.connections._securityGroupRules.forEachAndForever.rule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:131:23)",
+              "ReactiveList.forEachAndForever (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:267:7)",
+              "_securityGroups.forEachAndForever.securityGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:130:45)",
+              "ReactiveList.forEachAndForever (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:267:7)",
+              "Connections.allowTo (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:129:26)",
+              "Connections.allowFrom (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/connections.ts:161:25)",
+              "ApplicationListener.registerConnectable (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-listener.ts:303:29)",
+              "ApplicationTargetGroup.registerConnectable (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:146:16)",
+              "Object.attachToApplicationTargetGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:382:21)",
+              "Ec2Service.attachToApplicationTargetGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:347:43)",
+              "ApplicationTargetGroup.addTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:120:29)",
+              "ApplicationLoadBalancedEc2Service.addServiceAsTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:351:22)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:133:10)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceLBPublicListener76655F43",
+            "trace": [
+              "new BaseListener (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/shared/base-listener.ts:19:22)",
+              "new ApplicationListener (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-listener.ts:116:5)",
+              "ApplicationLoadBalancer.addListener (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-load-balancer.ts:110:12)",
+              "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:293:39)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceLBPublicListenerECSGroupBEA9CA7E",
+            "trace": [
+              "new TargetGroupBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/shared/base-target-group.ts:226:21)",
+              "new ApplicationTargetGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:93:5)",
+              "ApplicationListener.addTargets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-listener.ts:215:19)",
+              "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:298:38)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceLoadBalancerDNS0D9FF911",
+            "trace": [
+              "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:333:5)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceServiceURL5A72A143",
+            "trace": [
+              "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:334:5)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceTaskDefTaskRole2B983613",
+            "trace": [
+              "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
+              "new TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:274:39)",
+              "new Ec2TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/ec2/ec2-task-definition.ts:59:5)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:93:29)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceTaskDef07FFEBF0",
+            "trace": [
+              "new TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:278:21)",
+              "new Ec2TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/ec2/ec2-task-definition.ts:59:5)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:93:29)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/web/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceTaskDefwebLogGroupB9E4A743",
+            "trace": [
+              "new LogGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-logs/lib/log-group.ts:342:22)",
+              "AwsLogDriver.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/log-drivers/aws-log-driver.ts:91:44)",
+              "new ContainerDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/container-definition.ts:360:44)",
+              "Ec2TaskDefinition.addContainer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:364:12)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:106:45)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceTaskDefExecutionRole038D5A5B",
+            "trace": [
+              "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
+              "Ec2TaskDefinition.obtainExecutionRole (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:410:29)",
+              "EcrImage.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/images/ecr.ts:29:66)",
+              "new ContainerDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/container-definition.ts:358:36)",
+              "Ec2TaskDefinition.addContainer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:364:12)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:106:45)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlServiceTaskDefExecutionRoleDefaultPolicy563F959E",
+            "trace": [
+              "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
+              "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
+              "Function.addToPrincipal (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/grant.ts:147:61)",
+              "Function.addToPrincipalOrResource (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/grant.ts:117:26)",
+              "Repository.grant (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecr/lib/repository.ts:227:22)",
+              "Repository.grantPull (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecr/lib/repository.ts:240:22)",
+              "EcrImage.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/images/ecr.ts:29:21)",
+              "new ContainerDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/container-definition.ts:358:36)",
+              "Ec2TaskDefinition.addContainer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:364:12)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:106:45)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging/TpGqlStagingGqlService/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStagingGqlService886B4276",
+            "trace": [
+              "new BaseService (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:301:21)",
+              "new Ec2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/ec2/ec2-service.ts:138:5)",
+              "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:122:20)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "runtime": {
+    "libraries": {
+      "@aws-cdk/core": "1.16.3",
+      "@aws-cdk/cx-api": "1.16.3",
+      "@aws-cdk/aws-ecr": "1.16.3",
+      "@aws-cdk/aws-events": "1.16.3",
+      "@aws-cdk/aws-iam": "1.16.3",
+      "@aws-cdk/region-info": "1.16.3",
+      "@aws-cdk/aws-ec2": "1.16.3",
+      "@aws-cdk/aws-ssm": "1.16.3",
+      "@aws-cdk/aws-cloudwatch": "1.16.3",
+      "@aws-cdk/aws-ecs": "1.16.3",
+      "@aws-cdk/aws-applicationautoscaling": "1.16.3",
+      "@aws-cdk/aws-autoscaling-common": "1.16.3",
+      "@aws-cdk/aws-elasticloadbalancingv2": "1.16.3",
+      "@aws-cdk/aws-servicediscovery": "1.16.3",
+      "@aws-cdk/aws-ecr-assets": "1.16.3",
+      "@aws-cdk/assets": "1.16.3",
+      "@aws-cdk/aws-cloudformation": "1.16.3",
+      "@aws-cdk/aws-lambda": "1.16.3",
+      "@aws-cdk/aws-sqs": "1.16.3",
+      "@aws-cdk/aws-kms": "1.16.3",
+      "@aws-cdk/aws-s3-assets": "1.16.3",
+      "@aws-cdk/aws-s3": "1.16.3",
+      "@aws-cdk/aws-autoscaling": "1.16.3",
+      "@aws-cdk/aws-autoscaling-hooktargets": "1.16.3",
+      "@aws-cdk/aws-sns": "1.16.3",
+      "@aws-cdk/aws-sns-subscriptions": "1.16.3",
+      "@aws-cdk/aws-logs": "1.16.3",
+      "@aws-cdk/aws-ecs-patterns": "1.16.3",
+      "@aws-cdk/aws-route53": "1.16.3",
+      "@aws-cdk/aws-route53-targets": "1.16.3",
+      "@aws-cdk/aws-certificatemanager": "1.16.3",
+      "@aws-cdk/aws-events-targets": "1.16.3",
+      "jsii-runtime": "node.js/v10.15.3"
+    }
+  }
+}
