@@ -64,13 +64,14 @@ export interface Mutation {
     upsertFoundry: <T = Foundry>(args: { where: FoundryWhereUniqueInput, create: FoundryCreateInput, update: FoundryUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFile: <T = File>(args: { where: FileWhereUniqueInput, create: FileCreateInput, update: FileUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyWebsites: <T = BatchPayload>(args: { data: WebsiteUpdateManyMutationInput, where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateManyMutationInput, where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyDesigners: <T = BatchPayload>(args: { data: DesignerUpdateManyMutationInput, where?: DesignerWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTypefaces: <T = BatchPayload>(args: { data: TypefaceUpdateManyMutationInput, where?: TypefaceWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyFoundries: <T = BatchPayload>(args: { data: FoundryUpdateManyMutationInput, where?: FoundryWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyFiles: <T = BatchPayload>(args: { data: FileUpdateManyMutationInput, where?: FileWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateManyMutationInput, where?: UserWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyWebsites: <T = BatchPayload>(args: { data: WebsiteUpdateInput, where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyImageses: <T = BatchPayload>(args: { data: ImagesUpdateInput, where?: ImagesWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateInput, where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyDesigners: <T = BatchPayload>(args: { data: DesignerUpdateInput, where?: DesignerWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTypefaces: <T = BatchPayload>(args: { data: TypefaceUpdateInput, where?: TypefaceWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyFoundries: <T = BatchPayload>(args: { data: FoundryUpdateInput, where?: FoundryWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyFiles: <T = BatchPayload>(args: { data: FileUpdateInput, where?: FileWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyWebsites: <T = BatchPayload>(args: { where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyImageses: <T = BatchPayload>(args: { where?: ImagesWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -169,7 +170,7 @@ type Designer implements Node {
   name: String!
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
-  addedBy: User!
+  addedBy(where: UserWhereInput): User!
 }
 
 """A connection to a list of items."""
@@ -228,137 +229,6 @@ type DesignerPreviousValues {
   url: String!
 }
 
-input DesignerScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [DesignerScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [DesignerScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [DesignerScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  url: String
-
-  """All values that are not equal to given value."""
-  url_not: String
-
-  """All values that are contained in given list."""
-  url_in: [String!]
-
-  """All values that are not contained in given list."""
-  url_not_in: [String!]
-
-  """All values less than the given value."""
-  url_lt: String
-
-  """All values less than or equal the given value."""
-  url_lte: String
-
-  """All values greater than the given value."""
-  url_gt: String
-
-  """All values greater than or equal the given value."""
-  url_gte: String
-
-  """All values containing the given string."""
-  url_contains: String
-
-  """All values not containing the given string."""
-  url_not_contains: String
-
-  """All values starting with the given string."""
-  url_starts_with: String
-
-  """All values not starting with the given string."""
-  url_not_starts_with: String
-
-  """All values ending with the given string."""
-  url_ends_with: String
-
-  """All values not ending with the given string."""
-  url_not_ends_with: String
-}
-
 type DesignerSubscriptionPayload {
   mutation: MutationType!
   node: Designer
@@ -405,31 +275,13 @@ input DesignerUpdateInput {
   addedBy: UserUpdateOneRequiredInput
 }
 
-input DesignerUpdateManyDataInput {
-  name: String
-  url: String
-}
-
-input DesignerUpdateManyMutationInput {
-  name: String
-  url: String
-}
-
 input DesignerUpdateManyWithoutTypefacesInput {
   create: [DesignerCreateWithoutTypefacesInput!]
   connect: [DesignerWhereUniqueInput!]
-  set: [DesignerWhereUniqueInput!]
   disconnect: [DesignerWhereUniqueInput!]
   delete: [DesignerWhereUniqueInput!]
   update: [DesignerUpdateWithWhereUniqueWithoutTypefacesInput!]
-  updateMany: [DesignerUpdateManyWithWhereNestedInput!]
-  deleteMany: [DesignerScalarWhereInput!]
   upsert: [DesignerUpsertWithWhereUniqueWithoutTypefacesInput!]
-}
-
-input DesignerUpdateManyWithWhereNestedInput {
-  where: DesignerScalarWhereInput!
-  data: DesignerUpdateManyDataInput!
 }
 
 input DesignerUpdateWithoutTypefacesDataInput {
@@ -704,13 +556,6 @@ input FileUpdateDataInput {
 }
 
 input FileUpdateInput {
-  filename: String
-  mimetype: String
-  encoding: String
-  url: String
-}
-
-input FileUpdateManyMutationInput {
   filename: String
   mimetype: String
   encoding: String
@@ -996,7 +841,7 @@ type Foundry implements Node {
   name: String!
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
-  addedBy: User!
+  addedBy(where: UserWhereInput): User!
 }
 
 """A connection to a list of items."""
@@ -1055,137 +900,6 @@ type FoundryPreviousValues {
   url: String!
 }
 
-input FoundryScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FoundryScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FoundryScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FoundryScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  url: String
-
-  """All values that are not equal to given value."""
-  url_not: String
-
-  """All values that are contained in given list."""
-  url_in: [String!]
-
-  """All values that are not contained in given list."""
-  url_not_in: [String!]
-
-  """All values less than the given value."""
-  url_lt: String
-
-  """All values less than or equal the given value."""
-  url_lte: String
-
-  """All values greater than the given value."""
-  url_gt: String
-
-  """All values greater than or equal the given value."""
-  url_gte: String
-
-  """All values containing the given string."""
-  url_contains: String
-
-  """All values not containing the given string."""
-  url_not_contains: String
-
-  """All values starting with the given string."""
-  url_starts_with: String
-
-  """All values not starting with the given string."""
-  url_not_starts_with: String
-
-  """All values ending with the given string."""
-  url_ends_with: String
-
-  """All values not ending with the given string."""
-  url_not_ends_with: String
-}
-
 type FoundrySubscriptionPayload {
   mutation: MutationType!
   node: Foundry
@@ -1232,31 +946,13 @@ input FoundryUpdateInput {
   addedBy: UserUpdateOneRequiredInput
 }
 
-input FoundryUpdateManyDataInput {
-  name: String
-  url: String
-}
-
-input FoundryUpdateManyMutationInput {
-  name: String
-  url: String
-}
-
 input FoundryUpdateManyWithoutTypefacesInput {
   create: [FoundryCreateWithoutTypefacesInput!]
   connect: [FoundryWhereUniqueInput!]
-  set: [FoundryWhereUniqueInput!]
   disconnect: [FoundryWhereUniqueInput!]
   delete: [FoundryWhereUniqueInput!]
   update: [FoundryUpdateWithWhereUniqueWithoutTypefacesInput!]
-  updateMany: [FoundryUpdateManyWithWhereNestedInput!]
-  deleteMany: [FoundryScalarWhereInput!]
   upsert: [FoundryUpsertWithWhereUniqueWithoutTypefacesInput!]
-}
-
-input FoundryUpdateManyWithWhereNestedInput {
-  where: FoundryScalarWhereInput!
-  data: FoundryUpdateManyDataInput!
 }
 
 input FoundryUpdateWithoutTypefacesDataInput {
@@ -1418,10 +1114,10 @@ input FoundryWhereUniqueInput {
 
 type Images implements Node {
   id: ID!
-  website: Website
-  thumbnail: File
-  full: File
-  typeface: Typeface
+  website(where: WebsiteWhereInput): Website
+  thumbnail(where: FileWhereInput): File
+  full(where: FileWhereInput): File
+  typeface(where: TypefaceWhereInput): Typeface
 }
 
 """A connection to a list of items."""
@@ -1669,13 +1365,14 @@ type Mutation {
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyWebsites(data: WebsiteUpdateManyMutationInput!, where: WebsiteWhereInput): BatchPayload!
-  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
-  updateManyDesigners(data: DesignerUpdateManyMutationInput!, where: DesignerWhereInput): BatchPayload!
-  updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
-  updateManyFoundries(data: FoundryUpdateManyMutationInput!, where: FoundryWhereInput): BatchPayload!
-  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyWebsites(data: WebsiteUpdateInput!, where: WebsiteWhereInput): BatchPayload!
+  updateManyImageses(data: ImagesUpdateInput!, where: ImagesWhereInput): BatchPayload!
+  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
+  updateManyDesigners(data: DesignerUpdateInput!, where: DesignerWhereInput): BatchPayload!
+  updateManyTypefaces(data: TypefaceUpdateInput!, where: TypefaceWhereInput): BatchPayload!
+  updateManyFoundries(data: FoundryUpdateInput!, where: FoundryWhereInput): BatchPayload!
+  updateManyFiles(data: FileUpdateInput!, where: FileWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
   deleteManyImageses(where: ImagesWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
@@ -1830,97 +1527,6 @@ type TagPreviousValues {
   name: String!
 }
 
-input TagScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TagScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TagScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TagScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-}
-
 type TagSubscriptionPayload {
   mutation: MutationType!
   node: Tag
@@ -1966,41 +1572,22 @@ input TagUpdateInput {
   typeface: TypefaceUpdateManyWithoutTagsInput
 }
 
-input TagUpdateManyDataInput {
-  name: String
-}
-
-input TagUpdateManyMutationInput {
-  name: String
-}
-
 input TagUpdateManyWithoutTypefaceInput {
   create: [TagCreateWithoutTypefaceInput!]
   connect: [TagWhereUniqueInput!]
-  set: [TagWhereUniqueInput!]
   disconnect: [TagWhereUniqueInput!]
   delete: [TagWhereUniqueInput!]
   update: [TagUpdateWithWhereUniqueWithoutTypefaceInput!]
-  updateMany: [TagUpdateManyWithWhereNestedInput!]
-  deleteMany: [TagScalarWhereInput!]
   upsert: [TagUpsertWithWhereUniqueWithoutTypefaceInput!]
 }
 
 input TagUpdateManyWithoutWebsiteInput {
   create: [TagCreateWithoutWebsiteInput!]
   connect: [TagWhereUniqueInput!]
-  set: [TagWhereUniqueInput!]
   disconnect: [TagWhereUniqueInput!]
   delete: [TagWhereUniqueInput!]
   update: [TagUpdateWithWhereUniqueWithoutWebsiteInput!]
-  updateMany: [TagUpdateManyWithWhereNestedInput!]
-  deleteMany: [TagScalarWhereInput!]
   upsert: [TagUpsertWithWhereUniqueWithoutWebsiteInput!]
-}
-
-input TagUpdateManyWithWhereNestedInput {
-  where: TagScalarWhereInput!
-  data: TagUpdateManyDataInput!
 }
 
 input TagUpdateWithoutTypefaceDataInput {
@@ -2143,11 +1730,11 @@ type Typeface implements Node {
   description: String
   slug: String!
   usedBy(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
-  addedBy: User!
+  addedBy(where: UserWhereInput): User!
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry!]
   designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer!]
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
-  images: Images
+  images(where: ImagesWhereInput): Images
 }
 
 """A connection to a list of items."""
@@ -2309,217 +1896,6 @@ type TypefacePreviousValues {
   slug: String!
 }
 
-input TypefaceScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [TypefaceScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [TypefaceScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [TypefaceScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  downloadUrl: String
-
-  """All values that are not equal to given value."""
-  downloadUrl_not: String
-
-  """All values that are contained in given list."""
-  downloadUrl_in: [String!]
-
-  """All values that are not contained in given list."""
-  downloadUrl_not_in: [String!]
-
-  """All values less than the given value."""
-  downloadUrl_lt: String
-
-  """All values less than or equal the given value."""
-  downloadUrl_lte: String
-
-  """All values greater than the given value."""
-  downloadUrl_gt: String
-
-  """All values greater than or equal the given value."""
-  downloadUrl_gte: String
-
-  """All values containing the given string."""
-  downloadUrl_contains: String
-
-  """All values not containing the given string."""
-  downloadUrl_not_contains: String
-
-  """All values starting with the given string."""
-  downloadUrl_starts_with: String
-
-  """All values not starting with the given string."""
-  downloadUrl_not_starts_with: String
-
-  """All values ending with the given string."""
-  downloadUrl_ends_with: String
-
-  """All values not ending with the given string."""
-  downloadUrl_not_ends_with: String
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  slug: String
-
-  """All values that are not equal to given value."""
-  slug_not: String
-
-  """All values that are contained in given list."""
-  slug_in: [String!]
-
-  """All values that are not contained in given list."""
-  slug_not_in: [String!]
-
-  """All values less than the given value."""
-  slug_lt: String
-
-  """All values less than or equal the given value."""
-  slug_lte: String
-
-  """All values greater than the given value."""
-  slug_gt: String
-
-  """All values greater than or equal the given value."""
-  slug_gte: String
-
-  """All values containing the given string."""
-  slug_contains: String
-
-  """All values not containing the given string."""
-  slug_not_contains: String
-
-  """All values starting with the given string."""
-  slug_starts_with: String
-
-  """All values not starting with the given string."""
-  slug_not_starts_with: String
-
-  """All values ending with the given string."""
-  slug_ends_with: String
-
-  """All values not ending with the given string."""
-  slug_not_ends_with: String
-}
-
 type TypefaceSubscriptionPayload {
   mutation: MutationType!
   node: Typeface
@@ -2572,83 +1948,49 @@ input TypefaceUpdateInput {
   images: ImagesUpdateOneWithoutTypefaceInput
 }
 
-input TypefaceUpdateManyDataInput {
-  name: String
-  downloadUrl: String
-  description: String
-  slug: String
-}
-
-input TypefaceUpdateManyMutationInput {
-  name: String
-  downloadUrl: String
-  description: String
-  slug: String
-}
-
 input TypefaceUpdateManyWithoutAddedByInput {
   create: [TypefaceCreateWithoutAddedByInput!]
   connect: [TypefaceWhereUniqueInput!]
-  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutAddedByInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutAddedByInput!]
 }
 
 input TypefaceUpdateManyWithoutDesignersInput {
   create: [TypefaceCreateWithoutDesignersInput!]
   connect: [TypefaceWhereUniqueInput!]
-  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutDesignersInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutDesignersInput!]
 }
 
 input TypefaceUpdateManyWithoutFoundriesInput {
   create: [TypefaceCreateWithoutFoundriesInput!]
   connect: [TypefaceWhereUniqueInput!]
-  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutFoundriesInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutFoundriesInput!]
 }
 
 input TypefaceUpdateManyWithoutTagsInput {
   create: [TypefaceCreateWithoutTagsInput!]
   connect: [TypefaceWhereUniqueInput!]
-  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutTagsInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutTagsInput!]
 }
 
 input TypefaceUpdateManyWithoutUsedByInput {
   create: [TypefaceCreateWithoutUsedByInput!]
   connect: [TypefaceWhereUniqueInput!]
-  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutUsedByInput!]
-  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
-  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutUsedByInput!]
-}
-
-input TypefaceUpdateManyWithWhereNestedInput {
-  where: TypefaceScalarWhereInput!
-  data: TypefaceUpdateManyDataInput!
 }
 
 input TypefaceUpdateOneWithoutImagesInput {
@@ -3174,13 +2516,6 @@ input UserUpdateInput {
   typefaces: TypefaceUpdateManyWithoutAddedByInput
 }
 
-input UserUpdateManyMutationInput {
-  email: String
-  password: String
-  name: String
-  role: Role
-}
-
 input UserUpdateOneRequiredInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
@@ -3430,10 +2765,10 @@ type Website implements Node {
   createdAt: DateTime!
   isPublished: Boolean!
   title: String!
-  images: Images
+  images(where: ImagesWhereInput): Images
   slug: String
   url: String!
-  addedBy: User!
+  addedBy(where: UserWhereInput): User!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   featured: Boolean!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
@@ -3563,207 +2898,6 @@ type WebsitePreviousValues {
   featured: Boolean!
 }
 
-input WebsiteScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [WebsiteScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [WebsiteScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [WebsiteScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  isPublished: Boolean
-
-  """All values that are not equal to given value."""
-  isPublished_not: Boolean
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
-  slug: String
-
-  """All values that are not equal to given value."""
-  slug_not: String
-
-  """All values that are contained in given list."""
-  slug_in: [String!]
-
-  """All values that are not contained in given list."""
-  slug_not_in: [String!]
-
-  """All values less than the given value."""
-  slug_lt: String
-
-  """All values less than or equal the given value."""
-  slug_lte: String
-
-  """All values greater than the given value."""
-  slug_gt: String
-
-  """All values greater than or equal the given value."""
-  slug_gte: String
-
-  """All values containing the given string."""
-  slug_contains: String
-
-  """All values not containing the given string."""
-  slug_not_contains: String
-
-  """All values starting with the given string."""
-  slug_starts_with: String
-
-  """All values not starting with the given string."""
-  slug_not_starts_with: String
-
-  """All values ending with the given string."""
-  slug_ends_with: String
-
-  """All values not ending with the given string."""
-  slug_not_ends_with: String
-  url: String
-
-  """All values that are not equal to given value."""
-  url_not: String
-
-  """All values that are contained in given list."""
-  url_in: [String!]
-
-  """All values that are not contained in given list."""
-  url_not_in: [String!]
-
-  """All values less than the given value."""
-  url_lt: String
-
-  """All values less than or equal the given value."""
-  url_lte: String
-
-  """All values greater than the given value."""
-  url_gt: String
-
-  """All values greater than or equal the given value."""
-  url_gte: String
-
-  """All values containing the given string."""
-  url_contains: String
-
-  """All values not containing the given string."""
-  url_not_contains: String
-
-  """All values starting with the given string."""
-  url_starts_with: String
-
-  """All values not starting with the given string."""
-  url_not_starts_with: String
-
-  """All values ending with the given string."""
-  url_ends_with: String
-
-  """All values not ending with the given string."""
-  url_not_ends_with: String
-  featured: Boolean
-
-  """All values that are not equal to given value."""
-  featured_not: Boolean
-}
-
 type WebsiteSubscriptionPayload {
   mutation: MutationType!
   node: Website
@@ -3815,61 +2949,31 @@ input WebsiteUpdateInput {
   tags: TagUpdateManyWithoutWebsiteInput
 }
 
-input WebsiteUpdateManyDataInput {
-  isPublished: Boolean
-  title: String
-  slug: String
-  url: String
-  featured: Boolean
-}
-
-input WebsiteUpdateManyMutationInput {
-  isPublished: Boolean
-  title: String
-  slug: String
-  url: String
-  featured: Boolean
-}
-
 input WebsiteUpdateManyWithoutAddedByInput {
   create: [WebsiteCreateWithoutAddedByInput!]
   connect: [WebsiteWhereUniqueInput!]
-  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutAddedByInput!]
-  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
-  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutAddedByInput!]
 }
 
 input WebsiteUpdateManyWithoutTagsInput {
   create: [WebsiteCreateWithoutTagsInput!]
   connect: [WebsiteWhereUniqueInput!]
-  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTagsInput!]
-  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
-  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutTagsInput!]
 }
 
 input WebsiteUpdateManyWithoutTypefacesInput {
   create: [WebsiteCreateWithoutTypefacesInput!]
   connect: [WebsiteWhereUniqueInput!]
-  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTypefacesInput!]
-  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
-  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutTypefacesInput!]
-}
-
-input WebsiteUpdateManyWithWhereNestedInput {
-  where: WebsiteScalarWhereInput!
-  data: WebsiteUpdateManyDataInput!
 }
 
 input WebsiteUpdateOneWithoutImagesInput {
@@ -4310,54 +3414,6 @@ export interface DesignerCreateWithoutTypefacesInput {
   addedBy: UserCreateOneInput
 }
 
-export interface DesignerScalarWhereInput {
-  AND?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
-  OR?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
-  NOT?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
-  id?: ID_Input | null
-  id_not?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  id_not_in?: ID_Output[] | ID_Output | null
-  id_lt?: ID_Input | null
-  id_lte?: ID_Input | null
-  id_gt?: ID_Input | null
-  id_gte?: ID_Input | null
-  id_contains?: ID_Input | null
-  id_not_contains?: ID_Input | null
-  id_starts_with?: ID_Input | null
-  id_not_starts_with?: ID_Input | null
-  id_ends_with?: ID_Input | null
-  id_not_ends_with?: ID_Input | null
-  name?: String | null
-  name_not?: String | null
-  name_in?: String[] | String | null
-  name_not_in?: String[] | String | null
-  name_lt?: String | null
-  name_lte?: String | null
-  name_gt?: String | null
-  name_gte?: String | null
-  name_contains?: String | null
-  name_not_contains?: String | null
-  name_starts_with?: String | null
-  name_not_starts_with?: String | null
-  name_ends_with?: String | null
-  name_not_ends_with?: String | null
-  url?: String | null
-  url_not?: String | null
-  url_in?: String[] | String | null
-  url_not_in?: String[] | String | null
-  url_lt?: String | null
-  url_lte?: String | null
-  url_gt?: String | null
-  url_gte?: String | null
-  url_contains?: String | null
-  url_not_contains?: String | null
-  url_starts_with?: String | null
-  url_not_starts_with?: String | null
-  url_ends_with?: String | null
-  url_not_ends_with?: String | null
-}
-
 export interface DesignerSubscriptionWhereInput {
   AND?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput | null
   OR?: DesignerSubscriptionWhereInput[] | DesignerSubscriptionWhereInput | null
@@ -4376,31 +3432,13 @@ export interface DesignerUpdateInput {
   addedBy?: UserUpdateOneRequiredInput | null
 }
 
-export interface DesignerUpdateManyDataInput {
-  name?: String | null
-  url?: String | null
-}
-
-export interface DesignerUpdateManyMutationInput {
-  name?: String | null
-  url?: String | null
-}
-
 export interface DesignerUpdateManyWithoutTypefacesInput {
   create?: DesignerCreateWithoutTypefacesInput[] | DesignerCreateWithoutTypefacesInput | null
   connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
-  set?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   disconnect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   delete?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   update?: DesignerUpdateWithWhereUniqueWithoutTypefacesInput[] | DesignerUpdateWithWhereUniqueWithoutTypefacesInput | null
-  updateMany?: DesignerUpdateManyWithWhereNestedInput[] | DesignerUpdateManyWithWhereNestedInput | null
-  deleteMany?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
   upsert?: DesignerUpsertWithWhereUniqueWithoutTypefacesInput[] | DesignerUpsertWithWhereUniqueWithoutTypefacesInput | null
-}
-
-export interface DesignerUpdateManyWithWhereNestedInput {
-  where: DesignerScalarWhereInput
-  data: DesignerUpdateManyDataInput
 }
 
 export interface DesignerUpdateWithoutTypefacesDataInput {
@@ -4508,13 +3546,6 @@ export interface FileUpdateDataInput {
 }
 
 export interface FileUpdateInput {
-  filename?: String | null
-  mimetype?: String | null
-  encoding?: String | null
-  url?: String | null
-}
-
-export interface FileUpdateManyMutationInput {
   filename?: String | null
   mimetype?: String | null
   encoding?: String | null
@@ -4650,54 +3681,6 @@ export interface FoundryCreateWithoutTypefacesInput {
   addedBy: UserCreateOneInput
 }
 
-export interface FoundryScalarWhereInput {
-  AND?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
-  OR?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
-  NOT?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
-  id?: ID_Input | null
-  id_not?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  id_not_in?: ID_Output[] | ID_Output | null
-  id_lt?: ID_Input | null
-  id_lte?: ID_Input | null
-  id_gt?: ID_Input | null
-  id_gte?: ID_Input | null
-  id_contains?: ID_Input | null
-  id_not_contains?: ID_Input | null
-  id_starts_with?: ID_Input | null
-  id_not_starts_with?: ID_Input | null
-  id_ends_with?: ID_Input | null
-  id_not_ends_with?: ID_Input | null
-  name?: String | null
-  name_not?: String | null
-  name_in?: String[] | String | null
-  name_not_in?: String[] | String | null
-  name_lt?: String | null
-  name_lte?: String | null
-  name_gt?: String | null
-  name_gte?: String | null
-  name_contains?: String | null
-  name_not_contains?: String | null
-  name_starts_with?: String | null
-  name_not_starts_with?: String | null
-  name_ends_with?: String | null
-  name_not_ends_with?: String | null
-  url?: String | null
-  url_not?: String | null
-  url_in?: String[] | String | null
-  url_not_in?: String[] | String | null
-  url_lt?: String | null
-  url_lte?: String | null
-  url_gt?: String | null
-  url_gte?: String | null
-  url_contains?: String | null
-  url_not_contains?: String | null
-  url_starts_with?: String | null
-  url_not_starts_with?: String | null
-  url_ends_with?: String | null
-  url_not_ends_with?: String | null
-}
-
 export interface FoundrySubscriptionWhereInput {
   AND?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput | null
   OR?: FoundrySubscriptionWhereInput[] | FoundrySubscriptionWhereInput | null
@@ -4716,31 +3699,13 @@ export interface FoundryUpdateInput {
   addedBy?: UserUpdateOneRequiredInput | null
 }
 
-export interface FoundryUpdateManyDataInput {
-  name?: String | null
-  url?: String | null
-}
-
-export interface FoundryUpdateManyMutationInput {
-  name?: String | null
-  url?: String | null
-}
-
 export interface FoundryUpdateManyWithoutTypefacesInput {
   create?: FoundryCreateWithoutTypefacesInput[] | FoundryCreateWithoutTypefacesInput | null
   connect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
-  set?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   disconnect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   delete?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   update?: FoundryUpdateWithWhereUniqueWithoutTypefacesInput[] | FoundryUpdateWithWhereUniqueWithoutTypefacesInput | null
-  updateMany?: FoundryUpdateManyWithWhereNestedInput[] | FoundryUpdateManyWithWhereNestedInput | null
-  deleteMany?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
   upsert?: FoundryUpsertWithWhereUniqueWithoutTypefacesInput[] | FoundryUpsertWithWhereUniqueWithoutTypefacesInput | null
-}
-
-export interface FoundryUpdateManyWithWhereNestedInput {
-  where: FoundryScalarWhereInput
-  data: FoundryUpdateManyDataInput
 }
 
 export interface FoundryUpdateWithoutTypefacesDataInput {
@@ -4958,40 +3923,6 @@ export interface TagCreateWithoutWebsiteInput {
   typeface?: TypefaceCreateManyWithoutTagsInput | null
 }
 
-export interface TagScalarWhereInput {
-  AND?: TagScalarWhereInput[] | TagScalarWhereInput | null
-  OR?: TagScalarWhereInput[] | TagScalarWhereInput | null
-  NOT?: TagScalarWhereInput[] | TagScalarWhereInput | null
-  id?: ID_Input | null
-  id_not?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  id_not_in?: ID_Output[] | ID_Output | null
-  id_lt?: ID_Input | null
-  id_lte?: ID_Input | null
-  id_gt?: ID_Input | null
-  id_gte?: ID_Input | null
-  id_contains?: ID_Input | null
-  id_not_contains?: ID_Input | null
-  id_starts_with?: ID_Input | null
-  id_not_starts_with?: ID_Input | null
-  id_ends_with?: ID_Input | null
-  id_not_ends_with?: ID_Input | null
-  name?: String | null
-  name_not?: String | null
-  name_in?: String[] | String | null
-  name_not_in?: String[] | String | null
-  name_lt?: String | null
-  name_lte?: String | null
-  name_gt?: String | null
-  name_gte?: String | null
-  name_contains?: String | null
-  name_not_contains?: String | null
-  name_starts_with?: String | null
-  name_not_starts_with?: String | null
-  name_ends_with?: String | null
-  name_not_ends_with?: String | null
-}
-
 export interface TagSubscriptionWhereInput {
   AND?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput | null
   OR?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput | null
@@ -5009,41 +3940,22 @@ export interface TagUpdateInput {
   typeface?: TypefaceUpdateManyWithoutTagsInput | null
 }
 
-export interface TagUpdateManyDataInput {
-  name?: String | null
-}
-
-export interface TagUpdateManyMutationInput {
-  name?: String | null
-}
-
 export interface TagUpdateManyWithoutTypefaceInput {
   create?: TagCreateWithoutTypefaceInput[] | TagCreateWithoutTypefaceInput | null
   connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
-  set?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   delete?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   update?: TagUpdateWithWhereUniqueWithoutTypefaceInput[] | TagUpdateWithWhereUniqueWithoutTypefaceInput | null
-  updateMany?: TagUpdateManyWithWhereNestedInput[] | TagUpdateManyWithWhereNestedInput | null
-  deleteMany?: TagScalarWhereInput[] | TagScalarWhereInput | null
   upsert?: TagUpsertWithWhereUniqueWithoutTypefaceInput[] | TagUpsertWithWhereUniqueWithoutTypefaceInput | null
 }
 
 export interface TagUpdateManyWithoutWebsiteInput {
   create?: TagCreateWithoutWebsiteInput[] | TagCreateWithoutWebsiteInput | null
   connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
-  set?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   delete?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   update?: TagUpdateWithWhereUniqueWithoutWebsiteInput[] | TagUpdateWithWhereUniqueWithoutWebsiteInput | null
-  updateMany?: TagUpdateManyWithWhereNestedInput[] | TagUpdateManyWithWhereNestedInput | null
-  deleteMany?: TagScalarWhereInput[] | TagScalarWhereInput | null
   upsert?: TagUpsertWithWhereUniqueWithoutWebsiteInput[] | TagUpsertWithWhereUniqueWithoutWebsiteInput | null
-}
-
-export interface TagUpdateManyWithWhereNestedInput {
-  where: TagScalarWhereInput
-  data: TagUpdateManyDataInput
 }
 
 export interface TagUpdateWithoutTypefaceDataInput {
@@ -5237,82 +4149,6 @@ export interface TypefaceCreateWithoutUsedByInput {
   images?: ImagesCreateOneWithoutTypefaceInput | null
 }
 
-export interface TypefaceScalarWhereInput {
-  AND?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
-  OR?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
-  NOT?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
-  id?: ID_Input | null
-  id_not?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  id_not_in?: ID_Output[] | ID_Output | null
-  id_lt?: ID_Input | null
-  id_lte?: ID_Input | null
-  id_gt?: ID_Input | null
-  id_gte?: ID_Input | null
-  id_contains?: ID_Input | null
-  id_not_contains?: ID_Input | null
-  id_starts_with?: ID_Input | null
-  id_not_starts_with?: ID_Input | null
-  id_ends_with?: ID_Input | null
-  id_not_ends_with?: ID_Input | null
-  name?: String | null
-  name_not?: String | null
-  name_in?: String[] | String | null
-  name_not_in?: String[] | String | null
-  name_lt?: String | null
-  name_lte?: String | null
-  name_gt?: String | null
-  name_gte?: String | null
-  name_contains?: String | null
-  name_not_contains?: String | null
-  name_starts_with?: String | null
-  name_not_starts_with?: String | null
-  name_ends_with?: String | null
-  name_not_ends_with?: String | null
-  downloadUrl?: String | null
-  downloadUrl_not?: String | null
-  downloadUrl_in?: String[] | String | null
-  downloadUrl_not_in?: String[] | String | null
-  downloadUrl_lt?: String | null
-  downloadUrl_lte?: String | null
-  downloadUrl_gt?: String | null
-  downloadUrl_gte?: String | null
-  downloadUrl_contains?: String | null
-  downloadUrl_not_contains?: String | null
-  downloadUrl_starts_with?: String | null
-  downloadUrl_not_starts_with?: String | null
-  downloadUrl_ends_with?: String | null
-  downloadUrl_not_ends_with?: String | null
-  description?: String | null
-  description_not?: String | null
-  description_in?: String[] | String | null
-  description_not_in?: String[] | String | null
-  description_lt?: String | null
-  description_lte?: String | null
-  description_gt?: String | null
-  description_gte?: String | null
-  description_contains?: String | null
-  description_not_contains?: String | null
-  description_starts_with?: String | null
-  description_not_starts_with?: String | null
-  description_ends_with?: String | null
-  description_not_ends_with?: String | null
-  slug?: String | null
-  slug_not?: String | null
-  slug_in?: String[] | String | null
-  slug_not_in?: String[] | String | null
-  slug_lt?: String | null
-  slug_lte?: String | null
-  slug_gt?: String | null
-  slug_gte?: String | null
-  slug_contains?: String | null
-  slug_not_contains?: String | null
-  slug_starts_with?: String | null
-  slug_not_starts_with?: String | null
-  slug_ends_with?: String | null
-  slug_not_ends_with?: String | null
-}
-
 export interface TypefaceSubscriptionWhereInput {
   AND?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput | null
   OR?: TypefaceSubscriptionWhereInput[] | TypefaceSubscriptionWhereInput | null
@@ -5337,83 +4173,49 @@ export interface TypefaceUpdateInput {
   images?: ImagesUpdateOneWithoutTypefaceInput | null
 }
 
-export interface TypefaceUpdateManyDataInput {
-  name?: String | null
-  downloadUrl?: String | null
-  description?: String | null
-  slug?: String | null
-}
-
-export interface TypefaceUpdateManyMutationInput {
-  name?: String | null
-  downloadUrl?: String | null
-  description?: String | null
-  slug?: String | null
-}
-
 export interface TypefaceUpdateManyWithoutAddedByInput {
   create?: TypefaceCreateWithoutAddedByInput[] | TypefaceCreateWithoutAddedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
-  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutAddedByInput[] | TypefaceUpdateWithWhereUniqueWithoutAddedByInput | null
-  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
-  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutAddedByInput[] | TypefaceUpsertWithWhereUniqueWithoutAddedByInput | null
 }
 
 export interface TypefaceUpdateManyWithoutDesignersInput {
   create?: TypefaceCreateWithoutDesignersInput[] | TypefaceCreateWithoutDesignersInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
-  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutDesignersInput[] | TypefaceUpdateWithWhereUniqueWithoutDesignersInput | null
-  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
-  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutDesignersInput[] | TypefaceUpsertWithWhereUniqueWithoutDesignersInput | null
 }
 
 export interface TypefaceUpdateManyWithoutFoundriesInput {
   create?: TypefaceCreateWithoutFoundriesInput[] | TypefaceCreateWithoutFoundriesInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
-  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutFoundriesInput[] | TypefaceUpdateWithWhereUniqueWithoutFoundriesInput | null
-  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
-  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutFoundriesInput[] | TypefaceUpsertWithWhereUniqueWithoutFoundriesInput | null
 }
 
 export interface TypefaceUpdateManyWithoutTagsInput {
   create?: TypefaceCreateWithoutTagsInput[] | TypefaceCreateWithoutTagsInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
-  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutTagsInput[] | TypefaceUpdateWithWhereUniqueWithoutTagsInput | null
-  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
-  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutTagsInput[] | TypefaceUpsertWithWhereUniqueWithoutTagsInput | null
 }
 
 export interface TypefaceUpdateManyWithoutUsedByInput {
   create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
-  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutUsedByInput[] | TypefaceUpdateWithWhereUniqueWithoutUsedByInput | null
-  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
-  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutUsedByInput[] | TypefaceUpsertWithWhereUniqueWithoutUsedByInput | null
-}
-
-export interface TypefaceUpdateManyWithWhereNestedInput {
-  where: TypefaceScalarWhereInput
-  data: TypefaceUpdateManyDataInput
 }
 
 export interface TypefaceUpdateOneWithoutImagesInput {
@@ -5722,13 +4524,6 @@ export interface UserUpdateInput {
   typefaces?: TypefaceUpdateManyWithoutAddedByInput | null
 }
 
-export interface UserUpdateManyMutationInput {
-  email?: String | null
-  password?: String | null
-  name?: String | null
-  role?: Role | null
-}
-
 export interface UserUpdateOneRequiredInput {
   create?: UserCreateInput | null
   connect?: UserWhereUniqueInput | null
@@ -5934,80 +4729,6 @@ export interface WebsiteCreateWithoutTypefacesInput {
   tags?: TagCreateManyWithoutWebsiteInput | null
 }
 
-export interface WebsiteScalarWhereInput {
-  AND?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
-  OR?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
-  NOT?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
-  id?: ID_Input | null
-  id_not?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  id_not_in?: ID_Output[] | ID_Output | null
-  id_lt?: ID_Input | null
-  id_lte?: ID_Input | null
-  id_gt?: ID_Input | null
-  id_gte?: ID_Input | null
-  id_contains?: ID_Input | null
-  id_not_contains?: ID_Input | null
-  id_starts_with?: ID_Input | null
-  id_not_starts_with?: ID_Input | null
-  id_ends_with?: ID_Input | null
-  id_not_ends_with?: ID_Input | null
-  createdAt?: DateTime | null
-  createdAt_not?: DateTime | null
-  createdAt_in?: DateTime[] | DateTime | null
-  createdAt_not_in?: DateTime[] | DateTime | null
-  createdAt_lt?: DateTime | null
-  createdAt_lte?: DateTime | null
-  createdAt_gt?: DateTime | null
-  createdAt_gte?: DateTime | null
-  isPublished?: Boolean | null
-  isPublished_not?: Boolean | null
-  title?: String | null
-  title_not?: String | null
-  title_in?: String[] | String | null
-  title_not_in?: String[] | String | null
-  title_lt?: String | null
-  title_lte?: String | null
-  title_gt?: String | null
-  title_gte?: String | null
-  title_contains?: String | null
-  title_not_contains?: String | null
-  title_starts_with?: String | null
-  title_not_starts_with?: String | null
-  title_ends_with?: String | null
-  title_not_ends_with?: String | null
-  slug?: String | null
-  slug_not?: String | null
-  slug_in?: String[] | String | null
-  slug_not_in?: String[] | String | null
-  slug_lt?: String | null
-  slug_lte?: String | null
-  slug_gt?: String | null
-  slug_gte?: String | null
-  slug_contains?: String | null
-  slug_not_contains?: String | null
-  slug_starts_with?: String | null
-  slug_not_starts_with?: String | null
-  slug_ends_with?: String | null
-  slug_not_ends_with?: String | null
-  url?: String | null
-  url_not?: String | null
-  url_in?: String[] | String | null
-  url_not_in?: String[] | String | null
-  url_lt?: String | null
-  url_lte?: String | null
-  url_gt?: String | null
-  url_gte?: String | null
-  url_contains?: String | null
-  url_not_contains?: String | null
-  url_starts_with?: String | null
-  url_not_starts_with?: String | null
-  url_ends_with?: String | null
-  url_not_ends_with?: String | null
-  featured?: Boolean | null
-  featured_not?: Boolean | null
-}
-
 export interface WebsiteSubscriptionWhereInput {
   AND?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput | null
   OR?: WebsiteSubscriptionWhereInput[] | WebsiteSubscriptionWhereInput | null
@@ -6031,61 +4752,31 @@ export interface WebsiteUpdateInput {
   tags?: TagUpdateManyWithoutWebsiteInput | null
 }
 
-export interface WebsiteUpdateManyDataInput {
-  isPublished?: Boolean | null
-  title?: String | null
-  slug?: String | null
-  url?: String | null
-  featured?: Boolean | null
-}
-
-export interface WebsiteUpdateManyMutationInput {
-  isPublished?: Boolean | null
-  title?: String | null
-  slug?: String | null
-  url?: String | null
-  featured?: Boolean | null
-}
-
 export interface WebsiteUpdateManyWithoutAddedByInput {
   create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
-  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutAddedByInput[] | WebsiteUpdateWithWhereUniqueWithoutAddedByInput | null
-  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
-  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
   upsert?: WebsiteUpsertWithWhereUniqueWithoutAddedByInput[] | WebsiteUpsertWithWhereUniqueWithoutAddedByInput | null
 }
 
 export interface WebsiteUpdateManyWithoutTagsInput {
   create?: WebsiteCreateWithoutTagsInput[] | WebsiteCreateWithoutTagsInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
-  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutTagsInput[] | WebsiteUpdateWithWhereUniqueWithoutTagsInput | null
-  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
-  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
   upsert?: WebsiteUpsertWithWhereUniqueWithoutTagsInput[] | WebsiteUpsertWithWhereUniqueWithoutTagsInput | null
 }
 
 export interface WebsiteUpdateManyWithoutTypefacesInput {
   create?: WebsiteCreateWithoutTypefacesInput[] | WebsiteCreateWithoutTypefacesInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
-  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput | null
-  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
-  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
   upsert?: WebsiteUpsertWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput | null
-}
-
-export interface WebsiteUpdateManyWithWhereNestedInput {
-  where: WebsiteScalarWhereInput
-  data: WebsiteUpdateManyDataInput
 }
 
 export interface WebsiteUpdateOneWithoutImagesInput {

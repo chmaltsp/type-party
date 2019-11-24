@@ -651,33 +651,6 @@
       "Properties": {
         "ContainerDefinitions": [
           {
-            "Cpu": 2048,
-            "Environment": [
-              {
-                "Name": "PRISMA_SECRET",
-                "Value": {
-                  "Ref": "PRISMASECRETParameter"
-                }
-              },
-              {
-                "Name": "PRISMA_ENDPOINT",
-                "Value": {
-                  "Ref": "PRISMAENDPOINTParameter"
-                }
-              },
-              {
-                "Name": "PRISMA_MANAGEMENT_API_SECRET",
-                "Value": {
-                  "Ref": "PRISMAMANAGEMENTAPISECRETParameter"
-                }
-              },
-              {
-                "Name": "APP_SECRET",
-                "Value": {
-                  "Ref": "APPSECRETParameter"
-                }
-              }
-            ],
             "Essential": true,
             "Image": {
               "Fn::Join": [
@@ -741,6 +714,100 @@
                 "ContainerPort": 4000,
                 "HostPort": 0,
                 "Protocol": "tcp"
+              }
+            ],
+            "Secrets": [
+              {
+                "Name": "PRISMA_SECRET",
+                "ValueFrom": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":parameter/TpStaging/PRISMA_SECRET"
+                    ]
+                  ]
+                }
+              },
+              {
+                "Name": "PRISMA_ENDPOINT",
+                "ValueFrom": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":parameter/TpStaging/PRISMA_ENDPOINT"
+                    ]
+                  ]
+                }
+              },
+              {
+                "Name": "PRISMA_MANAGEMENT_API_SECRET",
+                "ValueFrom": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+                    ]
+                  ]
+                }
+              },
+              {
+                "Name": "APP_SECRET",
+                "ValueFrom": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":parameter/TpStaging/APP_SECRET"
+                    ]
+                  ]
+                }
               }
             ]
           }
@@ -826,6 +893,122 @@
                 "Fn::GetAtt": [
                   "TpGqlStaging2GqlServiceTaskDefwebLogGroup7EC14D31",
                   "Arn"
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter/TpStaging/PRISMA_SECRET"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter/TpStaging/PRISMA_ENDPOINT"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter/TpStaging/APP_SECRET"
+                  ]
                 ]
               }
             }
