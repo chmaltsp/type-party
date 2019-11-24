@@ -1293,6 +1293,46 @@
                                       ],
                                       "Effect": "Allow",
                                       "Resource": "${Token[TOKEN.264]}"
+                                    },
+                                    {
+                                      "Action": [
+                                        "ssm:DescribeParameters",
+                                        "ssm:GetParameters",
+                                        "ssm:GetParameter",
+                                        "ssm:GetParameterHistory"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/PRISMA_SECRET"
+                                    },
+                                    {
+                                      "Action": [
+                                        "ssm:DescribeParameters",
+                                        "ssm:GetParameters",
+                                        "ssm:GetParameter",
+                                        "ssm:GetParameterHistory"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/PRISMA_ENDPOINT"
+                                    },
+                                    {
+                                      "Action": [
+                                        "ssm:DescribeParameters",
+                                        "ssm:GetParameters",
+                                        "ssm:GetParameter",
+                                        "ssm:GetParameterHistory"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+                                    },
+                                    {
+                                      "Action": [
+                                        "ssm:DescribeParameters",
+                                        "ssm:GetParameters",
+                                        "ssm:GetParameter",
+                                        "ssm:GetParameterHistory"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/APP_SECRET"
                                     }
                                   ],
                                   "Version": "2012-10-17"
