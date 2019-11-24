@@ -18,8 +18,8 @@ const stagingVpc = new TpVpc(app, TP_STAGING_VPC, {
   name: TP_STAGING_VPC,
 });
 
-const TP_GQL_STAGING = 'TpGqlStaging';
-new TpGql(app, 'TpGqlStaging', {
+const TP_GQL_STAGING = 'TpGqlStaging2';
+new TpGql(app, TP_GQL_STAGING, {
   ecrRepository: tpGqlEcr.repository,
   vpc: stagingVpc.vpc,
   stackName: TP_GQL_STAGING,
