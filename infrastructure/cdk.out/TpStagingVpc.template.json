@@ -25,14 +25,7 @@
         "VpcId": {
           "Ref": "TpStagingVpc0552B696"
         },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            0,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
+        "AvailabilityZone": "us-east-1a",
         "MapPublicIpOnLaunch": true,
         "Tags": [
           {
@@ -141,14 +134,7 @@
         "VpcId": {
           "Ref": "TpStagingVpc0552B696"
         },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            1,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
+        "AvailabilityZone": "us-east-1b",
         "MapPublicIpOnLaunch": true,
         "Tags": [
           {
@@ -257,14 +243,7 @@
         "VpcId": {
           "Ref": "TpStagingVpc0552B696"
         },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            0,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
+        "AvailabilityZone": "us-east-1a",
         "MapPublicIpOnLaunch": false,
         "Tags": [
           {
@@ -338,14 +317,7 @@
         "VpcId": {
           "Ref": "TpStagingVpc0552B696"
         },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            1,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
+        "AvailabilityZone": "us-east-1b",
         "MapPublicIpOnLaunch": false,
         "Tags": [
           {

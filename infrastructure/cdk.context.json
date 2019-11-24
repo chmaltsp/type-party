@@ -2,5 +2,13 @@
   "hosted-zone:account=561034361591:domainName=typeparty.com:region=us-east-1": {
     "Id": "/hostedzone/Z1M48R5Z0AFHNH",
     "Name": "typeparty.com."
-  }
+  },
+  "availability-zones:account=561034361591:region=us-east-1": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
 }

@@ -14,26 +14,5 @@
         "aws:cdk:path": "TpEcr/tp-gql/Resource"
       }
     }
-  },
-  "Outputs": {
-    "ExportsOutputFnGetAtttpgqlB437C3BEArn71EE58F7": {
-      "Value": {
-        "Fn::GetAtt": [
-          "tpgqlB437C3BE",
-          "Arn"
-        ]
-      },
-      "Export": {
-        "Name": "TpEcr:ExportsOutputFnGetAtttpgqlB437C3BEArn71EE58F7"
-      }
-    },
-    "ExportsOutputReftpgqlB437C3BEA006BE53": {
-      "Value": {
-        "Ref": "tpgqlB437C3BE"
-      },
-      "Export": {
-        "Name": "TpEcr:ExportsOutputReftpgqlB437C3BEA006BE53"
-      }
-    }
   }
 }
