@@ -1,15 +1,15 @@
 {
   "Resources": {
-    "TpGqlStagingClusterB550A0C3": {
+    "TpGqlStaging2Cluster98C4B0DE": {
       "Type": "AWS::ECS::Cluster",
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroup92090D7A": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroupED02ACF1": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
+        "GroupDescription": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
         "SecurityGroupEgress": [
           {
             "CidrIp": "0.0.0.0/0",
@@ -20,7 +20,7 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
+            "Value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
           }
         ],
         "VpcId": {
@@ -28,10 +28,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D33276865535C0291D1D": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpGqlStaging2TpGqlStaging2GqlServiceLBSecurityGroupEE79D830327686553514D49D61": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "IpProtocol": "tcp",
@@ -39,23 +39,23 @@
         "FromPort": 32768,
         "GroupId": {
           "Fn::GetAtt": [
-            "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroup92090D7A",
+            "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroupED02ACF1",
             "GroupId"
           ]
         },
         "SourceSecurityGroupId": {
           "Fn::GetAtt": [
-            "TpGqlStagingGqlServiceLBSecurityGroup498C313F",
+            "TpGqlStaging2GqlServiceLBSecurityGroup54611102",
             "GroupId"
           ]
         },
         "ToPort": 65535
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D3:32768-65535"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpGqlStaging2TpGqlStaging2GqlServiceLBSecurityGroupEE79D830:32768-65535"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleCE332D2B": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRole9F7DA39C": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -83,15 +83,15 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
+            "Value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy5BACAF53": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicyB9925290": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -115,31 +115,31 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy5BACAF53",
+        "PolicyName": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicyB9925290",
         "Roles": [
           {
-            "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleCE332D2B"
+            "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRole9F7DA39C"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupInstanceProfile59F89E4C": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceProfile9DD70477": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
         "Roles": [
           {
-            "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleCE332D2B"
+            "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRole9F7DA39C"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceProfile"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceProfile"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupLaunchConfig30B3493D": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupLaunchConfig70E412CE": {
       "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
         "ImageId": {
@@ -147,12 +147,12 @@
         },
         "InstanceType": "t2.small",
         "IamInstanceProfile": {
-          "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceProfile59F89E4C"
+          "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceProfile9DD70477"
         },
         "SecurityGroups": [
           {
             "Fn::GetAtt": [
-              "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroup92090D7A",
+              "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroupED02ACF1",
               "GroupId"
             ]
           }
@@ -164,7 +164,7 @@
               [
                 "#!/bin/bash\necho ECS_CLUSTER=",
                 {
-                  "Ref": "TpGqlStagingClusterB550A0C3"
+                  "Ref": "TpGqlStaging2Cluster98C4B0DE"
                 },
                 " >> /etc/ecs/ecs.config\nsudo iptables --insert FORWARD 1 --in-interface docker+ --destination 169.254.169.254/32 --jump DROP\nsudo service iptables save\necho ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config"
               ]
@@ -173,27 +173,27 @@
         }
       },
       "DependsOn": [
-        "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy5BACAF53",
-        "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleCE332D2B"
+        "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicyB9925290",
+        "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRole9F7DA39C"
       ],
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LaunchConfig"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LaunchConfig"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupASG20F0A0DC": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupASG87D28596": {
       "Type": "AWS::AutoScaling::AutoScalingGroup",
       "Properties": {
         "MaxSize": "1",
         "MinSize": "1",
         "DesiredCapacity": "1",
         "LaunchConfigurationName": {
-          "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupLaunchConfig30B3493D"
+          "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupLaunchConfig70E412CE"
         },
         "Tags": [
           {
             "Key": "Name",
             "PropagateAtLaunch": true,
-            "Value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
+            "Value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
           }
         ],
         "VPCZoneIdentifier": [
@@ -214,10 +214,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/ASG"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/ASG"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleBAC890BE": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRole44E3B12F": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -249,15 +249,15 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
+            "Value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy74190C8E": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy3D75A21E": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -293,7 +293,7 @@
                     },
                     ":autoScalingGroup:*:autoScalingGroupName/",
                     {
-                      "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupASG20F0A0DC"
+                      "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupASG87D28596"
                     }
                   ]
                 ]
@@ -316,7 +316,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "TpGqlStagingClusterB550A0C3",
+                  "TpGqlStaging2Cluster98C4B0DE",
                   "Arn"
                 ]
               }
@@ -330,7 +330,7 @@
                 "ArnEquals": {
                   "ecs:cluster": {
                     "Fn::GetAtt": [
-                      "TpGqlStagingClusterB550A0C3",
+                      "TpGqlStaging2Cluster98C4B0DE",
                       "Arn"
                     ]
                   }
@@ -342,18 +342,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy74190C8E",
+        "PolicyName": "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy3D75A21E",
         "Roles": [
           {
-            "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleBAC890BE"
+            "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRole44E3B12F"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunction27113695": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionD75B1891": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
@@ -362,7 +362,7 @@
         "Handler": "index.lambda_handler",
         "Role": {
           "Fn::GetAtt": [
-            "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleBAC890BE",
+            "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRole44E3B12F",
             "Arn"
           ]
         },
@@ -370,64 +370,64 @@
         "Environment": {
           "Variables": {
             "CLUSTER": {
-              "Ref": "TpGqlStagingClusterB550A0C3"
+              "Ref": "TpGqlStaging2Cluster98C4B0DE"
             }
           }
         },
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
+            "Value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
           }
         ],
         "Timeout": 310
       },
       "DependsOn": [
-        "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy74190C8E",
-        "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleBAC890BE"
+        "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy3D75A21E",
+        "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRole44E3B12F"
       ],
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068A7ABDCAF": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic791F893096DB4069": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
           "Fn::GetAtt": [
-            "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunction27113695",
+            "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionD75B1891",
             "Arn"
           ]
         },
         "Principal": "sns.amazonaws.com",
         "SourceArn": {
-          "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic028574CB"
+          "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD9F43EB1"
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic791F8930"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionTopic5C9197A4": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionTopicF62A4826": {
       "Type": "AWS::SNS::Subscription",
       "Properties": {
         "Protocol": "lambda",
         "TopicArn": {
-          "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic028574CB"
+          "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD9F43EB1"
         },
         "Endpoint": {
           "Fn::GetAtt": [
-            "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunction27113695",
+            "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionD75B1891",
             "Arn"
           ]
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole5A328D44": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole9D94BEAB": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -445,15 +445,15 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
+            "Value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy2DC048A6": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy8EE8C8E4": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -462,72 +462,72 @@
               "Action": "sns:Publish",
               "Effect": "Allow",
               "Resource": {
-                "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic028574CB"
+                "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD9F43EB1"
               }
             }
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy2DC048A6",
+        "PolicyName": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy8EE8C8E4",
         "Roles": [
           {
-            "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole5A328D44"
+            "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole9D94BEAB"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic028574CB": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD9F43EB1": {
       "Type": "AWS::SNS::Topic",
       "Properties": {
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
+            "Value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource"
       }
     },
-    "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHook7661B5BE": {
+    "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookFA03800D": {
       "Type": "AWS::AutoScaling::LifecycleHook",
       "Properties": {
         "AutoScalingGroupName": {
-          "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupASG20F0A0DC"
+          "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupASG87D28596"
         },
         "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
         "DefaultResult": "CONTINUE",
         "HeartbeatTimeout": 300,
         "NotificationTargetARN": {
-          "Ref": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic028574CB"
+          "Ref": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD9F43EB1"
         },
         "RoleARN": {
           "Fn::GetAtt": [
-            "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole5A328D44",
+            "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole9D94BEAB",
             "Arn"
           ]
         }
       },
       "DependsOn": [
-        "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy2DC048A6",
-        "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole5A328D44"
+        "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy8EE8C8E4",
+        "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole9D94BEAB"
       ],
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource"
       }
     },
-    "TpGqlStagingGqlServiceLB9B16DD39": {
+    "TpGqlStaging2GqlServiceLB7E751B6F": {
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
       "Properties": {
         "Scheme": "internet-facing",
         "SecurityGroups": [
           {
             "Fn::GetAtt": [
-              "TpGqlStagingGqlServiceLBSecurityGroup498C313F",
+              "TpGqlStaging2GqlServiceLBSecurityGroup54611102",
               "GroupId"
             ]
           }
@@ -543,13 +543,13 @@
         "Type": "application"
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/LB/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/Resource"
       }
     },
-    "TpGqlStagingGqlServiceLBSecurityGroup498C313F": {
+    "TpGqlStaging2GqlServiceLBSecurityGroup54611102": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "Automatically created Security Group for ELB TpGqlStagingTpGqlStagingGqlServiceLBA97BD3BB",
+        "GroupDescription": "Automatically created Security Group for ELB TpGqlStaging2TpGqlStaging2GqlServiceLB95DA30C9",
         "SecurityGroupIngress": [
           {
             "CidrIp": "0.0.0.0/0",
@@ -564,15 +564,15 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/SecurityGroup/Resource"
       }
     },
-    "TpGqlStagingGqlServiceLBSecurityGrouptoTpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D893276865535B8598BB5": {
+    "TpGqlStaging2GqlServiceLBSecurityGrouptoTpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroup65D201DF3276865535A9DC9757": {
       "Type": "AWS::EC2::SecurityGroupEgress",
       "Properties": {
         "GroupId": {
           "Fn::GetAtt": [
-            "TpGqlStagingGqlServiceLBSecurityGroup498C313F",
+            "TpGqlStaging2GqlServiceLBSecurityGroup54611102",
             "GroupId"
           ]
         },
@@ -580,7 +580,7 @@
         "Description": "Load balancer to target",
         "DestinationSecurityGroupId": {
           "Fn::GetAtt": [
-            "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroup92090D7A",
+            "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroupED02ACF1",
             "GroupId"
           ]
         },
@@ -588,31 +588,31 @@
         "ToPort": 65535
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/to TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D89:32768-65535"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/SecurityGroup/to TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroup65D201DF:32768-65535"
       }
     },
-    "TpGqlStagingGqlServiceLBPublicListener76655F43": {
+    "TpGqlStaging2GqlServiceLBPublicListenerB5B6FCFA": {
       "Type": "AWS::ElasticLoadBalancingV2::Listener",
       "Properties": {
         "DefaultActions": [
           {
             "TargetGroupArn": {
-              "Ref": "TpGqlStagingGqlServiceLBPublicListenerECSGroupBEA9CA7E"
+              "Ref": "TpGqlStaging2GqlServiceLBPublicListenerECSGroupA21E6803"
             },
             "Type": "forward"
           }
         ],
         "LoadBalancerArn": {
-          "Ref": "TpGqlStagingGqlServiceLB9B16DD39"
+          "Ref": "TpGqlStaging2GqlServiceLB7E751B6F"
         },
         "Port": 80,
         "Protocol": "HTTP"
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener/Resource"
       }
     },
-    "TpGqlStagingGqlServiceLBPublicListenerECSGroupBEA9CA7E": {
+    "TpGqlStaging2GqlServiceLBPublicListenerECSGroupA21E6803": {
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
       "Properties": {
         "Port": 80,
@@ -623,10 +623,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/ECSGroup/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener/ECSGroup/Resource"
       }
     },
-    "TpGqlStagingGqlServiceTaskDefTaskRole2B983613": {
+    "TpGqlStaging2GqlServiceTaskDefTaskRole85E710CF": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -643,10 +643,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/TaskRole/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/TaskRole/Resource"
       }
     },
-    "TpGqlStagingGqlServiceTaskDef07FFEBF0": {
+    "TpGqlStaging2GqlServiceTaskDef216E98F6": {
       "Type": "AWS::ECS::TaskDefinition",
       "Properties": {
         "ContainerDefinitions": [
@@ -726,9 +726,9 @@
               "LogDriver": "awslogs",
               "Options": {
                 "awslogs-group": {
-                  "Ref": "TpGqlStagingGqlServiceTaskDefwebLogGroupB9E4A743"
+                  "Ref": "TpGqlStaging2GqlServiceTaskDefwebLogGroup7EC14D31"
                 },
-                "awslogs-stream-prefix": "TpGqlStagingGqlService",
+                "awslogs-stream-prefix": "TpGqlStaging2GqlService",
                 "awslogs-region": {
                   "Ref": "AWS::Region"
                 }
@@ -747,35 +747,35 @@
         ],
         "ExecutionRoleArn": {
           "Fn::GetAtt": [
-            "TpGqlStagingGqlServiceTaskDefExecutionRole038D5A5B",
+            "TpGqlStaging2GqlServiceTaskDefExecutionRoleF980A580",
             "Arn"
           ]
         },
-        "Family": "TpGqlStagingTpGqlStagingGqlServiceTaskDefB5A74CE8",
+        "Family": "TpGqlStaging2TpGqlStaging2GqlServiceTaskDef4D471C65",
         "NetworkMode": "bridge",
         "RequiresCompatibilities": [
           "EC2"
         ],
         "TaskRoleArn": {
           "Fn::GetAtt": [
-            "TpGqlStagingGqlServiceTaskDefTaskRole2B983613",
+            "TpGqlStaging2GqlServiceTaskDefTaskRole85E710CF",
             "Arn"
           ]
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/Resource"
       }
     },
-    "TpGqlStagingGqlServiceTaskDefwebLogGroupB9E4A743": {
+    "TpGqlStaging2GqlServiceTaskDefwebLogGroup7EC14D31": {
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain",
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/web/LogGroup/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/web/LogGroup/Resource"
       }
     },
-    "TpGqlStagingGqlServiceTaskDefExecutionRole038D5A5B": {
+    "TpGqlStaging2GqlServiceTaskDefExecutionRoleF980A580": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -792,10 +792,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole/Resource"
       }
     },
-    "TpGqlStagingGqlServiceTaskDefExecutionRoleDefaultPolicy563F959E": {
+    "TpGqlStaging2GqlServiceTaskDefExecutionRoleDefaultPolicyB9D98729": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -824,7 +824,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "TpGqlStagingGqlServiceTaskDefwebLogGroupB9E4A743",
+                  "TpGqlStaging2GqlServiceTaskDefwebLogGroup7EC14D31",
                   "Arn"
                 ]
               }
@@ -832,25 +832,25 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "TpGqlStagingGqlServiceTaskDefExecutionRoleDefaultPolicy563F959E",
+        "PolicyName": "TpGqlStaging2GqlServiceTaskDefExecutionRoleDefaultPolicyB9D98729",
         "Roles": [
           {
-            "Ref": "TpGqlStagingGqlServiceTaskDefExecutionRole038D5A5B"
+            "Ref": "TpGqlStaging2GqlServiceTaskDefExecutionRoleF980A580"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole/DefaultPolicy/Resource"
       }
     },
-    "TpGqlStagingGqlService886B4276": {
+    "TpGqlStaging2GqlService8C75E180": {
       "Type": "AWS::ECS::Service",
       "Properties": {
         "TaskDefinition": {
-          "Ref": "TpGqlStagingGqlServiceTaskDef07FFEBF0"
+          "Ref": "TpGqlStaging2GqlServiceTaskDef216E98F6"
         },
         "Cluster": {
-          "Ref": "TpGqlStagingClusterB550A0C3"
+          "Ref": "TpGqlStaging2Cluster98C4B0DE"
         },
         "DeploymentConfiguration": {
           "MaximumPercent": 200,
@@ -865,18 +865,18 @@
             "ContainerName": "web",
             "ContainerPort": 4000,
             "TargetGroupArn": {
-              "Ref": "TpGqlStagingGqlServiceLBPublicListenerECSGroupBEA9CA7E"
+              "Ref": "TpGqlStaging2GqlServiceLBPublicListenerECSGroupA21E6803"
             }
           }
         ],
         "SchedulingStrategy": "REPLICA"
       },
       "DependsOn": [
-        "TpGqlStagingGqlServiceLBPublicListenerECSGroupBEA9CA7E",
-        "TpGqlStagingGqlServiceLBPublicListener76655F43"
+        "TpGqlStaging2GqlServiceLBPublicListenerECSGroupA21E6803",
+        "TpGqlStaging2GqlServiceLBPublicListenerB5B6FCFA"
       ],
       "Metadata": {
-        "aws:cdk:path": "TpGqlStaging/TpGqlStagingGqlService/Service/Service"
+        "aws:cdk:path": "TpGqlStaging2/TpGqlStaging2GqlService/Service/Service"
       }
     }
   },
@@ -903,15 +903,15 @@
     }
   },
   "Outputs": {
-    "TpGqlStagingGqlServiceLoadBalancerDNS0D9FF911": {
+    "TpGqlStaging2GqlServiceLoadBalancerDNS2FD45B72": {
       "Value": {
         "Fn::GetAtt": [
-          "TpGqlStagingGqlServiceLB9B16DD39",
+          "TpGqlStaging2GqlServiceLB7E751B6F",
           "DNSName"
         ]
       }
     },
-    "TpGqlStagingGqlServiceServiceURL5A72A143": {
+    "TpGqlStaging2GqlServiceServiceURL00ED51EE": {
       "Value": {
         "Fn::Join": [
           "",
@@ -919,7 +919,7 @@
             "http://",
             {
               "Fn::GetAtt": [
-                "TpGqlStagingGqlServiceLB9B16DD39",
+                "TpGqlStaging2GqlServiceLB7E751B6F",
                 "DNSName"
               ]
             }

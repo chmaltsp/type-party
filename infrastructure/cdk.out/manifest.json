@@ -926,11 +926,11 @@
         ]
       }
     },
-    "TpGqlStaging": {
+    "TpGqlStaging2": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://unknown-account/unknown-region",
       "properties": {
-        "templateFile": "TpGqlStaging.template.json"
+        "templateFile": "TpGqlStaging2.template.json"
       },
       "dependencies": [
         "TpStagingVpc",
@@ -947,13 +947,13 @@
         "TpStagingVpc"
       ],
       "metadata": {
-        "/TpGqlStaging/TpGqlStagingCluster/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterB550A0C3",
+            "data": "TpGqlStaging2Cluster98C4B0DE",
             "trace": [
               "new Cluster (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:99:21)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:15:21)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:17:21)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -975,15 +975,15 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroup92090D7A",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroupED02ACF1",
             "trace": [
               "new SecurityGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:323:26)",
               "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:417:26)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1005,10 +1005,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D3:32768-65535": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpGqlStaging2TpGqlStaging2GqlServiceLBSecurityGroupEE79D830:32768-65535": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D33276865535C0291D1D",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpGqlStaging2TpGqlStaging2GqlServiceLBSecurityGroupEE79D830327686553514D49D61",
             "trace": [
               "SecurityGroup.addIngressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:76:7)",
               "SecurityGroup.addIngressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:340:13)",
@@ -1024,7 +1024,7 @@
               "ApplicationTargetGroup.addTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:120:29)",
               "ApplicationLoadBalancedEc2Service.addServiceAsTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:351:22)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:133:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1046,15 +1046,15 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleCE332D2B",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRole9F7DA39C",
             "trace": [
               "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
               "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:425:31)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1076,17 +1076,17 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy5BACAF53",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicyB9925290",
             "trace": [
               "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
               "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
               "AutoScalingGroup.addToRolePolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:596:15)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:204:22)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1108,14 +1108,14 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceProfile": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceProfile": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupInstanceProfile59F89E4C",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceProfile9DD70477",
             "trace": [
               "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:432:24)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1137,14 +1137,14 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LaunchConfig": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LaunchConfig": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLaunchConfig30B3493D",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupLaunchConfig70E412CE",
             "trace": [
               "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:442:26)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1166,14 +1166,14 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/ASG": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/ASG": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupASG20F0A0DC",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupASG87D28596",
             "trace": [
               "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:525:29)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1195,17 +1195,17 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleBAC890BE",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRole44E3B12F",
             "trace": [
               "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
               "new Function (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function.ts:414:31)",
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:52:16)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1227,10 +1227,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy74190C8E",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy3D75A21E",
             "trace": [
               "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
               "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
@@ -1238,7 +1238,7 @@
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:74:8)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1260,16 +1260,16 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunction27113695",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionD75B1891",
             "trace": [
               "new Function (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function.ts:434:35)",
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:52:16)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1291,10 +1291,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic791F8930": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068A7ABDCAF",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic791F893096DB4069",
             "trace": [
               "Function.addPermission (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:197:5)",
               "LambdaSubscription.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns-subscriptions/lib/lambda.ts:27:13)",
@@ -1305,7 +1305,7 @@
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1327,10 +1327,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionTopic5C9197A4",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupDrainECSHookFunctionTopicF62A4826",
             "trace": [
               "new Subscription (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/subscription.ts:89:5)",
               "Topic.addSubscription (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/topic-base.ts:70:5)",
@@ -1340,7 +1340,7 @@
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1362,10 +1362,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole5A328D44",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole9D94BEAB",
             "trace": [
               "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
               "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:99:31)",
@@ -1373,7 +1373,7 @@
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1395,10 +1395,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy2DC048A6",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicy8EE8C8E4",
             "trace": [
               "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
               "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
@@ -1412,7 +1412,7 @@
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1434,10 +1434,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic028574CB",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD9F43EB1",
             "trace": [
               "new Topic (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns/lib/topic.ts:53:22)",
               "FunctionHook.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling-hooktargets/lib/lambda-hook.ts:18:19)",
@@ -1446,7 +1446,7 @@
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1468,17 +1468,17 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHook7661B5BE",
+            "data": "TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookFA03800D",
             "trace": [
               "new LifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/lifecycle-hook.ts:105:22)",
               "AutoScalingGroup.addLifecycleHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:240:12)",
               "new InstanceDrainHook (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/drain-hook/instance-drain-hook.ts:65:28)",
               "Cluster.addAutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:222:7)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:170:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1500,7 +1500,7 @@
             ]
           }
         ],
-        "/TpGqlStaging/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+        "/TpGqlStaging2/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
           {
             "type": "aws:cdk:logicalId",
             "data": "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter",
@@ -1510,7 +1510,7 @@
               "EcsOptimizedAmi.getImage (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:369:37)",
               "new AutoScalingGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-autoscaling/lib/auto-scaling-group.ts:437:44)",
               "Cluster.addCapacity (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:162:30)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:19:13)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:21:13)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1532,16 +1532,132 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/LB/Resource": [
+        "/TpGqlStaging2/PRISMA_SECRET.Parameter": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceLB9B16DD39",
+            "data": "PRISMASECRETParameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:288:9)",
+              "Function.fromStringParameterName (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:273:17)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:34:47)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging2/APP_SECRET.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APPSECRETParameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:288:9)",
+              "Function.fromStringParameterName (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:273:17)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:40:44)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging2/PRISMA_MANAGEMENT_API_SECRET.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PRISMAMANAGEMENTAPISECRETParameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:288:9)",
+              "Function.fromStringParameterName (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:273:17)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:46:62)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging2/PRISMA_ENDPOINT.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PRISMAENDPOINTParameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:288:9)",
+              "Function.fromStringParameterName (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:273:17)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:52:49)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/TpGqlStaging2/TpGqlStaging2GqlService/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TpGqlStaging2GqlServiceLB7E751B6F",
             "trace": [
               "new BaseLoadBalancer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/shared/base-load-balancer.ts:137:22)",
               "new ApplicationLoadBalancer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-load-balancer.ts:64:5)",
               "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:282:81)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1563,16 +1679,16 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/LB/SecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceLBSecurityGroup498C313F",
+            "data": "TpGqlStaging2GqlServiceLBSecurityGroup54611102",
             "trace": [
               "new SecurityGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:323:26)",
               "new ApplicationLoadBalancer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-load-balancer.ts:70:49)",
               "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:282:81)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1594,10 +1710,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/to TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D89:32768-65535": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/LB/SecurityGroup/to TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroup65D201DF:32768-65535": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceLBSecurityGrouptoTpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D893276865535B8598BB5",
+            "data": "TpGqlStaging2GqlServiceLBSecurityGrouptoTpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroup65D201DF3276865535A9DC9757",
             "trace": [
               "SecurityGroup.addEgressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:94:7)",
               "SecurityGroup.addEgressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:369:13)",
@@ -1614,7 +1730,7 @@
               "ApplicationTargetGroup.addTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:120:29)",
               "ApplicationLoadBalancedEc2Service.addServiceAsTarget (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:351:22)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:133:10)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1636,17 +1752,17 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceLBPublicListener76655F43",
+            "data": "TpGqlStaging2GqlServiceLBPublicListenerB5B6FCFA",
             "trace": [
               "new BaseListener (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/shared/base-listener.ts:19:22)",
               "new ApplicationListener (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-listener.ts:116:5)",
               "ApplicationLoadBalancer.addListener (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-load-balancer.ts:110:12)",
               "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:293:39)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1668,17 +1784,17 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/ECSGroup/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener/ECSGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceLBPublicListenerECSGroupBEA9CA7E",
+            "data": "TpGqlStaging2GqlServiceLBPublicListenerECSGroupA21E6803",
             "trace": [
               "new TargetGroupBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/shared/base-target-group.ts:226:21)",
               "new ApplicationTargetGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-target-group.ts:93:5)",
               "ApplicationListener.addTargets (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-elasticloadbalancingv2/lib/alb/application-listener.ts:215:19)",
               "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:298:38)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1700,14 +1816,14 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/LoadBalancerDNS": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/LoadBalancerDNS": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceLoadBalancerDNS0D9FF911",
+            "data": "TpGqlStaging2GqlServiceLoadBalancerDNS2FD45B72",
             "trace": [
               "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:333:5)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1729,14 +1845,14 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/ServiceURL": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/ServiceURL": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceServiceURL5A72A143",
+            "data": "TpGqlStaging2GqlServiceServiceURL00ED51EE",
             "trace": [
               "new ApplicationLoadBalancedServiceBase (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/base/application-load-balanced-service-base.ts:334:5)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:85:5)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1758,16 +1874,16 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/TaskRole/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/TaskRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceTaskDefTaskRole2B983613",
+            "data": "TpGqlStaging2GqlServiceTaskDefTaskRole85E710CF",
             "trace": [
               "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
               "new TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:274:39)",
               "new Ec2TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/ec2/ec2-task-definition.ts:59:5)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:93:29)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1789,15 +1905,15 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceTaskDef07FFEBF0",
+            "data": "TpGqlStaging2GqlServiceTaskDef216E98F6",
             "trace": [
               "new TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:278:21)",
               "new Ec2TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/ec2/ec2-task-definition.ts:59:5)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:93:29)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1819,17 +1935,17 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/web/LogGroup/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/web/LogGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceTaskDefwebLogGroupB9E4A743",
+            "data": "TpGqlStaging2GqlServiceTaskDefwebLogGroup7EC14D31",
             "trace": [
               "new LogGroup (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-logs/lib/log-group.ts:342:22)",
               "AwsLogDriver.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/log-drivers/aws-log-driver.ts:91:44)",
               "new ContainerDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/container-definition.ts:360:44)",
               "Ec2TaskDefinition.addContainer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:364:12)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:106:45)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1851,10 +1967,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceTaskDefExecutionRole038D5A5B",
+            "data": "TpGqlStaging2GqlServiceTaskDefExecutionRoleF980A580",
             "trace": [
               "new Role (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:300:18)",
               "Ec2TaskDefinition.obtainExecutionRole (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:410:29)",
@@ -1862,7 +1978,7 @@
               "new ContainerDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/container-definition.ts:358:36)",
               "Ec2TaskDefinition.addContainer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:364:12)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:106:45)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1884,10 +2000,10 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlServiceTaskDefExecutionRoleDefaultPolicy563F959E",
+            "data": "TpGqlStaging2GqlServiceTaskDefExecutionRoleDefaultPolicyB9D98729",
             "trace": [
               "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
               "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
@@ -1899,7 +2015,7 @@
               "new ContainerDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/container-definition.ts:358:36)",
               "Ec2TaskDefinition.addContainer (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:364:12)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:106:45)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
@@ -1921,15 +2037,15 @@
             ]
           }
         ],
-        "/TpGqlStaging/TpGqlStagingGqlService/Service/Service": [
+        "/TpGqlStaging2/TpGqlStaging2GqlService/Service/Service": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TpGqlStagingGqlService886B4276",
+            "data": "TpGqlStaging2GqlService8C75E180",
             "trace": [
               "new BaseService (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:301:21)",
               "new Ec2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/ec2/ec2-service.ts:138:5)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:122:20)",
-              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:23:5)",
+              "new TpGql (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:58:5)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:22:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
