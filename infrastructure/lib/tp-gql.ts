@@ -3,8 +3,11 @@ import ecs = require('@aws-cdk/aws-ecs');
 import cdk = require('@aws-cdk/core');
 import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import { IRepository } from '@aws-cdk/aws-ecr';
+import route53 = require('@aws-cdk/aws-route53');
 
 import ssm = require('@aws-cdk/aws-ssm');
+import { domainName } from './tp-images';
+import { Certificate } from '@aws-cdk/aws-certificatemanager';
 
 interface TpGqlProps extends cdk.StackProps {
   vpc: ec2.Vpc;
@@ -63,13 +66,33 @@ export class TpGql extends cdk.Stack {
       )
     );
 
-    new ecs_patterns.ApplicationLoadBalancedEc2Service(
+    const apiDomainName = `api.${domainName}`;
+
+    const arnCertificate = ssm.StringParameter.valueForStringParameter(
+      this,
+      `CertifcateArn-${domainName}`
+    );
+
+    const certificate = Certificate.fromCertificateArn(
+      this,
+      `${domainName}SSLCert`,
+      arnCertificate
+    );
+
+    const zone = route53.HostedZone.fromLookup(this, 'Zone', {
+      domainName,
+    });
+
+    const gqlService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
       this,
       props.stackName + 'GqlService',
       {
         cluster,
         memoryReservationMiB: 700,
         publicLoadBalancer: true,
+        domainName: apiDomainName,
+        domainZone: zone,
+        certificate,
         taskImageOptions: {
           image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
           containerPort: 4000,
@@ -82,5 +105,13 @@ export class TpGql extends cdk.Stack {
         },
       }
     );
+
+    new cdk.CfnOutput(this, 'ServiceName', {
+      value: gqlService.service.serviceName,
+    });
+
+    new cdk.CfnOutput(this, 'ClusterName', {
+      value: cluster.clusterName,
+    });
   }
 }

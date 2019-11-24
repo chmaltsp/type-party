@@ -9,7 +9,7 @@ import { Construct } from '@aws-cdk/core';
 
 import ssm = require('@aws-cdk/aws-ssm');
 
-const domainName = 'typeparty.com';
+export const domainName = 'typeparty.com';
 
 const subDomain = 'images';
 

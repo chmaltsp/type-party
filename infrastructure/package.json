@@ -10,7 +10,7 @@
     "cdk": "cdk --profile tp-access",
     "cdk:diff": "cdk diff --profile tp-access",
     "deploy:all": "yarn build && cdk --profile tp-access deploy Tp*",
-    "deploy:gql": "yarn build && cdk --profile tp-access deploy TpGqlStaging2"
+    "deploy:gql": "yarn build && cdk --profile tp-access deploy TpGqlStaging"
   },
   "devDependencies": {
     "@types/node": "12.12.8",

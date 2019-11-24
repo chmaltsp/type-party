@@ -29,20 +29,6 @@
                 }
               }
             }
-          },
-          "Exports": {
-            "id": "Exports",
-            "path": "TpEcr/Exports",
-            "children": {
-              "Output{\"Fn::GetAtt\":[\"tpgqlB437C3BE\",\"Arn\"]}": {
-                "id": "Output{\"Fn::GetAtt\":[\"tpgqlB437C3BE\",\"Arn\"]}",
-                "path": "TpEcr/Exports/Output{\"Fn::GetAtt\":[\"tpgqlB437C3BE\",\"Arn\"]}"
-              },
-              "Output{\"Ref\":\"tpgqlB437C3BE\"}": {
-                "id": "Output{\"Ref\":\"tpgqlB437C3BE\"}",
-                "path": "TpEcr/Exports/Output{\"Ref\":\"tpgqlB437C3BE\"}"
-              }
-            }
           }
         }
       },
@@ -84,8 +70,8 @@
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
                         "cidrBlock": "10.0.0.0/18",
-                        "vpcId": "${Token[TOKEN.27]}",
-                        "availabilityZone": "${Token[TOKEN.24]}",
+                        "vpcId": "${Token[TOKEN.23]}",
+                        "availabilityZone": "us-east-1a",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
                           {
@@ -114,7 +100,7 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
-                        "vpcId": "${Token[TOKEN.27]}",
+                        "vpcId": "${Token[TOKEN.23]}",
                         "tags": [
                           {
                             "key": "Name",
@@ -130,8 +116,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.38]}",
-                        "subnetId": "${Token[TOKEN.34]}"
+                        "routeTableId": "${Token[TOKEN.34]}",
+                        "subnetId": "${Token[TOKEN.30]}"
                       }
                     }
                   },
@@ -141,9 +127,9 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.38]}",
+                        "routeTableId": "${Token[TOKEN.34]}",
                         "destinationCidrBlock": "0.0.0.0/0",
-                        "gatewayId": "${Token[TOKEN.77]}"
+                        "gatewayId": "${Token[TOKEN.73]}"
                       }
                     }
                   },
@@ -163,8 +149,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
                       "aws:cdk:cloudformation:props": {
-                        "allocationId": "${Token[TOKEN.82]}",
-                        "subnetId": "${Token[TOKEN.34]}",
+                        "allocationId": "${Token[TOKEN.78]}",
+                        "subnetId": "${Token[TOKEN.30]}",
                         "tags": [
                           {
                             "key": "Name",
@@ -187,8 +173,8 @@
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
                         "cidrBlock": "10.0.64.0/18",
-                        "vpcId": "${Token[TOKEN.27]}",
-                        "availabilityZone": "${Token[TOKEN.26]}",
+                        "vpcId": "${Token[TOKEN.23]}",
+                        "availabilityZone": "us-east-1b",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
                           {
@@ -217,7 +203,7 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
-                        "vpcId": "${Token[TOKEN.27]}",
+                        "vpcId": "${Token[TOKEN.23]}",
                         "tags": [
                           {
                             "key": "Name",
@@ -233,8 +219,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.50]}",
-                        "subnetId": "${Token[TOKEN.46]}"
+                        "routeTableId": "${Token[TOKEN.46]}",
+                        "subnetId": "${Token[TOKEN.42]}"
                       }
                     }
                   },
@@ -244,9 +230,9 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.50]}",
+                        "routeTableId": "${Token[TOKEN.46]}",
                         "destinationCidrBlock": "0.0.0.0/0",
-                        "gatewayId": "${Token[TOKEN.77]}"
+                        "gatewayId": "${Token[TOKEN.73]}"
                       }
                     }
                   },
@@ -266,8 +252,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
                       "aws:cdk:cloudformation:props": {
-                        "allocationId": "${Token[TOKEN.86]}",
-                        "subnetId": "${Token[TOKEN.46]}",
+                        "allocationId": "${Token[TOKEN.82]}",
+                        "subnetId": "${Token[TOKEN.42]}",
                         "tags": [
                           {
                             "key": "Name",
@@ -290,8 +276,8 @@
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
                         "cidrBlock": "10.0.128.0/18",
-                        "vpcId": "${Token[TOKEN.27]}",
-                        "availabilityZone": "${Token[TOKEN.24]}",
+                        "vpcId": "${Token[TOKEN.23]}",
+                        "availabilityZone": "us-east-1a",
                         "mapPublicIpOnLaunch": false,
                         "tags": [
                           {
@@ -320,7 +306,7 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
-                        "vpcId": "${Token[TOKEN.27]}",
+                        "vpcId": "${Token[TOKEN.23]}",
                         "tags": [
                           {
                             "key": "Name",
@@ -336,8 +322,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.62]}",
-                        "subnetId": "${Token[TOKEN.58]}"
+                        "routeTableId": "${Token[TOKEN.58]}",
+                        "subnetId": "${Token[TOKEN.54]}"
                       }
                     }
                   },
@@ -347,9 +333,9 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.62]}",
+                        "routeTableId": "${Token[TOKEN.58]}",
                         "destinationCidrBlock": "0.0.0.0/0",
-                        "natGatewayId": "${Token[TOKEN.84]}"
+                        "natGatewayId": "${Token[TOKEN.80]}"
                       }
                     }
                   }
@@ -366,8 +352,8 @@
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
                         "cidrBlock": "10.0.192.0/18",
-                        "vpcId": "${Token[TOKEN.27]}",
-                        "availabilityZone": "${Token[TOKEN.26]}",
+                        "vpcId": "${Token[TOKEN.23]}",
+                        "availabilityZone": "us-east-1b",
                         "mapPublicIpOnLaunch": false,
                         "tags": [
                           {
@@ -396,7 +382,7 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
-                        "vpcId": "${Token[TOKEN.27]}",
+                        "vpcId": "${Token[TOKEN.23]}",
                         "tags": [
                           {
                             "key": "Name",
@@ -412,8 +398,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.74]}",
-                        "subnetId": "${Token[TOKEN.70]}"
+                        "routeTableId": "${Token[TOKEN.70]}",
+                        "subnetId": "${Token[TOKEN.66]}"
                       }
                     }
                   },
@@ -423,9 +409,9 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
-                        "routeTableId": "${Token[TOKEN.74]}",
+                        "routeTableId": "${Token[TOKEN.70]}",
                         "destinationCidrBlock": "0.0.0.0/0",
-                        "natGatewayId": "${Token[TOKEN.88]}"
+                        "natGatewayId": "${Token[TOKEN.84]}"
                       }
                     }
                   }
@@ -452,8 +438,8 @@
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
                   "aws:cdk:cloudformation:props": {
-                    "vpcId": "${Token[TOKEN.27]}",
-                    "internetGatewayId": "${Token[TOKEN.77]}"
+                    "vpcId": "${Token[TOKEN.23]}",
+                    "internetGatewayId": "${Token[TOKEN.73]}"
                   }
                 }
               }
@@ -487,63 +473,63 @@
           }
         }
       },
-      "TpGqlStaging2": {
-        "id": "TpGqlStaging2",
-        "path": "TpGqlStaging2",
+      "TpGqlStaging": {
+        "id": "TpGqlStaging",
+        "path": "TpGqlStaging",
         "children": {
-          "TpGqlStaging2Cluster": {
-            "id": "TpGqlStaging2Cluster",
-            "path": "TpGqlStaging2/TpGqlStaging2Cluster",
+          "TpGqlStagingCluster": {
+            "id": "TpGqlStagingCluster",
+            "path": "TpGqlStaging/TpGqlStagingCluster",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "TpGqlStaging2/TpGqlStaging2Cluster/Resource",
+                "path": "TpGqlStaging/TpGqlStagingCluster/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
                   "aws:cdk:cloudformation:props": {
-                    "clusterName": "${Token[TOKEN.92]}"
+                    "clusterName": "${Token[TOKEN.88]}"
                   }
                 }
               },
               "DefaultAutoScalingGroup": {
                 "id": "DefaultAutoScalingGroup",
-                "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup",
+                "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup",
                 "children": {
                   "InstanceSecurityGroup": {
                     "id": "InstanceSecurityGroup",
-                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
+                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
-                            "groupName": "${Token[TOKEN.99]}",
+                            "groupDescription": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
+                            "groupName": "${Token[TOKEN.95]}",
                             "securityGroupEgress": "<unresolved-lazy>",
                             "securityGroupIngress": "<unresolved-lazy>",
                             "tags": [
                               {
                                 "key": "Name",
-                                "value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
+                                "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
                               }
                             ],
-                            "vpcId": "${Token[TOKEN.27]}"
+                            "vpcId": "${Token[TOKEN.23]}"
                           }
                         }
                       },
-                      "from TpGqlStaging2TpGqlStaging2GqlServiceLBSecurityGroupEE79D830:32768-65535": {
-                        "id": "from TpGqlStaging2TpGqlStaging2GqlServiceLBSecurityGroupEE79D830:32768-65535",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpGqlStaging2TpGqlStaging2GqlServiceLBSecurityGroupEE79D830:32768-65535",
+                      "from TpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D3:32768-65535": {
+                        "id": "from TpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D3:32768-65535",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpGqlStagingTpGqlStagingGqlServiceLBSecurityGroup4ECDA2D3:32768-65535",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                           "aws:cdk:cloudformation:props": {
                             "ipProtocol": "tcp",
                             "description": "Load balancer to target",
                             "fromPort": 32768,
-                            "groupId": "${Token[TOKEN.101]}",
-                            "sourceSecurityGroupId": "${Token[TOKEN.212]}",
+                            "groupId": "${Token[TOKEN.97]}",
+                            "sourceSecurityGroupId": "${Token[TOKEN.213]}",
                             "toPort": 65535
                           }
                         }
@@ -552,11 +538,11 @@
                   },
                   "InstanceRole": {
                     "id": "InstanceRole",
-                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole",
+                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole/Resource",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                           "aws:cdk:cloudformation:props": {
@@ -566,20 +552,20 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ec2.amazonaws.com.105]}"
+                                    "Service": "${Token[ec2.amazonaws.com.101]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.106]}"
+                              "#{Token[TOKEN.102]}"
                             ],
-                            "roleName": "${Token[TOKEN.104]}",
+                            "roleName": "${Token[TOKEN.100]}",
                             "tags": [
                               {
                                 "key": "Name",
-                                "value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
+                                "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
                               }
                             ]
                           }
@@ -587,11 +573,11 @@
                       },
                       "DefaultPolicy": {
                         "id": "DefaultPolicy",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                               "aws:cdk:cloudformation:props": {
@@ -616,15 +602,15 @@
                                   ],
                                   "Version": "2012-10-17"
                                 },
-                                "policyName": "${Token[TOKEN.127]}",
+                                "policyName": "${Token[TOKEN.123]}",
                                 "groups": [
-                                  "#{Token[TOKEN.130]}"
+                                  "#{Token[TOKEN.126]}"
                                 ],
                                 "roles": [
-                                  "#{Token[TOKEN.128]}"
+                                  "#{Token[TOKEN.124]}"
                                 ],
                                 "users": [
-                                  "#{Token[TOKEN.129]}"
+                                  "#{Token[TOKEN.125]}"
                                 ]
                               }
                             }
@@ -635,77 +621,77 @@
                   },
                   "InstanceProfile": {
                     "id": "InstanceProfile",
-                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/InstanceProfile",
+                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceProfile",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
                       "aws:cdk:cloudformation:props": {
                         "roles": [
-                          "${Token[TOKEN.112]}"
+                          "${Token[TOKEN.108]}"
                         ]
                       }
                     }
                   },
                   "LaunchConfig": {
                     "id": "LaunchConfig",
-                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LaunchConfig",
+                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LaunchConfig",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::AutoScaling::LaunchConfiguration",
                       "aws:cdk:cloudformation:props": {
-                        "imageId": "${Token[TOKEN.116]}",
+                        "imageId": "${Token[TOKEN.112]}",
                         "instanceType": "t2.small",
-                        "iamInstanceProfile": "${Token[TOKEN.120]}",
+                        "iamInstanceProfile": "${Token[TOKEN.116]}",
                         "securityGroups": [
-                          "#{Token[TOKEN.119]}"
+                          "#{Token[TOKEN.115]}"
                         ],
-                        "userData": "${Token[TOKEN.118]}"
+                        "userData": "${Token[TOKEN.114]}"
                       }
                     }
                   },
                   "ASG": {
                     "id": "ASG",
-                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/ASG",
+                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/ASG",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::AutoScaling::AutoScalingGroup",
                       "aws:cdk:cloudformation:props": {
                         "maxSize": "1",
                         "minSize": "1",
                         "desiredCapacity": "1",
-                        "launchConfigurationName": "${Token[TOKEN.122]}",
+                        "launchConfigurationName": "${Token[TOKEN.118]}",
                         "loadBalancerNames": [
-                          "#{Token[TOKEN.123]}"
+                          "#{Token[TOKEN.119]}"
                         ],
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup",
+                            "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup",
                             "propagateAtLaunch": true
                           }
                         ],
                         "targetGroupArns": [
-                          "#{Token[TOKEN.124]}"
+                          "#{Token[TOKEN.120]}"
                         ],
                         "vpcZoneIdentifier": [
-                          "${Token[TOKEN.58]}",
-                          "${Token[TOKEN.70]}"
+                          "${Token[TOKEN.54]}",
+                          "${Token[TOKEN.66]}"
                         ]
                       }
                     }
                   },
                   "DrainECSHook": {
                     "id": "DrainECSHook",
-                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook",
+                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook",
                     "children": {
                       "Function": {
                         "id": "Function",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function",
                         "children": {
                           "ServiceRole": {
                             "id": "ServiceRole",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole",
                             "children": {
                               "Resource": {
                                 "id": "Resource",
-                                "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource",
+                                "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                                   "aws:cdk:cloudformation:props": {
@@ -715,20 +701,20 @@
                                           "Action": "sts:AssumeRole",
                                           "Effect": "Allow",
                                           "Principal": {
-                                            "Service": "${Token[lambda.amazonaws.com.135]}"
+                                            "Service": "${Token[lambda.amazonaws.com.131]}"
                                           }
                                         }
                                       ],
                                       "Version": "2012-10-17"
                                     },
                                     "managedPolicyArns": [
-                                      "#{Token[TOKEN.136]}"
+                                      "#{Token[TOKEN.132]}"
                                     ],
-                                    "roleName": "${Token[TOKEN.134]}",
+                                    "roleName": "${Token[TOKEN.130]}",
                                     "tags": [
                                       {
                                         "key": "Name",
-                                        "value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
+                                        "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
                                       }
                                     ]
                                   }
@@ -736,11 +722,11 @@
                               },
                               "DefaultPolicy": {
                                 "id": "DefaultPolicy",
-                                "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy",
+                                "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy",
                                 "children": {
                                   "Resource": {
                                     "id": "Resource",
-                                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource",
+                                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource",
                                     "attributes": {
                                       "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                                       "aws:cdk:cloudformation:props": {
@@ -759,7 +745,7 @@
                                             {
                                               "Action": "autoscaling:CompleteLifecycleAction",
                                               "Effect": "Allow",
-                                              "Resource": "arn:${Token[AWS::Partition.3]}:autoscaling:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:autoScalingGroup:*:autoScalingGroupName/${Token[TOKEN.126]}"
+                                              "Resource": "arn:${Token[AWS::Partition.3]}:autoscaling:us-east-1:561034361591:autoScalingGroup:*:autoScalingGroupName/${Token[TOKEN.122]}"
                                             },
                                             {
                                               "Action": [
@@ -776,7 +762,7 @@
                                                 "ecs:SubmitTaskStateChange"
                                               ],
                                               "Effect": "Allow",
-                                              "Resource": "${Token[TOKEN.95]}"
+                                              "Resource": "${Token[TOKEN.91]}"
                                             },
                                             {
                                               "Action": [
@@ -785,7 +771,7 @@
                                               ],
                                               "Condition": {
                                                 "ArnEquals": {
-                                                  "ecs:cluster": "${Token[TOKEN.95]}"
+                                                  "ecs:cluster": "${Token[TOKEN.91]}"
                                                 }
                                               },
                                               "Effect": "Allow",
@@ -794,15 +780,15 @@
                                           ],
                                           "Version": "2012-10-17"
                                         },
-                                        "policyName": "${Token[TOKEN.175]}",
+                                        "policyName": "${Token[TOKEN.171]}",
                                         "groups": [
-                                          "#{Token[TOKEN.178]}"
+                                          "#{Token[TOKEN.174]}"
                                         ],
                                         "roles": [
-                                          "#{Token[TOKEN.176]}"
+                                          "#{Token[TOKEN.172]}"
                                         ],
                                         "users": [
-                                          "#{Token[TOKEN.177]}"
+                                          "#{Token[TOKEN.173]}"
                                         ]
                                       }
                                     }
@@ -813,7 +799,7 @@
                           },
                           "Resource": {
                             "id": "Resource",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                               "aws:cdk:cloudformation:props": {
@@ -821,49 +807,49 @@
                                   "zipFile": "import boto3, json, os, time\n\necs = boto3.client('ecs')\nautoscaling = boto3.client('autoscaling')\n\n\ndef lambda_handler(event, context):\n  print(json.dumps(event))\n  cluster = os.environ['CLUSTER']\n  snsTopicArn = event['Records'][0]['Sns']['TopicArn']\n  lifecycle_event = json.loads(event['Records'][0]['Sns']['Message'])\n  instance_id = lifecycle_event.get('EC2InstanceId')\n  if not instance_id:\n    print('Got event without EC2InstanceId: %s', json.dumps(event))\n    return\n\n  instance_arn = container_instance_arn(cluster, instance_id)\n  print('Instance %s has container instance ARN %s' % (lifecycle_event['EC2InstanceId'], instance_arn))\n\n  if not instance_arn:\n    return\n\n  while has_tasks(cluster, instance_arn):\n    time.sleep(10)\n\n  try:\n    print('Terminating instance %s' % instance_id)\n    autoscaling.complete_lifecycle_action(\n        LifecycleActionResult='CONTINUE',\n        **pick(lifecycle_event, 'LifecycleHookName', 'LifecycleActionToken', 'AutoScalingGroupName'))\n  except Exception as e:\n    # Lifecycle action may have already completed.\n    print(str(e))\n\n\ndef container_instance_arn(cluster, instance_id):\n  \"\"\"Turn an instance ID into a container instance ARN.\"\"\"\n  arns = ecs.list_container_instances(cluster=cluster, filter='ec2InstanceId==' + instance_id)['containerInstanceArns']\n  if not arns:\n    return None\n  return arns[0]\n\n\ndef has_tasks(cluster, instance_arn):\n  \"\"\"Return True if the instance is running tasks for the given cluster.\"\"\"\n  instances = ecs.describe_container_instances(cluster=cluster, containerInstances=[instance_arn])['containerInstances']\n  if not instances:\n    return False\n  instance = instances[0]\n\n  if instance['status'] == 'ACTIVE':\n    # Start draining, then try again later\n    set_container_instance_to_draining(cluster, instance_arn)\n    return True\n\n  tasks = instance['runningTasksCount'] + instance['pendingTasksCount']\n  print('Instance %s has %s tasks' % (instance_arn, tasks))\n\n  return tasks > 0\n\n\ndef set_container_instance_to_draining(cluster, instance_arn):\n  ecs.update_container_instances_state(\n      cluster=cluster,\n      containerInstances=[instance_arn], status='DRAINING')\n\n\ndef pick(dct, *keys):\n  \"\"\"Pick a subset of a dict.\"\"\"\n  return {k: v for k, v in dct.items() if k in keys}\n"
                                 },
                                 "handler": "index.lambda_handler",
-                                "role": "${Token[TOKEN.140]}",
+                                "role": "${Token[TOKEN.136]}",
                                 "runtime": "python3.6",
                                 "environment": "<unresolved-lazy>",
-                                "functionName": "${Token[TOKEN.132]}",
+                                "functionName": "${Token[TOKEN.128]}",
                                 "layers": [
-                                  "#{Token[TOKEN.143]}"
+                                  "#{Token[TOKEN.139]}"
                                 ],
                                 "tags": [
                                   {
                                     "key": "Name",
-                                    "value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
+                                    "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
                                   }
                                 ],
                                 "timeout": 310
                               }
                             }
                           },
-                          "AllowInvoke:TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic791F8930": {
-                            "id": "AllowInvoke:TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic791F8930",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic791F8930",
+                          "AllowInvoke:TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068": {
+                            "id": "AllowInvoke:TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicD8E7E068",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                               "aws:cdk:cloudformation:props": {
                                 "action": "lambda:InvokeFunction",
-                                "functionName": "${Token[TOKEN.148]}",
+                                "functionName": "${Token[TOKEN.144]}",
                                 "principal": "sns.amazonaws.com",
-                                "sourceArn": "${Token[TOKEN.163]}"
+                                "sourceArn": "${Token[TOKEN.159]}"
                               }
                             }
                           },
                           "Topic": {
                             "id": "Topic",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic",
                             "children": {
                               "Resource": {
                                 "id": "Resource",
-                                "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource",
+                                "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
                                   "aws:cdk:cloudformation:props": {
                                     "protocol": "lambda",
-                                    "topicArn": "${Token[TOKEN.163]}",
-                                    "endpoint": "${Token[TOKEN.148]}"
+                                    "topicArn": "${Token[TOKEN.159]}",
+                                    "endpoint": "${Token[TOKEN.144]}"
                                   }
                                 }
                               }
@@ -875,15 +861,15 @@
                   },
                   "LifecycleHookDrainHook": {
                     "id": "LifecycleHookDrainHook",
-                    "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook",
+                    "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook",
                     "children": {
                       "Role": {
                         "id": "Role",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                               "aws:cdk:cloudformation:props": {
@@ -893,20 +879,20 @@
                                       "Action": "sts:AssumeRole",
                                       "Effect": "Allow",
                                       "Principal": {
-                                        "Service": "${Token[autoscaling.amazonaws.com.151]}"
+                                        "Service": "${Token[autoscaling.amazonaws.com.147]}"
                                       }
                                     }
                                   ],
                                   "Version": "2012-10-17"
                                 },
                                 "managedPolicyArns": [
-                                  "#{Token[TOKEN.152]}"
+                                  "#{Token[TOKEN.148]}"
                                 ],
-                                "roleName": "${Token[TOKEN.150]}",
+                                "roleName": "${Token[TOKEN.146]}",
                                 "tags": [
                                   {
                                     "key": "Name",
-                                    "value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
+                                    "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
                                   }
                                 ]
                               }
@@ -914,11 +900,11 @@
                           },
                           "DefaultPolicy": {
                             "id": "DefaultPolicy",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy",
                             "children": {
                               "Resource": {
                                 "id": "Resource",
-                                "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource",
+                                "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                                   "aws:cdk:cloudformation:props": {
@@ -927,20 +913,20 @@
                                         {
                                           "Action": "sns:Publish",
                                           "Effect": "Allow",
-                                          "Resource": "${Token[TOKEN.163]}"
+                                          "Resource": "${Token[TOKEN.159]}"
                                         }
                                       ],
                                       "Version": "2012-10-17"
                                     },
-                                    "policyName": "${Token[TOKEN.168]}",
+                                    "policyName": "${Token[TOKEN.164]}",
                                     "groups": [
-                                      "#{Token[TOKEN.171]}"
+                                      "#{Token[TOKEN.167]}"
                                     ],
                                     "roles": [
-                                      "#{Token[TOKEN.169]}"
+                                      "#{Token[TOKEN.165]}"
                                     ],
                                     "users": [
-                                      "#{Token[TOKEN.170]}"
+                                      "#{Token[TOKEN.166]}"
                                     ]
                                   }
                                 }
@@ -951,21 +937,21 @@
                       },
                       "Topic": {
                         "id": "Topic",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource",
+                            "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::SNS::Topic",
                               "aws:cdk:cloudformation:props": {
                                 "tags": [
                                   {
                                     "key": "Name",
-                                    "value": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup"
+                                    "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
                                   }
                                 ],
-                                "topicName": "${Token[TOKEN.159]}"
+                                "topicName": "${Token[TOKEN.155]}"
                               }
                             }
                           }
@@ -973,17 +959,17 @@
                       },
                       "Resource": {
                         "id": "Resource",
-                        "path": "TpGqlStaging2/TpGqlStaging2Cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource",
+                        "path": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::AutoScaling::LifecycleHook",
                           "aws:cdk:cloudformation:props": {
-                            "autoScalingGroupName": "${Token[TOKEN.126]}",
+                            "autoScalingGroupName": "${Token[TOKEN.122]}",
                             "lifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
                             "defaultResult": "CONTINUE",
                             "heartbeatTimeout": 300,
-                            "lifecycleHookName": "${Token[TOKEN.149]}",
-                            "notificationTargetArn": "${Token[TOKEN.163]}",
-                            "roleArn": "${Token[TOKEN.156]}"
+                            "lifecycleHookName": "${Token[TOKEN.145]}",
+                            "notificationTargetArn": "${Token[TOKEN.159]}",
+                            "roleArn": "${Token[TOKEN.152]}"
                           }
                         }
                       }
@@ -995,67 +981,83 @@
           },
           "SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
             "id": "SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
-            "path": "TpGqlStaging2/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter"
+            "path": "TpGqlStaging/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter"
           },
           "SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118": {
             "id": "SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118",
-            "path": "TpGqlStaging2/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118"
+            "path": "TpGqlStaging/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118"
           },
           "PRISMA_SECRET.Parameter": {
             "id": "PRISMA_SECRET.Parameter",
-            "path": "TpGqlStaging2/PRISMA_SECRET.Parameter"
+            "path": "TpGqlStaging/PRISMA_SECRET.Parameter"
           },
           "PRISMA_SECRET": {
             "id": "PRISMA_SECRET",
-            "path": "TpGqlStaging2/PRISMA_SECRET"
+            "path": "TpGqlStaging/PRISMA_SECRET"
           },
           "APP_SECRET.Parameter": {
             "id": "APP_SECRET.Parameter",
-            "path": "TpGqlStaging2/APP_SECRET.Parameter"
+            "path": "TpGqlStaging/APP_SECRET.Parameter"
           },
           "APP_SECRET": {
             "id": "APP_SECRET",
-            "path": "TpGqlStaging2/APP_SECRET"
+            "path": "TpGqlStaging/APP_SECRET"
           },
           "PRISMA_MANAGEMENT_API_SECRET.Parameter": {
             "id": "PRISMA_MANAGEMENT_API_SECRET.Parameter",
-            "path": "TpGqlStaging2/PRISMA_MANAGEMENT_API_SECRET.Parameter"
+            "path": "TpGqlStaging/PRISMA_MANAGEMENT_API_SECRET.Parameter"
           },
           "PRISMA_MANAGEMENT_API_SECRET": {
             "id": "PRISMA_MANAGEMENT_API_SECRET",
-            "path": "TpGqlStaging2/PRISMA_MANAGEMENT_API_SECRET"
+            "path": "TpGqlStaging/PRISMA_MANAGEMENT_API_SECRET"
           },
           "PRISMA_ENDPOINT.Parameter": {
             "id": "PRISMA_ENDPOINT.Parameter",
-            "path": "TpGqlStaging2/PRISMA_ENDPOINT.Parameter"
+            "path": "TpGqlStaging/PRISMA_ENDPOINT.Parameter"
           },
           "PRISMA_ENDPOINT": {
             "id": "PRISMA_ENDPOINT",
-            "path": "TpGqlStaging2/PRISMA_ENDPOINT"
+            "path": "TpGqlStaging/PRISMA_ENDPOINT"
           },
-          "TpGqlStaging2GqlService": {
-            "id": "TpGqlStaging2GqlService",
-            "path": "TpGqlStaging2/TpGqlStaging2GqlService",
+          "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "TpGqlStaging/SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter"
+          },
+          "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "TpGqlStaging/SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118"
+          },
+          "typeparty.comSSLCert": {
+            "id": "typeparty.comSSLCert",
+            "path": "TpGqlStaging/typeparty.comSSLCert"
+          },
+          "Zone": {
+            "id": "Zone",
+            "path": "TpGqlStaging/Zone"
+          },
+          "TpGqlStagingGqlService": {
+            "id": "TpGqlStagingGqlService",
+            "path": "TpGqlStaging/TpGqlStagingGqlService",
             "children": {
               "LB": {
                 "id": "LB",
-                "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB",
+                "path": "TpGqlStaging/TpGqlStagingGqlService/LB",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/Resource",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/LB/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
                       "aws:cdk:cloudformation:props": {
                         "loadBalancerAttributes": "<unresolved-lazy>",
-                        "name": "${Token[TOKEN.202]}",
+                        "name": "${Token[TOKEN.203]}",
                         "scheme": "internet-facing",
                         "securityGroups": [
-                          "#{Token[TOKEN.201]}"
+                          "#{Token[TOKEN.202]}"
                         ],
                         "subnets": [
-                          "${Token[TOKEN.34]}",
-                          "${Token[TOKEN.46]}"
+                          "${Token[TOKEN.30]}",
+                          "${Token[TOKEN.42]}"
                         ],
                         "type": "application"
                       }
@@ -1063,32 +1065,32 @@
                   },
                   "SecurityGroup": {
                     "id": "SecurityGroup",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/SecurityGroup",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/SecurityGroup/Resource",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "Automatically created Security Group for ELB TpGqlStaging2TpGqlStaging2GqlServiceLB95DA30C9",
-                            "groupName": "${Token[TOKEN.210]}",
+                            "groupDescription": "Automatically created Security Group for ELB TpGqlStagingTpGqlStagingGqlServiceLBA97BD3BB",
+                            "groupName": "${Token[TOKEN.211]}",
                             "securityGroupEgress": "<unresolved-lazy>",
                             "securityGroupIngress": "<unresolved-lazy>",
-                            "vpcId": "${Token[TOKEN.27]}"
+                            "vpcId": "${Token[TOKEN.23]}"
                           }
                         }
                       },
-                      "to TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroup65D201DF:32768-65535": {
-                        "id": "to TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroup65D201DF:32768-65535",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/SecurityGroup/to TpGqlStaging2TpGqlStaging2ClusterDefaultAutoScalingGroupInstanceSecurityGroup65D201DF:32768-65535",
+                      "to TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D89:32768-65535": {
+                        "id": "to TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D89:32768-65535",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/LB/SecurityGroup/to TpGqlStagingTpGqlStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupE52D1D89:32768-65535",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
                           "aws:cdk:cloudformation:props": {
-                            "groupId": "${Token[TOKEN.212]}",
+                            "groupId": "${Token[TOKEN.213]}",
                             "ipProtocol": "tcp",
                             "description": "Load balancer to target",
-                            "destinationSecurityGroupId": "${Token[TOKEN.101]}",
+                            "destinationSecurityGroupId": "${Token[TOKEN.97]}",
                             "fromPort": 32768,
                             "toPort": 65535
                           }
@@ -1098,46 +1100,46 @@
                   },
                   "PublicListener": {
                     "id": "PublicListener",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener/Resource",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
                           "aws:cdk:cloudformation:props": {
                             "defaultActions": "<unresolved-lazy>",
-                            "loadBalancerArn": "${Token[TOKEN.209]}",
-                            "port": 80,
-                            "protocol": "HTTP",
+                            "loadBalancerArn": "${Token[TOKEN.210]}",
+                            "port": 443,
+                            "protocol": "HTTPS",
                             "certificates": "<unresolved-lazy>"
                           }
                         }
                       },
                       "ECSGroup": {
                         "id": "ECSGroup",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener/ECSGroup",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/ECSGroup",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "TpGqlStaging2/TpGqlStaging2GqlService/LB/PublicListener/ECSGroup/Resource",
+                            "path": "TpGqlStaging/TpGqlStagingGqlService/LB/PublicListener/ECSGroup/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
                               "aws:cdk:cloudformation:props": {
-                                "healthCheckIntervalSeconds": -1.8881545897087974e+289,
-                                "healthCheckPath": "${Token[TOKEN.221]}",
-                                "healthCheckPort": "${Token[TOKEN.222]}",
-                                "healthCheckProtocol": "${Token[TOKEN.223]}",
-                                "healthCheckTimeoutSeconds": -1.8881545897087983e+289,
-                                "healthyThresholdCount": -1.8881545897087985e+289,
+                                "healthCheckIntervalSeconds": -1.8881545897087976e+289,
+                                "healthCheckPath": "${Token[TOKEN.222]}",
+                                "healthCheckPort": "${Token[TOKEN.223]}",
+                                "healthCheckProtocol": "${Token[TOKEN.224]}",
+                                "healthCheckTimeoutSeconds": -1.8881545897087985e+289,
+                                "healthyThresholdCount": -1.8881545897087987e+289,
                                 "matcher": "<unresolved-lazy>",
                                 "port": 80,
                                 "protocol": "HTTP",
                                 "targetGroupAttributes": "<unresolved-lazy>",
                                 "targets": "<unresolved-lazy>",
-                                "targetType": "${Token[TOKEN.218]}",
-                                "unhealthyThresholdCount": -1.8881545897087987e+289,
-                                "vpcId": "${Token[TOKEN.219]}"
+                                "targetType": "${Token[TOKEN.219]}",
+                                "unhealthyThresholdCount": -1.888154589708799e+289,
+                                "vpcId": "${Token[TOKEN.220]}"
                               }
                             }
                           }
@@ -1147,25 +1149,47 @@
                   }
                 }
               },
+              "DNS": {
+                "id": "DNS",
+                "path": "TpGqlStaging/TpGqlStagingGqlService/DNS",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/DNS/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                      "aws:cdk:cloudformation:props": {
+                        "name": "api.typeparty.com.",
+                        "type": "A",
+                        "aliasTarget": {
+                          "hostedZoneId": "${Token[TOKEN.205]}",
+                          "dnsName": "${Token[TOKEN.206]}"
+                        },
+                        "hostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
+                      }
+                    }
+                  }
+                }
+              },
               "LoadBalancerDNS": {
                 "id": "LoadBalancerDNS",
-                "path": "TpGqlStaging2/TpGqlStaging2GqlService/LoadBalancerDNS"
+                "path": "TpGqlStaging/TpGqlStagingGqlService/LoadBalancerDNS"
               },
               "ServiceURL": {
                 "id": "ServiceURL",
-                "path": "TpGqlStaging2/TpGqlStaging2GqlService/ServiceURL"
+                "path": "TpGqlStaging/TpGqlStagingGqlService/ServiceURL"
               },
               "TaskDef": {
                 "id": "TaskDef",
-                "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef",
+                "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef",
                 "children": {
                   "TaskRole": {
                     "id": "TaskRole",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/TaskRole",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/TaskRole",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/TaskRole/Resource",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/TaskRole/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                           "aws:cdk:cloudformation:props": {
@@ -1175,16 +1199,16 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ecs-tasks.amazonaws.com.236]}"
+                                    "Service": "${Token[ecs-tasks.amazonaws.com.240]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.237]}"
+                              "#{Token[TOKEN.241]}"
                             ],
-                            "roleName": "${Token[TOKEN.235]}"
+                            "roleName": "${Token[TOKEN.239]}"
                           }
                         }
                       }
@@ -1192,38 +1216,38 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/Resource",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                       "aws:cdk:cloudformation:props": {
                         "containerDefinitions": "<unresolved-lazy>",
-                        "executionRoleArn": "${Token[TOKEN.244]}",
-                        "family": "TpGqlStaging2TpGqlStaging2GqlServiceTaskDef4D471C65",
+                        "executionRoleArn": "${Token[TOKEN.248]}",
+                        "family": "TpGqlStagingTpGqlStagingGqlServiceTaskDefB5A74CE8",
                         "networkMode": "bridge",
                         "placementConstraints": "<unresolved-lazy>",
                         "requiresCompatibilities": [
                           "EC2"
                         ],
-                        "taskRoleArn": "${Token[TOKEN.241]}",
+                        "taskRoleArn": "${Token[TOKEN.245]}",
                         "volumes": "<unresolved-lazy>"
                       }
                     }
                   },
                   "web": {
                     "id": "web",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/web",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/web",
                     "children": {
                       "LogGroup": {
                         "id": "LogGroup",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/web/LogGroup",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/web/LogGroup",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/web/LogGroup/Resource",
+                            "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/web/LogGroup/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                               "aws:cdk:cloudformation:props": {
-                                "logGroupName": "${Token[TOKEN.261]}"
+                                "logGroupName": "${Token[TOKEN.265]}"
                               }
                             }
                           }
@@ -1233,11 +1257,11 @@
                   },
                   "ExecutionRole": {
                     "id": "ExecutionRole",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole/Resource",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                           "aws:cdk:cloudformation:props": {
@@ -1247,26 +1271,26 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ecs-tasks.amazonaws.com.248]}"
+                                    "Service": "${Token[ecs-tasks.amazonaws.com.252]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.249]}"
+                              "#{Token[TOKEN.253]}"
                             ],
-                            "roleName": "${Token[TOKEN.247]}"
+                            "roleName": "${Token[TOKEN.251]}"
                           }
                         }
                       },
                       "DefaultPolicy": {
                         "id": "DefaultPolicy",
-                        "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole/DefaultPolicy",
+                        "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/DefaultPolicy",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "TpGqlStaging2/TpGqlStaging2GqlService/TaskDef/ExecutionRole/DefaultPolicy/Resource",
+                            "path": "TpGqlStaging/TpGqlStagingGqlService/TaskDef/ExecutionRole/DefaultPolicy/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                               "aws:cdk:cloudformation:props": {
@@ -1292,7 +1316,7 @@
                                         "logs:PutLogEvents"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "${Token[TOKEN.264]}"
+                                      "Resource": "${Token[TOKEN.268]}"
                                     },
                                     {
                                       "Action": [
@@ -1302,7 +1326,7 @@
                                         "ssm:GetParameterHistory"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/PRISMA_SECRET"
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_SECRET"
                                     },
                                     {
                                       "Action": [
@@ -1312,7 +1336,7 @@
                                         "ssm:GetParameterHistory"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/PRISMA_ENDPOINT"
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_ENDPOINT"
                                     },
                                     {
                                       "Action": [
@@ -1322,7 +1346,7 @@
                                         "ssm:GetParameterHistory"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
                                     },
                                     {
                                       "Action": [
@@ -1332,20 +1356,20 @@
                                         "ssm:GetParameterHistory"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:${Token[AWS::Region.4]}:${Token[AWS::AccountId.0]}:parameter/TpStaging/APP_SECRET"
+                                      "Resource": "arn:${Token[AWS::Partition.3]}:ssm:us-east-1:561034361591:parameter/TpStaging/APP_SECRET"
                                     }
                                   ],
                                   "Version": "2012-10-17"
                                 },
-                                "policyName": "${Token[TOKEN.256]}",
+                                "policyName": "${Token[TOKEN.260]}",
                                 "groups": [
-                                  "#{Token[TOKEN.259]}"
+                                  "#{Token[TOKEN.263]}"
                                 ],
                                 "roles": [
-                                  "#{Token[TOKEN.257]}"
+                                  "#{Token[TOKEN.261]}"
                                 ],
                                 "users": [
-                                  "#{Token[TOKEN.258]}"
+                                  "#{Token[TOKEN.262]}"
                                 ]
                               }
                             }
@@ -1358,16 +1382,16 @@
               },
               "Service": {
                 "id": "Service",
-                "path": "TpGqlStaging2/TpGqlStaging2GqlService/Service",
+                "path": "TpGqlStaging/TpGqlStagingGqlService/Service",
                 "children": {
                   "Service": {
                     "id": "Service",
-                    "path": "TpGqlStaging2/TpGqlStaging2GqlService/Service/Service",
+                    "path": "TpGqlStaging/TpGqlStagingGqlService/Service/Service",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ECS::Service",
                       "aws:cdk:cloudformation:props": {
-                        "taskDefinition": "${Token[TOKEN.246]}",
-                        "cluster": "${Token[TOKEN.97]}",
+                        "taskDefinition": "${Token[TOKEN.250]}",
+                        "cluster": "${Token[TOKEN.93]}",
                         "deploymentConfiguration": {
                           "maximumPercent": 200,
                           "minimumHealthyPercent": 50
@@ -1381,7 +1405,7 @@
                         "placementConstraints": "<unresolved-lazy>",
                         "placementStrategies": "<unresolved-lazy>",
                         "schedulingStrategy": "REPLICA",
-                        "serviceName": "${Token[TOKEN.267]}",
+                        "serviceName": "${Token[TOKEN.271]}",
                         "serviceRegistries": "<unresolved-lazy>"
                       }
                     }
@@ -1389,6 +1413,14 @@
                 }
               }
             }
+          },
+          "ServiceName": {
+            "id": "ServiceName",
+            "path": "TpGqlStaging/ServiceName"
+          },
+          "ClusterName": {
+            "id": "ClusterName",
+            "path": "TpGqlStaging/ClusterName"
           }
         }
       }
