@@ -21,11 +21,10 @@ import DesignerTypeahead from './DesignerTypeahead';
 import FoundryTypeahead from './FoundryTypeahead';
 import { ADD_TYPEFACE, UPDATE_TYPEFACE } from './mutation';
 
-import { type } from 'os';
 import MediaUpload from '../../components/MediaUpload';
 import TagForm from '../../components/TagForm';
 import TagTypeahead from '../../components/TagTypeahead';
-import { EDIT_WEBISTE } from '../AddSite/queries';
+
 import {
   EditTypeface,
   EditTypeface_typeface_images_full,

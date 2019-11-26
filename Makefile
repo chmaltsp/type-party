@@ -20,6 +20,9 @@ tag-and-push-gql: build-tp-gql tag-gql-image push-tp-gql
 set-ssm-param: 
 	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" 
 
+build-tp-gql:
+	docker build -t tp-fe ./frontend
+
 update-gql-service-staging:
 	$(eval GQL_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name TpGqlStaging --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
 	$(eval GQL_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name TpGqlStaging --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))

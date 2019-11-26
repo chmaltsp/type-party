@@ -32,6 +32,35 @@ const Wrapper = styled.div`
 // export interface WebsitePanelProps {
 // }
 
+const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
+  return websites.map(website => ({
+    imgUrl:
+      (website.images &&
+        website.images &&
+        website.images.thumbnail &&
+        website.images.thumbnail.url) ||
+      '',
+    secondary: (
+      <span>
+        Fonts --{'  '}
+        <LinkList
+          hrefPrefix="site"
+          links={
+            (website.typefaces &&
+              website.typefaces.map(font => ({
+                name: font.name,
+                slug: font.slug,
+              }))) ||
+            []
+          }
+        />
+      </span>
+    ),
+    slug: website.slug || '',
+    title: website.title,
+  }));
+};
+
 export const WebsitePanel: React.SFC<{}> = props => {
   return (
     <Query<GetWebsites> query={GET_WEBSITES}>
@@ -52,34 +81,6 @@ export const WebsitePanel: React.SFC<{}> = props => {
       }}
     </Query>
   );
-};
-
-const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
-  return websites.map(website => ({
-    imgUrl:
-      (website.images &&
-        website.images &&
-        website.images.thumbnail &&
-        website.images.thumbnail.url) ||
-      '',
-    secondary: (
-      <span>
-        Fonts --{'  '}
-        <LinkList
-          links={
-            (website.typefaces &&
-              website.typefaces.map(font => ({
-                name: font.name,
-                slug: font.slug,
-              }))) ||
-            []
-          }
-        />
-      </span>
-    ),
-    slug: website.slug || '',
-    title: website.title,
-  }));
 };
 
 export default WebsitePanel;
