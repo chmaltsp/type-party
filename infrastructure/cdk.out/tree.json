@@ -693,6 +693,7 @@
                         "securityGroups": [
                           "#{Token[TOKEN.126]}"
                         ],
+                        "spotPrice": "0.023",
                         "userData": "${Token[TOKEN.125]}"
                       }
                     }
@@ -1639,11 +1640,12 @@
                       "aws:cdk:cloudformation:type": "AWS::AutoScaling::LaunchConfiguration",
                       "aws:cdk:cloudformation:props": {
                         "imageId": "${Token[TOKEN.317]}",
-                        "instanceType": "t2.micro",
+                        "instanceType": "t2.small",
                         "iamInstanceProfile": "${Token[TOKEN.321]}",
                         "securityGroups": [
                           "#{Token[TOKEN.320]}"
                         ],
+                        "spotPrice": "0.023",
                         "userData": "${Token[TOKEN.319]}"
                       }
                     }

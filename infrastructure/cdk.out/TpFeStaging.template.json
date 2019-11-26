@@ -135,7 +135,7 @@
         "ImageId": {
           "Ref": "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter"
         },
-        "InstanceType": "t2.micro",
+        "InstanceType": "t2.small",
         "IamInstanceProfile": {
           "Ref": "TpFeStagingClusterDefaultAutoScalingGroupInstanceProfile241F01BB"
         },
@@ -147,6 +147,7 @@
             ]
           }
         ],
+        "SpotPrice": "0.023",
         "UserData": {
           "Fn::Base64": {
             "Fn::Join": [

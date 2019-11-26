@@ -24,7 +24,8 @@ export class TpFe extends cdk.Stack {
     });
 
     cluster.addCapacity('DefaultAutoScalingGroup', {
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.SMALL),
+      spotPrice: '0.023',
     });
 
     const environmentVarKeys = {
