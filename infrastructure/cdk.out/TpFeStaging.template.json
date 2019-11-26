@@ -1,0 +1,999 @@
+{
+  "Resources": {
+    "TpFeStagingCluster2A92F4E6": {
+      "Type": "AWS::ECS::Cluster",
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupDD8306FC": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
+          }
+        ],
+        "VpcId": {
+          "Fn::ImportValue": "TpStagingVpc:ExportsOutputRefTpStagingVpc0552B6968434A80B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpFeStagingTpFeStagingServiceLBSecurityGroup8CCC73BC327686553559C90D6A": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "FromPort": 32768,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "TpFeStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupDD8306FC",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "TpFeStagingServiceLBSecurityGroup8D4CB82F",
+            "GroupId"
+          ]
+        },
+        "ToPort": 65535
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpFeStagingTpFeStagingServiceLBSecurityGroup8CCC73BC:32768-65535"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupInstanceRoleCD3B6957": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/InstanceRole/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy51C99129": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecs:CreateCluster",
+                "ecs:DeregisterContainerInstance",
+                "ecs:DiscoverPollEndpoint",
+                "ecs:Poll",
+                "ecs:RegisterContainerInstance",
+                "ecs:StartTelemetrySession",
+                "ecs:Submit*",
+                "ecr:GetAuthorizationToken",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "TpFeStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy51C99129",
+        "Roles": [
+          {
+            "Ref": "TpFeStagingClusterDefaultAutoScalingGroupInstanceRoleCD3B6957"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupInstanceProfile241F01BB": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "TpFeStagingClusterDefaultAutoScalingGroupInstanceRoleCD3B6957"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/InstanceProfile"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupLaunchConfig139871CF": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t2.micro",
+        "IamInstanceProfile": {
+          "Ref": "TpFeStagingClusterDefaultAutoScalingGroupInstanceProfile241F01BB"
+        },
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "TpFeStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupDD8306FC",
+              "GroupId"
+            ]
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\necho ECS_CLUSTER=",
+                {
+                  "Ref": "TpFeStagingCluster2A92F4E6"
+                },
+                " >> /etc/ecs/ecs.config\nsudo iptables --insert FORWARD 1 --in-interface docker+ --destination 169.254.169.254/32 --jump DROP\nsudo service iptables save\necho ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config"
+              ]
+            ]
+          }
+        }
+      },
+      "DependsOn": [
+        "TpFeStagingClusterDefaultAutoScalingGroupInstanceRoleDefaultPolicy51C99129",
+        "TpFeStagingClusterDefaultAutoScalingGroupInstanceRoleCD3B6957"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/LaunchConfig"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupASG81C8E0B2": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "MaxSize": "1",
+        "MinSize": "1",
+        "DesiredCapacity": "1",
+        "LaunchConfigurationName": {
+          "Ref": "TpFeStagingClusterDefaultAutoScalingGroupLaunchConfig139871CF"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "PropagateAtLaunch": true,
+            "Value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
+          }
+        ],
+        "VPCZoneIdentifier": [
+          {
+            "Fn::ImportValue": "TpStagingVpc:ExportsOutputRefTpStagingVpcPrivateSubnet1SubnetCA2019197D954055"
+          },
+          {
+            "Fn::ImportValue": "TpStagingVpc:ExportsOutputRefTpStagingVpcPrivateSubnet2Subnet014FE1A64B56F281"
+          }
+        ]
+      },
+      "UpdatePolicy": {
+        "AutoScalingReplacingUpdate": {
+          "WillReplace": true
+        },
+        "AutoScalingScheduledAction": {
+          "IgnoreUnmodifiedGroupSizeProperties": true
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/ASG"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleA4F24B5A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy600858B3": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeHosts"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "autoscaling:CompleteLifecycleAction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":autoscaling:us-east-1:561034361591:autoScalingGroup:*:autoScalingGroupName/",
+                    {
+                      "Ref": "TpFeStagingClusterDefaultAutoScalingGroupASG81C8E0B2"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ecs:DescribeContainerInstances",
+                "ecs:DescribeTasks"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "ecs:ListContainerInstances",
+                "ecs:SubmitContainerStateChange",
+                "ecs:SubmitTaskStateChange"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "TpFeStagingCluster2A92F4E6",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ecs:UpdateContainerInstancesState",
+                "ecs:ListTasks"
+              ],
+              "Condition": {
+                "ArnEquals": {
+                  "ecs:cluster": {
+                    "Fn::GetAtt": [
+                      "TpFeStagingCluster2A92F4E6",
+                      "Arn"
+                    ]
+                  }
+                }
+              },
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy600858B3",
+        "Roles": [
+          {
+            "Ref": "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleA4F24B5A"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunction69D21499": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "ZipFile": "import boto3, json, os, time\n\necs = boto3.client('ecs')\nautoscaling = boto3.client('autoscaling')\n\n\ndef lambda_handler(event, context):\n  print(json.dumps(event))\n  cluster = os.environ['CLUSTER']\n  snsTopicArn = event['Records'][0]['Sns']['TopicArn']\n  lifecycle_event = json.loads(event['Records'][0]['Sns']['Message'])\n  instance_id = lifecycle_event.get('EC2InstanceId')\n  if not instance_id:\n    print('Got event without EC2InstanceId: %s', json.dumps(event))\n    return\n\n  instance_arn = container_instance_arn(cluster, instance_id)\n  print('Instance %s has container instance ARN %s' % (lifecycle_event['EC2InstanceId'], instance_arn))\n\n  if not instance_arn:\n    return\n\n  while has_tasks(cluster, instance_arn):\n    time.sleep(10)\n\n  try:\n    print('Terminating instance %s' % instance_id)\n    autoscaling.complete_lifecycle_action(\n        LifecycleActionResult='CONTINUE',\n        **pick(lifecycle_event, 'LifecycleHookName', 'LifecycleActionToken', 'AutoScalingGroupName'))\n  except Exception as e:\n    # Lifecycle action may have already completed.\n    print(str(e))\n\n\ndef container_instance_arn(cluster, instance_id):\n  \"\"\"Turn an instance ID into a container instance ARN.\"\"\"\n  arns = ecs.list_container_instances(cluster=cluster, filter='ec2InstanceId==' + instance_id)['containerInstanceArns']\n  if not arns:\n    return None\n  return arns[0]\n\n\ndef has_tasks(cluster, instance_arn):\n  \"\"\"Return True if the instance is running tasks for the given cluster.\"\"\"\n  instances = ecs.describe_container_instances(cluster=cluster, containerInstances=[instance_arn])['containerInstances']\n  if not instances:\n    return False\n  instance = instances[0]\n\n  if instance['status'] == 'ACTIVE':\n    # Start draining, then try again later\n    set_container_instance_to_draining(cluster, instance_arn)\n    return True\n\n  tasks = instance['runningTasksCount'] + instance['pendingTasksCount']\n  print('Instance %s has %s tasks' % (instance_arn, tasks))\n\n  return tasks > 0\n\n\ndef set_container_instance_to_draining(cluster, instance_arn):\n  ecs.update_container_instances_state(\n      cluster=cluster,\n      containerInstances=[instance_arn], status='DRAINING')\n\n\ndef pick(dct, *keys):\n  \"\"\"Pick a subset of a dict.\"\"\"\n  return {k: v for k, v in dct.items() if k in keys}\n"
+        },
+        "Handler": "index.lambda_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleA4F24B5A",
+            "Arn"
+          ]
+        },
+        "Runtime": "python3.6",
+        "Environment": {
+          "Variables": {
+            "CLUSTER": {
+              "Ref": "TpFeStagingCluster2A92F4E6"
+            }
+          }
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
+          }
+        ],
+        "Timeout": 310
+      },
+      "DependsOn": [
+        "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicy600858B3",
+        "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleA4F24B5A"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpFeStagingTpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicEE0AF994FA679986": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunction69D21499",
+            "Arn"
+          ]
+        },
+        "Principal": "sns.amazonaws.com",
+        "SourceArn": {
+          "Ref": "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic636E463F"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpFeStagingTpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicEE0AF994"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunctionTopic6F2B18A7": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "lambda",
+        "TopicArn": {
+          "Ref": "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic636E463F"
+        },
+        "Endpoint": {
+          "Fn::GetAtt": [
+            "TpFeStagingClusterDefaultAutoScalingGroupDrainECSHookFunction69D21499",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole96C9996D": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "autoscaling.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicyFA2FE8EB": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic636E463F"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicyFA2FE8EB",
+        "Roles": [
+          {
+            "Ref": "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole96C9996D"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic636E463F": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource"
+      }
+    },
+    "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookF8ECDF8E": {
+      "Type": "AWS::AutoScaling::LifecycleHook",
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "TpFeStagingClusterDefaultAutoScalingGroupASG81C8E0B2"
+        },
+        "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
+        "DefaultResult": "CONTINUE",
+        "HeartbeatTimeout": 300,
+        "NotificationTargetARN": {
+          "Ref": "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic636E463F"
+        },
+        "RoleARN": {
+          "Fn::GetAtt": [
+            "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole96C9996D",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicyFA2FE8EB",
+        "TpFeStagingClusterDefaultAutoScalingGroupLifecycleHookDrainHookRole96C9996D"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource"
+      }
+    },
+    "TpFeStagingServiceLB420E169C": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties": {
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "TpFeStagingServiceLBSecurityGroup8D4CB82F",
+              "GroupId"
+            ]
+          }
+        ],
+        "Subnets": [
+          {
+            "Fn::ImportValue": "TpStagingVpc:ExportsOutputRefTpStagingVpcPublicSubnet1Subnet7A16B9AB1BA81CE5"
+          },
+          {
+            "Fn::ImportValue": "TpStagingVpc:ExportsOutputRefTpStagingVpcPublicSubnet2Subnet22BF3FA43F8B13F3"
+          }
+        ],
+        "Type": "application"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/LB/Resource"
+      }
+    },
+    "TpFeStagingServiceLBSecurityGroup8D4CB82F": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Automatically created Security Group for ELB TpFeStagingTpFeStagingServiceLBBD49AFF6",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443
+          }
+        ],
+        "VpcId": {
+          "Fn::ImportValue": "TpStagingVpc:ExportsOutputRefTpStagingVpc0552B6968434A80B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/LB/SecurityGroup/Resource"
+      }
+    },
+    "TpFeStagingServiceLBSecurityGrouptoTpFeStagingTpFeStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupA04465D7327686553592CF701E": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Fn::GetAtt": [
+            "TpFeStagingServiceLBSecurityGroup8D4CB82F",
+            "GroupId"
+          ]
+        },
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "TpFeStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupDD8306FC",
+            "GroupId"
+          ]
+        },
+        "FromPort": 32768,
+        "ToPort": 65535
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/LB/SecurityGroup/to TpFeStagingTpFeStagingClusterDefaultAutoScalingGroupInstanceSecurityGroupA04465D7:32768-65535"
+      }
+    },
+    "TpFeStagingServiceLBPublicListenerE6E2E576": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "TpFeStagingServiceLBPublicListenerECSGroup671630DB"
+            },
+            "Type": "forward"
+          }
+        ],
+        "LoadBalancerArn": {
+          "Ref": "TpFeStagingServiceLB420E169C"
+        },
+        "Port": 443,
+        "Protocol": "HTTPS",
+        "Certificates": [
+          {
+            "CertificateArn": {
+              "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/LB/PublicListener/Resource"
+      }
+    },
+    "TpFeStagingServiceLBPublicListenerECSGroup671630DB": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetType": "instance",
+        "VpcId": {
+          "Fn::ImportValue": "TpStagingVpc:ExportsOutputRefTpStagingVpc0552B6968434A80B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/LB/PublicListener/ECSGroup/Resource"
+      }
+    },
+    "TpFeStagingServiceDNSF1242C88": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": "www.typeparty.com.",
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "TpFeStagingServiceLB420E169C",
+              "DNSName"
+            ]
+          },
+          "HostedZoneId": {
+            "Fn::GetAtt": [
+              "TpFeStagingServiceLB420E169C",
+              "CanonicalHostedZoneID"
+            ]
+          }
+        },
+        "HostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/DNS/Resource"
+      }
+    },
+    "TpFeStagingServiceTaskDefTaskRole8758CD57": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/TaskDef/TaskRole/Resource"
+      }
+    },
+    "TpFeStagingServiceTaskDef9832600B": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      4,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ecr:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":repository/tp-fe"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  ".dkr.ecr.",
+                  {
+                    "Fn::Select": [
+                      3,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ecr:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":repository/tp-fe"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  },
+                  "/tp-fe:latest"
+                ]
+              ]
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "TpFeStagingServiceTaskDefwebLogGroup66514777"
+                },
+                "awslogs-stream-prefix": "TpFeStagingService",
+                "awslogs-region": "us-east-1"
+              }
+            },
+            "MemoryReservation": 700,
+            "Name": "web",
+            "PortMappings": [
+              {
+                "ContainerPort": 3000,
+                "HostPort": 0,
+                "Protocol": "tcp"
+              }
+            ],
+            "Secrets": [
+              {
+                "Name": "RAZZLE_API_URL",
+                "ValueFrom": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:us-east-1:561034361591:parameter/TpStaging/API_URL"
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "TpFeStagingServiceTaskDefExecutionRoleA3AEBB47",
+            "Arn"
+          ]
+        },
+        "Family": "TpFeStagingTpFeStagingServiceTaskDef4A92BBC0",
+        "NetworkMode": "bridge",
+        "RequiresCompatibilities": [
+          "EC2"
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "TpFeStagingServiceTaskDefTaskRole8758CD57",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/TaskDef/Resource"
+      }
+    },
+    "TpFeStagingServiceTaskDefwebLogGroup66514777": {
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/TaskDef/web/LogGroup/Resource"
+      }
+    },
+    "TpFeStagingServiceTaskDefExecutionRoleA3AEBB47": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/TaskDef/ExecutionRole/Resource"
+      }
+    },
+    "TpFeStagingServiceTaskDefExecutionRoleDefaultPolicyCD20AE41": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ecr:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":repository/tp-fe"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "TpFeStagingServiceTaskDefwebLogGroup66514777",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:us-east-1:561034361591:parameter/TpStaging/API_URL"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "TpFeStagingServiceTaskDefExecutionRoleDefaultPolicyCD20AE41",
+        "Roles": [
+          {
+            "Ref": "TpFeStagingServiceTaskDefExecutionRoleA3AEBB47"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+      }
+    },
+    "TpFeStagingServiceBED0552D": {
+      "Type": "AWS::ECS::Service",
+      "Properties": {
+        "TaskDefinition": {
+          "Ref": "TpFeStagingServiceTaskDef9832600B"
+        },
+        "Cluster": {
+          "Ref": "TpFeStagingCluster2A92F4E6"
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50
+        },
+        "DesiredCount": 1,
+        "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
+        "LaunchType": "EC2",
+        "LoadBalancers": [
+          {
+            "ContainerName": "web",
+            "ContainerPort": 3000,
+            "TargetGroupArn": {
+              "Ref": "TpFeStagingServiceLBPublicListenerECSGroup671630DB"
+            }
+          }
+        ],
+        "SchedulingStrategy": "REPLICA"
+      },
+      "DependsOn": [
+        "TpFeStagingServiceLBPublicListenerECSGroup671630DB",
+        "TpFeStagingServiceLBPublicListenerE6E2E576"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/Service/Service"
+      }
+    }
+  },
+  "Parameters": {
+    "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
+    },
+    "APIURLParameter": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/TpStaging/API_URL"
+    }
+  },
+  "Outputs": {
+    "TpFeStagingServiceLoadBalancerDNSDFE90449": {
+      "Value": {
+        "Fn::GetAtt": [
+          "TpFeStagingServiceLB420E169C",
+          "DNSName"
+        ]
+      }
+    },
+    "TpFeStagingServiceServiceURL34580820": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "TpFeStagingServiceDNSF1242C88"
+            }
+          ]
+        ]
+      }
+    },
+    "ServiceName": {
+      "Value": {
+        "Fn::GetAtt": [
+          "TpFeStagingServiceBED0552D",
+          "Name"
+        ]
+      }
+    },
+    "ClusterName": {
+      "Value": {
+        "Ref": "TpFeStagingCluster2A92F4E6"
+      }
+    }
+  }
+}

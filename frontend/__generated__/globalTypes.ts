@@ -348,11 +348,11 @@ export interface WebsiteCreateOneWithoutImagesInput {
 export interface WebsiteCreateWithoutAddedByInput {
   isPublished?: boolean | null;
   title: string;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
-  featured?: boolean | null;
-  images?: ImagesCreateOneWithoutWebsiteInput | null;
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
+  featured?: boolean | null;
   tags?: TagCreateManyWithoutWebsiteInput | null;
 }
 
@@ -361,31 +361,31 @@ export interface WebsiteCreateWithoutImagesInput {
   title: string;
   slug?: string | null;
   url: string;
-  featured?: boolean | null;
   addedBy: UserCreateOneWithoutWebsitesInput;
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
+  featured?: boolean | null;
   tags?: TagCreateManyWithoutWebsiteInput | null;
 }
 
 export interface WebsiteCreateWithoutTagsInput {
   isPublished?: boolean | null;
   title: string;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
-  featured?: boolean | null;
-  images?: ImagesCreateOneWithoutWebsiteInput | null;
   addedBy: UserCreateOneWithoutWebsitesInput;
   typefaces?: TypefaceCreateManyWithoutUsedByInput | null;
+  featured?: boolean | null;
 }
 
 export interface WebsiteCreateWithoutTypefacesInput {
   isPublished?: boolean | null;
   title: string;
+  images?: ImagesCreateOneWithoutWebsiteInput | null;
   slug?: string | null;
   url: string;
-  featured?: boolean | null;
-  images?: ImagesCreateOneWithoutWebsiteInput | null;
   addedBy: UserCreateOneWithoutWebsitesInput;
+  featured?: boolean | null;
   tags?: TagCreateManyWithoutWebsiteInput | null;
 }
 

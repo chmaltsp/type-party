@@ -13,6 +13,20 @@
       "Metadata": {
         "aws:cdk:path": "TpEcr/tp-gql/Resource"
       }
+    },
+    "tpfe4A619315": {
+      "Type": "AWS::ECR::Repository",
+      "Properties": {
+        "LifecyclePolicy": {
+          "LifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":9999},\"action\":{\"type\":\"expire\"}}]}"
+        },
+        "RepositoryName": "tp-fe"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "TpEcr/tp-fe/Resource"
+      }
     }
   }
 }
