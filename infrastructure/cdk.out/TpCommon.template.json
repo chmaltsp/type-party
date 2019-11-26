@@ -1,0 +1,18 @@
+{
+  "Parameters": {
+    "SsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "CertifcateArn-typeparty.com"
+    }
+  },
+  "Outputs": {
+    "ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098": {
+      "Value": {
+        "Ref": "SsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "Export": {
+        "Name": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
+      }
+    }
+  }
+}
