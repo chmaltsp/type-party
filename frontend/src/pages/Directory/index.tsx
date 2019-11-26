@@ -10,7 +10,7 @@ import { GET_TYPEFACES } from './queries';
 
 import { Link } from '../../components/Link';
 
-export interface DirectoryProps {}
+// export interface DirectoryProps {}
 
 const FontListWrapper = styled(FlexBase)`
   margin-top: ${({ theme }) => theme.spacing.xl}px;
@@ -31,7 +31,7 @@ const Font = styled.li`
 `;
 
 export class Directory extends React.PureComponent<
-  ChildDataProps<DirectoryProps, GetTypefaces>,
+  ChildDataProps<{}, GetTypefaces>,
   any
 > {
   public render() {
