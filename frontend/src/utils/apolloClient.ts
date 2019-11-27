@@ -19,8 +19,10 @@ import { AUTH_STATUS } from '../components/ProtectedRoute/query';
 import { ApolloLink } from 'apollo-link';
 import isWindowDefined from './isWindowDefined';
 
+import { runtimeConfig } from '../config';
+
 export const createClient = () => {
-  const uri = process.env.RAZZLE_API_URL || 'https://tp-backend-zocaxqjnyl.now.sh';
+  const uri = runtimeConfig.apiUrl || 'https://tp-backend-zocaxqjnyl.now.sh';
 
   const uploadLink = createUploadLink({
     fetch,
