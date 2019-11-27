@@ -2109,6 +2109,26 @@
                         }
                       }
                     }
+                  },
+                  "HTTP": {
+                    "id": "HTTP",
+                    "path": "TpFeStaging/TpFeStagingService/LB/HTTP",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TpFeStaging/TpFeStagingService/LB/HTTP/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                          "aws:cdk:cloudformation:props": {
+                            "defaultActions": "<unresolved-lazy>",
+                            "loadBalancerArn": "${Token[TOKEN.401]}",
+                            "port": 80,
+                            "protocol": "HTTP",
+                            "certificates": "<unresolved-lazy>"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },

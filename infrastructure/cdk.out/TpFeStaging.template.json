@@ -540,6 +540,13 @@
             "FromPort": 443,
             "IpProtocol": "tcp",
             "ToPort": 443
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80
           }
         ],
         "VpcId": {
@@ -614,6 +621,29 @@
       },
       "Metadata": {
         "aws:cdk:path": "TpFeStaging/TpFeStagingService/LB/PublicListener/ECSGroup/Resource"
+      }
+    },
+    "TpFeStagingServiceLBHTTP6D9D211B": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          {
+            "RedirectConfig": {
+              "Port": "443",
+              "Protocol": "HTTPS",
+              "StatusCode": "HTTP_301"
+            },
+            "Type": "redirect"
+          }
+        ],
+        "LoadBalancerArn": {
+          "Ref": "TpFeStagingServiceLB420E169C"
+        },
+        "Port": 80,
+        "Protocol": "HTTP"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpFeStaging/TpFeStagingService/LB/HTTP/Resource"
       }
     },
     "TpFeStagingServiceDNSF1242C88": {

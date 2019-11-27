@@ -12,6 +12,7 @@ import { ApolloProvider } from 'react-apollo';
 import { ServerStyleSheet } from 'styled-components';
 
 import App from './App';
+import { runtimeConfig } from './config';
 import { createClient } from './utils/apolloClient';
 
 let assets: any;
@@ -61,6 +62,7 @@ server
               ? `<script src="${assets.client.js}" defer></script>`
               : `<script src="${assets.client.js}" defer crossorigin></script>`
           }
+          <script>window.env = ${JSON.stringify(runtimeConfig)};</script> 
     </head>
     <body>
         <div id="root">${markup}</div>

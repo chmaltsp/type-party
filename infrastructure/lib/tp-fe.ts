@@ -64,6 +64,16 @@ export class TpFe extends cdk.Stack {
       }
     );
 
+    const httpListener = feService.loadBalancer.addListener('HTTP', {
+      port: 80,
+    });
+
+    httpListener.addRedirectResponse('httpRedirect', {
+      protocol: 'HTTPS',
+      statusCode: 'HTTP_301',
+      port: '443',
+    });
+
     new cdk.CfnOutput(this, 'ServiceName', {
       value: feService.service.serviceName,
     });
