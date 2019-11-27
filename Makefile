@@ -35,7 +35,7 @@ set-ssm-param:
 
 # FE Docker Build
 build-tp-fe:
-	docker build -t tp-fe ./frontend --no-cache
+	docker build -t tp-fe ./frontend
 
 tag-fe-image: 
 	make tag-docker-image IMAGE=${TP_FE_REPO}
