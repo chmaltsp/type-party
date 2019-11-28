@@ -35,7 +35,7 @@ const server = new GraphQLServer({
 
 server.express.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'https://www.typeparty.com'],
 
     methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'DELETE', 'PATCH'],
     // preflightContinue: true,
