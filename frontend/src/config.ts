@@ -1,3 +1,5 @@
+import isWindowDefined from './utils/isWindowDefined';
+
 declare global {
   interface Window {
     env: {
@@ -5,13 +7,13 @@ declare global {
     };
   }
 }
-export const runtimeConfig =
-  typeof window !== 'undefined'
-    ? {
-        // client
-        apiUrl: window.env.RAZZLE_API_URL,
-      }
-    : {
-        // server
-        apiUrl: process.env.RAZZLE_API_URL,
-      };
+
+export const runtimeConfig = isWindowDefined
+  ? {
+      // client
+      apiUrl: window.env.apiUrl,
+    }
+  : {
+      // server
+      apiUrl: process.env.RAZZLE_API_URL,
+    };
