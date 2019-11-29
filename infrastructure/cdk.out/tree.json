@@ -523,6 +523,161 @@
           }
         }
       },
+      "TpStagingImages": {
+        "id": "TpStagingImages",
+        "path": "TpStagingImages",
+        "children": {
+          "TPImageBucket": {
+            "id": "TPImageBucket",
+            "path": "TpStagingImages/TPImageBucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TpStagingImages/TPImageBucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "images.typeparty.com",
+                    "corsConfiguration": "<unresolved-lazy>",
+                    "lifecycleConfiguration": "<unresolved-lazy>",
+                    "metricsConfigurations": "<unresolved-lazy>"
+                  }
+                }
+              },
+              "Notifications": {
+                "id": "Notifications",
+                "path": "TpStagingImages/TPImageBucket/Notifications"
+              }
+            }
+          },
+          "tpImageOAI": {
+            "id": "tpImageOAI",
+            "path": "TpStagingImages/tpImageOAI",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+              "aws:cdk:cloudformation:props": {
+                "cloudFrontOriginAccessIdentityConfig": {
+                  "comment": "Origin access identity for TP Image Bucket"
+                }
+              }
+            }
+          },
+          "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "TpStagingImages/SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter"
+          },
+          "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "TpStagingImages/SsmParameterValue:CertifcateArn-typeparty.com:C96584B6-F00A-464E-AD19-53AFF4B05118"
+          },
+          "Zone": {
+            "id": "Zone",
+            "path": "TpStagingImages/Zone"
+          },
+          "tp-images-distro": {
+            "id": "tp-images-distro",
+            "path": "TpStagingImages/tp-images-distro",
+            "children": {
+              "AliasConfigurationCert": {
+                "id": "AliasConfigurationCert",
+                "path": "TpStagingImages/tp-images-distro/AliasConfigurationCert"
+              },
+              "CFDistribution": {
+                "id": "CFDistribution",
+                "path": "TpStagingImages/tp-images-distro/CFDistribution",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
+                  "aws:cdk:cloudformation:props": {
+                    "distributionConfig": {
+                      "enabled": true,
+                      "defaultRootObject": "index.html",
+                      "httpVersion": "http2",
+                      "priceClass": "PriceClass_100",
+                      "ipv6Enabled": true,
+                      "origins": [
+                        {
+                          "id": "origin1",
+                          "domainName": "${Token[TOKEN.103]}",
+                          "s3OriginConfig": {
+                            "originAccessIdentity": "origin-access-identity/cloudfront/${Token[TOKEN.116]}"
+                          }
+                        }
+                      ],
+                      "defaultCacheBehavior": {
+                        "allowedMethods": [
+                          "GET",
+                          "HEAD"
+                        ],
+                        "cachedMethods": [
+                          "GET",
+                          "HEAD"
+                        ],
+                        "compress": true,
+                        "forwardedValues": {
+                          "queryString": false,
+                          "cookies": {
+                            "forward": "none"
+                          }
+                        },
+                        "targetOriginId": "origin1",
+                        "viewerProtocolPolicy": "redirect-to-https"
+                      },
+                      "aliases": [
+                        "images.typeparty.com"
+                      ],
+                      "viewerCertificate": {
+                        "acmCertificateArn": "${Token[TOKEN.113]}",
+                        "sslSupportMethod": "sni-only",
+                        "minimumProtocolVersion": "TLSv1.1_2016"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "ImagesARecord": {
+            "id": "ImagesARecord",
+            "path": "TpStagingImages/ImagesARecord",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TpStagingImages/ImagesARecord/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "images.typeparty.com.",
+                    "type": "A",
+                    "aliasTarget": {
+                      "hostedZoneId": "Z2FDTNDATAQYW2",
+                      "dnsName": "${Token[TOKEN.119]}"
+                    },
+                    "hostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
+                  }
+                }
+              }
+            }
+          },
+          "Exports": {
+            "id": "Exports",
+            "path": "TpStagingImages/Exports",
+            "children": {
+              "Output{\"Fn::GetAtt\":[\"TPImageBucketCAF10F90\",\"DomainName\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"TPImageBucketCAF10F90\",\"DomainName\"]}",
+                "path": "TpStagingImages/Exports/Output{\"Fn::GetAtt\":[\"TPImageBucketCAF10F90\",\"DomainName\"]}"
+              },
+              "Output{\"Ref\":\"TPImageBucketCAF10F90\"}": {
+                "id": "Output{\"Ref\":\"TPImageBucketCAF10F90\"}",
+                "path": "TpStagingImages/Exports/Output{\"Ref\":\"TPImageBucketCAF10F90\"}"
+              },
+              "Output{\"Fn::GetAtt\":[\"TPImageBucketCAF10F90\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"TPImageBucketCAF10F90\",\"Arn\"]}",
+                "path": "TpStagingImages/Exports/Output{\"Fn::GetAtt\":[\"TPImageBucketCAF10F90\",\"Arn\"]}"
+              }
+            }
+          }
+        }
+      },
       "TpGqlStaging": {
         "id": "TpGqlStaging",
         "path": "TpGqlStaging",
@@ -537,7 +692,7 @@
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
                   "aws:cdk:cloudformation:props": {
-                    "clusterName": "${Token[TOKEN.99]}"
+                    "clusterName": "${Token[TOKEN.125]}"
                   }
                 }
               },
@@ -556,7 +711,7 @@
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
                             "groupDescription": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
-                            "groupName": "${Token[TOKEN.106]}",
+                            "groupName": "${Token[TOKEN.132]}",
                             "securityGroupEgress": "<unresolved-lazy>",
                             "securityGroupIngress": "<unresolved-lazy>",
                             "tags": [
@@ -578,8 +733,8 @@
                             "ipProtocol": "tcp",
                             "description": "Load balancer to target",
                             "fromPort": 32768,
-                            "groupId": "${Token[TOKEN.108]}",
-                            "sourceSecurityGroupId": "${Token[TOKEN.224]}",
+                            "groupId": "${Token[TOKEN.134]}",
+                            "sourceSecurityGroupId": "${Token[TOKEN.250]}",
                             "toPort": 65535
                           }
                         }
@@ -602,16 +757,16 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ec2.amazonaws.com.112]}"
+                                    "Service": "${Token[ec2.amazonaws.com.138]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.113]}"
+                              "#{Token[TOKEN.139]}"
                             ],
-                            "roleName": "${Token[TOKEN.111]}",
+                            "roleName": "${Token[TOKEN.137]}",
                             "tags": [
                               {
                                 "key": "Name",
@@ -652,15 +807,15 @@
                                   ],
                                   "Version": "2012-10-17"
                                 },
-                                "policyName": "${Token[TOKEN.134]}",
+                                "policyName": "${Token[TOKEN.160]}",
                                 "groups": [
-                                  "#{Token[TOKEN.137]}"
+                                  "#{Token[TOKEN.163]}"
                                 ],
                                 "roles": [
-                                  "#{Token[TOKEN.135]}"
+                                  "#{Token[TOKEN.161]}"
                                 ],
                                 "users": [
-                                  "#{Token[TOKEN.136]}"
+                                  "#{Token[TOKEN.162]}"
                                 ]
                               }
                             }
@@ -676,7 +831,7 @@
                       "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
                       "aws:cdk:cloudformation:props": {
                         "roles": [
-                          "${Token[TOKEN.119]}"
+                          "${Token[TOKEN.145]}"
                         ]
                       }
                     }
@@ -687,14 +842,14 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::AutoScaling::LaunchConfiguration",
                       "aws:cdk:cloudformation:props": {
-                        "imageId": "${Token[TOKEN.123]}",
+                        "imageId": "${Token[TOKEN.149]}",
                         "instanceType": "t2.small",
-                        "iamInstanceProfile": "${Token[TOKEN.127]}",
+                        "iamInstanceProfile": "${Token[TOKEN.153]}",
                         "securityGroups": [
-                          "#{Token[TOKEN.126]}"
+                          "#{Token[TOKEN.152]}"
                         ],
                         "spotPrice": "0.023",
-                        "userData": "${Token[TOKEN.125]}"
+                        "userData": "${Token[TOKEN.151]}"
                       }
                     }
                   },
@@ -707,9 +862,9 @@
                         "maxSize": "1",
                         "minSize": "1",
                         "desiredCapacity": "1",
-                        "launchConfigurationName": "${Token[TOKEN.129]}",
+                        "launchConfigurationName": "${Token[TOKEN.155]}",
                         "loadBalancerNames": [
-                          "#{Token[TOKEN.130]}"
+                          "#{Token[TOKEN.156]}"
                         ],
                         "tags": [
                           {
@@ -719,7 +874,7 @@
                           }
                         ],
                         "targetGroupArns": [
-                          "#{Token[TOKEN.131]}"
+                          "#{Token[TOKEN.157]}"
                         ],
                         "vpcZoneIdentifier": [
                           "${Token[TOKEN.59]}",
@@ -752,16 +907,16 @@
                                           "Action": "sts:AssumeRole",
                                           "Effect": "Allow",
                                           "Principal": {
-                                            "Service": "${Token[lambda.amazonaws.com.142]}"
+                                            "Service": "${Token[lambda.amazonaws.com.168]}"
                                           }
                                         }
                                       ],
                                       "Version": "2012-10-17"
                                     },
                                     "managedPolicyArns": [
-                                      "#{Token[TOKEN.143]}"
+                                      "#{Token[TOKEN.169]}"
                                     ],
-                                    "roleName": "${Token[TOKEN.141]}",
+                                    "roleName": "${Token[TOKEN.167]}",
                                     "tags": [
                                       {
                                         "key": "Name",
@@ -796,7 +951,7 @@
                                             {
                                               "Action": "autoscaling:CompleteLifecycleAction",
                                               "Effect": "Allow",
-                                              "Resource": "arn:${Token[AWS::Partition.3]}:autoscaling:us-east-1:561034361591:autoScalingGroup:*:autoScalingGroupName/${Token[TOKEN.133]}"
+                                              "Resource": "arn:${Token[AWS::Partition.3]}:autoscaling:us-east-1:561034361591:autoScalingGroup:*:autoScalingGroupName/${Token[TOKEN.159]}"
                                             },
                                             {
                                               "Action": [
@@ -813,7 +968,7 @@
                                                 "ecs:SubmitTaskStateChange"
                                               ],
                                               "Effect": "Allow",
-                                              "Resource": "${Token[TOKEN.102]}"
+                                              "Resource": "${Token[TOKEN.128]}"
                                             },
                                             {
                                               "Action": [
@@ -822,7 +977,7 @@
                                               ],
                                               "Condition": {
                                                 "ArnEquals": {
-                                                  "ecs:cluster": "${Token[TOKEN.102]}"
+                                                  "ecs:cluster": "${Token[TOKEN.128]}"
                                                 }
                                               },
                                               "Effect": "Allow",
@@ -831,15 +986,15 @@
                                           ],
                                           "Version": "2012-10-17"
                                         },
-                                        "policyName": "${Token[TOKEN.182]}",
+                                        "policyName": "${Token[TOKEN.208]}",
                                         "groups": [
-                                          "#{Token[TOKEN.185]}"
+                                          "#{Token[TOKEN.211]}"
                                         ],
                                         "roles": [
-                                          "#{Token[TOKEN.183]}"
+                                          "#{Token[TOKEN.209]}"
                                         ],
                                         "users": [
-                                          "#{Token[TOKEN.184]}"
+                                          "#{Token[TOKEN.210]}"
                                         ]
                                       }
                                     }
@@ -858,12 +1013,12 @@
                                   "zipFile": "import boto3, json, os, time\n\necs = boto3.client('ecs')\nautoscaling = boto3.client('autoscaling')\n\n\ndef lambda_handler(event, context):\n  print(json.dumps(event))\n  cluster = os.environ['CLUSTER']\n  snsTopicArn = event['Records'][0]['Sns']['TopicArn']\n  lifecycle_event = json.loads(event['Records'][0]['Sns']['Message'])\n  instance_id = lifecycle_event.get('EC2InstanceId')\n  if not instance_id:\n    print('Got event without EC2InstanceId: %s', json.dumps(event))\n    return\n\n  instance_arn = container_instance_arn(cluster, instance_id)\n  print('Instance %s has container instance ARN %s' % (lifecycle_event['EC2InstanceId'], instance_arn))\n\n  if not instance_arn:\n    return\n\n  while has_tasks(cluster, instance_arn):\n    time.sleep(10)\n\n  try:\n    print('Terminating instance %s' % instance_id)\n    autoscaling.complete_lifecycle_action(\n        LifecycleActionResult='CONTINUE',\n        **pick(lifecycle_event, 'LifecycleHookName', 'LifecycleActionToken', 'AutoScalingGroupName'))\n  except Exception as e:\n    # Lifecycle action may have already completed.\n    print(str(e))\n\n\ndef container_instance_arn(cluster, instance_id):\n  \"\"\"Turn an instance ID into a container instance ARN.\"\"\"\n  arns = ecs.list_container_instances(cluster=cluster, filter='ec2InstanceId==' + instance_id)['containerInstanceArns']\n  if not arns:\n    return None\n  return arns[0]\n\n\ndef has_tasks(cluster, instance_arn):\n  \"\"\"Return True if the instance is running tasks for the given cluster.\"\"\"\n  instances = ecs.describe_container_instances(cluster=cluster, containerInstances=[instance_arn])['containerInstances']\n  if not instances:\n    return False\n  instance = instances[0]\n\n  if instance['status'] == 'ACTIVE':\n    # Start draining, then try again later\n    set_container_instance_to_draining(cluster, instance_arn)\n    return True\n\n  tasks = instance['runningTasksCount'] + instance['pendingTasksCount']\n  print('Instance %s has %s tasks' % (instance_arn, tasks))\n\n  return tasks > 0\n\n\ndef set_container_instance_to_draining(cluster, instance_arn):\n  ecs.update_container_instances_state(\n      cluster=cluster,\n      containerInstances=[instance_arn], status='DRAINING')\n\n\ndef pick(dct, *keys):\n  \"\"\"Pick a subset of a dict.\"\"\"\n  return {k: v for k, v in dct.items() if k in keys}\n"
                                 },
                                 "handler": "index.lambda_handler",
-                                "role": "${Token[TOKEN.147]}",
+                                "role": "${Token[TOKEN.173]}",
                                 "runtime": "python3.6",
                                 "environment": "<unresolved-lazy>",
-                                "functionName": "${Token[TOKEN.139]}",
+                                "functionName": "${Token[TOKEN.165]}",
                                 "layers": [
-                                  "#{Token[TOKEN.150]}"
+                                  "#{Token[TOKEN.176]}"
                                 ],
                                 "tags": [
                                   {
@@ -882,9 +1037,9 @@
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                               "aws:cdk:cloudformation:props": {
                                 "action": "lambda:InvokeFunction",
-                                "functionName": "${Token[TOKEN.155]}",
+                                "functionName": "${Token[TOKEN.181]}",
                                 "principal": "sns.amazonaws.com",
-                                "sourceArn": "${Token[TOKEN.170]}"
+                                "sourceArn": "${Token[TOKEN.196]}"
                               }
                             }
                           },
@@ -899,8 +1054,8 @@
                                   "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
                                   "aws:cdk:cloudformation:props": {
                                     "protocol": "lambda",
-                                    "topicArn": "${Token[TOKEN.170]}",
-                                    "endpoint": "${Token[TOKEN.155]}"
+                                    "topicArn": "${Token[TOKEN.196]}",
+                                    "endpoint": "${Token[TOKEN.181]}"
                                   }
                                 }
                               }
@@ -930,16 +1085,16 @@
                                       "Action": "sts:AssumeRole",
                                       "Effect": "Allow",
                                       "Principal": {
-                                        "Service": "${Token[autoscaling.amazonaws.com.158]}"
+                                        "Service": "${Token[autoscaling.amazonaws.com.184]}"
                                       }
                                     }
                                   ],
                                   "Version": "2012-10-17"
                                 },
                                 "managedPolicyArns": [
-                                  "#{Token[TOKEN.159]}"
+                                  "#{Token[TOKEN.185]}"
                                 ],
-                                "roleName": "${Token[TOKEN.157]}",
+                                "roleName": "${Token[TOKEN.183]}",
                                 "tags": [
                                   {
                                     "key": "Name",
@@ -964,20 +1119,20 @@
                                         {
                                           "Action": "sns:Publish",
                                           "Effect": "Allow",
-                                          "Resource": "${Token[TOKEN.170]}"
+                                          "Resource": "${Token[TOKEN.196]}"
                                         }
                                       ],
                                       "Version": "2012-10-17"
                                     },
-                                    "policyName": "${Token[TOKEN.175]}",
+                                    "policyName": "${Token[TOKEN.201]}",
                                     "groups": [
-                                      "#{Token[TOKEN.178]}"
+                                      "#{Token[TOKEN.204]}"
                                     ],
                                     "roles": [
-                                      "#{Token[TOKEN.176]}"
+                                      "#{Token[TOKEN.202]}"
                                     ],
                                     "users": [
-                                      "#{Token[TOKEN.177]}"
+                                      "#{Token[TOKEN.203]}"
                                     ]
                                   }
                                 }
@@ -1002,7 +1157,7 @@
                                     "value": "TpGqlStaging/TpGqlStagingCluster/DefaultAutoScalingGroup"
                                   }
                                 ],
-                                "topicName": "${Token[TOKEN.166]}"
+                                "topicName": "${Token[TOKEN.192]}"
                               }
                             }
                           }
@@ -1014,13 +1169,13 @@
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::AutoScaling::LifecycleHook",
                           "aws:cdk:cloudformation:props": {
-                            "autoScalingGroupName": "${Token[TOKEN.133]}",
+                            "autoScalingGroupName": "${Token[TOKEN.159]}",
                             "lifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
                             "defaultResult": "CONTINUE",
                             "heartbeatTimeout": 300,
-                            "lifecycleHookName": "${Token[TOKEN.156]}",
-                            "notificationTargetArn": "${Token[TOKEN.170]}",
-                            "roleArn": "${Token[TOKEN.163]}"
+                            "lifecycleHookName": "${Token[TOKEN.182]}",
+                            "notificationTargetArn": "${Token[TOKEN.196]}",
+                            "roleArn": "${Token[TOKEN.189]}"
                           }
                         }
                       }
@@ -1101,10 +1256,10 @@
                       "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
                       "aws:cdk:cloudformation:props": {
                         "loadBalancerAttributes": "<unresolved-lazy>",
-                        "name": "${Token[TOKEN.214]}",
+                        "name": "${Token[TOKEN.240]}",
                         "scheme": "internet-facing",
                         "securityGroups": [
-                          "#{Token[TOKEN.213]}"
+                          "#{Token[TOKEN.239]}"
                         ],
                         "subnets": [
                           "${Token[TOKEN.35]}",
@@ -1125,7 +1280,7 @@
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
                             "groupDescription": "Automatically created Security Group for ELB TpGqlStagingTpGqlStagingGqlServiceLBA97BD3BB",
-                            "groupName": "${Token[TOKEN.222]}",
+                            "groupName": "${Token[TOKEN.248]}",
                             "securityGroupEgress": "<unresolved-lazy>",
                             "securityGroupIngress": "<unresolved-lazy>",
                             "vpcId": "${Token[TOKEN.28]}"
@@ -1138,10 +1293,10 @@
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
                           "aws:cdk:cloudformation:props": {
-                            "groupId": "${Token[TOKEN.224]}",
+                            "groupId": "${Token[TOKEN.250]}",
                             "ipProtocol": "tcp",
                             "description": "Load balancer to target",
-                            "destinationSecurityGroupId": "${Token[TOKEN.108]}",
+                            "destinationSecurityGroupId": "${Token[TOKEN.134]}",
                             "fromPort": 32768,
                             "toPort": 65535
                           }
@@ -1160,7 +1315,7 @@
                           "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
                           "aws:cdk:cloudformation:props": {
                             "defaultActions": "<unresolved-lazy>",
-                            "loadBalancerArn": "${Token[TOKEN.221]}",
+                            "loadBalancerArn": "${Token[TOKEN.247]}",
                             "port": 443,
                             "protocol": "HTTPS",
                             "certificates": "<unresolved-lazy>"
@@ -1177,20 +1332,20 @@
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
                               "aws:cdk:cloudformation:props": {
-                                "healthCheckIntervalSeconds": -1.8881545897088e+289,
-                                "healthCheckPath": "${Token[TOKEN.233]}",
-                                "healthCheckPort": "${Token[TOKEN.234]}",
-                                "healthCheckProtocol": "${Token[TOKEN.235]}",
-                                "healthCheckTimeoutSeconds": -1.8881545897088009e+289,
-                                "healthyThresholdCount": -1.888154589708801e+289,
+                                "healthCheckIntervalSeconds": -1.8881545897088057e+289,
+                                "healthCheckPath": "${Token[TOKEN.259]}",
+                                "healthCheckPort": "${Token[TOKEN.260]}",
+                                "healthCheckProtocol": "${Token[TOKEN.261]}",
+                                "healthCheckTimeoutSeconds": -1.8881545897088065e+289,
+                                "healthyThresholdCount": -1.8881545897088067e+289,
                                 "matcher": "<unresolved-lazy>",
                                 "port": 80,
                                 "protocol": "HTTP",
                                 "targetGroupAttributes": "<unresolved-lazy>",
                                 "targets": "<unresolved-lazy>",
-                                "targetType": "${Token[TOKEN.230]}",
-                                "unhealthyThresholdCount": -1.8881545897088013e+289,
-                                "vpcId": "${Token[TOKEN.231]}"
+                                "targetType": "${Token[TOKEN.256]}",
+                                "unhealthyThresholdCount": -1.888154589708807e+289,
+                                "vpcId": "${Token[TOKEN.257]}"
                               }
                             }
                           }
@@ -1213,8 +1368,8 @@
                         "name": "api.typeparty.com.",
                         "type": "A",
                         "aliasTarget": {
-                          "hostedZoneId": "${Token[TOKEN.216]}",
-                          "dnsName": "${Token[TOKEN.217]}"
+                          "hostedZoneId": "${Token[TOKEN.242]}",
+                          "dnsName": "${Token[TOKEN.243]}"
                         },
                         "hostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
                       }
@@ -1250,16 +1405,16 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ecs-tasks.amazonaws.com.251]}"
+                                    "Service": "${Token[ecs-tasks.amazonaws.com.277]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.252]}"
+                              "#{Token[TOKEN.278]}"
                             ],
-                            "roleName": "${Token[TOKEN.250]}"
+                            "roleName": "${Token[TOKEN.276]}"
                           }
                         }
                       }
@@ -1272,14 +1427,14 @@
                       "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                       "aws:cdk:cloudformation:props": {
                         "containerDefinitions": "<unresolved-lazy>",
-                        "executionRoleArn": "${Token[TOKEN.259]}",
+                        "executionRoleArn": "${Token[TOKEN.285]}",
                         "family": "TpGqlStagingTpGqlStagingGqlServiceTaskDefB5A74CE8",
                         "networkMode": "bridge",
                         "placementConstraints": "<unresolved-lazy>",
                         "requiresCompatibilities": [
                           "EC2"
                         ],
-                        "taskRoleArn": "${Token[TOKEN.256]}",
+                        "taskRoleArn": "${Token[TOKEN.282]}",
                         "volumes": "<unresolved-lazy>"
                       }
                     }
@@ -1298,7 +1453,7 @@
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                               "aws:cdk:cloudformation:props": {
-                                "logGroupName": "${Token[TOKEN.276]}"
+                                "logGroupName": "${Token[TOKEN.302]}"
                               }
                             }
                           }
@@ -1322,16 +1477,16 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ecs-tasks.amazonaws.com.263]}"
+                                    "Service": "${Token[ecs-tasks.amazonaws.com.289]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.264]}"
+                              "#{Token[TOKEN.290]}"
                             ],
-                            "roleName": "${Token[TOKEN.262]}"
+                            "roleName": "${Token[TOKEN.288]}"
                           }
                         }
                       },
@@ -1367,7 +1522,15 @@
                                         "logs:PutLogEvents"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "${Token[TOKEN.279]}"
+                                      "Resource": "${Token[TOKEN.305]}"
+                                    },
+                                    {
+                                      "Action": [
+                                        "s3:PutObject*",
+                                        "s3:Abort*"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "${Token[TOKEN.107]}/*"
                                     },
                                     {
                                       "Action": [
@@ -1412,15 +1575,15 @@
                                   ],
                                   "Version": "2012-10-17"
                                 },
-                                "policyName": "${Token[TOKEN.271]}",
+                                "policyName": "${Token[TOKEN.297]}",
                                 "groups": [
-                                  "#{Token[TOKEN.274]}"
+                                  "#{Token[TOKEN.300]}"
                                 ],
                                 "roles": [
-                                  "#{Token[TOKEN.272]}"
+                                  "#{Token[TOKEN.298]}"
                                 ],
                                 "users": [
-                                  "#{Token[TOKEN.273]}"
+                                  "#{Token[TOKEN.299]}"
                                 ]
                               }
                             }
@@ -1441,8 +1604,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ECS::Service",
                       "aws:cdk:cloudformation:props": {
-                        "taskDefinition": "${Token[TOKEN.261]}",
-                        "cluster": "${Token[TOKEN.104]}",
+                        "taskDefinition": "${Token[TOKEN.287]}",
+                        "cluster": "${Token[TOKEN.130]}",
                         "deploymentConfiguration": {
                           "maximumPercent": 200,
                           "minimumHealthyPercent": 50
@@ -1456,7 +1619,7 @@
                         "placementConstraints": "<unresolved-lazy>",
                         "placementStrategies": "<unresolved-lazy>",
                         "schedulingStrategy": "REPLICA",
-                        "serviceName": "${Token[TOKEN.282]}",
+                        "serviceName": "${Token[TOKEN.308]}",
                         "serviceRegistries": "<unresolved-lazy>"
                       }
                     }
@@ -1489,7 +1652,7 @@
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
                   "aws:cdk:cloudformation:props": {
-                    "clusterName": "${Token[TOKEN.293]}"
+                    "clusterName": "${Token[TOKEN.319]}"
                   }
                 }
               },
@@ -1508,7 +1671,7 @@
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
                             "groupDescription": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup/InstanceSecurityGroup",
-                            "groupName": "${Token[TOKEN.300]}",
+                            "groupName": "${Token[TOKEN.326]}",
                             "securityGroupEgress": "<unresolved-lazy>",
                             "securityGroupIngress": "<unresolved-lazy>",
                             "tags": [
@@ -1530,8 +1693,8 @@
                             "ipProtocol": "tcp",
                             "description": "Load balancer to target",
                             "fromPort": 32768,
-                            "groupId": "${Token[TOKEN.302]}",
-                            "sourceSecurityGroupId": "${Token[TOKEN.404]}",
+                            "groupId": "${Token[TOKEN.328]}",
+                            "sourceSecurityGroupId": "${Token[TOKEN.430]}",
                             "toPort": 65535
                           }
                         }
@@ -1554,16 +1717,16 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ec2.amazonaws.com.306]}"
+                                    "Service": "${Token[ec2.amazonaws.com.332]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.307]}"
+                              "#{Token[TOKEN.333]}"
                             ],
-                            "roleName": "${Token[TOKEN.305]}",
+                            "roleName": "${Token[TOKEN.331]}",
                             "tags": [
                               {
                                 "key": "Name",
@@ -1604,15 +1767,15 @@
                                   ],
                                   "Version": "2012-10-17"
                                 },
-                                "policyName": "${Token[TOKEN.328]}",
+                                "policyName": "${Token[TOKEN.354]}",
                                 "groups": [
-                                  "#{Token[TOKEN.331]}"
+                                  "#{Token[TOKEN.357]}"
                                 ],
                                 "roles": [
-                                  "#{Token[TOKEN.329]}"
+                                  "#{Token[TOKEN.355]}"
                                 ],
                                 "users": [
-                                  "#{Token[TOKEN.330]}"
+                                  "#{Token[TOKEN.356]}"
                                 ]
                               }
                             }
@@ -1628,7 +1791,7 @@
                       "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
                       "aws:cdk:cloudformation:props": {
                         "roles": [
-                          "${Token[TOKEN.313]}"
+                          "${Token[TOKEN.339]}"
                         ]
                       }
                     }
@@ -1639,14 +1802,14 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::AutoScaling::LaunchConfiguration",
                       "aws:cdk:cloudformation:props": {
-                        "imageId": "${Token[TOKEN.317]}",
+                        "imageId": "${Token[TOKEN.343]}",
                         "instanceType": "t2.small",
-                        "iamInstanceProfile": "${Token[TOKEN.321]}",
+                        "iamInstanceProfile": "${Token[TOKEN.347]}",
                         "securityGroups": [
-                          "#{Token[TOKEN.320]}"
+                          "#{Token[TOKEN.346]}"
                         ],
                         "spotPrice": "0.023",
-                        "userData": "${Token[TOKEN.319]}"
+                        "userData": "${Token[TOKEN.345]}"
                       }
                     }
                   },
@@ -1659,9 +1822,9 @@
                         "maxSize": "1",
                         "minSize": "1",
                         "desiredCapacity": "1",
-                        "launchConfigurationName": "${Token[TOKEN.323]}",
+                        "launchConfigurationName": "${Token[TOKEN.349]}",
                         "loadBalancerNames": [
-                          "#{Token[TOKEN.324]}"
+                          "#{Token[TOKEN.350]}"
                         ],
                         "tags": [
                           {
@@ -1671,7 +1834,7 @@
                           }
                         ],
                         "targetGroupArns": [
-                          "#{Token[TOKEN.325]}"
+                          "#{Token[TOKEN.351]}"
                         ],
                         "vpcZoneIdentifier": [
                           "${Token[TOKEN.59]}",
@@ -1704,16 +1867,16 @@
                                           "Action": "sts:AssumeRole",
                                           "Effect": "Allow",
                                           "Principal": {
-                                            "Service": "${Token[lambda.amazonaws.com.336]}"
+                                            "Service": "${Token[lambda.amazonaws.com.362]}"
                                           }
                                         }
                                       ],
                                       "Version": "2012-10-17"
                                     },
                                     "managedPolicyArns": [
-                                      "#{Token[TOKEN.337]}"
+                                      "#{Token[TOKEN.363]}"
                                     ],
-                                    "roleName": "${Token[TOKEN.335]}",
+                                    "roleName": "${Token[TOKEN.361]}",
                                     "tags": [
                                       {
                                         "key": "Name",
@@ -1748,7 +1911,7 @@
                                             {
                                               "Action": "autoscaling:CompleteLifecycleAction",
                                               "Effect": "Allow",
-                                              "Resource": "arn:${Token[AWS::Partition.3]}:autoscaling:us-east-1:561034361591:autoScalingGroup:*:autoScalingGroupName/${Token[TOKEN.327]}"
+                                              "Resource": "arn:${Token[AWS::Partition.3]}:autoscaling:us-east-1:561034361591:autoScalingGroup:*:autoScalingGroupName/${Token[TOKEN.353]}"
                                             },
                                             {
                                               "Action": [
@@ -1765,7 +1928,7 @@
                                                 "ecs:SubmitTaskStateChange"
                                               ],
                                               "Effect": "Allow",
-                                              "Resource": "${Token[TOKEN.296]}"
+                                              "Resource": "${Token[TOKEN.322]}"
                                             },
                                             {
                                               "Action": [
@@ -1774,7 +1937,7 @@
                                               ],
                                               "Condition": {
                                                 "ArnEquals": {
-                                                  "ecs:cluster": "${Token[TOKEN.296]}"
+                                                  "ecs:cluster": "${Token[TOKEN.322]}"
                                                 }
                                               },
                                               "Effect": "Allow",
@@ -1783,15 +1946,15 @@
                                           ],
                                           "Version": "2012-10-17"
                                         },
-                                        "policyName": "${Token[TOKEN.376]}",
+                                        "policyName": "${Token[TOKEN.402]}",
                                         "groups": [
-                                          "#{Token[TOKEN.379]}"
+                                          "#{Token[TOKEN.405]}"
                                         ],
                                         "roles": [
-                                          "#{Token[TOKEN.377]}"
+                                          "#{Token[TOKEN.403]}"
                                         ],
                                         "users": [
-                                          "#{Token[TOKEN.378]}"
+                                          "#{Token[TOKEN.404]}"
                                         ]
                                       }
                                     }
@@ -1810,12 +1973,12 @@
                                   "zipFile": "import boto3, json, os, time\n\necs = boto3.client('ecs')\nautoscaling = boto3.client('autoscaling')\n\n\ndef lambda_handler(event, context):\n  print(json.dumps(event))\n  cluster = os.environ['CLUSTER']\n  snsTopicArn = event['Records'][0]['Sns']['TopicArn']\n  lifecycle_event = json.loads(event['Records'][0]['Sns']['Message'])\n  instance_id = lifecycle_event.get('EC2InstanceId')\n  if not instance_id:\n    print('Got event without EC2InstanceId: %s', json.dumps(event))\n    return\n\n  instance_arn = container_instance_arn(cluster, instance_id)\n  print('Instance %s has container instance ARN %s' % (lifecycle_event['EC2InstanceId'], instance_arn))\n\n  if not instance_arn:\n    return\n\n  while has_tasks(cluster, instance_arn):\n    time.sleep(10)\n\n  try:\n    print('Terminating instance %s' % instance_id)\n    autoscaling.complete_lifecycle_action(\n        LifecycleActionResult='CONTINUE',\n        **pick(lifecycle_event, 'LifecycleHookName', 'LifecycleActionToken', 'AutoScalingGroupName'))\n  except Exception as e:\n    # Lifecycle action may have already completed.\n    print(str(e))\n\n\ndef container_instance_arn(cluster, instance_id):\n  \"\"\"Turn an instance ID into a container instance ARN.\"\"\"\n  arns = ecs.list_container_instances(cluster=cluster, filter='ec2InstanceId==' + instance_id)['containerInstanceArns']\n  if not arns:\n    return None\n  return arns[0]\n\n\ndef has_tasks(cluster, instance_arn):\n  \"\"\"Return True if the instance is running tasks for the given cluster.\"\"\"\n  instances = ecs.describe_container_instances(cluster=cluster, containerInstances=[instance_arn])['containerInstances']\n  if not instances:\n    return False\n  instance = instances[0]\n\n  if instance['status'] == 'ACTIVE':\n    # Start draining, then try again later\n    set_container_instance_to_draining(cluster, instance_arn)\n    return True\n\n  tasks = instance['runningTasksCount'] + instance['pendingTasksCount']\n  print('Instance %s has %s tasks' % (instance_arn, tasks))\n\n  return tasks > 0\n\n\ndef set_container_instance_to_draining(cluster, instance_arn):\n  ecs.update_container_instances_state(\n      cluster=cluster,\n      containerInstances=[instance_arn], status='DRAINING')\n\n\ndef pick(dct, *keys):\n  \"\"\"Pick a subset of a dict.\"\"\"\n  return {k: v for k, v in dct.items() if k in keys}\n"
                                 },
                                 "handler": "index.lambda_handler",
-                                "role": "${Token[TOKEN.341]}",
+                                "role": "${Token[TOKEN.367]}",
                                 "runtime": "python3.6",
                                 "environment": "<unresolved-lazy>",
-                                "functionName": "${Token[TOKEN.333]}",
+                                "functionName": "${Token[TOKEN.359]}",
                                 "layers": [
-                                  "#{Token[TOKEN.344]}"
+                                  "#{Token[TOKEN.370]}"
                                 ],
                                 "tags": [
                                   {
@@ -1834,9 +1997,9 @@
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                               "aws:cdk:cloudformation:props": {
                                 "action": "lambda:InvokeFunction",
-                                "functionName": "${Token[TOKEN.349]}",
+                                "functionName": "${Token[TOKEN.375]}",
                                 "principal": "sns.amazonaws.com",
-                                "sourceArn": "${Token[TOKEN.364]}"
+                                "sourceArn": "${Token[TOKEN.390]}"
                               }
                             }
                           },
@@ -1851,8 +2014,8 @@
                                   "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
                                   "aws:cdk:cloudformation:props": {
                                     "protocol": "lambda",
-                                    "topicArn": "${Token[TOKEN.364]}",
-                                    "endpoint": "${Token[TOKEN.349]}"
+                                    "topicArn": "${Token[TOKEN.390]}",
+                                    "endpoint": "${Token[TOKEN.375]}"
                                   }
                                 }
                               }
@@ -1882,16 +2045,16 @@
                                       "Action": "sts:AssumeRole",
                                       "Effect": "Allow",
                                       "Principal": {
-                                        "Service": "${Token[autoscaling.amazonaws.com.352]}"
+                                        "Service": "${Token[autoscaling.amazonaws.com.378]}"
                                       }
                                     }
                                   ],
                                   "Version": "2012-10-17"
                                 },
                                 "managedPolicyArns": [
-                                  "#{Token[TOKEN.353]}"
+                                  "#{Token[TOKEN.379]}"
                                 ],
-                                "roleName": "${Token[TOKEN.351]}",
+                                "roleName": "${Token[TOKEN.377]}",
                                 "tags": [
                                   {
                                     "key": "Name",
@@ -1916,20 +2079,20 @@
                                         {
                                           "Action": "sns:Publish",
                                           "Effect": "Allow",
-                                          "Resource": "${Token[TOKEN.364]}"
+                                          "Resource": "${Token[TOKEN.390]}"
                                         }
                                       ],
                                       "Version": "2012-10-17"
                                     },
-                                    "policyName": "${Token[TOKEN.369]}",
+                                    "policyName": "${Token[TOKEN.395]}",
                                     "groups": [
-                                      "#{Token[TOKEN.372]}"
+                                      "#{Token[TOKEN.398]}"
                                     ],
                                     "roles": [
-                                      "#{Token[TOKEN.370]}"
+                                      "#{Token[TOKEN.396]}"
                                     ],
                                     "users": [
-                                      "#{Token[TOKEN.371]}"
+                                      "#{Token[TOKEN.397]}"
                                     ]
                                   }
                                 }
@@ -1954,7 +2117,7 @@
                                     "value": "TpFeStaging/TpFeStagingCluster/DefaultAutoScalingGroup"
                                   }
                                 ],
-                                "topicName": "${Token[TOKEN.360]}"
+                                "topicName": "${Token[TOKEN.386]}"
                               }
                             }
                           }
@@ -1966,13 +2129,13 @@
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::AutoScaling::LifecycleHook",
                           "aws:cdk:cloudformation:props": {
-                            "autoScalingGroupName": "${Token[TOKEN.327]}",
+                            "autoScalingGroupName": "${Token[TOKEN.353]}",
                             "lifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
                             "defaultResult": "CONTINUE",
                             "heartbeatTimeout": 300,
-                            "lifecycleHookName": "${Token[TOKEN.350]}",
-                            "notificationTargetArn": "${Token[TOKEN.364]}",
-                            "roleArn": "${Token[TOKEN.357]}"
+                            "lifecycleHookName": "${Token[TOKEN.376]}",
+                            "notificationTargetArn": "${Token[TOKEN.390]}",
+                            "roleArn": "${Token[TOKEN.383]}"
                           }
                         }
                       }
@@ -2013,10 +2176,10 @@
                       "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
                       "aws:cdk:cloudformation:props": {
                         "loadBalancerAttributes": "<unresolved-lazy>",
-                        "name": "${Token[TOKEN.394]}",
+                        "name": "${Token[TOKEN.420]}",
                         "scheme": "internet-facing",
                         "securityGroups": [
-                          "#{Token[TOKEN.393]}"
+                          "#{Token[TOKEN.419]}"
                         ],
                         "subnets": [
                           "${Token[TOKEN.35]}",
@@ -2037,7 +2200,7 @@
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
                             "groupDescription": "Automatically created Security Group for ELB TpFeStagingTpFeStagingServiceLBBD49AFF6",
-                            "groupName": "${Token[TOKEN.402]}",
+                            "groupName": "${Token[TOKEN.428]}",
                             "securityGroupEgress": "<unresolved-lazy>",
                             "securityGroupIngress": "<unresolved-lazy>",
                             "vpcId": "${Token[TOKEN.28]}"
@@ -2050,10 +2213,10 @@
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
                           "aws:cdk:cloudformation:props": {
-                            "groupId": "${Token[TOKEN.404]}",
+                            "groupId": "${Token[TOKEN.430]}",
                             "ipProtocol": "tcp",
                             "description": "Load balancer to target",
-                            "destinationSecurityGroupId": "${Token[TOKEN.302]}",
+                            "destinationSecurityGroupId": "${Token[TOKEN.328]}",
                             "fromPort": 32768,
                             "toPort": 65535
                           }
@@ -2072,7 +2235,7 @@
                           "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
                           "aws:cdk:cloudformation:props": {
                             "defaultActions": "<unresolved-lazy>",
-                            "loadBalancerArn": "${Token[TOKEN.401]}",
+                            "loadBalancerArn": "${Token[TOKEN.427]}",
                             "port": 443,
                             "protocol": "HTTPS",
                             "certificates": "<unresolved-lazy>"
@@ -2089,20 +2252,20 @@
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
                               "aws:cdk:cloudformation:props": {
-                                "healthCheckIntervalSeconds": -1.888154589708839e+289,
-                                "healthCheckPath": "${Token[TOKEN.413]}",
-                                "healthCheckPort": "${Token[TOKEN.414]}",
-                                "healthCheckProtocol": "${Token[TOKEN.415]}",
-                                "healthCheckTimeoutSeconds": -1.8881545897088398e+289,
-                                "healthyThresholdCount": -1.88815458970884e+289,
+                                "healthCheckIntervalSeconds": -1.8881545897088446e+289,
+                                "healthCheckPath": "${Token[TOKEN.439]}",
+                                "healthCheckPort": "${Token[TOKEN.440]}",
+                                "healthCheckProtocol": "${Token[TOKEN.441]}",
+                                "healthCheckTimeoutSeconds": -1.8881545897088455e+289,
+                                "healthyThresholdCount": -1.8881545897088457e+289,
                                 "matcher": "<unresolved-lazy>",
                                 "port": 80,
                                 "protocol": "HTTP",
                                 "targetGroupAttributes": "<unresolved-lazy>",
                                 "targets": "<unresolved-lazy>",
-                                "targetType": "${Token[TOKEN.410]}",
-                                "unhealthyThresholdCount": -1.8881545897088403e+289,
-                                "vpcId": "${Token[TOKEN.411]}"
+                                "targetType": "${Token[TOKEN.436]}",
+                                "unhealthyThresholdCount": -1.888154589708846e+289,
+                                "vpcId": "${Token[TOKEN.437]}"
                               }
                             }
                           }
@@ -2121,7 +2284,7 @@
                           "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
                           "aws:cdk:cloudformation:props": {
                             "defaultActions": "<unresolved-lazy>",
-                            "loadBalancerArn": "${Token[TOKEN.401]}",
+                            "loadBalancerArn": "${Token[TOKEN.427]}",
                             "port": 80,
                             "protocol": "HTTP",
                             "certificates": "<unresolved-lazy>"
@@ -2145,8 +2308,8 @@
                         "name": "www.typeparty.com.",
                         "type": "A",
                         "aliasTarget": {
-                          "hostedZoneId": "${Token[TOKEN.396]}",
-                          "dnsName": "${Token[TOKEN.397]}"
+                          "hostedZoneId": "${Token[TOKEN.422]}",
+                          "dnsName": "${Token[TOKEN.423]}"
                         },
                         "hostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
                       }
@@ -2182,16 +2345,16 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ecs-tasks.amazonaws.com.431]}"
+                                    "Service": "${Token[ecs-tasks.amazonaws.com.457]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.432]}"
+                              "#{Token[TOKEN.458]}"
                             ],
-                            "roleName": "${Token[TOKEN.430]}"
+                            "roleName": "${Token[TOKEN.456]}"
                           }
                         }
                       }
@@ -2204,14 +2367,14 @@
                       "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                       "aws:cdk:cloudformation:props": {
                         "containerDefinitions": "<unresolved-lazy>",
-                        "executionRoleArn": "${Token[TOKEN.439]}",
+                        "executionRoleArn": "${Token[TOKEN.465]}",
                         "family": "TpFeStagingTpFeStagingServiceTaskDef4A92BBC0",
                         "networkMode": "bridge",
                         "placementConstraints": "<unresolved-lazy>",
                         "requiresCompatibilities": [
                           "EC2"
                         ],
-                        "taskRoleArn": "${Token[TOKEN.436]}",
+                        "taskRoleArn": "${Token[TOKEN.462]}",
                         "volumes": "<unresolved-lazy>"
                       }
                     }
@@ -2230,7 +2393,7 @@
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                               "aws:cdk:cloudformation:props": {
-                                "logGroupName": "${Token[TOKEN.456]}"
+                                "logGroupName": "${Token[TOKEN.482]}"
                               }
                             }
                           }
@@ -2254,16 +2417,16 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "Service": "${Token[ecs-tasks.amazonaws.com.443]}"
+                                    "Service": "${Token[ecs-tasks.amazonaws.com.469]}"
                                   }
                                 }
                               ],
                               "Version": "2012-10-17"
                             },
                             "managedPolicyArns": [
-                              "#{Token[TOKEN.444]}"
+                              "#{Token[TOKEN.470]}"
                             ],
-                            "roleName": "${Token[TOKEN.442]}"
+                            "roleName": "${Token[TOKEN.468]}"
                           }
                         }
                       },
@@ -2299,7 +2462,7 @@
                                         "logs:PutLogEvents"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "${Token[TOKEN.459]}"
+                                      "Resource": "${Token[TOKEN.485]}"
                                     },
                                     {
                                       "Action": [
@@ -2314,15 +2477,15 @@
                                   ],
                                   "Version": "2012-10-17"
                                 },
-                                "policyName": "${Token[TOKEN.451]}",
+                                "policyName": "${Token[TOKEN.477]}",
                                 "groups": [
-                                  "#{Token[TOKEN.454]}"
+                                  "#{Token[TOKEN.480]}"
                                 ],
                                 "roles": [
-                                  "#{Token[TOKEN.452]}"
+                                  "#{Token[TOKEN.478]}"
                                 ],
                                 "users": [
-                                  "#{Token[TOKEN.453]}"
+                                  "#{Token[TOKEN.479]}"
                                 ]
                               }
                             }
@@ -2343,8 +2506,8 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ECS::Service",
                       "aws:cdk:cloudformation:props": {
-                        "taskDefinition": "${Token[TOKEN.441]}",
-                        "cluster": "${Token[TOKEN.298]}",
+                        "taskDefinition": "${Token[TOKEN.467]}",
+                        "cluster": "${Token[TOKEN.324]}",
                         "deploymentConfiguration": {
                           "maximumPercent": 200,
                           "minimumHealthyPercent": 50
@@ -2358,7 +2521,7 @@
                         "placementConstraints": "<unresolved-lazy>",
                         "placementStrategies": "<unresolved-lazy>",
                         "schedulingStrategy": "REPLICA",
-                        "serviceName": "${Token[TOKEN.462]}",
+                        "serviceName": "${Token[TOKEN.488]}",
                         "serviceRegistries": "<unresolved-lazy>"
                       }
                     }

@@ -666,6 +666,20 @@
       "Properties": {
         "ContainerDefinitions": [
           {
+            "Environment": [
+              {
+                "Name": "S3_ENDPOINT",
+                "Value": {
+                  "Fn::ImportValue": "TpStagingImages:ExportsOutputFnGetAttTPImageBucketCAF10F90DomainName596B2699"
+                }
+              },
+              {
+                "Name": "S3_BUCKET",
+                "Value": {
+                  "Fn::ImportValue": "TpStagingImages:ExportsOutputRefTPImageBucketCAF10F909AB486C3"
+                }
+              }
+            ],
             "Essential": true,
             "Image": {
               "Fn::Join": [
@@ -921,6 +935,24 @@
                 "Fn::GetAtt": [
                   "TpGqlStagingGqlServiceTaskDefwebLogGroupB9E4A743",
                   "Arn"
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::ImportValue": "TpStagingImages:ExportsOutputFnGetAttTPImageBucketCAF10F90Arn5BADF158"
+                    },
+                    "/*"
+                  ]
                 ]
               }
             },

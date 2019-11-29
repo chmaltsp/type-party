@@ -1,11 +1,8 @@
 import cdk = require('@aws-cdk/core');
 import s3 = require('@aws-cdk/aws-s3');
-import iam = require('@aws-cdk/aws-iam');
 import cloudfront = require('@aws-cdk/aws-cloudfront');
 import route53 = require('@aws-cdk/aws-route53');
 import targets = require('@aws-cdk/aws-route53-targets');
-
-import { Construct } from '@aws-cdk/core';
 
 import ssm = require('@aws-cdk/aws-ssm');
 
@@ -15,27 +12,28 @@ const subDomain = 'images';
 
 const siteDomain = `${subDomain}.${domainName}`;
 
-export class TpImages extends Construct {
-  constructor(parent: Construct, name: string) {
-    super(parent, name);
+export class TpImages extends cdk.Stack {
+  public readonly bucket: s3.Bucket;
+  constructor(parent: cdk.App, name: string, props: cdk.StackProps) {
+    super(parent, name, props);
 
-    const tpImageBucket = new s3.Bucket(this, 'TPImageBucket', {
+    this.bucket = new s3.Bucket(this, 'TPImageBucket', {
       bucketName: siteDomain,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
-    const tpImageBucketPolicy = new s3.BucketPolicy(this, 'TPImageBucketPolicy', {
-      bucket: tpImageBucket,
-    });
+    // const tpImageBucketPolicy = new s3.BucketPolicy(this, 'TPImageBucketPolicy', {
+    //   bucket: this.bucket,
+    // });
 
-    tpImageBucketPolicy.document.addStatements(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        resources: [tpImageBucket.bucketArn],
-        actions: ['s3:*'],
-        principals: [new iam.AccountRootPrincipal()],
-      })
-    );
+    // tpImageBucketPolicy.document.addStatements(
+    //   new iam.PolicyStatement({
+    //     effect: iam.Effect.ALLOW,
+    //     resources: [this.bucket.bucketArn],
+    //     actions: ['s3:*'],
+    //     principals: [new iam.AccountRootPrincipal()],
+    //   })
+    // );
 
     const cfOriginAccessIdentity = new cloudfront.CfnCloudFrontOriginAccessIdentity(
       this,
@@ -75,7 +73,7 @@ export class TpImages extends Construct {
             ],
             s3OriginSource: {
               originAccessIdentityId: cfOriginAccessIdentity.ref,
-              s3BucketSource: tpImageBucket,
+              s3BucketSource: this.bucket,
             },
           },
         ],
