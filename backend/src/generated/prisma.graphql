@@ -42,6 +42,8 @@ type Designer {
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   addedBy: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type DesignerConnection {
@@ -51,6 +53,7 @@ type DesignerConnection {
 }
 
 input DesignerCreateInput {
+  id: ID
   name: String!
   url: String!
   typefaces: TypefaceCreateManyWithoutDesignersInput
@@ -63,6 +66,7 @@ input DesignerCreateManyWithoutTypefacesInput {
 }
 
 input DesignerCreateWithoutTypefacesInput {
+  id: ID
   name: String!
   url: String!
   addedBy: UserCreateOneInput!
@@ -90,6 +94,8 @@ type DesignerPreviousValues {
   id: ID!
   name: String!
   url: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input DesignerScalarWhereInput {
@@ -135,6 +141,22 @@ input DesignerScalarWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [DesignerScalarWhereInput!]
   OR: [DesignerScalarWhereInput!]
   NOT: [DesignerScalarWhereInput!]
@@ -256,6 +278,22 @@ input DesignerWhereInput {
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
   addedBy: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [DesignerWhereInput!]
   OR: [DesignerWhereInput!]
   NOT: [DesignerWhereInput!]
@@ -283,6 +321,7 @@ type FileConnection {
 }
 
 input FileCreateInput {
+  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -482,6 +521,8 @@ type Foundry {
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   addedBy: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type FoundryConnection {
@@ -491,6 +532,7 @@ type FoundryConnection {
 }
 
 input FoundryCreateInput {
+  id: ID
   name: String!
   url: String!
   typefaces: TypefaceCreateManyWithoutFoundriesInput
@@ -503,6 +545,7 @@ input FoundryCreateManyWithoutTypefacesInput {
 }
 
 input FoundryCreateWithoutTypefacesInput {
+  id: ID
   name: String!
   url: String!
   addedBy: UserCreateOneInput!
@@ -530,6 +573,8 @@ type FoundryPreviousValues {
   id: ID!
   name: String!
   url: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input FoundryScalarWhereInput {
@@ -575,6 +620,22 @@ input FoundryScalarWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [FoundryScalarWhereInput!]
   OR: [FoundryScalarWhereInput!]
   NOT: [FoundryScalarWhereInput!]
@@ -696,6 +757,22 @@ input FoundryWhereInput {
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
   addedBy: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [FoundryWhereInput!]
   OR: [FoundryWhereInput!]
   NOT: [FoundryWhereInput!]
@@ -712,6 +789,8 @@ type Images {
   thumbnail: File
   full: File
   typeface: Typeface
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ImagesConnection {
@@ -721,6 +800,7 @@ type ImagesConnection {
 }
 
 input ImagesCreateInput {
+  id: ID
   website: WebsiteCreateOneWithoutImagesInput
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
@@ -738,12 +818,14 @@ input ImagesCreateOneWithoutWebsiteInput {
 }
 
 input ImagesCreateWithoutTypefaceInput {
+  id: ID
   website: WebsiteCreateOneWithoutImagesInput
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
 }
 
 input ImagesCreateWithoutWebsiteInput {
+  id: ID
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
   typeface: TypefaceCreateOneWithoutImagesInput
@@ -765,6 +847,8 @@ enum ImagesOrderByInput {
 
 type ImagesPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ImagesSubscriptionPayload {
@@ -851,6 +935,22 @@ input ImagesWhereInput {
   thumbnail: FileWhereInput
   full: FileWhereInput
   typeface: TypefaceWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ImagesWhereInput!]
   OR: [ImagesWhereInput!]
   NOT: [ImagesWhereInput!]
@@ -978,6 +1078,8 @@ type Tag {
   name: String!
   website(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typeface(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type TagConnection {
@@ -987,6 +1089,7 @@ type TagConnection {
 }
 
 input TagCreateInput {
+  id: ID
   name: String!
   website: WebsiteCreateManyWithoutTagsInput
   typeface: TypefaceCreateManyWithoutTagsInput
@@ -1003,11 +1106,13 @@ input TagCreateManyWithoutWebsiteInput {
 }
 
 input TagCreateWithoutTypefaceInput {
+  id: ID
   name: String!
   website: WebsiteCreateManyWithoutTagsInput
 }
 
 input TagCreateWithoutWebsiteInput {
+  id: ID
   name: String!
   typeface: TypefaceCreateManyWithoutTagsInput
 }
@@ -1031,6 +1136,8 @@ enum TagOrderByInput {
 type TagPreviousValues {
   id: ID!
   name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input TagScalarWhereInput {
@@ -1062,6 +1169,22 @@ input TagScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [TagScalarWhereInput!]
   OR: [TagScalarWhereInput!]
   NOT: [TagScalarWhereInput!]
@@ -1195,6 +1318,22 @@ input TagWhereInput {
   typeface_every: TypefaceWhereInput
   typeface_some: TypefaceWhereInput
   typeface_none: TypefaceWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [TagWhereInput!]
   OR: [TagWhereInput!]
   NOT: [TagWhereInput!]
@@ -1216,6 +1355,8 @@ type Typeface {
   designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer!]
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
   images: Images
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type TypefaceConnection {
@@ -1225,6 +1366,7 @@ type TypefaceConnection {
 }
 
 input TypefaceCreateInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1268,6 +1410,7 @@ input TypefaceCreateOneWithoutImagesInput {
 }
 
 input TypefaceCreateWithoutAddedByInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1280,6 +1423,7 @@ input TypefaceCreateWithoutAddedByInput {
 }
 
 input TypefaceCreateWithoutDesignersInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1292,6 +1436,7 @@ input TypefaceCreateWithoutDesignersInput {
 }
 
 input TypefaceCreateWithoutFoundriesInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1304,6 +1449,7 @@ input TypefaceCreateWithoutFoundriesInput {
 }
 
 input TypefaceCreateWithoutImagesInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1316,6 +1462,7 @@ input TypefaceCreateWithoutImagesInput {
 }
 
 input TypefaceCreateWithoutTagsInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1328,6 +1475,7 @@ input TypefaceCreateWithoutTagsInput {
 }
 
 input TypefaceCreateWithoutUsedByInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1367,6 +1515,8 @@ type TypefacePreviousValues {
   downloadUrl: String!
   description: String
   slug: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input TypefaceScalarWhereInput {
@@ -1440,6 +1590,22 @@ input TypefaceScalarWhereInput {
   slug_not_starts_with: String
   slug_ends_with: String
   slug_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [TypefaceScalarWhereInput!]
   OR: [TypefaceScalarWhereInput!]
   NOT: [TypefaceScalarWhereInput!]
@@ -1781,6 +1947,22 @@ input TypefaceWhereInput {
   tags_some: TagWhereInput
   tags_none: TagWhereInput
   images: ImagesWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [TypefaceWhereInput!]
   OR: [TypefaceWhereInput!]
   NOT: [TypefaceWhereInput!]
@@ -1800,6 +1982,8 @@ type User {
   role: Role!
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -1809,6 +1993,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -1833,6 +2018,7 @@ input UserCreateOneWithoutWebsitesInput {
 }
 
 input UserCreateWithoutTypefacesInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -1841,6 +2027,7 @@ input UserCreateWithoutTypefacesInput {
 }
 
 input UserCreateWithoutWebsitesInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -1876,6 +2063,8 @@ type UserPreviousValues {
   password: String!
   name: String!
   role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -2040,6 +2229,22 @@ input UserWhereInput {
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -2062,6 +2267,7 @@ type Website {
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   featured: Boolean!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
+  updatedAt: DateTime!
 }
 
 type WebsiteConnection {
@@ -2071,6 +2277,7 @@ type WebsiteConnection {
 }
 
 input WebsiteCreateInput {
+  id: ID
   isPublished: Boolean
   title: String!
   images: ImagesCreateOneWithoutWebsiteInput
@@ -2103,6 +2310,7 @@ input WebsiteCreateOneWithoutImagesInput {
 }
 
 input WebsiteCreateWithoutAddedByInput {
+  id: ID
   isPublished: Boolean
   title: String!
   images: ImagesCreateOneWithoutWebsiteInput
@@ -2114,6 +2322,7 @@ input WebsiteCreateWithoutAddedByInput {
 }
 
 input WebsiteCreateWithoutImagesInput {
+  id: ID
   isPublished: Boolean
   title: String!
   slug: String
@@ -2125,6 +2334,7 @@ input WebsiteCreateWithoutImagesInput {
 }
 
 input WebsiteCreateWithoutTagsInput {
+  id: ID
   isPublished: Boolean
   title: String!
   images: ImagesCreateOneWithoutWebsiteInput
@@ -2136,6 +2346,7 @@ input WebsiteCreateWithoutTagsInput {
 }
 
 input WebsiteCreateWithoutTypefacesInput {
+  id: ID
   isPublished: Boolean
   title: String!
   images: ImagesCreateOneWithoutWebsiteInput
@@ -2178,6 +2389,7 @@ type WebsitePreviousValues {
   slug: String
   url: String!
   featured: Boolean!
+  updatedAt: DateTime!
 }
 
 input WebsiteScalarWhereInput {
@@ -2249,6 +2461,14 @@ input WebsiteScalarWhereInput {
   url_not_ends_with: String
   featured: Boolean
   featured_not: Boolean
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [WebsiteScalarWhereInput!]
   OR: [WebsiteScalarWhereInput!]
   NOT: [WebsiteScalarWhereInput!]
@@ -2509,6 +2729,14 @@ input WebsiteWhereInput {
   tags_every: TagWhereInput
   tags_some: TagWhereInput
   tags_none: TagWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [WebsiteWhereInput!]
   OR: [WebsiteWhereInput!]
   NOT: [WebsiteWhereInput!]
