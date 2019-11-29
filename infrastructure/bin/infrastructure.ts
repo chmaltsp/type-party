@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import cdk = require('@aws-cdk/core');
-// import { TpImages } from '../lib/tp-images';
 
+import { TpImages } from '../lib/tp-images';
 import { TpEcr } from '../lib/tp-ecr';
 import { TpVpc } from '../lib/tp-vpc';
 import { TpGql } from '../lib/tp-gql';
@@ -11,7 +11,6 @@ import { TpCommon } from '../lib/common';
 import { TpFe } from '../lib/tp-fe';
 
 const app = new cdk.App();
-// new TpImages(app, 'TypePartyStack');
 
 const env = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
@@ -33,10 +32,15 @@ const common = new TpCommon(app, 'TpCommon', {
 const TP_GQL_STAGING = 'TpGqlStaging';
 const TP_FE_STAGING = 'TpFeStaging';
 
+const imageStack = new TpImages(app, 'TpStagingImages', {
+  env,
+});
+
 new TpGql(app, TP_GQL_STAGING, {
   ecrRepository: tpGqlEcr.gql,
   vpc: stagingVpc.vpc,
   stackName: TP_GQL_STAGING,
+  imageBucket: imageStack.bucket,
   env,
 });
 

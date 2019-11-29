@@ -1,5 +1,6 @@
 import ec2 = require('@aws-cdk/aws-ec2');
 import ecs = require('@aws-cdk/aws-ecs');
+import s3 = require('@aws-cdk/aws-s3');
 import cdk = require('@aws-cdk/core');
 import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import { IRepository } from '@aws-cdk/aws-ecr';
@@ -12,6 +13,7 @@ import { Certificate } from '@aws-cdk/aws-certificatemanager';
 interface TpGqlProps extends cdk.StackProps {
   vpc: ec2.Vpc;
   ecrRepository: IRepository;
+  imageBucket: s3.Bucket;
 }
 export class TpGql extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: TpGqlProps) {
@@ -84,6 +86,9 @@ export class TpGql extends cdk.Stack {
       domainName,
     });
 
+    const S3_BUCKET = props.imageBucket.bucketName;
+
+    const S3_ENDPOINT = props.imageBucket.bucketDomainName;
     const gqlService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
       this,
       props.stackName + 'GqlService',
@@ -103,10 +108,15 @@ export class TpGql extends cdk.Stack {
             PRISMA_MANAGEMENT_API_SECRET,
             APP_SECRET,
           },
+          environment: {
+            S3_ENDPOINT,
+            S3_BUCKET,
+          },
         },
       }
     );
 
+    props.imageBucket.grantPut(gqlService.taskDefinition.obtainExecutionRole());
     new cdk.CfnOutput(this, 'ServiceName', {
       value: gqlService.service.serviceName,
     });

@@ -18,7 +18,7 @@ export class TpCommon extends cdk.Stack {
     super(scope, id, props);
 
     this.apiDomainName = `api.${domainName}`;
-    this.feDomainName = `api.${domainName};`;
+    this.feDomainName = `www.${domainName};`;
 
     this.arnCertificate = ssm.StringParameter.valueForStringParameter(
       this,

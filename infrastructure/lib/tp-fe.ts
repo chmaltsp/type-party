@@ -8,6 +8,7 @@ import ssm = require('@aws-cdk/aws-ssm');
 import { domainName } from './tp-images';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
+import { IGrantable } from '@aws-cdk/aws-iam';
 
 interface TpFeProps extends cdk.StackProps {
   vpc: ec2.Vpc;
@@ -16,6 +17,7 @@ interface TpFeProps extends cdk.StackProps {
   certificate: ICertificate;
 }
 export class TpFe extends cdk.Stack {
+  public readonly feServiceRole: IGrantable;
   constructor(scope: cdk.App, id: string, props: TpFeProps) {
     super(scope, id, props);
 
