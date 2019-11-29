@@ -21,6 +21,8 @@ services:
   db:
     container_name: prisma-db
     image: mysql:5.7
+    ports: 
+      - "3306:3306"
     restart: always
     environment:
       MYSQL_USER: root

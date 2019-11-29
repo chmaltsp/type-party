@@ -1,82 +1,94 @@
-
 enum Role {
   ADMIN
   SUBSCRIBER
 }
 
 type User {
-  id: ID! @unique
+  id: ID! @id
   email: String! @unique
   password: String!
   name: String!
   role: Role! @default(value: SUBSCRIBER)
   websites: [Website!]! @relation(name: "WebsitesUser")
   typefaces: [Typeface!]! @relation(name: "TypefaceUser")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Website {
-  id: ID! @unique
-  createdAt: DateTime!
-  isPublished: Boolean! @default(value: "false")
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  isPublished: Boolean! @default(value: false)
   title: String! @unique
-  images: Images @relation(name: "WebsiteImages")
+  images: Images @relation(link: INLINE)
   slug: String @unique
   url: String!
   addedBy: User! @relation(name: "WebsitesUser")
   typefaces: [Typeface!]!
-  featured: Boolean! @default(value: "false")
+  featured: Boolean! @default(value: false)
   tags: [Tag!]! @relation(name: "WebsiteTags")
+  updatedAt: DateTime! @updatedAt
 }
 
 type Images {
-  id: ID! @unique
-  website: Website @relation(name: "WebsiteImages")
-  thumbnail: File @relation(name: "ThumbnailFile")
-  full: File @relation(name: "FullFile")
-  typeface: Typeface @relation(name: "TypefaceImages")
+  id: ID! @id
+  website: Website
+  thumbnail: File @relation(link: INLINE, name: "ThumbnailImage")
+  full: File @relation(link: INLINE,  name: "FullImage")
+  typeface: Typeface
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Tag {
-  id: ID! @unique
+  id: ID! @id
   name: String!
-  website: [Website!]! @relation(name: "WebsiteTags")
-  typeface: [Typeface!]! @relation(name: "TypefaceTags")
+  website: [Website!]! @relation(link: TABLE, name: "WebsiteTags")
+  typeface: [Typeface!]! @relation(link: TABLE, name: "TypefaceTags")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Designer {
-  id: ID! @unique
+  id: ID! @id
   name: String! @unique
   url: String!
   typefaces: [Typeface!]! @relation(name: "TypefaceDesigner")
   addedBy: User! @relation(name: "DesignerUser")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Typeface {
-  id: ID! @unique
+  id: ID! @id
   name: String! @unique
   downloadUrl: String!
   description: String
   slug: String! @unique
   usedBy: [Website!]!
   addedBy: User! @relation(name: "TypefaceUser")
-  foundries: [Foundry!]! @relation(name: "TypefaceFoundry")
+  foundries: [Foundry!]!@relation(name: "TypefaceFoundry")
   designers: [Designer!]! @relation(name: "TypefaceDesigner")
-  tags: [Tag!]! @relation(name: "TypefaceTags")
-  images: Images @relation(name: "TypefaceImages")
+  tags: [Tag] @relation(name: "TypefaceTags")
+  images: Images @relation(link: INLINE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Foundry {
-  id: ID! @unique
+  id: ID! @id
   name: String! @unique
   url: String!
   typefaces: [Typeface!]! @relation(name: "TypefaceFoundry")
   addedBy: User! @relation(name: "FoundryUser")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type File {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   filename: String!
   mimetype: String!
   encoding: String!

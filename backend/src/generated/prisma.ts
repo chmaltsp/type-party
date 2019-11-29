@@ -64,14 +64,13 @@ export interface Mutation {
     upsertFoundry: <T = Foundry>(args: { where: FoundryWhereUniqueInput, create: FoundryCreateInput, update: FoundryUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFile: <T = File>(args: { where: FileWhereUniqueInput, create: FileCreateInput, update: FileUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyWebsites: <T = BatchPayload>(args: { data: WebsiteUpdateInput, where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyImageses: <T = BatchPayload>(args: { data: ImagesUpdateInput, where?: ImagesWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateInput, where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyDesigners: <T = BatchPayload>(args: { data: DesignerUpdateInput, where?: DesignerWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTypefaces: <T = BatchPayload>(args: { data: TypefaceUpdateInput, where?: TypefaceWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyFoundries: <T = BatchPayload>(args: { data: FoundryUpdateInput, where?: FoundryWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyFiles: <T = BatchPayload>(args: { data: FileUpdateInput, where?: FileWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyWebsites: <T = BatchPayload>(args: { data: WebsiteUpdateManyMutationInput, where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateManyMutationInput, where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyDesigners: <T = BatchPayload>(args: { data: DesignerUpdateManyMutationInput, where?: DesignerWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTypefaces: <T = BatchPayload>(args: { data: TypefaceUpdateManyMutationInput, where?: TypefaceWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyFoundries: <T = BatchPayload>(args: { data: FoundryUpdateManyMutationInput, where?: FoundryWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyFiles: <T = BatchPayload>(args: { data: FileUpdateManyMutationInput, where?: FileWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateManyMutationInput, where?: UserWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyWebsites: <T = BatchPayload>(args: { where?: WebsiteWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyImageses: <T = BatchPayload>(args: { where?: ImagesWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -170,7 +169,9 @@ type Designer implements Node {
   name: String!
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
-  addedBy(where: UserWhereInput): User!
+  addedBy: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -184,6 +185,7 @@ type DesignerConnection {
 }
 
 input DesignerCreateInput {
+  id: ID
   name: String!
   url: String!
   typefaces: TypefaceCreateManyWithoutDesignersInput
@@ -196,6 +198,7 @@ input DesignerCreateManyWithoutTypefacesInput {
 }
 
 input DesignerCreateWithoutTypefacesInput {
+  id: ID
   name: String!
   url: String!
   addedBy: UserCreateOneInput!
@@ -217,16 +220,193 @@ enum DesignerOrderByInput {
   name_DESC
   url_ASC
   url_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type DesignerPreviousValues {
   id: ID!
   name: String!
   url: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input DesignerScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DesignerScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DesignerScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DesignerScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type DesignerSubscriptionPayload {
@@ -275,13 +455,31 @@ input DesignerUpdateInput {
   addedBy: UserUpdateOneRequiredInput
 }
 
+input DesignerUpdateManyDataInput {
+  name: String
+  url: String
+}
+
+input DesignerUpdateManyMutationInput {
+  name: String
+  url: String
+}
+
 input DesignerUpdateManyWithoutTypefacesInput {
   create: [DesignerCreateWithoutTypefacesInput!]
   connect: [DesignerWhereUniqueInput!]
+  set: [DesignerWhereUniqueInput!]
   disconnect: [DesignerWhereUniqueInput!]
   delete: [DesignerWhereUniqueInput!]
   update: [DesignerUpdateWithWhereUniqueWithoutTypefacesInput!]
+  updateMany: [DesignerUpdateManyWithWhereNestedInput!]
+  deleteMany: [DesignerScalarWhereInput!]
   upsert: [DesignerUpsertWithWhereUniqueWithoutTypefacesInput!]
+}
+
+input DesignerUpdateManyWithWhereNestedInput {
+  where: DesignerScalarWhereInput!
+  data: DesignerUpdateManyDataInput!
 }
 
 input DesignerUpdateWithoutTypefacesDataInput {
@@ -430,6 +628,50 @@ input DesignerWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
@@ -462,6 +704,7 @@ type FileConnection {
 }
 
 input FileCreateInput {
+  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -556,6 +799,13 @@ input FileUpdateDataInput {
 }
 
 input FileUpdateInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+}
+
+input FileUpdateManyMutationInput {
   filename: String
   mimetype: String
   encoding: String
@@ -841,7 +1091,9 @@ type Foundry implements Node {
   name: String!
   url: String!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
-  addedBy(where: UserWhereInput): User!
+  addedBy: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -855,6 +1107,7 @@ type FoundryConnection {
 }
 
 input FoundryCreateInput {
+  id: ID
   name: String!
   url: String!
   typefaces: TypefaceCreateManyWithoutFoundriesInput
@@ -867,6 +1120,7 @@ input FoundryCreateManyWithoutTypefacesInput {
 }
 
 input FoundryCreateWithoutTypefacesInput {
+  id: ID
   name: String!
   url: String!
   addedBy: UserCreateOneInput!
@@ -888,16 +1142,193 @@ enum FoundryOrderByInput {
   name_DESC
   url_ASC
   url_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type FoundryPreviousValues {
   id: ID!
   name: String!
   url: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input FoundryScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FoundryScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FoundryScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FoundryScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type FoundrySubscriptionPayload {
@@ -946,13 +1377,31 @@ input FoundryUpdateInput {
   addedBy: UserUpdateOneRequiredInput
 }
 
+input FoundryUpdateManyDataInput {
+  name: String
+  url: String
+}
+
+input FoundryUpdateManyMutationInput {
+  name: String
+  url: String
+}
+
 input FoundryUpdateManyWithoutTypefacesInput {
   create: [FoundryCreateWithoutTypefacesInput!]
   connect: [FoundryWhereUniqueInput!]
+  set: [FoundryWhereUniqueInput!]
   disconnect: [FoundryWhereUniqueInput!]
   delete: [FoundryWhereUniqueInput!]
   update: [FoundryUpdateWithWhereUniqueWithoutTypefacesInput!]
+  updateMany: [FoundryUpdateManyWithWhereNestedInput!]
+  deleteMany: [FoundryScalarWhereInput!]
   upsert: [FoundryUpsertWithWhereUniqueWithoutTypefacesInput!]
+}
+
+input FoundryUpdateManyWithWhereNestedInput {
+  where: FoundryScalarWhereInput!
+  data: FoundryUpdateManyDataInput!
 }
 
 input FoundryUpdateWithoutTypefacesDataInput {
@@ -1101,6 +1550,50 @@ input FoundryWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   typefaces_every: TypefaceWhereInput
   typefaces_some: TypefaceWhereInput
   typefaces_none: TypefaceWhereInput
@@ -1114,10 +1607,12 @@ input FoundryWhereUniqueInput {
 
 type Images implements Node {
   id: ID!
-  website(where: WebsiteWhereInput): Website
-  thumbnail(where: FileWhereInput): File
-  full(where: FileWhereInput): File
-  typeface(where: TypefaceWhereInput): Typeface
+  website: Website
+  thumbnail: File
+  full: File
+  typeface: Typeface
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -1131,6 +1626,7 @@ type ImagesConnection {
 }
 
 input ImagesCreateInput {
+  id: ID
   website: WebsiteCreateOneWithoutImagesInput
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
@@ -1148,12 +1644,14 @@ input ImagesCreateOneWithoutWebsiteInput {
 }
 
 input ImagesCreateWithoutTypefaceInput {
+  id: ID
   website: WebsiteCreateOneWithoutImagesInput
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
 }
 
 input ImagesCreateWithoutWebsiteInput {
+  id: ID
   thumbnail: FileCreateOneInput
   full: FileCreateOneInput
   typeface: TypefaceCreateOneWithoutImagesInput
@@ -1171,14 +1669,16 @@ type ImagesEdge {
 enum ImagesOrderByInput {
   id_ASC
   id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ImagesPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ImagesSubscriptionPayload {
@@ -1316,6 +1816,50 @@ input ImagesWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   website: WebsiteWhereInput
   thumbnail: FileWhereInput
   full: FileWhereInput
@@ -1365,14 +1909,13 @@ type Mutation {
   upsertFoundry(where: FoundryWhereUniqueInput!, create: FoundryCreateInput!, update: FoundryUpdateInput!): Foundry!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyWebsites(data: WebsiteUpdateInput!, where: WebsiteWhereInput): BatchPayload!
-  updateManyImageses(data: ImagesUpdateInput!, where: ImagesWhereInput): BatchPayload!
-  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
-  updateManyDesigners(data: DesignerUpdateInput!, where: DesignerWhereInput): BatchPayload!
-  updateManyTypefaces(data: TypefaceUpdateInput!, where: TypefaceWhereInput): BatchPayload!
-  updateManyFoundries(data: FoundryUpdateInput!, where: FoundryWhereInput): BatchPayload!
-  updateManyFiles(data: FileUpdateInput!, where: FileWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyWebsites(data: WebsiteUpdateManyMutationInput!, where: WebsiteWhereInput): BatchPayload!
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
+  updateManyDesigners(data: DesignerUpdateManyMutationInput!, where: DesignerWhereInput): BatchPayload!
+  updateManyTypefaces(data: TypefaceUpdateManyMutationInput!, where: TypefaceWhereInput): BatchPayload!
+  updateManyFoundries(data: FoundryUpdateManyMutationInput!, where: FoundryWhereInput): BatchPayload!
+  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyWebsites(where: WebsiteWhereInput): BatchPayload!
   deleteManyImageses(where: ImagesWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
@@ -1464,6 +2007,8 @@ type Tag implements Node {
   name: String!
   website(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typeface(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -1477,6 +2022,7 @@ type TagConnection {
 }
 
 input TagCreateInput {
+  id: ID
   name: String!
   website: WebsiteCreateManyWithoutTagsInput
   typeface: TypefaceCreateManyWithoutTagsInput
@@ -1493,11 +2039,13 @@ input TagCreateManyWithoutWebsiteInput {
 }
 
 input TagCreateWithoutTypefaceInput {
+  id: ID
   name: String!
   website: WebsiteCreateManyWithoutTagsInput
 }
 
 input TagCreateWithoutWebsiteInput {
+  id: ID
   name: String!
   typeface: TypefaceCreateManyWithoutTagsInput
 }
@@ -1516,15 +2064,152 @@ enum TagOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type TagPreviousValues {
   id: ID!
   name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input TagScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TagScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TagScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TagScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type TagSubscriptionPayload {
@@ -1572,22 +2257,41 @@ input TagUpdateInput {
   typeface: TypefaceUpdateManyWithoutTagsInput
 }
 
+input TagUpdateManyDataInput {
+  name: String
+}
+
+input TagUpdateManyMutationInput {
+  name: String
+}
+
 input TagUpdateManyWithoutTypefaceInput {
   create: [TagCreateWithoutTypefaceInput!]
   connect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
   disconnect: [TagWhereUniqueInput!]
   delete: [TagWhereUniqueInput!]
   update: [TagUpdateWithWhereUniqueWithoutTypefaceInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+  deleteMany: [TagScalarWhereInput!]
   upsert: [TagUpsertWithWhereUniqueWithoutTypefaceInput!]
 }
 
 input TagUpdateManyWithoutWebsiteInput {
   create: [TagCreateWithoutWebsiteInput!]
   connect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
   disconnect: [TagWhereUniqueInput!]
   delete: [TagWhereUniqueInput!]
   update: [TagUpdateWithWhereUniqueWithoutWebsiteInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+  deleteMany: [TagScalarWhereInput!]
   upsert: [TagUpsertWithWhereUniqueWithoutWebsiteInput!]
+}
+
+input TagUpdateManyWithWhereNestedInput {
+  where: TagScalarWhereInput!
+  data: TagUpdateManyDataInput!
 }
 
 input TagUpdateWithoutTypefaceDataInput {
@@ -1711,6 +2415,50 @@ input TagWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   website_every: WebsiteWhereInput
   website_some: WebsiteWhereInput
   website_none: WebsiteWhereInput
@@ -1730,11 +2478,13 @@ type Typeface implements Node {
   description: String
   slug: String!
   usedBy(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
-  addedBy(where: UserWhereInput): User!
+  addedBy: User!
   foundries(where: FoundryWhereInput, orderBy: FoundryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Foundry!]
   designers(where: DesignerWhereInput, orderBy: DesignerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Designer!]
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
-  images(where: ImagesWhereInput): Images
+  images: Images
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -1748,6 +2498,7 @@ type TypefaceConnection {
 }
 
 input TypefaceCreateInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1791,6 +2542,7 @@ input TypefaceCreateOneWithoutImagesInput {
 }
 
 input TypefaceCreateWithoutAddedByInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1803,6 +2555,7 @@ input TypefaceCreateWithoutAddedByInput {
 }
 
 input TypefaceCreateWithoutDesignersInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1815,6 +2568,7 @@ input TypefaceCreateWithoutDesignersInput {
 }
 
 input TypefaceCreateWithoutFoundriesInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1827,6 +2581,7 @@ input TypefaceCreateWithoutFoundriesInput {
 }
 
 input TypefaceCreateWithoutImagesInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1839,6 +2594,7 @@ input TypefaceCreateWithoutImagesInput {
 }
 
 input TypefaceCreateWithoutTagsInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1851,6 +2607,7 @@ input TypefaceCreateWithoutTagsInput {
 }
 
 input TypefaceCreateWithoutUsedByInput {
+  id: ID
   name: String!
   downloadUrl: String!
   description: String
@@ -1882,10 +2639,10 @@ enum TypefaceOrderByInput {
   description_DESC
   slug_ASC
   slug_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type TypefacePreviousValues {
@@ -1894,6 +2651,263 @@ type TypefacePreviousValues {
   downloadUrl: String!
   description: String
   slug: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input TypefaceScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TypefaceScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TypefaceScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TypefaceScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  downloadUrl: String
+
+  """All values that are not equal to given value."""
+  downloadUrl_not: String
+
+  """All values that are contained in given list."""
+  downloadUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  downloadUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  downloadUrl_lt: String
+
+  """All values less than or equal the given value."""
+  downloadUrl_lte: String
+
+  """All values greater than the given value."""
+  downloadUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  downloadUrl_gte: String
+
+  """All values containing the given string."""
+  downloadUrl_contains: String
+
+  """All values not containing the given string."""
+  downloadUrl_not_contains: String
+
+  """All values starting with the given string."""
+  downloadUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  downloadUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  downloadUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  downloadUrl_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type TypefaceSubscriptionPayload {
@@ -1948,49 +2962,83 @@ input TypefaceUpdateInput {
   images: ImagesUpdateOneWithoutTypefaceInput
 }
 
+input TypefaceUpdateManyDataInput {
+  name: String
+  downloadUrl: String
+  description: String
+  slug: String
+}
+
+input TypefaceUpdateManyMutationInput {
+  name: String
+  downloadUrl: String
+  description: String
+  slug: String
+}
+
 input TypefaceUpdateManyWithoutAddedByInput {
   create: [TypefaceCreateWithoutAddedByInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutAddedByInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutAddedByInput!]
 }
 
 input TypefaceUpdateManyWithoutDesignersInput {
   create: [TypefaceCreateWithoutDesignersInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutDesignersInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutDesignersInput!]
 }
 
 input TypefaceUpdateManyWithoutFoundriesInput {
   create: [TypefaceCreateWithoutFoundriesInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutFoundriesInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutFoundriesInput!]
 }
 
 input TypefaceUpdateManyWithoutTagsInput {
   create: [TypefaceCreateWithoutTagsInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutTagsInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutTagsInput!]
 }
 
 input TypefaceUpdateManyWithoutUsedByInput {
   create: [TypefaceCreateWithoutUsedByInput!]
   connect: [TypefaceWhereUniqueInput!]
+  set: [TypefaceWhereUniqueInput!]
   disconnect: [TypefaceWhereUniqueInput!]
   delete: [TypefaceWhereUniqueInput!]
   update: [TypefaceUpdateWithWhereUniqueWithoutUsedByInput!]
+  updateMany: [TypefaceUpdateManyWithWhereNestedInput!]
+  deleteMany: [TypefaceScalarWhereInput!]
   upsert: [TypefaceUpsertWithWhereUniqueWithoutUsedByInput!]
+}
+
+input TypefaceUpdateManyWithWhereNestedInput {
+  where: TypefaceScalarWhereInput!
+  data: TypefaceUpdateManyDataInput!
 }
 
 input TypefaceUpdateOneWithoutImagesInput {
@@ -2343,6 +3391,50 @@ input TypefaceWhereInput {
 
   """All values not ending with the given string."""
   slug_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   usedBy_every: WebsiteWhereInput
   usedBy_some: WebsiteWhereInput
   usedBy_none: WebsiteWhereInput
@@ -2373,6 +3465,8 @@ type User implements Node {
   role: Role!
   websites(where: WebsiteWhereInput, orderBy: WebsiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Website!]
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -2386,6 +3480,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -2410,6 +3505,7 @@ input UserCreateOneWithoutWebsitesInput {
 }
 
 input UserCreateWithoutTypefacesInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -2418,6 +3514,7 @@ input UserCreateWithoutTypefacesInput {
 }
 
 input UserCreateWithoutWebsitesInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -2445,10 +3542,10 @@ enum UserOrderByInput {
   name_DESC
   role_ASC
   role_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
@@ -2457,6 +3554,8 @@ type UserPreviousValues {
   password: String!
   name: String!
   role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -2514,6 +3613,13 @@ input UserUpdateInput {
   role: Role
   websites: WebsiteUpdateManyWithoutAddedByInput
   typefaces: TypefaceUpdateManyWithoutAddedByInput
+}
+
+input UserUpdateManyMutationInput {
+  email: String
+  password: String
+  name: String
+  role: Role
 }
 
 input UserUpdateOneRequiredInput {
@@ -2747,6 +3853,50 @@ input UserWhereInput {
 
   """All values that are not contained in given list."""
   role_not_in: [Role!]
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   websites_every: WebsiteWhereInput
   websites_some: WebsiteWhereInput
   websites_none: WebsiteWhereInput
@@ -2765,13 +3915,14 @@ type Website implements Node {
   createdAt: DateTime!
   isPublished: Boolean!
   title: String!
-  images(where: ImagesWhereInput): Images
+  images: Images
   slug: String
   url: String!
-  addedBy(where: UserWhereInput): User!
+  addedBy: User!
   typefaces(where: TypefaceWhereInput, orderBy: TypefaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Typeface!]
   featured: Boolean!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -2785,6 +3936,7 @@ type WebsiteConnection {
 }
 
 input WebsiteCreateInput {
+  id: ID
   isPublished: Boolean
   title: String!
   slug: String
@@ -2817,6 +3969,7 @@ input WebsiteCreateOneWithoutImagesInput {
 }
 
 input WebsiteCreateWithoutAddedByInput {
+  id: ID
   isPublished: Boolean
   title: String!
   slug: String
@@ -2828,6 +3981,7 @@ input WebsiteCreateWithoutAddedByInput {
 }
 
 input WebsiteCreateWithoutImagesInput {
+  id: ID
   isPublished: Boolean
   title: String!
   slug: String
@@ -2839,6 +3993,7 @@ input WebsiteCreateWithoutImagesInput {
 }
 
 input WebsiteCreateWithoutTagsInput {
+  id: ID
   isPublished: Boolean
   title: String!
   slug: String
@@ -2850,6 +4005,7 @@ input WebsiteCreateWithoutTagsInput {
 }
 
 input WebsiteCreateWithoutTypefacesInput {
+  id: ID
   isPublished: Boolean
   title: String!
   slug: String
@@ -2896,6 +4052,230 @@ type WebsitePreviousValues {
   slug: String
   url: String!
   featured: Boolean!
+  updatedAt: DateTime!
+}
+
+input WebsiteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WebsiteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WebsiteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WebsiteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  isPublished: Boolean
+
+  """All values that are not equal to given value."""
+  isPublished_not: Boolean
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  featured: Boolean
+
+  """All values that are not equal to given value."""
+  featured_not: Boolean
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type WebsiteSubscriptionPayload {
@@ -2949,31 +4329,61 @@ input WebsiteUpdateInput {
   tags: TagUpdateManyWithoutWebsiteInput
 }
 
+input WebsiteUpdateManyDataInput {
+  isPublished: Boolean
+  title: String
+  slug: String
+  url: String
+  featured: Boolean
+}
+
+input WebsiteUpdateManyMutationInput {
+  isPublished: Boolean
+  title: String
+  slug: String
+  url: String
+  featured: Boolean
+}
+
 input WebsiteUpdateManyWithoutAddedByInput {
   create: [WebsiteCreateWithoutAddedByInput!]
   connect: [WebsiteWhereUniqueInput!]
+  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutAddedByInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutAddedByInput!]
 }
 
 input WebsiteUpdateManyWithoutTagsInput {
   create: [WebsiteCreateWithoutTagsInput!]
   connect: [WebsiteWhereUniqueInput!]
+  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTagsInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutTagsInput!]
 }
 
 input WebsiteUpdateManyWithoutTypefacesInput {
   create: [WebsiteCreateWithoutTypefacesInput!]
   connect: [WebsiteWhereUniqueInput!]
+  set: [WebsiteWhereUniqueInput!]
   disconnect: [WebsiteWhereUniqueInput!]
   delete: [WebsiteWhereUniqueInput!]
   update: [WebsiteUpdateWithWhereUniqueWithoutTypefacesInput!]
+  updateMany: [WebsiteUpdateManyWithWhereNestedInput!]
+  deleteMany: [WebsiteScalarWhereInput!]
   upsert: [WebsiteUpsertWithWhereUniqueWithoutTypefacesInput!]
+}
+
+input WebsiteUpdateManyWithWhereNestedInput {
+  where: WebsiteScalarWhereInput!
+  data: WebsiteUpdateManyDataInput!
 }
 
 input WebsiteUpdateOneWithoutImagesInput {
@@ -3266,6 +4676,28 @@ input WebsiteWhereInput {
 
   """All values that are not equal to given value."""
   featured_not: Boolean
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   images: ImagesWhereInput
   addedBy: UserWhereInput
   typefaces_every: TypefaceWhereInput
@@ -3295,10 +4727,10 @@ export type DesignerOrderByInput =   'id_ASC' |
   'name_DESC' |
   'url_ASC' |
   'url_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type FileOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3321,17 +4753,17 @@ export type FoundryOrderByInput =   'id_ASC' |
   'name_DESC' |
   'url_ASC' |
   'url_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type ImagesOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type MutationType =   'CREATED' |
   'UPDATED' |
@@ -3344,10 +4776,10 @@ export type TagOrderByInput =   'id_ASC' |
   'id_DESC' |
   'name_ASC' |
   'name_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type TypefaceOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3359,10 +4791,10 @@ export type TypefaceOrderByInput =   'id_ASC' |
   'description_DESC' |
   'slug_ASC' |
   'slug_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type UserOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3374,10 +4806,10 @@ export type UserOrderByInput =   'id_ASC' |
   'name_DESC' |
   'role_ASC' |
   'role_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type WebsiteOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3397,6 +4829,7 @@ export type WebsiteOrderByInput =   'id_ASC' |
   'updatedAt_DESC'
 
 export interface DesignerCreateInput {
+  id?: ID_Input | null
   name: String
   url: String
   typefaces?: TypefaceCreateManyWithoutDesignersInput | null
@@ -3409,9 +4842,74 @@ export interface DesignerCreateManyWithoutTypefacesInput {
 }
 
 export interface DesignerCreateWithoutTypefacesInput {
+  id?: ID_Input | null
   name: String
   url: String
   addedBy: UserCreateOneInput
+}
+
+export interface DesignerScalarWhereInput {
+  AND?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
+  OR?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
+  NOT?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
+  id?: ID_Input | null
+  id_not?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  id_not_in?: ID_Output[] | ID_Output | null
+  id_lt?: ID_Input | null
+  id_lte?: ID_Input | null
+  id_gt?: ID_Input | null
+  id_gte?: ID_Input | null
+  id_contains?: ID_Input | null
+  id_not_contains?: ID_Input | null
+  id_starts_with?: ID_Input | null
+  id_not_starts_with?: ID_Input | null
+  id_ends_with?: ID_Input | null
+  id_not_ends_with?: ID_Input | null
+  name?: String | null
+  name_not?: String | null
+  name_in?: String[] | String | null
+  name_not_in?: String[] | String | null
+  name_lt?: String | null
+  name_lte?: String | null
+  name_gt?: String | null
+  name_gte?: String | null
+  name_contains?: String | null
+  name_not_contains?: String | null
+  name_starts_with?: String | null
+  name_not_starts_with?: String | null
+  name_ends_with?: String | null
+  name_not_ends_with?: String | null
+  url?: String | null
+  url_not?: String | null
+  url_in?: String[] | String | null
+  url_not_in?: String[] | String | null
+  url_lt?: String | null
+  url_lte?: String | null
+  url_gt?: String | null
+  url_gte?: String | null
+  url_contains?: String | null
+  url_not_contains?: String | null
+  url_starts_with?: String | null
+  url_not_starts_with?: String | null
+  url_ends_with?: String | null
+  url_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
 }
 
 export interface DesignerSubscriptionWhereInput {
@@ -3432,13 +4930,31 @@ export interface DesignerUpdateInput {
   addedBy?: UserUpdateOneRequiredInput | null
 }
 
+export interface DesignerUpdateManyDataInput {
+  name?: String | null
+  url?: String | null
+}
+
+export interface DesignerUpdateManyMutationInput {
+  name?: String | null
+  url?: String | null
+}
+
 export interface DesignerUpdateManyWithoutTypefacesInput {
   create?: DesignerCreateWithoutTypefacesInput[] | DesignerCreateWithoutTypefacesInput | null
   connect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
+  set?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   disconnect?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   delete?: DesignerWhereUniqueInput[] | DesignerWhereUniqueInput | null
   update?: DesignerUpdateWithWhereUniqueWithoutTypefacesInput[] | DesignerUpdateWithWhereUniqueWithoutTypefacesInput | null
+  updateMany?: DesignerUpdateManyWithWhereNestedInput[] | DesignerUpdateManyWithWhereNestedInput | null
+  deleteMany?: DesignerScalarWhereInput[] | DesignerScalarWhereInput | null
   upsert?: DesignerUpsertWithWhereUniqueWithoutTypefacesInput[] | DesignerUpsertWithWhereUniqueWithoutTypefacesInput | null
+}
+
+export interface DesignerUpdateManyWithWhereNestedInput {
+  where: DesignerScalarWhereInput
+  data: DesignerUpdateManyDataInput
 }
 
 export interface DesignerUpdateWithoutTypefacesDataInput {
@@ -3504,6 +5020,22 @@ export interface DesignerWhereInput {
   url_not_starts_with?: String | null
   url_ends_with?: String | null
   url_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
   typefaces_every?: TypefaceWhereInput | null
   typefaces_some?: TypefaceWhereInput | null
   typefaces_none?: TypefaceWhereInput | null
@@ -3516,6 +5048,7 @@ export interface DesignerWhereUniqueInput {
 }
 
 export interface FileCreateInput {
+  id?: ID_Input | null
   filename: String
   mimetype: String
   encoding: String
@@ -3546,6 +5079,13 @@ export interface FileUpdateDataInput {
 }
 
 export interface FileUpdateInput {
+  filename?: String | null
+  mimetype?: String | null
+  encoding?: String | null
+  url?: String | null
+}
+
+export interface FileUpdateManyMutationInput {
   filename?: String | null
   mimetype?: String | null
   encoding?: String | null
@@ -3664,6 +5204,7 @@ export interface FileWhereUniqueInput {
 }
 
 export interface FoundryCreateInput {
+  id?: ID_Input | null
   name: String
   url: String
   typefaces?: TypefaceCreateManyWithoutFoundriesInput | null
@@ -3676,9 +5217,74 @@ export interface FoundryCreateManyWithoutTypefacesInput {
 }
 
 export interface FoundryCreateWithoutTypefacesInput {
+  id?: ID_Input | null
   name: String
   url: String
   addedBy: UserCreateOneInput
+}
+
+export interface FoundryScalarWhereInput {
+  AND?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
+  OR?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
+  NOT?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
+  id?: ID_Input | null
+  id_not?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  id_not_in?: ID_Output[] | ID_Output | null
+  id_lt?: ID_Input | null
+  id_lte?: ID_Input | null
+  id_gt?: ID_Input | null
+  id_gte?: ID_Input | null
+  id_contains?: ID_Input | null
+  id_not_contains?: ID_Input | null
+  id_starts_with?: ID_Input | null
+  id_not_starts_with?: ID_Input | null
+  id_ends_with?: ID_Input | null
+  id_not_ends_with?: ID_Input | null
+  name?: String | null
+  name_not?: String | null
+  name_in?: String[] | String | null
+  name_not_in?: String[] | String | null
+  name_lt?: String | null
+  name_lte?: String | null
+  name_gt?: String | null
+  name_gte?: String | null
+  name_contains?: String | null
+  name_not_contains?: String | null
+  name_starts_with?: String | null
+  name_not_starts_with?: String | null
+  name_ends_with?: String | null
+  name_not_ends_with?: String | null
+  url?: String | null
+  url_not?: String | null
+  url_in?: String[] | String | null
+  url_not_in?: String[] | String | null
+  url_lt?: String | null
+  url_lte?: String | null
+  url_gt?: String | null
+  url_gte?: String | null
+  url_contains?: String | null
+  url_not_contains?: String | null
+  url_starts_with?: String | null
+  url_not_starts_with?: String | null
+  url_ends_with?: String | null
+  url_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
 }
 
 export interface FoundrySubscriptionWhereInput {
@@ -3699,13 +5305,31 @@ export interface FoundryUpdateInput {
   addedBy?: UserUpdateOneRequiredInput | null
 }
 
+export interface FoundryUpdateManyDataInput {
+  name?: String | null
+  url?: String | null
+}
+
+export interface FoundryUpdateManyMutationInput {
+  name?: String | null
+  url?: String | null
+}
+
 export interface FoundryUpdateManyWithoutTypefacesInput {
   create?: FoundryCreateWithoutTypefacesInput[] | FoundryCreateWithoutTypefacesInput | null
   connect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
+  set?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   disconnect?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   delete?: FoundryWhereUniqueInput[] | FoundryWhereUniqueInput | null
   update?: FoundryUpdateWithWhereUniqueWithoutTypefacesInput[] | FoundryUpdateWithWhereUniqueWithoutTypefacesInput | null
+  updateMany?: FoundryUpdateManyWithWhereNestedInput[] | FoundryUpdateManyWithWhereNestedInput | null
+  deleteMany?: FoundryScalarWhereInput[] | FoundryScalarWhereInput | null
   upsert?: FoundryUpsertWithWhereUniqueWithoutTypefacesInput[] | FoundryUpsertWithWhereUniqueWithoutTypefacesInput | null
+}
+
+export interface FoundryUpdateManyWithWhereNestedInput {
+  where: FoundryScalarWhereInput
+  data: FoundryUpdateManyDataInput
 }
 
 export interface FoundryUpdateWithoutTypefacesDataInput {
@@ -3771,6 +5395,22 @@ export interface FoundryWhereInput {
   url_not_starts_with?: String | null
   url_ends_with?: String | null
   url_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
   typefaces_every?: TypefaceWhereInput | null
   typefaces_some?: TypefaceWhereInput | null
   typefaces_none?: TypefaceWhereInput | null
@@ -3783,6 +5423,7 @@ export interface FoundryWhereUniqueInput {
 }
 
 export interface ImagesCreateInput {
+  id?: ID_Input | null
   website?: WebsiteCreateOneWithoutImagesInput | null
   thumbnail?: FileCreateOneInput | null
   full?: FileCreateOneInput | null
@@ -3800,12 +5441,14 @@ export interface ImagesCreateOneWithoutWebsiteInput {
 }
 
 export interface ImagesCreateWithoutTypefaceInput {
+  id?: ID_Input | null
   website?: WebsiteCreateOneWithoutImagesInput | null
   thumbnail?: FileCreateOneInput | null
   full?: FileCreateOneInput | null
 }
 
 export interface ImagesCreateWithoutWebsiteInput {
+  id?: ID_Input | null
   thumbnail?: FileCreateOneInput | null
   full?: FileCreateOneInput | null
   typeface?: TypefaceCreateOneWithoutImagesInput | null
@@ -3887,6 +5530,22 @@ export interface ImagesWhereInput {
   id_not_starts_with?: ID_Input | null
   id_ends_with?: ID_Input | null
   id_not_ends_with?: ID_Input | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
   website?: WebsiteWhereInput | null
   thumbnail?: FileWhereInput | null
   full?: FileWhereInput | null
@@ -3898,6 +5557,7 @@ export interface ImagesWhereUniqueInput {
 }
 
 export interface TagCreateInput {
+  id?: ID_Input | null
   name: String
   website?: WebsiteCreateManyWithoutTagsInput | null
   typeface?: TypefaceCreateManyWithoutTagsInput | null
@@ -3914,13 +5574,65 @@ export interface TagCreateManyWithoutWebsiteInput {
 }
 
 export interface TagCreateWithoutTypefaceInput {
+  id?: ID_Input | null
   name: String
   website?: WebsiteCreateManyWithoutTagsInput | null
 }
 
 export interface TagCreateWithoutWebsiteInput {
+  id?: ID_Input | null
   name: String
   typeface?: TypefaceCreateManyWithoutTagsInput | null
+}
+
+export interface TagScalarWhereInput {
+  AND?: TagScalarWhereInput[] | TagScalarWhereInput | null
+  OR?: TagScalarWhereInput[] | TagScalarWhereInput | null
+  NOT?: TagScalarWhereInput[] | TagScalarWhereInput | null
+  id?: ID_Input | null
+  id_not?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  id_not_in?: ID_Output[] | ID_Output | null
+  id_lt?: ID_Input | null
+  id_lte?: ID_Input | null
+  id_gt?: ID_Input | null
+  id_gte?: ID_Input | null
+  id_contains?: ID_Input | null
+  id_not_contains?: ID_Input | null
+  id_starts_with?: ID_Input | null
+  id_not_starts_with?: ID_Input | null
+  id_ends_with?: ID_Input | null
+  id_not_ends_with?: ID_Input | null
+  name?: String | null
+  name_not?: String | null
+  name_in?: String[] | String | null
+  name_not_in?: String[] | String | null
+  name_lt?: String | null
+  name_lte?: String | null
+  name_gt?: String | null
+  name_gte?: String | null
+  name_contains?: String | null
+  name_not_contains?: String | null
+  name_starts_with?: String | null
+  name_not_starts_with?: String | null
+  name_ends_with?: String | null
+  name_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
 }
 
 export interface TagSubscriptionWhereInput {
@@ -3940,22 +5652,41 @@ export interface TagUpdateInput {
   typeface?: TypefaceUpdateManyWithoutTagsInput | null
 }
 
+export interface TagUpdateManyDataInput {
+  name?: String | null
+}
+
+export interface TagUpdateManyMutationInput {
+  name?: String | null
+}
+
 export interface TagUpdateManyWithoutTypefaceInput {
   create?: TagCreateWithoutTypefaceInput[] | TagCreateWithoutTypefaceInput | null
   connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+  set?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   delete?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   update?: TagUpdateWithWhereUniqueWithoutTypefaceInput[] | TagUpdateWithWhereUniqueWithoutTypefaceInput | null
+  updateMany?: TagUpdateManyWithWhereNestedInput[] | TagUpdateManyWithWhereNestedInput | null
+  deleteMany?: TagScalarWhereInput[] | TagScalarWhereInput | null
   upsert?: TagUpsertWithWhereUniqueWithoutTypefaceInput[] | TagUpsertWithWhereUniqueWithoutTypefaceInput | null
 }
 
 export interface TagUpdateManyWithoutWebsiteInput {
   create?: TagCreateWithoutWebsiteInput[] | TagCreateWithoutWebsiteInput | null
   connect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
+  set?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   delete?: TagWhereUniqueInput[] | TagWhereUniqueInput | null
   update?: TagUpdateWithWhereUniqueWithoutWebsiteInput[] | TagUpdateWithWhereUniqueWithoutWebsiteInput | null
+  updateMany?: TagUpdateManyWithWhereNestedInput[] | TagUpdateManyWithWhereNestedInput | null
+  deleteMany?: TagScalarWhereInput[] | TagScalarWhereInput | null
   upsert?: TagUpsertWithWhereUniqueWithoutWebsiteInput[] | TagUpsertWithWhereUniqueWithoutWebsiteInput | null
+}
+
+export interface TagUpdateManyWithWhereNestedInput {
+  where: TagScalarWhereInput
+  data: TagUpdateManyDataInput
 }
 
 export interface TagUpdateWithoutTypefaceDataInput {
@@ -4022,6 +5753,22 @@ export interface TagWhereInput {
   name_not_starts_with?: String | null
   name_ends_with?: String | null
   name_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
   website_every?: WebsiteWhereInput | null
   website_some?: WebsiteWhereInput | null
   website_none?: WebsiteWhereInput | null
@@ -4035,6 +5782,7 @@ export interface TagWhereUniqueInput {
 }
 
 export interface TypefaceCreateInput {
+  id?: ID_Input | null
   name: String
   downloadUrl: String
   description?: String | null
@@ -4078,6 +5826,7 @@ export interface TypefaceCreateOneWithoutImagesInput {
 }
 
 export interface TypefaceCreateWithoutAddedByInput {
+  id?: ID_Input | null
   name: String
   downloadUrl: String
   description?: String | null
@@ -4090,6 +5839,7 @@ export interface TypefaceCreateWithoutAddedByInput {
 }
 
 export interface TypefaceCreateWithoutDesignersInput {
+  id?: ID_Input | null
   name: String
   downloadUrl: String
   description?: String | null
@@ -4102,6 +5852,7 @@ export interface TypefaceCreateWithoutDesignersInput {
 }
 
 export interface TypefaceCreateWithoutFoundriesInput {
+  id?: ID_Input | null
   name: String
   downloadUrl: String
   description?: String | null
@@ -4114,6 +5865,7 @@ export interface TypefaceCreateWithoutFoundriesInput {
 }
 
 export interface TypefaceCreateWithoutImagesInput {
+  id?: ID_Input | null
   name: String
   downloadUrl: String
   description?: String | null
@@ -4126,6 +5878,7 @@ export interface TypefaceCreateWithoutImagesInput {
 }
 
 export interface TypefaceCreateWithoutTagsInput {
+  id?: ID_Input | null
   name: String
   downloadUrl: String
   description?: String | null
@@ -4138,6 +5891,7 @@ export interface TypefaceCreateWithoutTagsInput {
 }
 
 export interface TypefaceCreateWithoutUsedByInput {
+  id?: ID_Input | null
   name: String
   downloadUrl: String
   description?: String | null
@@ -4147,6 +5901,98 @@ export interface TypefaceCreateWithoutUsedByInput {
   designers?: DesignerCreateManyWithoutTypefacesInput | null
   tags?: TagCreateManyWithoutTypefaceInput | null
   images?: ImagesCreateOneWithoutTypefaceInput | null
+}
+
+export interface TypefaceScalarWhereInput {
+  AND?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
+  OR?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
+  NOT?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
+  id?: ID_Input | null
+  id_not?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  id_not_in?: ID_Output[] | ID_Output | null
+  id_lt?: ID_Input | null
+  id_lte?: ID_Input | null
+  id_gt?: ID_Input | null
+  id_gte?: ID_Input | null
+  id_contains?: ID_Input | null
+  id_not_contains?: ID_Input | null
+  id_starts_with?: ID_Input | null
+  id_not_starts_with?: ID_Input | null
+  id_ends_with?: ID_Input | null
+  id_not_ends_with?: ID_Input | null
+  name?: String | null
+  name_not?: String | null
+  name_in?: String[] | String | null
+  name_not_in?: String[] | String | null
+  name_lt?: String | null
+  name_lte?: String | null
+  name_gt?: String | null
+  name_gte?: String | null
+  name_contains?: String | null
+  name_not_contains?: String | null
+  name_starts_with?: String | null
+  name_not_starts_with?: String | null
+  name_ends_with?: String | null
+  name_not_ends_with?: String | null
+  downloadUrl?: String | null
+  downloadUrl_not?: String | null
+  downloadUrl_in?: String[] | String | null
+  downloadUrl_not_in?: String[] | String | null
+  downloadUrl_lt?: String | null
+  downloadUrl_lte?: String | null
+  downloadUrl_gt?: String | null
+  downloadUrl_gte?: String | null
+  downloadUrl_contains?: String | null
+  downloadUrl_not_contains?: String | null
+  downloadUrl_starts_with?: String | null
+  downloadUrl_not_starts_with?: String | null
+  downloadUrl_ends_with?: String | null
+  downloadUrl_not_ends_with?: String | null
+  description?: String | null
+  description_not?: String | null
+  description_in?: String[] | String | null
+  description_not_in?: String[] | String | null
+  description_lt?: String | null
+  description_lte?: String | null
+  description_gt?: String | null
+  description_gte?: String | null
+  description_contains?: String | null
+  description_not_contains?: String | null
+  description_starts_with?: String | null
+  description_not_starts_with?: String | null
+  description_ends_with?: String | null
+  description_not_ends_with?: String | null
+  slug?: String | null
+  slug_not?: String | null
+  slug_in?: String[] | String | null
+  slug_not_in?: String[] | String | null
+  slug_lt?: String | null
+  slug_lte?: String | null
+  slug_gt?: String | null
+  slug_gte?: String | null
+  slug_contains?: String | null
+  slug_not_contains?: String | null
+  slug_starts_with?: String | null
+  slug_not_starts_with?: String | null
+  slug_ends_with?: String | null
+  slug_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
 }
 
 export interface TypefaceSubscriptionWhereInput {
@@ -4173,49 +6019,83 @@ export interface TypefaceUpdateInput {
   images?: ImagesUpdateOneWithoutTypefaceInput | null
 }
 
+export interface TypefaceUpdateManyDataInput {
+  name?: String | null
+  downloadUrl?: String | null
+  description?: String | null
+  slug?: String | null
+}
+
+export interface TypefaceUpdateManyMutationInput {
+  name?: String | null
+  downloadUrl?: String | null
+  description?: String | null
+  slug?: String | null
+}
+
 export interface TypefaceUpdateManyWithoutAddedByInput {
   create?: TypefaceCreateWithoutAddedByInput[] | TypefaceCreateWithoutAddedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutAddedByInput[] | TypefaceUpdateWithWhereUniqueWithoutAddedByInput | null
+  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
+  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutAddedByInput[] | TypefaceUpsertWithWhereUniqueWithoutAddedByInput | null
 }
 
 export interface TypefaceUpdateManyWithoutDesignersInput {
   create?: TypefaceCreateWithoutDesignersInput[] | TypefaceCreateWithoutDesignersInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutDesignersInput[] | TypefaceUpdateWithWhereUniqueWithoutDesignersInput | null
+  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
+  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutDesignersInput[] | TypefaceUpsertWithWhereUniqueWithoutDesignersInput | null
 }
 
 export interface TypefaceUpdateManyWithoutFoundriesInput {
   create?: TypefaceCreateWithoutFoundriesInput[] | TypefaceCreateWithoutFoundriesInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutFoundriesInput[] | TypefaceUpdateWithWhereUniqueWithoutFoundriesInput | null
+  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
+  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutFoundriesInput[] | TypefaceUpsertWithWhereUniqueWithoutFoundriesInput | null
 }
 
 export interface TypefaceUpdateManyWithoutTagsInput {
   create?: TypefaceCreateWithoutTagsInput[] | TypefaceCreateWithoutTagsInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutTagsInput[] | TypefaceUpdateWithWhereUniqueWithoutTagsInput | null
+  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
+  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutTagsInput[] | TypefaceUpsertWithWhereUniqueWithoutTagsInput | null
 }
 
 export interface TypefaceUpdateManyWithoutUsedByInput {
   create?: TypefaceCreateWithoutUsedByInput[] | TypefaceCreateWithoutUsedByInput | null
   connect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
+  set?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   disconnect?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   delete?: TypefaceWhereUniqueInput[] | TypefaceWhereUniqueInput | null
   update?: TypefaceUpdateWithWhereUniqueWithoutUsedByInput[] | TypefaceUpdateWithWhereUniqueWithoutUsedByInput | null
+  updateMany?: TypefaceUpdateManyWithWhereNestedInput[] | TypefaceUpdateManyWithWhereNestedInput | null
+  deleteMany?: TypefaceScalarWhereInput[] | TypefaceScalarWhereInput | null
   upsert?: TypefaceUpsertWithWhereUniqueWithoutUsedByInput[] | TypefaceUpsertWithWhereUniqueWithoutUsedByInput | null
+}
+
+export interface TypefaceUpdateManyWithWhereNestedInput {
+  where: TypefaceScalarWhereInput
+  data: TypefaceUpdateManyDataInput
 }
 
 export interface TypefaceUpdateOneWithoutImagesInput {
@@ -4433,6 +6313,22 @@ export interface TypefaceWhereInput {
   slug_not_starts_with?: String | null
   slug_ends_with?: String | null
   slug_not_ends_with?: String | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
   usedBy_every?: WebsiteWhereInput | null
   usedBy_some?: WebsiteWhereInput | null
   usedBy_none?: WebsiteWhereInput | null
@@ -4456,6 +6352,7 @@ export interface TypefaceWhereUniqueInput {
 }
 
 export interface UserCreateInput {
+  id?: ID_Input | null
   email: String
   password: String
   name: String
@@ -4480,6 +6377,7 @@ export interface UserCreateOneWithoutWebsitesInput {
 }
 
 export interface UserCreateWithoutTypefacesInput {
+  id?: ID_Input | null
   email: String
   password: String
   name: String
@@ -4488,6 +6386,7 @@ export interface UserCreateWithoutTypefacesInput {
 }
 
 export interface UserCreateWithoutWebsitesInput {
+  id?: ID_Input | null
   email: String
   password: String
   name: String
@@ -4522,6 +6421,13 @@ export interface UserUpdateInput {
   role?: Role | null
   websites?: WebsiteUpdateManyWithoutAddedByInput | null
   typefaces?: TypefaceUpdateManyWithoutAddedByInput | null
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: String | null
+  password?: String | null
+  name?: String | null
+  role?: Role | null
 }
 
 export interface UserUpdateOneRequiredInput {
@@ -4640,6 +6546,22 @@ export interface UserWhereInput {
   role_not?: Role | null
   role_in?: Role[] | Role | null
   role_not_in?: Role[] | Role | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
   websites_every?: WebsiteWhereInput | null
   websites_some?: WebsiteWhereInput | null
   websites_none?: WebsiteWhereInput | null
@@ -4654,6 +6576,7 @@ export interface UserWhereUniqueInput {
 }
 
 export interface WebsiteCreateInput {
+  id?: ID_Input | null
   isPublished?: Boolean | null
   title: String
   slug?: String | null
@@ -4686,6 +6609,7 @@ export interface WebsiteCreateOneWithoutImagesInput {
 }
 
 export interface WebsiteCreateWithoutAddedByInput {
+  id?: ID_Input | null
   isPublished?: Boolean | null
   title: String
   slug?: String | null
@@ -4697,6 +6621,7 @@ export interface WebsiteCreateWithoutAddedByInput {
 }
 
 export interface WebsiteCreateWithoutImagesInput {
+  id?: ID_Input | null
   isPublished?: Boolean | null
   title: String
   slug?: String | null
@@ -4708,6 +6633,7 @@ export interface WebsiteCreateWithoutImagesInput {
 }
 
 export interface WebsiteCreateWithoutTagsInput {
+  id?: ID_Input | null
   isPublished?: Boolean | null
   title: String
   slug?: String | null
@@ -4719,6 +6645,7 @@ export interface WebsiteCreateWithoutTagsInput {
 }
 
 export interface WebsiteCreateWithoutTypefacesInput {
+  id?: ID_Input | null
   isPublished?: Boolean | null
   title: String
   slug?: String | null
@@ -4727,6 +6654,88 @@ export interface WebsiteCreateWithoutTypefacesInput {
   images?: ImagesCreateOneWithoutWebsiteInput | null
   addedBy: UserCreateOneWithoutWebsitesInput
   tags?: TagCreateManyWithoutWebsiteInput | null
+}
+
+export interface WebsiteScalarWhereInput {
+  AND?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
+  OR?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
+  NOT?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
+  id?: ID_Input | null
+  id_not?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  id_not_in?: ID_Output[] | ID_Output | null
+  id_lt?: ID_Input | null
+  id_lte?: ID_Input | null
+  id_gt?: ID_Input | null
+  id_gte?: ID_Input | null
+  id_contains?: ID_Input | null
+  id_not_contains?: ID_Input | null
+  id_starts_with?: ID_Input | null
+  id_not_starts_with?: ID_Input | null
+  id_ends_with?: ID_Input | null
+  id_not_ends_with?: ID_Input | null
+  createdAt?: DateTime | null
+  createdAt_not?: DateTime | null
+  createdAt_in?: DateTime[] | DateTime | null
+  createdAt_not_in?: DateTime[] | DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  isPublished?: Boolean | null
+  isPublished_not?: Boolean | null
+  title?: String | null
+  title_not?: String | null
+  title_in?: String[] | String | null
+  title_not_in?: String[] | String | null
+  title_lt?: String | null
+  title_lte?: String | null
+  title_gt?: String | null
+  title_gte?: String | null
+  title_contains?: String | null
+  title_not_contains?: String | null
+  title_starts_with?: String | null
+  title_not_starts_with?: String | null
+  title_ends_with?: String | null
+  title_not_ends_with?: String | null
+  slug?: String | null
+  slug_not?: String | null
+  slug_in?: String[] | String | null
+  slug_not_in?: String[] | String | null
+  slug_lt?: String | null
+  slug_lte?: String | null
+  slug_gt?: String | null
+  slug_gte?: String | null
+  slug_contains?: String | null
+  slug_not_contains?: String | null
+  slug_starts_with?: String | null
+  slug_not_starts_with?: String | null
+  slug_ends_with?: String | null
+  slug_not_ends_with?: String | null
+  url?: String | null
+  url_not?: String | null
+  url_in?: String[] | String | null
+  url_not_in?: String[] | String | null
+  url_lt?: String | null
+  url_lte?: String | null
+  url_gt?: String | null
+  url_gte?: String | null
+  url_contains?: String | null
+  url_not_contains?: String | null
+  url_starts_with?: String | null
+  url_not_starts_with?: String | null
+  url_ends_with?: String | null
+  url_not_ends_with?: String | null
+  featured?: Boolean | null
+  featured_not?: Boolean | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
 }
 
 export interface WebsiteSubscriptionWhereInput {
@@ -4752,31 +6761,61 @@ export interface WebsiteUpdateInput {
   tags?: TagUpdateManyWithoutWebsiteInput | null
 }
 
+export interface WebsiteUpdateManyDataInput {
+  isPublished?: Boolean | null
+  title?: String | null
+  slug?: String | null
+  url?: String | null
+  featured?: Boolean | null
+}
+
+export interface WebsiteUpdateManyMutationInput {
+  isPublished?: Boolean | null
+  title?: String | null
+  slug?: String | null
+  url?: String | null
+  featured?: Boolean | null
+}
+
 export interface WebsiteUpdateManyWithoutAddedByInput {
   create?: WebsiteCreateWithoutAddedByInput[] | WebsiteCreateWithoutAddedByInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutAddedByInput[] | WebsiteUpdateWithWhereUniqueWithoutAddedByInput | null
+  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
+  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
   upsert?: WebsiteUpsertWithWhereUniqueWithoutAddedByInput[] | WebsiteUpsertWithWhereUniqueWithoutAddedByInput | null
 }
 
 export interface WebsiteUpdateManyWithoutTagsInput {
   create?: WebsiteCreateWithoutTagsInput[] | WebsiteCreateWithoutTagsInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutTagsInput[] | WebsiteUpdateWithWhereUniqueWithoutTagsInput | null
+  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
+  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
   upsert?: WebsiteUpsertWithWhereUniqueWithoutTagsInput[] | WebsiteUpsertWithWhereUniqueWithoutTagsInput | null
 }
 
 export interface WebsiteUpdateManyWithoutTypefacesInput {
   create?: WebsiteCreateWithoutTypefacesInput[] | WebsiteCreateWithoutTypefacesInput | null
   connect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
+  set?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   disconnect?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   delete?: WebsiteWhereUniqueInput[] | WebsiteWhereUniqueInput | null
   update?: WebsiteUpdateWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpdateWithWhereUniqueWithoutTypefacesInput | null
+  updateMany?: WebsiteUpdateManyWithWhereNestedInput[] | WebsiteUpdateManyWithWhereNestedInput | null
+  deleteMany?: WebsiteScalarWhereInput[] | WebsiteScalarWhereInput | null
   upsert?: WebsiteUpsertWithWhereUniqueWithoutTypefacesInput[] | WebsiteUpsertWithWhereUniqueWithoutTypefacesInput | null
+}
+
+export interface WebsiteUpdateManyWithWhereNestedInput {
+  where: WebsiteScalarWhereInput
+  data: WebsiteUpdateManyDataInput
 }
 
 export interface WebsiteUpdateOneWithoutImagesInput {
@@ -4942,6 +6981,14 @@ export interface WebsiteWhereInput {
   url_not_ends_with?: String | null
   featured?: Boolean | null
   featured_not?: Boolean | null
+  updatedAt?: DateTime | null
+  updatedAt_not?: DateTime | null
+  updatedAt_in?: DateTime[] | DateTime | null
+  updatedAt_not_in?: DateTime[] | DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
   images?: ImagesWhereInput | null
   addedBy?: UserWhereInput | null
   typefaces_every?: TypefaceWhereInput | null
@@ -5008,6 +7055,8 @@ export interface Designer extends Node {
   url: String
   typefaces?: Array<Typeface> | null
   addedBy: User
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 /*
@@ -5033,6 +7082,8 @@ export interface DesignerPreviousValues {
   id: ID_Output
   name: String
   url: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface DesignerSubscriptionPayload {
@@ -5094,6 +7145,8 @@ export interface Foundry extends Node {
   url: String
   typefaces?: Array<Typeface> | null
   addedBy: User
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 /*
@@ -5119,6 +7172,8 @@ export interface FoundryPreviousValues {
   id: ID_Output
   name: String
   url: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface FoundrySubscriptionPayload {
@@ -5134,6 +7189,8 @@ export interface Images extends Node {
   thumbnail?: File | null
   full?: File | null
   typeface?: Typeface | null
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 /*
@@ -5157,6 +7214,8 @@ export interface ImagesEdge {
 
 export interface ImagesPreviousValues {
   id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface ImagesSubscriptionPayload {
@@ -5182,6 +7241,8 @@ export interface Tag extends Node {
   name: String
   website?: Array<Website> | null
   typeface?: Array<Typeface> | null
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 /*
@@ -5206,6 +7267,8 @@ export interface TagEdge {
 export interface TagPreviousValues {
   id: ID_Output
   name: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface TagSubscriptionPayload {
@@ -5227,6 +7290,8 @@ export interface Typeface extends Node {
   designers?: Array<Designer> | null
   tags?: Array<Tag> | null
   images?: Images | null
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 /*
@@ -5254,6 +7319,8 @@ export interface TypefacePreviousValues {
   downloadUrl: String
   description?: String | null
   slug: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface TypefaceSubscriptionPayload {
@@ -5271,6 +7338,8 @@ export interface User extends Node {
   role: Role
   websites?: Array<Website> | null
   typefaces?: Array<Typeface> | null
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 /*
@@ -5298,6 +7367,8 @@ export interface UserPreviousValues {
   password: String
   name: String
   role: Role
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface UserSubscriptionPayload {
@@ -5319,6 +7390,7 @@ export interface Website extends Node {
   typefaces?: Array<Typeface> | null
   featured: Boolean
   tags?: Array<Tag> | null
+  updatedAt: DateTime
 }
 
 /*
@@ -5348,6 +7420,7 @@ export interface WebsitePreviousValues {
   slug?: String | null
   url: String
   featured: Boolean
+  updatedAt: DateTime
 }
 
 export interface WebsiteSubscriptionPayload {
