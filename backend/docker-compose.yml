@@ -1,35 +1,38 @@
-version: '3'
+version: "3"
 services:
   prisma:
     image: prismagraphql/prisma:1.34
     restart: always
     ports:
-    - "4466:4466"
+      - "4466:4466"
     environment:
       PRISMA_CONFIG: |
         managementApiSecret: my-server-secret-123
         port: 4466
         databases:
           default:
-            connector: mysql  # or `postgres`
+            connector: postgres  # or `postgres`
             active: true
-            host: db
-            port: 3306        # or `5432` for `postgres`
+            host: postgres
+            port: 5432        # or `5432` for `postgres`
             user: root
             password: prisma
+            migrations: true
             managementSchema: management
-  db:
-    container_name: prisma-db
-    image: mysql:5.7
-    ports: 
-      - "3306:3306"
+  postgres:
+    container_name: prisma-pg
+    image: postgres:11
     restart: always
     environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: prisma
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: prisma
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
   s3:
     container_name: fake-s3
     image: lphoward/fake-s3
-    ports: 
-    - "4569:4569"
-
+    ports:
+      - "4569:4569"
+volumes:
+  postgres:
