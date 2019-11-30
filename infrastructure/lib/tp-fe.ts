@@ -5,7 +5,7 @@ import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import { IRepository } from '@aws-cdk/aws-ecr';
 
 import ssm = require('@aws-cdk/aws-ssm');
-import { domainName } from './tp-images';
+import { domainName } from './common';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { IGrantable } from '@aws-cdk/aws-iam';

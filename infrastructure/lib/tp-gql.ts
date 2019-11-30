@@ -7,7 +7,7 @@ import { IRepository } from '@aws-cdk/aws-ecr';
 import route53 = require('@aws-cdk/aws-route53');
 
 import ssm = require('@aws-cdk/aws-ssm');
-import { domainName } from './tp-images';
+import { domainName } from './common';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 
 interface TpGqlProps extends cdk.StackProps {

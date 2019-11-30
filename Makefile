@@ -31,8 +31,7 @@ update-gql-service-staging:
 	ecs-deploy -n $(GQL_SERVICE_NAME) -c $(GQL_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-gql:latest
 
 set-ssm-param: 
-	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" 
-
+	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=alias/TpMaster
 # FE Docker Build
 build-tp-fe:
 	docker build -t tp-fe ./frontend

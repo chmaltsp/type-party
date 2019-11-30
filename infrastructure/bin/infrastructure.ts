@@ -9,6 +9,8 @@ import { TpGql } from '../lib/tp-gql';
 
 import { TpCommon } from '../lib/common';
 import { TpFe } from '../lib/tp-fe';
+import { Postgres } from '../lib/tp-postgres';
+import { Prisma } from '../lib/tp-prisma';
 
 const app = new cdk.App();
 
@@ -36,6 +38,12 @@ const imageStack = new TpImages(app, 'TpStagingImages', {
   env,
 });
 
+const postgres = new Postgres(app, 'TpStagingDb', {
+  vpc: stagingVpc.vpc,
+  kmsKey: common.key,
+  env,
+});
+
 new TpGql(app, TP_GQL_STAGING, {
   ecrRepository: tpGqlEcr.gql,
   vpc: stagingVpc.vpc,
@@ -43,12 +51,20 @@ new TpGql(app, TP_GQL_STAGING, {
   imageBucket: imageStack.bucket,
   env,
 });
-
 new TpFe(app, TP_FE_STAGING, {
   ecrRepository: tpGqlEcr.fe,
   vpc: stagingVpc.vpc,
   stackName: TP_FE_STAGING,
   certificate: common.certificate,
   zone: common.zone,
+  env,
+});
+
+new Prisma(app, 'TpStagingPrimsma', {
+  vpc: stagingVpc.vpc,
+  certificate: common.certificate,
+  zone: common.zone,
+  db: postgres.db,
+  dbPassword: postgres.dbPassword,
   env,
 });
