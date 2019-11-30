@@ -5,8 +5,7 @@ import route53 = require('@aws-cdk/aws-route53');
 import targets = require('@aws-cdk/aws-route53-targets');
 
 import ssm = require('@aws-cdk/aws-ssm');
-
-export const domainName = 'typeparty.com';
+import { domainName } from './common';
 
 const subDomain = 'images';
 
