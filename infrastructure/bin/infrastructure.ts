@@ -60,7 +60,7 @@ new TpFe(app, TP_FE_STAGING, {
   env,
 });
 
-new Prisma(app, 'TpStagingPrimsma', {
+new Prisma(app, 'TpStagingPrisma', {
   vpc: stagingVpc.vpc,
   certificate: common.certificate,
   zone: common.zone,

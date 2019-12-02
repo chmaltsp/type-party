@@ -3814,11 +3814,11 @@
         ]
       }
     },
-    "TpStagingPrimsma": {
+    "TpStagingPrisma": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://561034361591/us-east-1",
       "properties": {
-        "templateFile": "TpStagingPrimsma.template.json"
+        "templateFile": "TpStagingPrisma.template.json"
       },
       "dependencies": [
         "TpStagingVpc",
@@ -3835,7 +3835,7 @@
         "TpStagingVpc"
       ],
       "metadata": {
-        "/TpStagingPrimsma/cluster/Resource": [
+        "/TpStagingPrisma/cluster/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "cluster611F8AFF",
@@ -3863,7 +3863,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
@@ -3893,10 +3893,10 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpStagingPrimsmaprismaLBSecurityGroup75B9C5C2:32768-65535": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from TpStagingPrismaprismaLBSecurityGroup86BDF5CD:32768-65535": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "clusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpStagingPrimsmaprismaLBSecurityGroup75B9C5C2327686553541D81A3F",
+            "data": "clusterDefaultAutoScalingGroupInstanceSecurityGroupfromTpStagingPrismaprismaLBSecurityGroup86BDF5CD327686553577D4C76F",
             "trace": [
               "SecurityGroup.addIngressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:76:7)",
               "SecurityGroup.addIngressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:340:13)",
@@ -3934,7 +3934,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/InstanceRole/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/InstanceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupInstanceRole98EFF504",
@@ -3964,7 +3964,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/InstanceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupInstanceRoleDefaultPolicyFBC91645",
@@ -3996,7 +3996,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/InstanceProfile": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/InstanceProfile": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupInstanceProfileC240B524",
@@ -4025,7 +4025,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/LaunchConfig": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/LaunchConfig": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupLaunchConfigEC006908",
@@ -4054,7 +4054,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/ASG": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/ASG": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupASG03807708",
@@ -4083,7 +4083,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleC8398058",
@@ -4115,7 +4115,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupDrainECSHookFunctionServiceRoleDefaultPolicyC2015014",
@@ -4148,7 +4148,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupDrainECSHookFunctionB217787A",
@@ -4179,10 +4179,10 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpStagingPrimsmaclusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic07F4190E": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/AllowInvoke:TpStagingPrismaclusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicCE2694D7": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "clusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpStagingPrimsmaclusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic07F4190EDB9FEA26",
+            "data": "clusterDefaultAutoScalingGroupDrainECSHookFunctionAllowInvokeTpStagingPrismaclusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicCE2694D7722B0DA2",
             "trace": [
               "Function.addPermission (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:197:5)",
               "LambdaSubscription.bind (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-sns-subscriptions/lib/lambda.ts:27:13)",
@@ -4215,7 +4215,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/DrainECSHook/Function/Topic/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupDrainECSHookFunctionTopicAD2A6F0C",
@@ -4250,7 +4250,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupLifecycleHookDrainHookRole3AE4A0D5",
@@ -4283,7 +4283,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupLifecycleHookDrainHookRoleDefaultPolicyB8C7E1BD",
@@ -4322,7 +4322,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Topic/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupLifecycleHookDrainHookTopicC8A9EF85",
@@ -4356,7 +4356,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource": [
+        "/TpStagingPrisma/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "clusterDefaultAutoScalingGroupLifecycleHookDrainHook304C825C",
@@ -4388,7 +4388,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+        "/TpStagingPrisma/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
           {
             "type": "aws:cdk:logicalId",
             "data": "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter",
@@ -4420,7 +4420,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/LB/Resource": [
+        "/TpStagingPrisma/prisma/LB/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaLB8A5E59B1",
@@ -4451,7 +4451,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/LB/SecurityGroup/Resource": [
+        "/TpStagingPrisma/prisma/LB/SecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaLBSecurityGroup5156427E",
@@ -4482,10 +4482,10 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/LB/SecurityGroup/to TpStagingPrimsmaclusterDefaultAutoScalingGroupInstanceSecurityGroupDC85DC6D:32768-65535": [
+        "/TpStagingPrisma/prisma/LB/SecurityGroup/to TpStagingPrismaclusterDefaultAutoScalingGroupInstanceSecurityGroup01D0DA0E:32768-65535": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "prismaLBSecurityGrouptoTpStagingPrimsmaclusterDefaultAutoScalingGroupInstanceSecurityGroupDC85DC6D32768655351DFBBCCB",
+            "data": "prismaLBSecurityGrouptoTpStagingPrismaclusterDefaultAutoScalingGroupInstanceSecurityGroup01D0DA0E327686553521D77E61",
             "trace": [
               "SecurityGroup.addEgressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:94:7)",
               "SecurityGroup.addEgressRule (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:369:13)",
@@ -4524,7 +4524,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/LB/PublicListener/Resource": [
+        "/TpStagingPrisma/prisma/LB/PublicListener/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaLBPublicListenerC8F5E783",
@@ -4556,7 +4556,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/LB/PublicListener/ECSGroup/Resource": [
+        "/TpStagingPrisma/prisma/LB/PublicListener/ECSGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaLBPublicListenerECSGroupAEA979E8",
@@ -4588,7 +4588,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/DNS/Resource": [
+        "/TpStagingPrisma/prisma/DNS/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaDNSE424BC0C",
@@ -4619,7 +4619,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/LoadBalancerDNS": [
+        "/TpStagingPrisma/prisma/LoadBalancerDNS": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaLoadBalancerDNS53D74D7F",
@@ -4648,7 +4648,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/ServiceURL": [
+        "/TpStagingPrisma/prisma/ServiceURL": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaServiceURL39F0FF27",
@@ -4677,7 +4677,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/TaskDef/TaskRole/Resource": [
+        "/TpStagingPrisma/prisma/TaskDef/TaskRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaTaskDefTaskRoleA663EF18",
@@ -4708,7 +4708,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/TaskDef/Resource": [
+        "/TpStagingPrisma/prisma/TaskDef/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaTaskDef25E24F11",
@@ -4738,7 +4738,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/TaskDef/web/LogGroup/Resource": [
+        "/TpStagingPrisma/prisma/TaskDef/web/LogGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaTaskDefwebLogGroupC82EB3AC",
@@ -4770,7 +4770,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/TaskDef/ExecutionRole/Resource": [
+        "/TpStagingPrisma/prisma/TaskDef/ExecutionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaTaskDefExecutionRoleFFE9DAFA",
@@ -4803,7 +4803,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+        "/TpStagingPrisma/prisma/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaTaskDefExecutionRoleDefaultPolicy32E421DB",
@@ -4839,7 +4839,7 @@
             ]
           }
         ],
-        "/TpStagingPrimsma/prisma/Service/Service": [
+        "/TpStagingPrisma/prisma/Service/Service": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaServiceFCB8B88D",
