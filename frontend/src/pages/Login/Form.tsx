@@ -72,7 +72,7 @@ class LoginForm extends React.PureComponent<
       actions.setFieldError('password', 'Username and Password do not match');
       console.error(error);
     }
-  }
+  };
   public render() {
     console.log(this.props);
     return (

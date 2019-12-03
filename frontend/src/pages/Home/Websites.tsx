@@ -44,7 +44,7 @@ const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
       <span>
         Fonts --{'  '}
         <LinkList
-          hrefPrefix="site"
+          hrefPrefix="typeface"
           links={
             (website.typefaces &&
               website.typefaces.map(font => ({
@@ -66,7 +66,6 @@ export const WebsitePanel: React.SFC<{}> = props => {
     <Query<GetWebsites> query={GET_WEBSITES}>
       {({ data, loading, error }) => {
         const cards = selectCards((data && data.websites) || []);
-        console.log(data);
         return (
           <Wrapper>
             <Grid>

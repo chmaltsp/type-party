@@ -65,6 +65,7 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
   };
 
   private handleAddTypeface = (typeface: AddTypeface_addTypeface) => {
+    console.log(typeface);
     this.props.setFieldValue('typefaces', [...this.props.values.typefaces, typeface]);
   };
 
@@ -73,7 +74,6 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
   };
 
   public render() {
-    console.log(this.props);
     return (
       <Form>
         <LeftColumn>
@@ -188,14 +188,15 @@ const WrappedForm: React.SFC<AllProps> = props => {
           },
         });
       }}
-      render={(formikProps: FormikProps<InputValues>) => (
+    >
+      {(formikProps: FormikProps<InputValues>) => (
         <SiteForm
           {...formikProps}
           full={(website && website.images && website.images.full) || null}
           thumbnail={(website && website.images && website.images.thumbnail) || null}
         />
       )}
-    />
+    </Formik>
   );
 };
 
