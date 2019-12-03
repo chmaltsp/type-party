@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'sc';
 
 import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
-import { ChildDataProps, ChildMutateProps, compose, graphql } from 'react-apollo';
+import { ChildDataProps, compose, FetchResult, graphql } from 'react-apollo';
 import ButtonBase from '../../components/Button';
 import DesignerForm from '../../components/DesignerForm';
 import Flex from '../../components/Flex';
@@ -12,11 +12,7 @@ import Input from '../../components/Input';
 import { AddDesigner_addDesigner } from '../../components/DesignerForm/__generated__/AddDesigner';
 import { AddFoundry_addFoundry } from '../../components/FoundryForm/__generated__/AddFoundry';
 import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
-import {
-  AddTypeface,
-  AddTypeface_addTypeface,
-  AddTypefaceVariables,
-} from './__generated__/AddTypeface';
+import { AddTypeface, AddTypefaceVariables } from './__generated__/AddTypeface';
 import DesignerTypeahead from './DesignerTypeahead';
 import FoundryTypeahead from './FoundryTypeahead';
 import { ADD_TYPEFACE, UPDATE_TYPEFACE } from './mutation';
@@ -73,8 +69,10 @@ interface ImageProps {
   full: EditTypeface_typeface_images_full | null;
 }
 interface AllProps extends ChildDataProps<WrappedFormProps, EditTypeface>, ImageProps {
-  addTypeface: (data: AddTypefaceVariables) => AddTypeface_addTypeface;
-  updateTypeface: (data: UpdateTypefaceVariables) => UpdateTypeface_updateTypeface;
+  addTypeface: (data: AddTypefaceVariables) => Promise<void | FetchResult<AddTypeface>>;
+  updateTypeface: (
+    data: UpdateTypefaceVariables
+  ) => Promise<void | FetchResult<UpdateTypeface>>;
   handleSubmit?: (typeface: any) => void;
 }
 
@@ -100,21 +98,37 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
       ...values,
       designers: values.designers.map(designer => designer.id),
       foundries: values.foundries.map(foundry => foundry.id),
-      full: values.fullTypeface,
       tags: values.tags.map(tag => tag.id),
     };
 
-    // Remove for compatibilty with nested form
-    delete cleanInput.fullTypeface;
-    try {
-      const response = await this.props[
-        this.props.slug ? 'updateTypeface' : 'addTypeface'
-      ]({
-        input: cleanInput,
-      });
+    const renameProp = (
+      oldProp: string,
+      newProp: string,
+      { [oldProp]: old, ...others }
+    ) => ({
+      [newProp]: old,
+      ...others,
+    });
 
-      if (response && this.props.handleSubmit) {
-        this.props.handleSubmit(response);
+    // Remove for compatibilty with nested form
+
+    const freshInput = renameProp('fullTypeface', 'full', cleanInput);
+
+    try {
+      console.log(values, freshInput);
+      const response = await this.props.addTypeface({
+        input: freshInput as any,
+      });
+      // const response = await this.props[
+      //   this.props.slug ? 'updateTypeface' : 'addTypeface'
+      // ]({
+      //   input: cleanInput,
+      // });
+
+      if (response && response.data && this.props.handleSubmit) {
+        return this.props.handleSubmit(
+          response.data[this.props.slug ? 'updateTypeface' : 'addTypeface']
+        );
       }
     } catch (error) {
       console.log(error);

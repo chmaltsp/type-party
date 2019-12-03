@@ -30,8 +30,11 @@ update-gql-service-staging:
 	$(eval GQL_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name TpGqlStaging --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
 	ecs-deploy -n $(GQL_SERVICE_NAME) -c $(GQL_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-gql:latest
 
-set-ssm-param: 
+set-ssm-param-secure: 
 	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=alias/TpMaster
+
+set-ssm-param: 
+	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1"
 # FE Docker Build
 build-tp-fe:
 	docker build -t tp-fe ./frontend
@@ -43,6 +46,9 @@ push-tp-fe:
 	make push-docker-image IMAGE=${TP_FE_REPO}
 
 tag-and-push-fe: build-tp-fe tag-fe-image push-tp-fe
+
+prisma-deploy-staging: 
+	cd backend && yarn prisma
 
 update-fe-service-staging:
 	$(eval FE_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name TpFeStaging --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))

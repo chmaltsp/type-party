@@ -22,7 +22,7 @@ import isWindowDefined from './isWindowDefined';
 import { runtimeConfig } from '../config';
 
 export const createClient = () => {
-  const uri = runtimeConfig.apiUrl || 'https://tp-backend-zocaxqjnyl.now.sh';
+  const uri = runtimeConfig.apiUrl || 'https://api.typeparty.com';
 
   const uploadLink = createUploadLink({
     fetch,
