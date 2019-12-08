@@ -54,7 +54,7 @@ export interface InputValues {
   fullTypeface: File | null;
 }
 
-const Form = styled.div`
+const Form = styled(FormBase)`
   max-width: 700px;
   margin-bottom: ${({ theme }) => theme.spacing.xl};
 `;

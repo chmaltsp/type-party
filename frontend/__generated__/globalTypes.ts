@@ -33,6 +33,7 @@ export interface AddWebsiteInput {
 }
 
 export interface DesignerCreateInput {
+  id?: string | null;
   name: string;
   url: string;
   typefaces?: TypefaceCreateManyWithoutDesignersInput | null;
@@ -45,6 +46,7 @@ export interface DesignerCreateManyWithoutTypefacesInput {
 }
 
 export interface DesignerCreateWithoutTypefacesInput {
+  id?: string | null;
   name: string;
   url: string;
   addedBy: UserCreateOneInput;
@@ -56,6 +58,7 @@ export interface DesignerWhereUniqueInput {
 }
 
 export interface FileCreateInput {
+  id?: string | null;
   filename: string;
   mimetype: string;
   encoding: string;
@@ -73,6 +76,7 @@ export interface FileWhereUniqueInput {
 }
 
 export interface FoundryCreateInput {
+  id?: string | null;
   name: string;
   url: string;
   typefaces?: TypefaceCreateManyWithoutFoundriesInput | null;
@@ -85,6 +89,7 @@ export interface FoundryCreateManyWithoutTypefacesInput {
 }
 
 export interface FoundryCreateWithoutTypefacesInput {
+  id?: string | null;
   name: string;
   url: string;
   addedBy: UserCreateOneInput;
@@ -106,12 +111,14 @@ export interface ImagesCreateOneWithoutWebsiteInput {
 }
 
 export interface ImagesCreateWithoutTypefaceInput {
+  id?: string | null;
   website?: WebsiteCreateOneWithoutImagesInput | null;
   thumbnail?: FileCreateOneInput | null;
   full?: FileCreateOneInput | null;
 }
 
 export interface ImagesCreateWithoutWebsiteInput {
+  id?: string | null;
   thumbnail?: FileCreateOneInput | null;
   full?: FileCreateOneInput | null;
   typeface?: TypefaceCreateOneWithoutImagesInput | null;
@@ -122,6 +129,7 @@ export interface ImagesWhereUniqueInput {
 }
 
 export interface TagCreateInput {
+  id?: string | null;
   name: string;
   website?: WebsiteCreateManyWithoutTagsInput | null;
   typeface?: TypefaceCreateManyWithoutTagsInput | null;
@@ -138,11 +146,13 @@ export interface TagCreateManyWithoutWebsiteInput {
 }
 
 export interface TagCreateWithoutTypefaceInput {
+  id?: string | null;
   name: string;
   website?: WebsiteCreateManyWithoutTagsInput | null;
 }
 
 export interface TagCreateWithoutWebsiteInput {
+  id?: string | null;
   name: string;
   typeface?: TypefaceCreateManyWithoutTagsInput | null;
 }
@@ -182,6 +192,7 @@ export interface TypefaceCreateOneWithoutImagesInput {
 }
 
 export interface TypefaceCreateWithoutAddedByInput {
+  id?: string | null;
   name: string;
   downloadUrl: string;
   description?: string | null;
@@ -194,6 +205,7 @@ export interface TypefaceCreateWithoutAddedByInput {
 }
 
 export interface TypefaceCreateWithoutDesignersInput {
+  id?: string | null;
   name: string;
   downloadUrl: string;
   description?: string | null;
@@ -206,6 +218,7 @@ export interface TypefaceCreateWithoutDesignersInput {
 }
 
 export interface TypefaceCreateWithoutFoundriesInput {
+  id?: string | null;
   name: string;
   downloadUrl: string;
   description?: string | null;
@@ -218,6 +231,7 @@ export interface TypefaceCreateWithoutFoundriesInput {
 }
 
 export interface TypefaceCreateWithoutImagesInput {
+  id?: string | null;
   name: string;
   downloadUrl: string;
   description?: string | null;
@@ -230,6 +244,7 @@ export interface TypefaceCreateWithoutImagesInput {
 }
 
 export interface TypefaceCreateWithoutTagsInput {
+  id?: string | null;
   name: string;
   downloadUrl: string;
   description?: string | null;
@@ -242,6 +257,7 @@ export interface TypefaceCreateWithoutTagsInput {
 }
 
 export interface TypefaceCreateWithoutUsedByInput {
+  id?: string | null;
   name: string;
   downloadUrl: string;
   description?: string | null;
@@ -281,6 +297,7 @@ export interface UpdateWebsiteInput {
 }
 
 export interface UserCreateInput {
+  id?: string | null;
   email: string;
   password: string;
   name: string;
@@ -305,6 +322,7 @@ export interface UserCreateOneWithoutWebsitesInput {
 }
 
 export interface UserCreateWithoutTypefacesInput {
+  id?: string | null;
   email: string;
   password: string;
   name: string;
@@ -313,6 +331,7 @@ export interface UserCreateWithoutTypefacesInput {
 }
 
 export interface UserCreateWithoutWebsitesInput {
+  id?: string | null;
   email: string;
   password: string;
   name: string;
@@ -346,6 +365,7 @@ export interface WebsiteCreateOneWithoutImagesInput {
 }
 
 export interface WebsiteCreateWithoutAddedByInput {
+  id?: string | null;
   isPublished?: boolean | null;
   title: string;
   images?: ImagesCreateOneWithoutWebsiteInput | null;
@@ -357,6 +377,7 @@ export interface WebsiteCreateWithoutAddedByInput {
 }
 
 export interface WebsiteCreateWithoutImagesInput {
+  id?: string | null;
   isPublished?: boolean | null;
   title: string;
   slug?: string | null;
@@ -368,6 +389,7 @@ export interface WebsiteCreateWithoutImagesInput {
 }
 
 export interface WebsiteCreateWithoutTagsInput {
+  id?: string | null;
   isPublished?: boolean | null;
   title: string;
   images?: ImagesCreateOneWithoutWebsiteInput | null;
@@ -379,6 +401,7 @@ export interface WebsiteCreateWithoutTagsInput {
 }
 
 export interface WebsiteCreateWithoutTypefacesInput {
+  id?: string | null;
   isPublished?: boolean | null;
   title: string;
   images?: ImagesCreateOneWithoutWebsiteInput | null;
