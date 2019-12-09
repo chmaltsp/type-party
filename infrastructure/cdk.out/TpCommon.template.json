@@ -5,6 +5,51 @@
       "Default": "CertifcateArn-typeparty.com"
     }
   },
+  "Resources": {
+    "tpprod49D00DF1": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "Name": "type.party."
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpCommon/tp-prod/Resource"
+      }
+    },
+    "wwwtpprod758FB679": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": "www.type.party.",
+        "Type": "CNAME",
+        "HostedZoneId": {
+          "Ref": "tpprod49D00DF1"
+        },
+        "ResourceRecords": [
+          "type-party.superhi.com"
+        ],
+        "TTL": "1800"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpCommon/www-tp-prod/Resource"
+      }
+    },
+    "attpprodFB691D3D": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": "@.type.party.",
+        "Type": "CNAME",
+        "HostedZoneId": {
+          "Ref": "tpprod49D00DF1"
+        },
+        "ResourceRecords": [
+          "type-party.superhi.com"
+        ],
+        "TTL": "1800"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpCommon/at-tp-prod/Resource"
+      }
+    }
+  },
   "Outputs": {
     "ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098": {
       "Value": {

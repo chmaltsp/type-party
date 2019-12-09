@@ -29,6 +29,7 @@ export class Postgres extends cdk.Stack {
       instanceClass: InstanceType.of(InstanceClass.T2, InstanceSize.MICRO),
       databaseName: 'postgres',
       masterUserPassword: this.dbPassword.secretValue,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
     this.db.connections.allowDefaultPortFromAnyIpv4();

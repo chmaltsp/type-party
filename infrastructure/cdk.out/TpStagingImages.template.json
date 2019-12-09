@@ -3,7 +3,7 @@
     "TPImageBucketCAF10F90": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "images.typeparty.com"
+        "BucketName": "tp-image-bucket"
       },
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete",
