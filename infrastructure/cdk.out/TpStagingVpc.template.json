@@ -95,36 +95,55 @@
         "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet1/DefaultRoute"
       }
     },
-    "TpStagingVpcPublicSubnet1EIP8CFE37FF": {
-      "Type": "AWS::EC2::EIP",
+    "TpStagingVpcPublicSubnet1NatInstanceInstanceProfile11691F8B": {
+      "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
-        "Domain": "vpc"
+        "Roles": [
+          {
+            "Ref": "TpStagingVpcNatRoleB237C15B"
+          }
+        ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet1/EIP"
+        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet1/NatInstance/InstanceProfile"
       }
     },
-    "TpStagingVpcPublicSubnet1NATGateway0C011263": {
-      "Type": "AWS::EC2::NatGateway",
+    "TpStagingVpcPublicSubnet1NatInstance36A72D00": {
+      "Type": "AWS::EC2::Instance",
       "Properties": {
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "TpStagingVpcPublicSubnet1EIP8CFE37FF",
-            "AllocationId"
-          ]
+        "AvailabilityZone": "us-east-1a",
+        "IamInstanceProfile": {
+          "Ref": "TpStagingVpcPublicSubnet1NatInstanceInstanceProfile11691F8B"
         },
+        "ImageId": "ami-02cb555e324696ced",
+        "InstanceType": "t3a.nano",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "TpStagingVpcNatSecurityGroupB8E9E405",
+              "GroupId"
+            ]
+          }
+        ],
+        "SourceDestCheck": false,
         "SubnetId": {
           "Ref": "TpStagingVpcPublicSubnet1Subnet7A16B9AB"
         },
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpStagingVpc/TpStagingVpc/PublicSubnet1"
+            "Value": "TpStagingVpc/TpStagingVpc/PublicSubnet1/NatInstance"
           }
-        ]
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash"
+        }
       },
+      "DependsOn": [
+        "TpStagingVpcNatRoleB237C15B"
+      ],
       "Metadata": {
-        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet1/NATGateway"
+        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet1/NatInstance/Resource"
       }
     },
     "TpStagingVpcPublicSubnet2Subnet22BF3FA4": {
@@ -204,36 +223,55 @@
         "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet2/DefaultRoute"
       }
     },
-    "TpStagingVpcPublicSubnet2EIP637A2D22": {
-      "Type": "AWS::EC2::EIP",
+    "TpStagingVpcPublicSubnet2NatInstanceInstanceProfile7021844A": {
+      "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
-        "Domain": "vpc"
+        "Roles": [
+          {
+            "Ref": "TpStagingVpcNatRoleB237C15B"
+          }
+        ]
       },
       "Metadata": {
-        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet2/EIP"
+        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet2/NatInstance/InstanceProfile"
       }
     },
-    "TpStagingVpcPublicSubnet2NATGateway320AE1B7": {
-      "Type": "AWS::EC2::NatGateway",
+    "TpStagingVpcPublicSubnet2NatInstance4211A63C": {
+      "Type": "AWS::EC2::Instance",
       "Properties": {
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "TpStagingVpcPublicSubnet2EIP637A2D22",
-            "AllocationId"
-          ]
+        "AvailabilityZone": "us-east-1b",
+        "IamInstanceProfile": {
+          "Ref": "TpStagingVpcPublicSubnet2NatInstanceInstanceProfile7021844A"
         },
+        "ImageId": "ami-02cb555e324696ced",
+        "InstanceType": "t3a.nano",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "TpStagingVpcNatSecurityGroupB8E9E405",
+              "GroupId"
+            ]
+          }
+        ],
+        "SourceDestCheck": false,
         "SubnetId": {
           "Ref": "TpStagingVpcPublicSubnet2Subnet22BF3FA4"
         },
         "Tags": [
           {
             "Key": "Name",
-            "Value": "TpStagingVpc/TpStagingVpc/PublicSubnet2"
+            "Value": "TpStagingVpc/TpStagingVpc/PublicSubnet2/NatInstance"
           }
-        ]
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash"
+        }
       },
+      "DependsOn": [
+        "TpStagingVpcNatRoleB237C15B"
+      ],
       "Metadata": {
-        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet2/NATGateway"
+        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/PublicSubnet2/NatInstance/Resource"
       }
     },
     "TpStagingVpcPrivateSubnet1SubnetCA201919": {
@@ -302,8 +340,8 @@
           "Ref": "TpStagingVpcPrivateSubnet1RouteTable23424ED9"
         },
         "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": {
-          "Ref": "TpStagingVpcPublicSubnet1NATGateway0C011263"
+        "InstanceId": {
+          "Ref": "TpStagingVpcPublicSubnet1NatInstance36A72D00"
         }
       },
       "Metadata": {
@@ -376,8 +414,8 @@
           "Ref": "TpStagingVpcPrivateSubnet2RouteTableA0AC293C"
         },
         "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": {
-          "Ref": "TpStagingVpcPublicSubnet2NATGateway320AE1B7"
+        "InstanceId": {
+          "Ref": "TpStagingVpcPublicSubnet2NatInstance4211A63C"
         }
       },
       "Metadata": {
@@ -410,6 +448,66 @@
       },
       "Metadata": {
         "aws:cdk:path": "TpStagingVpc/TpStagingVpc/VPCGW"
+      }
+    },
+    "TpStagingVpcNatSecurityGroupB8E9E405": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Security Group for NAT instances",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL PORTS",
+            "FromPort": 0,
+            "IpProtocol": "tcp",
+            "ToPort": 65535
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpStagingVpc/TpStagingVpc"
+          }
+        ],
+        "VpcId": {
+          "Ref": "TpStagingVpc0552B696"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/NatSecurityGroup/Resource"
+      }
+    },
+    "TpStagingVpcNatRoleB237C15B": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TpStagingVpc/TpStagingVpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpStagingVpc/TpStagingVpc/NatRole/Resource"
       }
     }
   },

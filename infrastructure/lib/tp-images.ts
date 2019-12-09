@@ -17,22 +17,9 @@ export class TpImages extends cdk.Stack {
     super(parent, name, props);
 
     this.bucket = new s3.Bucket(this, 'TPImageBucket', {
-      bucketName: siteDomain,
+      bucketName: `tp-image-bucket`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
-
-    // const tpImageBucketPolicy = new s3.BucketPolicy(this, 'TPImageBucketPolicy', {
-    //   bucket: this.bucket,
-    // });
-
-    // tpImageBucketPolicy.document.addStatements(
-    //   new iam.PolicyStatement({
-    //     effect: iam.Effect.ALLOW,
-    //     resources: [this.bucket.bucketArn],
-    //     actions: ['s3:*'],
-    //     principals: [new iam.AccountRootPrincipal()],
-    //   })
-    // );
 
     const cfOriginAccessIdentity = new cloudfront.CfnCloudFrontOriginAccessIdentity(
       this,
