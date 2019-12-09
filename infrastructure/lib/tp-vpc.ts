@@ -2,12 +2,12 @@ import ec2 = require('@aws-cdk/aws-ec2');
 import cdk = require('@aws-cdk/core');
 import { InstanceType, InstanceClass, InstanceSize } from '@aws-cdk/aws-ec2';
 
-interface TpVpcProps extends cdk.StackProps {
+interface VpcProps extends cdk.StackProps {
   name: string;
 }
-export class TpVpc extends cdk.Stack {
+export class VpcStack extends cdk.Stack {
   public readonly vpc: ec2.Vpc;
-  constructor(scope: cdk.App, id: string, props: TpVpcProps) {
+  constructor(scope: cdk.App, id: string, props: VpcProps) {
     super(scope, id, props);
 
     this.vpc = new ec2.Vpc(this, props.name, {

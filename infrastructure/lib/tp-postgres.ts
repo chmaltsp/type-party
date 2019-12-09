@@ -9,7 +9,7 @@ interface PostgresProps extends StackProps {
   vpc: IVpc;
   kmsKey: IKey;
 }
-export class Postgres extends cdk.Stack {
+export class PostgresStack extends cdk.Stack {
   public db: rds.DatabaseInstance;
   public dbPassword: Secret;
   constructor(scope: cdk.App, id: string, props: PostgresProps) {

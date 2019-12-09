@@ -2,28 +2,33 @@
 import 'source-map-support/register';
 import cdk = require('@aws-cdk/core');
 
-import { TpImages } from '../lib/tp-images';
+import { ImageStack } from '../lib/tp-images';
 import { TpEcr } from '../lib/tp-ecr';
-import { TpVpc } from '../lib/tp-vpc';
-import { TpGql } from '../lib/tp-gql';
+import { VpcStack } from '../lib/tp-vpc';
+import { ApiStack } from '../lib/tp-gql';
 
-import { TpCommon } from '../lib/common';
-import { TpFe } from '../lib/tp-fe';
-import { Postgres } from '../lib/tp-postgres';
-import { Prisma } from '../lib/tp-prisma';
+import { TpCommon, getStage, ORG } from '../lib/common';
+import { FrontendStack } from '../lib/tp-fe';
+import { PostgresStack } from '../lib/tp-postgres';
+import { PrismaStack } from '../lib/tp-prisma';
 
 const app = new cdk.App();
+
+const stage = getStage(app);
+
+const getStackName = (name: string) => `${ORG}-${name}-${stage}`;
 
 const env = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
   region: 'us-east-1',
 };
+
 const tpGqlEcr = new TpEcr(app, 'TpEcr');
 
-const TP_STAGING_VPC = 'TpStagingVpc';
+const VPC_STACK = getStackName('vpc');
 
-const stagingVpc = new TpVpc(app, TP_STAGING_VPC, {
-  name: TP_STAGING_VPC,
+const vpc = new VpcStack(app, VPC_STACK, {
+  name: VPC_STACK,
   env,
 });
 
@@ -31,37 +36,47 @@ const common = new TpCommon(app, 'TpCommon', {
   env,
 });
 
-const TP_GQL_STAGING = 'TpGqlStaging';
-const TP_FE_STAGING = 'TpFeStaging';
-
-const imageStack = new TpImages(app, 'TpStagingImages', {
+const IMAGE_STACK = getStackName('images');
+const imageStack = new ImageStack(app, IMAGE_STACK, {
   env,
+  certificate: common.certificate,
+  zone: common.zone,
 });
 
-const postgres = new Postgres(app, 'TpStagingDb', {
-  vpc: stagingVpc.vpc,
+const DB_STACK = getStackName('db');
+
+const postgres = new PostgresStack(app, DB_STACK, {
+  vpc: vpc.vpc,
   kmsKey: common.key,
   env,
 });
 
-new TpGql(app, TP_GQL_STAGING, {
+const API_STACK = getStackName('api');
+
+new ApiStack(app, API_STACK, {
   ecrRepository: tpGqlEcr.gql,
-  vpc: stagingVpc.vpc,
-  stackName: TP_GQL_STAGING,
+  vpc: vpc.vpc,
+  stackName: API_STACK,
   imageBucket: imageStack.bucket,
-  env,
-});
-new TpFe(app, TP_FE_STAGING, {
-  ecrRepository: tpGqlEcr.fe,
-  vpc: stagingVpc.vpc,
-  stackName: TP_FE_STAGING,
   certificate: common.certificate,
   zone: common.zone,
   env,
 });
 
-new Prisma(app, 'TpStagingPrisma', {
-  vpc: stagingVpc.vpc,
+const FRONTEND_STACK = getStackName('frontend');
+
+new FrontendStack(app, FRONTEND_STACK, {
+  ecrRepository: tpGqlEcr.fe,
+  vpc: vpc.vpc,
+  stackName: FRONTEND_STACK,
+  certificate: common.certificate,
+  zone: common.zone,
+  env,
+});
+
+const PRISMA_STACK = getStackName('prisma');
+new PrismaStack(app, PRISMA_STACK, {
+  vpc: vpc.vpc,
   certificate: common.certificate,
   zone: common.zone,
   db: postgres.db,

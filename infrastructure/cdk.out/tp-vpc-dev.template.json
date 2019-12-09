@@ -1,0 +1,556 @@
+{
+  "Resources": {
+    "tpvpcdev26ADF65F": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/Resource"
+      }
+    },
+    "tpvpcdevPublicSubnet1Subnet68E7FBEC": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/18",
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "AvailabilityZone": "us-east-1a",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1"
+          },
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1/Subnet"
+      }
+    },
+    "tpvpcdevPublicSubnet1RouteTable991595E2": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1/RouteTable"
+      }
+    },
+    "tpvpcdevPublicSubnet1RouteTableAssociation743E5E22": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPublicSubnet1RouteTable991595E2"
+        },
+        "SubnetId": {
+          "Ref": "tpvpcdevPublicSubnet1Subnet68E7FBEC"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1/RouteTableAssociation"
+      }
+    },
+    "tpvpcdevPublicSubnet1DefaultRouteD00EC5D0": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPublicSubnet1RouteTable991595E2"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "tpvpcdevIGWCC25A79E"
+        }
+      },
+      "DependsOn": [
+        "tpvpcdevVPCGWE48B53EB"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1/DefaultRoute"
+      }
+    },
+    "tpvpcdevPublicSubnet1NatInstanceInstanceProfile6989F793": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "tpvpcdevNatRole795B805F"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1/NatInstance/InstanceProfile"
+      }
+    },
+    "tpvpcdevPublicSubnet1NatInstance89D7AC3E": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": "us-east-1a",
+        "IamInstanceProfile": {
+          "Ref": "tpvpcdevPublicSubnet1NatInstanceInstanceProfile6989F793"
+        },
+        "ImageId": "ami-02cb555e324696ced",
+        "InstanceType": "t3a.nano",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "tpvpcdevNatSecurityGroup60BBDBAD",
+              "GroupId"
+            ]
+          }
+        ],
+        "SourceDestCheck": false,
+        "SubnetId": {
+          "Ref": "tpvpcdevPublicSubnet1Subnet68E7FBEC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1/NatInstance"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash"
+        }
+      },
+      "DependsOn": [
+        "tpvpcdevNatRole795B805F"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet1/NatInstance/Resource"
+      }
+    },
+    "tpvpcdevPublicSubnet2Subnet48B24DB2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.64.0/18",
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "AvailabilityZone": "us-east-1b",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2"
+          },
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2/Subnet"
+      }
+    },
+    "tpvpcdevPublicSubnet2RouteTableECE3AEE9": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2/RouteTable"
+      }
+    },
+    "tpvpcdevPublicSubnet2RouteTableAssociation1DE14A38": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPublicSubnet2RouteTableECE3AEE9"
+        },
+        "SubnetId": {
+          "Ref": "tpvpcdevPublicSubnet2Subnet48B24DB2"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2/RouteTableAssociation"
+      }
+    },
+    "tpvpcdevPublicSubnet2DefaultRoute3CAA00B3": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPublicSubnet2RouteTableECE3AEE9"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "tpvpcdevIGWCC25A79E"
+        }
+      },
+      "DependsOn": [
+        "tpvpcdevVPCGWE48B53EB"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2/DefaultRoute"
+      }
+    },
+    "tpvpcdevPublicSubnet2NatInstanceInstanceProfile72949C18": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "tpvpcdevNatRole795B805F"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2/NatInstance/InstanceProfile"
+      }
+    },
+    "tpvpcdevPublicSubnet2NatInstance3A2CEAB2": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": "us-east-1b",
+        "IamInstanceProfile": {
+          "Ref": "tpvpcdevPublicSubnet2NatInstanceInstanceProfile72949C18"
+        },
+        "ImageId": "ami-02cb555e324696ced",
+        "InstanceType": "t3a.nano",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "tpvpcdevNatSecurityGroup60BBDBAD",
+              "GroupId"
+            ]
+          }
+        ],
+        "SourceDestCheck": false,
+        "SubnetId": {
+          "Ref": "tpvpcdevPublicSubnet2Subnet48B24DB2"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2/NatInstance"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash"
+        }
+      },
+      "DependsOn": [
+        "tpvpcdevNatRole795B805F"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PublicSubnet2/NatInstance/Resource"
+      }
+    },
+    "tpvpcdevPrivateSubnet1SubnetF419DD00": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.128.0/18",
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "AvailabilityZone": "us-east-1a",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet1"
+          },
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet1/Subnet"
+      }
+    },
+    "tpvpcdevPrivateSubnet1RouteTableB9B73076": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet1/RouteTable"
+      }
+    },
+    "tpvpcdevPrivateSubnet1RouteTableAssociation33D158AC": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPrivateSubnet1RouteTableB9B73076"
+        },
+        "SubnetId": {
+          "Ref": "tpvpcdevPrivateSubnet1SubnetF419DD00"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet1/RouteTableAssociation"
+      }
+    },
+    "tpvpcdevPrivateSubnet1DefaultRouteB16CA671": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPrivateSubnet1RouteTableB9B73076"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "InstanceId": {
+          "Ref": "tpvpcdevPublicSubnet1NatInstance89D7AC3E"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet1/DefaultRoute"
+      }
+    },
+    "tpvpcdevPrivateSubnet2Subnet25578999": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.192.0/18",
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "AvailabilityZone": "us-east-1b",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet2"
+          },
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet2/Subnet"
+      }
+    },
+    "tpvpcdevPrivateSubnet2RouteTable37774948": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet2/RouteTable"
+      }
+    },
+    "tpvpcdevPrivateSubnet2RouteTableAssociationEED41E0B": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPrivateSubnet2RouteTable37774948"
+        },
+        "SubnetId": {
+          "Ref": "tpvpcdevPrivateSubnet2Subnet25578999"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet2/RouteTableAssociation"
+      }
+    },
+    "tpvpcdevPrivateSubnet2DefaultRoute845E0838": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "tpvpcdevPrivateSubnet2RouteTable37774948"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "InstanceId": {
+          "Ref": "tpvpcdevPublicSubnet2NatInstance3A2CEAB2"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/PrivateSubnet2/DefaultRoute"
+      }
+    },
+    "tpvpcdevIGWCC25A79E": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/IGW"
+      }
+    },
+    "tpvpcdevVPCGWE48B53EB": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        },
+        "InternetGatewayId": {
+          "Ref": "tpvpcdevIGWCC25A79E"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/VPCGW"
+      }
+    },
+    "tpvpcdevNatSecurityGroup60BBDBAD": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Security Group for NAT instances",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL PORTS",
+            "FromPort": 0,
+            "IpProtocol": "tcp",
+            "ToPort": 65535
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev"
+          }
+        ],
+        "VpcId": {
+          "Ref": "tpvpcdev26ADF65F"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/NatSecurityGroup/Resource"
+      }
+    },
+    "tpvpcdevNatRole795B805F": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tp-vpc-dev/tp-vpc-dev"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-vpc-dev/tp-vpc-dev/NatRole/Resource"
+      }
+    }
+  },
+  "Outputs": {
+    "ExportsOutputReftpvpcdev26ADF65FC3D75A45": {
+      "Value": {
+        "Ref": "tpvpcdev26ADF65F"
+      },
+      "Export": {
+        "Name": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+      }
+    },
+    "ExportsOutputReftpvpcdevPrivateSubnet1SubnetF419DD006B86DAD9": {
+      "Value": {
+        "Ref": "tpvpcdevPrivateSubnet1SubnetF419DD00"
+      },
+      "Export": {
+        "Name": "tp-vpc-dev:ExportsOutputReftpvpcdevPrivateSubnet1SubnetF419DD006B86DAD9"
+      }
+    },
+    "ExportsOutputReftpvpcdevPrivateSubnet2Subnet255789998AA14C7B": {
+      "Value": {
+        "Ref": "tpvpcdevPrivateSubnet2Subnet25578999"
+      },
+      "Export": {
+        "Name": "tp-vpc-dev:ExportsOutputReftpvpcdevPrivateSubnet2Subnet255789998AA14C7B"
+      }
+    },
+    "ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E": {
+      "Value": {
+        "Ref": "tpvpcdevPublicSubnet1Subnet68E7FBEC"
+      },
+      "Export": {
+        "Name": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E"
+      }
+    },
+    "ExportsOutputReftpvpcdevPublicSubnet2Subnet48B24DB25C427FA1": {
+      "Value": {
+        "Ref": "tpvpcdevPublicSubnet2Subnet48B24DB2"
+      },
+      "Export": {
+        "Name": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet2Subnet48B24DB25C427FA1"
+      }
+    }
+  }
+}

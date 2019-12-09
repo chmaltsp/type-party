@@ -4,22 +4,24 @@ import s3 = require('@aws-cdk/aws-s3');
 import cdk = require('@aws-cdk/core');
 import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import { IRepository } from '@aws-cdk/aws-ecr';
-import route53 = require('@aws-cdk/aws-route53');
 
 import ssm = require('@aws-cdk/aws-ssm');
-import { domainName } from './common';
-import { Certificate } from '@aws-cdk/aws-certificatemanager';
+import { getDomainName } from './common';
+import { ICertificate } from '@aws-cdk/aws-certificatemanager';
+import { IHostedZone } from '@aws-cdk/aws-route53';
 
-interface TpGqlProps extends cdk.StackProps {
+interface ApiProps extends cdk.StackProps {
   vpc: ec2.Vpc;
   ecrRepository: IRepository;
   imageBucket: s3.Bucket;
+  certificate: ICertificate;
+  zone: IHostedZone;
 }
-export class TpGql extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props: TpGqlProps) {
+export class ApiStack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string, props: ApiProps) {
     super(scope, id, props);
 
-    const cluster = new ecs.Cluster(this, props.stackName + 'Cluster', {
+    const cluster = new ecs.Cluster(this, 'cluster', {
       vpc: props.vpc,
     });
 
@@ -69,36 +71,22 @@ export class TpGql extends cdk.Stack {
       )
     );
 
+    const domainName = getDomainName(scope);
     const apiDomainName = `api.${domainName}`;
-
-    const arnCertificate = ssm.StringParameter.valueForStringParameter(
-      this,
-      `CertifcateArn-${domainName}`
-    );
-
-    const certificate = Certificate.fromCertificateArn(
-      this,
-      `${domainName}SSLCert`,
-      arnCertificate
-    );
-
-    const zone = route53.HostedZone.fromLookup(this, 'Zone', {
-      domainName,
-    });
 
     const S3_BUCKET = props.imageBucket.bucketName;
 
     const S3_ENDPOINT = props.imageBucket.bucketDomainName;
-    const gqlService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
+    const apiService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
       this,
-      props.stackName + 'GqlService',
+      'service',
       {
         cluster,
         memoryReservationMiB: 700,
         publicLoadBalancer: true,
         domainName: apiDomainName,
-        domainZone: zone,
-        certificate,
+        domainZone: props.zone,
+        certificate: props.certificate,
         taskImageOptions: {
           image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
           containerPort: 4000,
@@ -116,9 +104,9 @@ export class TpGql extends cdk.Stack {
       }
     );
 
-    props.imageBucket.grantPut(gqlService.taskDefinition.obtainExecutionRole());
+    props.imageBucket.grantPut(apiService.taskDefinition.obtainExecutionRole());
     new cdk.CfnOutput(this, 'ServiceName', {
-      value: gqlService.service.serviceName,
+      value: apiService.service.serviceName,
     });
 
     new cdk.CfnOutput(this, 'ClusterName', {

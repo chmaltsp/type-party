@@ -1,0 +1,143 @@
+{
+  "Resources": {
+    "masterPass79BF7903": {
+      "Type": "AWS::SecretsManager::Secret",
+      "Properties": {
+        "GenerateSecretString": {
+          "ExcludePunctuation": true
+        },
+        "KmsKeyId": "arn:aws:kms:us-east-1:561034361591:key/1b511fa7-dcd4-4db9-aef9-c15b141b3b29"
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-db-dev/masterPass/Resource"
+      }
+    },
+    "postgresSubnetGroup6B65B032": {
+      "Type": "AWS::RDS::DBSubnetGroup",
+      "Properties": {
+        "DBSubnetGroupDescription": "Subnet group for postgres database",
+        "SubnetIds": [
+          {
+            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPrivateSubnet1SubnetF419DD006B86DAD9"
+          },
+          {
+            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPrivateSubnet2Subnet255789998AA14C7B"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-db-dev/postgres/SubnetGroup"
+      }
+    },
+    "postgresSecurityGroup1C7456F9": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Security group for postgres database",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": {
+          "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-db-dev/postgres/SecurityGroup/Resource"
+      }
+    },
+    "postgresSecurityGroupfrom00000IndirectPortC89A1E67": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "CidrIp": "0.0.0.0/0",
+        "Description": "from 0.0.0.0/0:{IndirectPort}",
+        "FromPort": {
+          "Fn::GetAtt": [
+            "postgres6BBC2FA4",
+            "Endpoint.Port"
+          ]
+        },
+        "GroupId": {
+          "Fn::GetAtt": [
+            "postgresSecurityGroup1C7456F9",
+            "GroupId"
+          ]
+        },
+        "ToPort": {
+          "Fn::GetAtt": [
+            "postgres6BBC2FA4",
+            "Endpoint.Port"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-db-dev/postgres/SecurityGroup/from 0.0.0.0_0:{IndirectPort}"
+      }
+    },
+    "postgres6BBC2FA4": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "DBInstanceClass": "db.t2.micro",
+        "AllocatedStorage": "100",
+        "CopyTagsToSnapshot": true,
+        "DBName": "postgres",
+        "DBSubnetGroupName": {
+          "Ref": "postgresSubnetGroup6B65B032"
+        },
+        "DeletionProtection": true,
+        "Engine": "postgres",
+        "MasterUsername": "root",
+        "MasterUserPassword": {
+          "Fn::Join": [
+            "",
+            [
+              "{{resolve:secretsmanager:",
+              {
+                "Ref": "masterPass79BF7903"
+              },
+              ":SecretString:::}}"
+            ]
+          ]
+        },
+        "StorageType": "gp2",
+        "VPCSecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "postgresSecurityGroup1C7456F9",
+              "GroupId"
+            ]
+          }
+        ]
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "tp-db-dev/postgres/Resource"
+      }
+    }
+  },
+  "Outputs": {
+    "ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC": {
+      "Value": {
+        "Fn::GetAtt": [
+          "postgres6BBC2FA4",
+          "Endpoint.Address"
+        ]
+      },
+      "Export": {
+        "Name": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC"
+      }
+    },
+    "ExportsOutputRefmasterPass79BF7903470EFD9E": {
+      "Value": {
+        "Ref": "masterPass79BF7903"
+      },
+      "Export": {
+        "Name": "tp-db-dev:ExportsOutputRefmasterPass79BF7903470EFD9E"
+      }
+    }
+  }
+}
