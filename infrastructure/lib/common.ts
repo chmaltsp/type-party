@@ -7,13 +7,24 @@ import { Certificate, ICertificate } from '@aws-cdk/aws-certificatemanager';
 
 interface TpCommonProps extends cdk.StackProps {}
 
-export const domainName = 'typeparty.com';
+export const ORG = 'tp';
+export const STAGE = 'stage';
+export const DOMAIN_NAME = 'domainName';
+
+export type CONTEXT_KEYS = typeof STAGE | typeof DOMAIN_NAME;
+
+export type STAGES = 'dev' | 'prod';
+
+export const getConfigValue = (scope: cdk.App, stage: STAGES, key: CONTEXT_KEYS) =>
+  scope.node.tryGetContext(stage)[key] as string;
+
+export const getStage = (scope: cdk.App): STAGES => scope.node.tryGetContext(STAGE);
+
+export const getDomainName = (scope: cdk.App): string =>
+  getConfigValue(scope, getStage(scope), DOMAIN_NAME);
 
 export class TpCommon extends cdk.Stack {
   public readonly certificate: ICertificate;
-  public readonly apiDomainName: string;
-  public readonly feDomainName: string;
-
   public readonly arnCertificate: string;
   public readonly zone: route53.IHostedZone;
   public readonly prodZone: route53.IHostedZone;
@@ -22,8 +33,7 @@ export class TpCommon extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: TpCommonProps) {
     super(scope, id, props);
 
-    this.apiDomainName = `api.${domainName}`;
-    this.feDomainName = `www.${domainName};`;
+    const domainName = getDomainName(scope);
 
     this.key = kms.Key.fromKeyArn(
       this,
@@ -42,7 +52,7 @@ export class TpCommon extends cdk.Stack {
       this.arnCertificate
     );
 
-    this.prodZone = new route53.HostedZone(this, 'tp-prod', {
+    const prodHostedZone = new route53.HostedZone(this, 'tp-prod', {
       zoneName: 'type.party',
     });
 
@@ -57,8 +67,11 @@ export class TpCommon extends cdk.Stack {
       recordName: '@',
       zone: this.prodZone,
     });
-    this.zone = route53.HostedZone.fromLookup(this, 'Zone', {
+
+    const devHostedZone = route53.HostedZone.fromLookup(this, 'Zone', {
       domainName,
     });
+
+    this.zone = getStage(scope) === 'prod' ? prodHostedZone : devHostedZone;
   }
 }

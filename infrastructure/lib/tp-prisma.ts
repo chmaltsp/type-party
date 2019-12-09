@@ -6,8 +6,8 @@ import { StackProps } from '@aws-cdk/core';
 import { IVpc, InstanceType, InstanceClass, InstanceSize } from '@aws-cdk/aws-ec2';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
-import { domainName } from './common';
 import { Secret } from '@aws-cdk/aws-secretsmanager';
+import { getDomainName } from './common';
 
 interface PrismaProps extends StackProps {
   vpc: IVpc;
@@ -16,13 +16,15 @@ interface PrismaProps extends StackProps {
   db: rds.DatabaseInstance;
   dbPassword: Secret;
 }
-export class Prisma extends cdk.Stack {
+export class PrismaStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: PrismaProps) {
     super(scope, id, props);
 
     const cluster = new ecs.Cluster(this, 'cluster', {
       vpc: props.vpc,
     });
+
+    const domainName = getDomainName(scope);
 
     cluster.addCapacity('DefaultAutoScalingGroup', {
       instanceType: InstanceType.of(InstanceClass.T2, InstanceSize.SMALL),

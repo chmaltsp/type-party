@@ -7,10 +7,10 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "cdk": "cdk --profile tp-access",
+    "cdk:dev": "cdk --profile tp-access -c stage=dev",
+    "cdk:prod": "cdk --profile tp-access -c stage=prod",
     "cdk:diff": "cdk diff --profile tp-access",
-    "deploy:all": "yarn build && cdk --profile tp-access deploy Tp*",
-    "deploy:gql": "yarn build && cdk --profile tp-access deploy TpGqlStaging"
+    "deploy:dev": "yarn build && yarn cdk:dev deploy tp-*"
   },
   "devDependencies": {
     "@types/node": "12.12.8",

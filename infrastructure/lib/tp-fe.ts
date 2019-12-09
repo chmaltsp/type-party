@@ -5,23 +5,23 @@ import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import { IRepository } from '@aws-cdk/aws-ecr';
 
 import ssm = require('@aws-cdk/aws-ssm');
-import { domainName } from './common';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { IGrantable } from '@aws-cdk/aws-iam';
+import { getDomainName, getStage } from './common';
 
-interface TpFeProps extends cdk.StackProps {
+interface FrontendProps extends cdk.StackProps {
   vpc: ec2.Vpc;
   ecrRepository: IRepository;
   zone: IHostedZone;
   certificate: ICertificate;
 }
-export class TpFe extends cdk.Stack {
+export class FrontendStack extends cdk.Stack {
   public readonly feServiceRole: IGrantable;
-  constructor(scope: cdk.App, id: string, props: TpFeProps) {
+  constructor(scope: cdk.App, id: string, props: FrontendProps) {
     super(scope, id, props);
 
-    const cluster = new ecs.Cluster(this, props.stackName + 'Cluster', {
+    const cluster = new ecs.Cluster(this, 'cluster', {
       vpc: props.vpc,
     });
 
@@ -31,7 +31,10 @@ export class TpFe extends cdk.Stack {
     });
 
     const environmentVarKeys = {
-      staging: {
+      dev: {
+        API_URL: '/TpStaging/API_URL',
+      },
+      prod: {
         API_URL: '/TpStaging/API_URL',
       },
     };
@@ -40,15 +43,15 @@ export class TpFe extends cdk.Stack {
       ssm.StringParameter.fromStringParameterName(
         this,
         'API_URL',
-        environmentVarKeys.staging.API_URL
+        environmentVarKeys[getStage(scope)].API_URL
       )
     );
 
-    const feDomainName = `www.${domainName}`;
+    const feDomainName = `www.${getDomainName(scope)}`;
 
     const feService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
       this,
-      props.stackName + 'Service',
+      'service',
       {
         cluster,
         memoryReservationMiB: 700,

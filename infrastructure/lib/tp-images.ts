@@ -4,74 +4,68 @@ import cloudfront = require('@aws-cdk/aws-cloudfront');
 import route53 = require('@aws-cdk/aws-route53');
 import targets = require('@aws-cdk/aws-route53-targets');
 
-import ssm = require('@aws-cdk/aws-ssm');
-import { domainName } from './common';
+import { getDomainName } from './common';
+import { ICertificate } from '@aws-cdk/aws-certificatemanager';
+import { IHostedZone } from '@aws-cdk/aws-route53';
 
 const subDomain = 'images';
 
-const siteDomain = `${subDomain}.${domainName}`;
+interface ImageStackProps extends cdk.StackProps {
+  certificate: ICertificate;
+  zone: IHostedZone;
+}
 
-export class TpImages extends cdk.Stack {
+export class ImageStack extends cdk.Stack {
   public readonly bucket: s3.Bucket;
-  constructor(parent: cdk.App, name: string, props: cdk.StackProps) {
-    super(parent, name, props);
+  constructor(scope: cdk.App, name: string, props: ImageStackProps) {
+    super(scope, name, props);
 
-    this.bucket = new s3.Bucket(this, 'TPImageBucket', {
-      bucketName: `tp-image-bucket`,
+    const domainName = getDomainName(scope);
+    const siteDomain = `${subDomain}.${domainName}`;
+
+    this.bucket = new s3.Bucket(this, 'bucket', {
+      bucketName: `${name}-bucket`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
     const cfOriginAccessIdentity = new cloudfront.CfnCloudFrontOriginAccessIdentity(
       this,
-      'tpImageOAI',
+      'oai',
       {
         cloudFrontOriginAccessIdentityConfig: {
-          comment: 'Origin access identity for TP Image Bucket',
+          comment: `Origin access identity for ${this.bucket.bucketName}`,
         },
       }
     );
 
-    const arnCertificate = ssm.StringParameter.valueForStringParameter(
-      this,
-      `CertifcateArn-${domainName}`
-    );
-
-    const zone = route53.HostedZone.fromLookup(this, 'Zone', {
-      domainName,
-    });
-
-    const distribution = new cloudfront.CloudFrontWebDistribution(
-      this,
-      'tp-images-distro',
-      {
-        aliasConfiguration: {
-          names: [`images.${domainName}`],
-          acmCertRef: arnCertificate,
-          sslMethod: cloudfront.SSLMethod.SNI,
-          securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_1_2016,
-        },
-        originConfigs: [
-          {
-            behaviors: [
-              {
-                isDefaultBehavior: true,
-              },
-            ],
-            s3OriginSource: {
-              originAccessIdentityId: cfOriginAccessIdentity.ref,
-              s3BucketSource: this.bucket,
+    const distribution = new cloudfront.CloudFrontWebDistribution(this, 'distro', {
+      aliasConfiguration: {
+        names: [`images.${domainName}`],
+        acmCertRef: props.certificate.certificateArn,
+        sslMethod: cloudfront.SSLMethod.SNI,
+        securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_1_2016,
+      },
+      originConfigs: [
+        {
+          behaviors: [
+            {
+              isDefaultBehavior: true,
             },
+          ],
+          s3OriginSource: {
+            originAccessIdentityId: cfOriginAccessIdentity.ref,
+            s3BucketSource: this.bucket,
           },
-        ],
-      }
-    );
+        },
+      ],
+    });
 
     new route53.ARecord(this, 'ImagesARecord', {
       recordName: siteDomain,
       target: route53.AddressRecordTarget.fromAlias(
         new targets.CloudFrontTarget(distribution)
       ),
-      zone,
+      zone: props.zone,
     });
     // The code that defines your stack goes here
   }
