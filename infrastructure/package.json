@@ -10,7 +10,7 @@
     "cdk:dev": "cdk --profile tp-access -c stage=dev",
     "cdk:prod": "cdk --profile tp-access -c stage=prod",
     "cdk:diff": "cdk diff --profile tp-access",
-    "deploy:dev": "yarn build && yarn cdk:dev deploy tp-*"
+    "deploy:dev": "yarn build && yarn cdk:dev deploy"
   },
   "devDependencies": {
     "@types/node": "12.12.8",
