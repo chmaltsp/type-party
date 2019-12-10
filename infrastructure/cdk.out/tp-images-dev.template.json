@@ -122,14 +122,6 @@
     }
   },
   "Outputs": {
-    "ExportsOutputRefbucket43879C716CF1CFA3": {
-      "Value": {
-        "Ref": "bucket43879C71"
-      },
-      "Export": {
-        "Name": "tp-images-dev:ExportsOutputRefbucket43879C716CF1CFA3"
-      }
-    },
     "ExportsOutputFnGetAttbucket43879C71Arn20063EB0": {
       "Value": {
         "Fn::GetAtt": [
@@ -139,6 +131,14 @@
       },
       "Export": {
         "Name": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71Arn20063EB0"
+      }
+    },
+    "ExportsOutputRefbucket43879C716CF1CFA3": {
+      "Value": {
+        "Ref": "bucket43879C71"
+      },
+      "Export": {
+        "Name": "tp-images-dev:ExportsOutputRefbucket43879C716CF1CFA3"
       }
     }
   }

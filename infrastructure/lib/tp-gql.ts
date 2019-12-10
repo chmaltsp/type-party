@@ -104,7 +104,7 @@ export class ApiStack extends cdk.Stack {
       }
     );
 
-    props.imageBucket.grantPut(apiService.taskDefinition.obtainExecutionRole());
+    props.imageBucket.grantPut(apiService.taskDefinition.taskRole);
     new cdk.CfnOutput(this, 'ServiceName', {
       value: apiService.service.serviceName,
     });
