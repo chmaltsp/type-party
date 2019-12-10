@@ -670,7 +670,15 @@
               {
                 "Name": "S3_ENDPOINT",
                 "Value": {
-                  "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71DomainName5573A0EA"
+                  "Fn::Join": [
+                    "",
+                    [
+                      "https://",
+                      {
+                        "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71RegionalDomainName43BB8A7C"
+                      }
+                    ]
+                  ]
                 }
               },
               {

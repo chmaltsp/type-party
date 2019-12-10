@@ -11,9 +11,6 @@ const s3 = new S3({
   endpoint: process.env.S3_ENDPOINT,
   accessKeyId: process.env.S3_ACCESS_KEY,
   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  params: {
-    Bucket: process.env.S3_BUCKET,
-  },
   apiVersion: 'latest',
 });
 

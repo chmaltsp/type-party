@@ -51,6 +51,6 @@ prisma-deploy-staging:
 	cd backend && yarn prisma
 
 update-fe-service-staging:
-	$(eval FE_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name TpFeStaging --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
-	$(eval FE_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name TpFeStaging --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
+	$(eval FE_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-frontend-dev --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
+	$(eval FE_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-frontend-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
 	ecs-deploy -n $(FE_SERVICE_NAME) -c $(FE_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/${TP_FE_REPO}:latest
