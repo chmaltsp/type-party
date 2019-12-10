@@ -1244,10 +1244,10 @@
             ]
           }
         ],
-        "/tp-images-dev/Exports/Output{\"Ref\":\"bucket43879C71\"}": [
+        "/tp-images-dev/Exports/Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"Arn\"]}": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ExportsOutputRefbucket43879C716CF1CFA3",
+            "data": "ExportsOutputFnGetAttbucket43879C71Arn20063EB0",
             "trace": [
               "ImageStack.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
               "ApiStack.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
@@ -1263,10 +1263,10 @@
             ]
           }
         ],
-        "/tp-images-dev/Exports/Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"Arn\"]}": [
+        "/tp-images-dev/Exports/Output{\"Ref\":\"bucket43879C71\"}": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ExportsOutputFnGetAttbucket43879C71Arn20063EB0",
+            "data": "ExportsOutputRefbucket43879C716CF1CFA3",
             "trace": [
               "ImageStack.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
               "ApiStack.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
@@ -2478,6 +2478,39 @@
               "new Ec2TaskDefinition (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs/lib/ec2/ec2-task-definition.ts:59:5)",
               "new ApplicationLoadBalancedEc2Service (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-ecs-patterns/lib/ecs/application-load-balanced-ecs-service.ts:93:29)",
               "new ApiStack (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:80:24)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:56:1)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:442:12)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/bin.ts:154:12)",
+              "Module._compile (internal/modules/cjs/loader.js:701:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)",
+              "Module.load (internal/modules/cjs/loader.js:600:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:539:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:531:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:754:12)",
+              "startup (internal/bootstrap/node.js:283:19)",
+              "bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)"
+            ]
+          }
+        ],
+        "/tp-api-dev/service/TaskDef/TaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "serviceTaskDefTaskRoleDefaultPolicyC429502E",
+            "trace": [
+              "new Policy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/policy.ts:102:22)",
+              "Role.addToPolicy (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/role.ts:340:28)",
+              "Function.addToPrincipal (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/grant.ts:147:61)",
+              "Function.addToPrincipalOrResource (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-iam/lib/grant.ts:117:26)",
+              "Bucket.grant (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:590:23)",
+              "Bucket.grantPut (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:498:17)",
+              "new ApiStack (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/lib/tp-gql.ts:107:23)",
               "Object.<anonymous> (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/bin/infrastructure.ts:56:1)",
               "Module._compile (internal/modules/cjs/loader.js:701:30)",
               "Module.m._compile (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/ts-node/src/index.ts:439:23)",

@@ -661,6 +661,43 @@
         "aws:cdk:path": "tp-api-dev/service/TaskDef/TaskRole/Resource"
       }
     },
+    "serviceTaskDefTaskRoleDefaultPolicyC429502E": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71Arn20063EB0"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "serviceTaskDefTaskRoleDefaultPolicyC429502E",
+        "Roles": [
+          {
+            "Ref": "serviceTaskDefTaskRole43CA7BBB"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-api-dev/service/TaskDef/TaskRole/DefaultPolicy/Resource"
+      }
+    },
     "serviceTaskDef7C4986C7": {
       "Type": "AWS::ECS::TaskDefinition",
       "Properties": {
@@ -933,24 +970,6 @@
                 "Fn::GetAtt": [
                   "serviceTaskDefwebLogGroupCCBA392E",
                   "Arn"
-                ]
-              }
-            },
-            {
-              "Action": [
-                "s3:PutObject*",
-                "s3:Abort*"
-              ],
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    {
-                      "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71Arn20063EB0"
-                    },
-                    "/*"
-                  ]
                 ]
               }
             },
