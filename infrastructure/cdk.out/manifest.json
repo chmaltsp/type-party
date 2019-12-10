@@ -1244,10 +1244,10 @@
             ]
           }
         ],
-        "/tp-images-dev/Exports/Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"DomainName\"]}": [
+        "/tp-images-dev/Exports/Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"RegionalDomainName\"]}": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ExportsOutputFnGetAttbucket43879C71DomainName5573A0EA",
+            "data": "ExportsOutputFnGetAttbucket43879C71RegionalDomainName43BB8A7C",
             "trace": [
               "ImageStack.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
               "ApiStack.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",

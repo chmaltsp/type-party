@@ -76,7 +76,7 @@ export class ApiStack extends cdk.Stack {
 
     const S3_BUCKET = props.imageBucket.bucketName;
 
-    const S3_ENDPOINT = props.imageBucket.bucketDomainName;
+    const S3_ENDPOINT = `https://${props.imageBucket.bucketRegionalDomainName}`;
     const apiService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
       this,
       'service',
