@@ -26,11 +26,7 @@ import {
   EditTypeface_typeface_images_full,
   EditTypefaceVariables,
 } from './__generated__/EditTypeface';
-import {
-  UpdateTypeface,
-  UpdateTypeface_updateTypeface,
-  UpdateTypefaceVariables,
-} from './__generated__/UpdateTypeface';
+import { UpdateTypeface, UpdateTypefaceVariables } from './__generated__/UpdateTypeface';
 import { EDIT_TYPEFACE } from './queries';
 import { validationSchema } from './validationSchema';
 
@@ -98,32 +94,16 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
       ...values,
       designers: values.designers.map(designer => designer.id),
       foundries: values.foundries.map(foundry => foundry.id),
+      full: values.fullTypeface,
       tags: values.tags.map(tag => tag.id),
     };
 
-    const renameProp = (
-      oldProp: string,
-      newProp: string,
-      { [oldProp]: old, ...others }
-    ) => ({
-      [newProp]: old,
-      ...others,
-    });
-
     // Remove for compatibilty with nested form
-
-    const freshInput = renameProp('fullTypeface', 'full', cleanInput);
-
+    delete cleanInput.fullTypeface;
     try {
-      console.log(values, freshInput);
       const response = await this.props.addTypeface({
-        input: freshInput as any,
+        input: cleanInput,
       });
-      // const response = await this.props[
-      //   this.props.slug ? 'updateTypeface' : 'addTypeface'
-      // ]({
-      //   input: cleanInput,
-      // });
 
       if (response && response.data && this.props.handleSubmit) {
         return this.props.handleSubmit(
@@ -133,7 +113,6 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
     } catch (error) {
       console.log(error);
     }
-    // this.props.handleSubmit();
   };
 
   private handleAddTag = (formProps: FormikProps<InputValues>) => (
