@@ -810,10 +810,6 @@
             "id": "Exports",
             "path": "tp-images-dev/Exports",
             "children": {
-              "Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"RegionalDomainName\"]}": {
-                "id": "Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"RegionalDomainName\"]}",
-                "path": "tp-images-dev/Exports/Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"RegionalDomainName\"]}"
-              },
               "Output{\"Ref\":\"bucket43879C71\"}": {
                 "id": "Output{\"Ref\":\"bucket43879C71\"}",
                 "path": "tp-images-dev/Exports/Output{\"Ref\":\"bucket43879C71\"}"
