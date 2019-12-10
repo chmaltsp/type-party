@@ -669,17 +669,7 @@
             "Environment": [
               {
                 "Name": "S3_ENDPOINT",
-                "Value": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "https://",
-                      {
-                        "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71RegionalDomainName43BB8A7C"
-                      }
-                    ]
-                  ]
-                }
+                "Value": "https://s3.us-east-1.amazonaws.com"
               },
               {
                 "Name": "S3_BUCKET",

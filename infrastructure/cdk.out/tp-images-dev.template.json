@@ -122,17 +122,6 @@
     }
   },
   "Outputs": {
-    "ExportsOutputFnGetAttbucket43879C71RegionalDomainName43BB8A7C": {
-      "Value": {
-        "Fn::GetAtt": [
-          "bucket43879C71",
-          "RegionalDomainName"
-        ]
-      },
-      "Export": {
-        "Name": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71RegionalDomainName43BB8A7C"
-      }
-    },
     "ExportsOutputRefbucket43879C716CF1CFA3": {
       "Value": {
         "Ref": "bucket43879C71"

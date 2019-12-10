@@ -26,8 +26,8 @@ push-tp-gql:
 tag-and-push-gql: build-tp-gql tag-gql-image push-tp-gql
 
 update-gql-service-staging:
-	$(eval GQL_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name TpGqlStaging --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
-	$(eval GQL_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name TpGqlStaging --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
+	$(eval GQL_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
+	$(eval GQL_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
 	ecs-deploy -n $(GQL_SERVICE_NAME) -c $(GQL_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-gql:latest
 
 set-ssm-param-secure: 

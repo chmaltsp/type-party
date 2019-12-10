@@ -1244,25 +1244,6 @@
             ]
           }
         ],
-        "/tp-images-dev/Exports/Output{\"Fn::GetAtt\":[\"bucket43879C71\",\"RegionalDomainName\"]}": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExportsOutputFnGetAttbucket43879C71RegionalDomainName43BB8A7C",
-            "trace": [
-              "ImageStack.prepareCrossReference (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:816:7)",
-              "ApiStack.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/stack.ts:667:37)",
-              "Function.prepare (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:81:28)",
-              "Function.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/construct.ts:40:10)",
-              "App.synth (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:142:36)",
-              "process.App.process.once (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/@aws-cdk/core/lib/app.ts:121:45)",
-              "Object.onceWrapper (events.js:277:13)",
-              "process.emit (events.js:189:13)",
-              "process.EventEmitter.emit (domain.js:441:20)",
-              "process.emit (/Users/philipchmalts/Documents/Development/Type Party/infrastructure/node_modules/source-map-support/source-map-support.js:465:21)",
-              "process.topLevelDomainCallback (domain.js:120:23)"
-            ]
-          }
-        ],
         "/tp-images-dev/Exports/Output{\"Ref\":\"bucket43879C71\"}": [
           {
             "type": "aws:cdk:logicalId",
@@ -1523,7 +1504,6 @@
         "tp-vpc-dev",
         "TpCommon",
         "tp-vpc-dev",
-        "tp-images-dev",
         "tp-images-dev",
         "tp-images-dev",
         "tp-vpc-dev",
