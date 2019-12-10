@@ -670,13 +670,13 @@
               {
                 "Name": "S3_ENDPOINT",
                 "Value": {
-                  "Fn::ImportValue": "TpStagingImages:ExportsOutputFnGetAttTPImageBucketCAF10F90DomainName596B2699"
+                  "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71DomainName5573A0EA"
                 }
               },
               {
                 "Name": "S3_BUCKET",
                 "Value": {
-                  "Fn::ImportValue": "TpStagingImages:ExportsOutputRefTPImageBucketCAF10F909AB486C3"
+                  "Fn::ImportValue": "tp-images-dev:ExportsOutputRefbucket43879C716CF1CFA3"
                 }
               }
             ],
@@ -949,7 +949,7 @@
                   "",
                   [
                     {
-                      "Fn::ImportValue": "TpStagingImages:ExportsOutputFnGetAttTPImageBucketCAF10F90Arn5BADF158"
+                      "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71Arn20063EB0"
                     },
                     "/*"
                   ]

@@ -27,7 +27,6 @@ export class TpCommon extends cdk.Stack {
   public readonly certificate: ICertificate;
   public readonly arnCertificate: string;
   public readonly zone: route53.IHostedZone;
-  public readonly prodZone: route53.IHostedZone;
 
   public readonly key: kms.IKey;
   constructor(scope: cdk.App, id: string, props: TpCommonProps) {
@@ -59,13 +58,13 @@ export class TpCommon extends cdk.Stack {
     new route53.CnameRecord(this, 'www-tp-prod', {
       domainName: 'type-party.superhi.com',
       recordName: 'www',
-      zone: this.prodZone,
+      zone: prodHostedZone,
     });
 
     new route53.CnameRecord(this, 'at-tp-prod', {
       domainName: 'type-party.superhi.com',
       recordName: '@',
-      zone: this.prodZone,
+      zone: prodHostedZone,
     });
 
     const devHostedZone = route53.HostedZone.fromLookup(this, 'Zone', {
