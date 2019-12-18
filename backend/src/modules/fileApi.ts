@@ -1,4 +1,4 @@
-import { S3, Endpoint } from 'aws-sdk';
+import { S3 } from 'aws-sdk';
 import { Context } from '../utils';
 import { generate } from 'shortid';
 
@@ -13,6 +13,8 @@ const s3 = new S3({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   apiVersion: 'latest',
 });
+
+const TP_CDN = 'https://images.typeparty.com';
 
 export const processUpload = async (upload, ctx: Context): Promise<File | null> => {
   if (!upload) {
@@ -30,12 +32,16 @@ export const processUpload = async (upload, ctx: Context): Promise<File | null> 
       Bucket: process.env.S3_BUCKET,
       Key: key,
       Body: stream,
-      ACL: 'public-read',
+      CacheControl: 'max-age=3600',
     })
     .promise();
 
+  const cdnPrefix = /localhost/.test(process.env.S3_ENDPOINT)
+    ? process.env.S3_ENDPOINT
+    : TP_CDN;
+
   // Get url
-  const url = response.Location;
+  const url = `${cdnPrefix}/${response.Key}`;
 
   // Prepare data to Sync with prisma
   const data = {
