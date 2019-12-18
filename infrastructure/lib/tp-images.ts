@@ -4,6 +4,8 @@ import cloudfront = require('@aws-cdk/aws-cloudfront');
 import route53 = require('@aws-cdk/aws-route53');
 import targets = require('@aws-cdk/aws-route53-targets');
 
+import iam = require('@aws-cdk/aws-iam');
+
 import { getDomainName } from './common';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
@@ -26,6 +28,12 @@ export class ImageStack extends cdk.Stack {
     this.bucket = new s3.Bucket(this, 'bucket', {
       bucketName: `${name}-bucket`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      blockPublicAccess: {
+        blockPublicAcls: true,
+        blockPublicPolicy: true,
+        ignorePublicAcls: true,
+        restrictPublicBuckets: true,
+      },
     });
 
     const cfOriginAccessIdentity = new cloudfront.CfnCloudFrontOriginAccessIdentity(
@@ -37,6 +45,15 @@ export class ImageStack extends cdk.Stack {
         },
       }
     );
+
+    const oaiPolicy = new iam.PolicyStatement();
+    oaiPolicy.addActions('s3:GetBucket*');
+    oaiPolicy.addActions('s3:GetObject*');
+    oaiPolicy.addActions('s3:List*');
+    oaiPolicy.addResources(this.bucket.bucketArn);
+    oaiPolicy.addResources(`${this.bucket.bucketArn}/*`);
+    oaiPolicy.addCanonicalUserPrincipal(cfOriginAccessIdentity.attrS3CanonicalUserId);
+    this.bucket.addToResourcePolicy(oaiPolicy);
 
     const distribution = new cloudfront.CloudFrontWebDistribution(this, 'distro', {
       aliasConfiguration: {
