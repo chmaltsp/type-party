@@ -1,4 +1,4 @@
-.PHONY: tag-gql-image build-tp-gql push-tp-gql tag-and-push set-ssm-param update-gql-service-staging  tag-docker-image tag-fe-image tag-fe-image tag-and-push-fe-image update-fe-service-staging
+.PHONY: tag-gql-image build-tp-api push-tp-api tag-and-push set-ssm-param update-api-service-dev  tag-docker-image tag-fe-image tag-fe-image tag-and-push-fe-image update-fe-service-dev
 
 TP_FE_REPO=tp-fe
 TP_GQL_REPO=tp-gql
@@ -14,21 +14,21 @@ push-docker-image:
 	docker push 561034361591.dkr.ecr.us-east-1.amazonaws.com/${IMAGE}:latest
 	docker push 561034361591.dkr.ecr.us-east-1.amazonaws.com/${IMAGE}:${REV}
 
-tag-gql-image: 
+tag-api-image: 
 	make tag-docker-image IMAGE=${TP_GQL_REPO}
 
-build-tp-gql:
-	docker build -t tp-gql ./backend
+build-tp-api:
+	docker build -t tp-api ./backend
 
-push-tp-gql:
+push-tp-api:
 	make push-docker-image IMAGE=${TP_GQL_REPO}
 
-tag-and-push-gql: build-tp-gql tag-gql-image push-tp-gql
+tag-and-push-api: build-tp-api tag-api-image push-tp-api
 
-update-gql-service-staging:
-	$(eval GQL_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
-	$(eval GQL_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
-	ecs-deploy -n $(GQL_SERVICE_NAME) -c $(GQL_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-gql:latest
+update-api-service-dev:
+	$(eval API_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
+	$(eval API_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
+	ecs-deploy -n $(API_SERVICE_NAME) -c $(API_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-gql:latest
 
 set-ssm-param-secure: 
 	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=alias/TpMaster
@@ -47,10 +47,10 @@ push-tp-fe:
 
 tag-and-push-fe: build-tp-fe tag-fe-image push-tp-fe
 
-prisma-deploy-staging: 
+prisma-deploy-api: 
 	cd backend && yarn prisma
 
-update-fe-service-staging:
+update-fe-service-dev:
 	$(eval FE_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-frontend-dev --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
 	$(eval FE_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-frontend-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
 	ecs-deploy -n $(FE_SERVICE_NAME) -c $(FE_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/${TP_FE_REPO}:latest
