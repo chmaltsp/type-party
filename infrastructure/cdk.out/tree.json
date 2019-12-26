@@ -969,6 +969,10 @@
             "id": "Exports",
             "path": "tp-db-dev/Exports",
             "children": {
+              "Output{\"Fn::GetAtt\":[\"postgres6BBC2FA4\",\"Endpoint.Port\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"postgres6BBC2FA4\",\"Endpoint.Port\"]}",
+                "path": "tp-db-dev/Exports/Output{\"Fn::GetAtt\":[\"postgres6BBC2FA4\",\"Endpoint.Port\"]}"
+              },
               "Output{\"Fn::GetAtt\":[\"postgres6BBC2FA4\",\"Endpoint.Address\"]}": {
                 "id": "Output{\"Fn::GetAtt\":[\"postgres6BBC2FA4\",\"Endpoint.Address\"]}",
                 "path": "tp-db-dev/Exports/Output{\"Fn::GetAtt\":[\"postgres6BBC2FA4\",\"Endpoint.Address\"]}"
@@ -2915,6 +2919,21 @@
                             "groupId": "${Token[TOKEN.574]}",
                             "sourceSecurityGroupId": "${Token[TOKEN.665]}",
                             "toPort": 65535
+                          }
+                        }
+                      },
+                      "from 0.0.0.0_0:{IndirectPort}": {
+                        "id": "from 0.0.0.0_0:{IndirectPort}",
+                        "path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from 0.0.0.0_0:{IndirectPort}",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                          "aws:cdk:cloudformation:props": {
+                            "ipProtocol": "tcp",
+                            "cidrIp": "0.0.0.0/0",
+                            "description": "from 0.0.0.0/0:{IndirectPort}",
+                            "fromPort": -1.8881545897087881e+289,
+                            "groupId": "${Token[TOKEN.574]}",
+                            "toPort": -1.8881545897087881e+289
                           }
                         }
                       }

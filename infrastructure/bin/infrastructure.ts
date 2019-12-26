@@ -75,6 +75,7 @@ new FrontendStack(app, FRONTEND_STACK, {
 });
 
 const PRISMA_STACK = getStackName('prisma');
+
 new PrismaStack(app, PRISMA_STACK, {
   vpc: vpc.vpc,
   certificate: common.certificate,

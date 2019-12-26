@@ -120,6 +120,17 @@
     }
   },
   "Outputs": {
+    "ExportsOutputFnGetAttpostgres6BBC2FA4EndpointPortA1F1044C": {
+      "Value": {
+        "Fn::GetAtt": [
+          "postgres6BBC2FA4",
+          "Endpoint.Port"
+        ]
+      },
+      "Export": {
+        "Name": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointPortA1F1044C"
+      }
+    },
     "ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC": {
       "Value": {
         "Fn::GetAtt": [

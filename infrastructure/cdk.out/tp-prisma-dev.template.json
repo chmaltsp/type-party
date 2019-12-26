@@ -55,6 +55,29 @@
         "aws:cdk:path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tpprismadevprismaLBSecurityGroup1217B50B:32768-65535"
       }
     },
+    "clusterDefaultAutoScalingGroupInstanceSecurityGroupfrom00000IndirectPort77927C89": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "CidrIp": "0.0.0.0/0",
+        "Description": "from 0.0.0.0/0:{IndirectPort}",
+        "FromPort": {
+          "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointPortA1F1044C"
+        },
+        "GroupId": {
+          "Fn::GetAtt": [
+            "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
+            "GroupId"
+          ]
+        },
+        "ToPort": {
+          "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointPortA1F1044C"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from 0.0.0.0_0:{IndirectPort}"
+      }
+    },
     "clusterDefaultAutoScalingGroupInstanceRole98EFF504": {
       "Type": "AWS::IAM::Role",
       "Properties": {

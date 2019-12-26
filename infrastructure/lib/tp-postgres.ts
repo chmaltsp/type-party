@@ -1,13 +1,20 @@
 import cdk = require('@aws-cdk/core');
 import rds = require('@aws-cdk/aws-rds');
 import { StackProps } from '@aws-cdk/core';
-import { IVpc, InstanceType, InstanceClass, InstanceSize } from '@aws-cdk/aws-ec2';
+import {
+  IVpc,
+  InstanceType,
+  InstanceClass,
+  InstanceSize,
+  ISecurityGroup,
+} from '@aws-cdk/aws-ec2';
 import { Secret } from '@aws-cdk/aws-secretsmanager';
 import { IKey } from '@aws-cdk/aws-kms';
 
 interface PostgresProps extends StackProps {
   vpc: IVpc;
   kmsKey: IKey;
+  securityGroups?: ISecurityGroup[];
 }
 export class PostgresStack extends cdk.Stack {
   public db: rds.DatabaseInstance;
@@ -30,6 +37,7 @@ export class PostgresStack extends cdk.Stack {
       databaseName: 'postgres',
       masterUserPassword: this.dbPassword.secretValue,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      securityGroups: props.securityGroups,
     });
 
     this.db.connections.allowDefaultPortFromAnyIpv4();

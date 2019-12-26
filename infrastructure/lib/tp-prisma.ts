@@ -3,7 +3,13 @@ import rds = require('@aws-cdk/aws-rds');
 import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import ecs = require('@aws-cdk/aws-ecs');
 import { StackProps } from '@aws-cdk/core';
-import { IVpc, InstanceType, InstanceClass, InstanceSize } from '@aws-cdk/aws-ec2';
+import {
+  IVpc,
+  InstanceType,
+  InstanceClass,
+  InstanceSize,
+  ISecurityGroup,
+} from '@aws-cdk/aws-ec2';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { Secret } from '@aws-cdk/aws-secretsmanager';
@@ -17,6 +23,7 @@ interface PrismaProps extends StackProps {
   dbPassword: Secret;
 }
 export class PrismaStack extends cdk.Stack {
+  public readonly prismaSecurityGroup: ISecurityGroup[];
   constructor(scope: cdk.App, id: string, props: PrismaProps) {
     super(scope, id, props);
 
@@ -50,20 +57,28 @@ export class PrismaStack extends cdk.Stack {
         managementSchema: management
     `;
 
-    new ecs_patterns.ApplicationLoadBalancedEc2Service(this, 'prisma', {
-      cluster,
-      memoryReservationMiB: 700,
-      publicLoadBalancer: true,
-      certificate: props.certificate,
-      domainName: prismaDomainName,
-      domainZone: props.zone,
-      taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry(PRISMA_DOCKER_IMAGE),
-        containerPort: 4466,
-        environment: {
-          PRISMA_CONFIG,
+    const prismaService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
+      this,
+      'prisma',
+      {
+        cluster,
+        memoryReservationMiB: 700,
+        publicLoadBalancer: true,
+        certificate: props.certificate,
+        domainName: prismaDomainName,
+        domainZone: props.zone,
+        taskImageOptions: {
+          image: ecs.ContainerImage.fromRegistry(PRISMA_DOCKER_IMAGE),
+          containerPort: 4466,
+          environment: {
+            PRISMA_CONFIG,
+          },
         },
-      },
-    });
+      }
+    );
+
+    this.prismaSecurityGroup = prismaService.service.connections.securityGroups;
+
+    props.db.connections.addSecurityGroup(...this.prismaSecurityGroup);
   }
 }
