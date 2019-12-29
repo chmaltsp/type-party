@@ -665,7 +665,7 @@
             ]
           }
         },
-        "HostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
+        "HostedZoneId": "Z1M48R5Z0AFHNH"
       },
       "Metadata": {
         "aws:cdk:path": "tp-frontend-dev/service/DNS/Resource"
@@ -947,9 +947,6 @@
     "serviceService8587F09F": {
       "Type": "AWS::ECS::Service",
       "Properties": {
-        "TaskDefinition": {
-          "Ref": "serviceTaskDef7C4986C7"
-        },
         "Cluster": {
           "Ref": "cluster611F8AFF"
         },
@@ -970,7 +967,10 @@
             }
           }
         ],
-        "SchedulingStrategy": "REPLICA"
+        "SchedulingStrategy": "REPLICA",
+        "TaskDefinition": {
+          "Ref": "serviceTaskDef7C4986C7"
+        }
       },
       "DependsOn": [
         "serviceLBPublicListenerECSGroupD194ED9A",

@@ -36,24 +36,25 @@ export class ImageStack extends cdk.Stack {
       },
     });
 
-    const cfOriginAccessIdentity = new cloudfront.CfnCloudFrontOriginAccessIdentity(
-      this,
-      'oai',
-      {
-        cloudFrontOriginAccessIdentityConfig: {
-          comment: `Origin access identity for ${this.bucket.bucketName}`,
-        },
-      }
-    );
+    const cfOriginAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'oai', {
+      comment: `Origin access identity for ${this.bucket.bucketName}`,
+    });
 
-    const oaiPolicy = new iam.PolicyStatement();
-    oaiPolicy.addActions('s3:GetBucket*');
-    oaiPolicy.addActions('s3:GetObject*');
-    oaiPolicy.addActions('s3:List*');
-    oaiPolicy.addResources(this.bucket.bucketArn);
-    oaiPolicy.addResources(`${this.bucket.bucketArn}/*`);
-    oaiPolicy.addCanonicalUserPrincipal(cfOriginAccessIdentity.attrS3CanonicalUserId);
-    this.bucket.addToResourcePolicy(oaiPolicy);
+    const apiS3Policy = new iam.PolicyStatement();
+
+    const apiTaskArn = cdk.Fn.importValue('tp-api-dev-TaskArn');
+    apiS3Policy.addActions('s3:List*');
+    apiS3Policy.addActions('s3:GetObject*');
+    apiS3Policy.addActions('s3:GetBucket*');
+    apiS3Policy.addActions('s3:PutObject*');
+    apiS3Policy.addActions('s3:PutObjectAcl*');
+    apiS3Policy.addActions('s3:Abort*');
+    apiS3Policy.addResources(this.bucket.bucketArn);
+    apiS3Policy.addResources(`${this.bucket.bucketArn}/*`);
+
+    apiS3Policy.addArnPrincipal(apiTaskArn);
+
+    this.bucket.addToResourcePolicy(apiS3Policy);
 
     const distribution = new cloudfront.CloudFrontWebDistribution(this, 'distro', {
       aliasConfiguration: {
@@ -70,7 +71,7 @@ export class ImageStack extends cdk.Stack {
             },
           ],
           s3OriginSource: {
-            originAccessIdentityId: cfOriginAccessIdentity.ref,
+            originAccessIdentity: cfOriginAccessIdentity,
             s3BucketSource: this.bucket,
           },
         },

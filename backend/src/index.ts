@@ -58,6 +58,7 @@ server.start(
     debug: true,
   },
   options => {
+    console.log(process.env);
     console.log(`Server is running on http://localhost:4000`, options);
   }
 );

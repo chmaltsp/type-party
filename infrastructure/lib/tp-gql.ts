@@ -9,6 +9,7 @@ import ssm = require('@aws-cdk/aws-ssm');
 import { getDomainName } from './common';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
+import { PolicyStatement } from '@aws-cdk/aws-iam';
 
 interface ApiProps extends cdk.StackProps {
   vpc: ec2.Vpc;
@@ -90,6 +91,7 @@ export class ApiStack extends cdk.Stack {
         taskImageOptions: {
           image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
           containerPort: 4000,
+
           secrets: {
             PRISMA_SECRET,
             PRISMA_ENDPOINT,
@@ -104,7 +106,21 @@ export class ApiStack extends cdk.Stack {
       }
     );
 
-    props.imageBucket.grantPut(apiService.taskDefinition.taskRole);
+    // const cdkUser = new ArnPrincipal('arn:aws:iam::561034361591:user/cdk-user');
+
+    const assumeRolePolicy = new PolicyStatement();
+
+    assumeRolePolicy.addActions('sts:AssumeRole');
+    assumeRolePolicy.addResources('arn:aws:iam::561034361591:user/cdk-user');
+
+    apiService.taskDefinition.addToTaskRolePolicy(assumeRolePolicy);
+
+    // props.imageBucket.grantReadWrite(apiService.taskDefinition.taskRole);
+
+    new cdk.CfnOutput(this, 'TaskArn', {
+      value: apiService.taskDefinition.taskRole.roleArn,
+      exportName: `${props.stackName}-TaskArn`,
+    });
     new cdk.CfnOutput(this, 'ServiceName', {
       value: apiService.service.serviceName,
     });
