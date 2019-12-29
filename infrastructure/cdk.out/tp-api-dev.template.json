@@ -635,7 +635,7 @@
             ]
           }
         },
-        "HostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
+        "HostedZoneId": "Z1M48R5Z0AFHNH"
       },
       "Metadata": {
         "aws:cdk:path": "tp-api-dev/service/DNS/Resource"
@@ -667,22 +667,9 @@
         "PolicyDocument": {
           "Statement": [
             {
-              "Action": [
-                "s3:PutObject*",
-                "s3:Abort*"
-              ],
+              "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    {
-                      "Fn::ImportValue": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71Arn20063EB0"
-                    },
-                    "/*"
-                  ]
-                ]
-              }
+              "Resource": "arn:aws:iam::561034361591:user/cdk-user"
             }
           ],
           "Version": "2012-10-17"
@@ -1074,9 +1061,6 @@
     "serviceService8587F09F": {
       "Type": "AWS::ECS::Service",
       "Properties": {
-        "TaskDefinition": {
-          "Ref": "serviceTaskDef7C4986C7"
-        },
         "Cluster": {
           "Ref": "cluster611F8AFF"
         },
@@ -1097,7 +1081,10 @@
             }
           }
         ],
-        "SchedulingStrategy": "REPLICA"
+        "SchedulingStrategy": "REPLICA",
+        "TaskDefinition": {
+          "Ref": "serviceTaskDef7C4986C7"
+        }
       },
       "DependsOn": [
         "serviceLBPublicListenerECSGroupD194ED9A",
@@ -1150,6 +1137,17 @@
             }
           ]
         ]
+      }
+    },
+    "TaskArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "serviceTaskDefTaskRole43CA7BBB",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "tp-api-dev-TaskArn"
       }
     },
     "ServiceName": {

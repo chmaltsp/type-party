@@ -635,7 +635,7 @@
             ]
           }
         },
-        "HostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
+        "HostedZoneId": "Z1M48R5Z0AFHNH"
       },
       "Metadata": {
         "aws:cdk:path": "tp-prisma-dev/prisma/DNS/Resource"
@@ -795,9 +795,6 @@
     "prismaServiceFCB8B88D": {
       "Type": "AWS::ECS::Service",
       "Properties": {
-        "TaskDefinition": {
-          "Ref": "prismaTaskDef25E24F11"
-        },
         "Cluster": {
           "Ref": "cluster611F8AFF"
         },
@@ -818,7 +815,10 @@
             }
           }
         ],
-        "SchedulingStrategy": "REPLICA"
+        "SchedulingStrategy": "REPLICA",
+        "TaskDefinition": {
+          "Ref": "prismaTaskDef25E24F11"
+        }
       },
       "DependsOn": [
         "prismaLBPublicListenerECSGroupAEA979E8",

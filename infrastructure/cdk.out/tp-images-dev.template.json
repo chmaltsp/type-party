@@ -27,15 +27,53 @@
           "Statement": [
             {
               "Action": [
-                "s3:GetBucket*",
+                "s3:List*",
                 "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:PutObject*",
+                "s3:PutObjectAcl*",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::ImportValue": "tp-api-dev-TaskArn"
+                }
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "bucket43879C71",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "bucket43879C71",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
                 "s3:List*"
               ],
               "Effect": "Allow",
               "Principal": {
                 "CanonicalUser": {
                   "Fn::GetAtt": [
-                    "oai",
+                    "oai7A77E975",
                     "S3CanonicalUserId"
                   ]
                 }
@@ -71,7 +109,7 @@
         "aws:cdk:path": "tp-images-dev/bucket/Policy/Resource"
       }
     },
-    "oai": {
+    "oai7A77E975": {
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
       "Properties": {
         "CloudFrontOriginAccessIdentityConfig": {
@@ -89,7 +127,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "tp-images-dev/oai"
+        "aws:cdk:path": "tp-images-dev/oai/Resource"
       }
     },
     "distroCFDistributionB272DD5C": {
@@ -138,7 +176,7 @@
                     [
                       "origin-access-identity/cloudfront/",
                       {
-                        "Ref": "oai"
+                        "Ref": "oai7A77E975"
                       }
                     ]
                   ]
@@ -174,7 +212,7 @@
           },
           "HostedZoneId": "Z2FDTNDATAQYW2"
         },
-        "HostedZoneId": "/hostedzone/Z1M48R5Z0AFHNH"
+        "HostedZoneId": "Z1M48R5Z0AFHNH"
       },
       "Metadata": {
         "aws:cdk:path": "tp-images-dev/ImagesARecord/Resource"
@@ -182,17 +220,6 @@
     }
   },
   "Outputs": {
-    "ExportsOutputFnGetAttbucket43879C71Arn20063EB0": {
-      "Value": {
-        "Fn::GetAtt": [
-          "bucket43879C71",
-          "Arn"
-        ]
-      },
-      "Export": {
-        "Name": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71Arn20063EB0"
-      }
-    },
     "ExportsOutputRefbucket43879C716CF1CFA3": {
       "Value": {
         "Ref": "bucket43879C71"
