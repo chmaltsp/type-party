@@ -5,7 +5,7 @@ import cdk = require('@aws-cdk/core');
 import { ImageStack } from '../lib/tp-images';
 import { TpEcr } from '../lib/tp-ecr';
 import { VpcStack } from '../lib/tp-vpc';
-import { ApiStack } from '../lib/tp-gql';
+import { ApiStack } from '../lib/tp-api';
 
 import { TpCommon, getStage, ORG } from '../lib/common';
 import { FrontendStack } from '../lib/tp-fe';
@@ -23,7 +23,7 @@ const env = {
   region: 'us-east-1',
 };
 
-const tpGqlEcr = new TpEcr(app, 'TpEcr');
+const tpEcr = new TpEcr(app, 'TpEcr');
 
 const VPC_STACK = getStackName('vpc');
 
@@ -54,7 +54,7 @@ const postgres = new PostgresStack(app, DB_STACK, {
 const API_STACK = getStackName('api');
 
 new ApiStack(app, API_STACK, {
-  ecrRepository: tpGqlEcr.gql,
+  ecrRepository: tpEcr.api,
   vpc: vpc.vpc,
   stackName: API_STACK,
   imageBucket: imageStack.bucket,
@@ -66,7 +66,7 @@ new ApiStack(app, API_STACK, {
 const FRONTEND_STACK = getStackName('frontend');
 
 new FrontendStack(app, FRONTEND_STACK, {
-  ecrRepository: tpGqlEcr.fe,
+  ecrRepository: tpEcr.fe,
   vpc: vpc.vpc,
   stackName: FRONTEND_STACK,
   certificate: common.certificate,

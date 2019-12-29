@@ -12,20 +12,20 @@
         "id": "TpEcr",
         "path": "TpEcr",
         "children": {
-          "tp-gql": {
-            "id": "tp-gql",
-            "path": "TpEcr/tp-gql",
+          "tp-api": {
+            "id": "tp-api",
+            "path": "TpEcr/tp-api",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "TpEcr/tp-gql/Resource",
+                "path": "TpEcr/tp-api/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECR::Repository",
                   "aws:cdk:cloudformation:props": {
                     "lifecyclePolicy": {
                       "lifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":9999},\"action\":{\"type\":\"expire\"}}]}"
                     },
-                    "repositoryName": "tp-gql"
+                    "repositoryName": "tp-api"
                   }
                 }
               }
@@ -2123,7 +2123,7 @@
                                                 {
                                                   "Ref": "AWS::AccountId"
                                                 },
-                                                ":repository/tp-gql"
+                                                ":repository/tp-api"
                                               ]
                                             ]
                                           }
@@ -2154,7 +2154,7 @@
                                                 {
                                                   "Ref": "AWS::AccountId"
                                                 },
-                                                ":repository/tp-gql"
+                                                ":repository/tp-api"
                                               ]
                                             ]
                                           }
@@ -2166,7 +2166,7 @@
                                   {
                                     "Ref": "AWS::URLSuffix"
                                   },
-                                  "/tp-gql:latest"
+                                  "/tp-api:latest"
                                 ]
                               ]
                             },
@@ -2365,7 +2365,7 @@
                                             {
                                               "Ref": "AWS::AccountId"
                                             },
-                                            ":repository/tp-gql"
+                                            ":repository/tp-api"
                                           ]
                                         ]
                                       }

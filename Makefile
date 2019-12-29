@@ -1,7 +1,7 @@
 .PHONY: tag-gql-image build-tp-api push-tp-api tag-and-push set-ssm-param update-api-service-dev  tag-docker-image tag-fe-image tag-fe-image tag-and-push-fe-image update-fe-service-dev
 
 TP_FE_REPO=tp-fe
-TP_GQL_REPO=tp-gql
+TP_API_REPO=tp-api
 tag-docker-image:
 	@echo "LOGIN TO DOCKER"
 	$$(aws ecr --profile tp-access get-login --region us-east-1 --no-include-email)
@@ -15,29 +15,29 @@ push-docker-image:
 	docker push 561034361591.dkr.ecr.us-east-1.amazonaws.com/${IMAGE}:${REV}
 
 tag-api-image: 
-	make tag-docker-image IMAGE=${TP_GQL_REPO}
+	make tag-docker-image IMAGE=${TP_API_REPO}
 
 build-tp-api:
-	docker build -t tp-api ./backend
+	docker build -t ${TP_API_REPO} ./backend
 
 push-tp-api:
-	make push-docker-image IMAGE=${TP_GQL_REPO}
+	make push-docker-image IMAGE=${TP_API_REPO}
 
 tag-and-push-api: build-tp-api tag-api-image push-tp-api
 
 update-api-service-dev:
 	$(eval API_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
 	$(eval API_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
-	ecs-deploy -n $(API_SERVICE_NAME) -c $(API_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-gql:latest
+	ecs-deploy -n $(API_SERVICE_NAME) -c $(API_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-api:latest
 
-set-ssm-param-secure: 
+set-ssm-param-secure: y
 	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=alias/TpMaster
 
 set-ssm-param: 
 	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1"
 # FE Docker Build
 build-tp-fe:
-	docker build -t tp-fe ./frontend
+	docker build -t ${TP_FE_REPO} ./frontend
 
 tag-fe-image: 
 	make tag-docker-image IMAGE=${TP_FE_REPO}

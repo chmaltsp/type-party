@@ -106,16 +106,12 @@ export class ApiStack extends cdk.Stack {
       }
     );
 
-    // const cdkUser = new ArnPrincipal('arn:aws:iam::561034361591:user/cdk-user');
-
     const assumeRolePolicy = new PolicyStatement();
 
     assumeRolePolicy.addActions('sts:AssumeRole');
     assumeRolePolicy.addResources('arn:aws:iam::561034361591:user/cdk-user');
 
     apiService.taskDefinition.addToTaskRolePolicy(assumeRolePolicy);
-
-    // props.imageBucket.grantReadWrite(apiService.taskDefinition.taskRole);
 
     new cdk.CfnOutput(this, 'TaskArn', {
       value: apiService.taskDefinition.taskRole.roleArn,

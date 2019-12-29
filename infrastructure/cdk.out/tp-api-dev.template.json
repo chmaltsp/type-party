@@ -729,7 +729,7 @@
                                 {
                                   "Ref": "AWS::AccountId"
                                 },
-                                ":repository/tp-gql"
+                                ":repository/tp-api"
                               ]
                             ]
                           }
@@ -760,7 +760,7 @@
                                 {
                                   "Ref": "AWS::AccountId"
                                 },
-                                ":repository/tp-gql"
+                                ":repository/tp-api"
                               ]
                             ]
                           }
@@ -772,7 +772,7 @@
                   {
                     "Ref": "AWS::URLSuffix"
                   },
-                  "/tp-gql:latest"
+                  "/tp-api:latest"
                 ]
               ]
             },
@@ -937,7 +937,7 @@
                     {
                       "Ref": "AWS::AccountId"
                     },
-                    ":repository/tp-gql"
+                    ":repository/tp-api"
                   ]
                 ]
               }
