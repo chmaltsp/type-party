@@ -16,6 +16,7 @@ import { theme } from './styles/theme';
 import './styles/global';
 
 import ProtectedRoute from './components/ProtectedRoute';
+import About from './pages/About';
 import Directory from './pages/Directory';
 import Typeface from './pages/Typeface';
 import Website from './pages/Website';
@@ -29,6 +30,7 @@ const App = () => (
         <Route exact={true} path="/site/:slug" component={Website} />
         <Route exact={true} path="/typeface/:slug" component={Typeface} />
         <Route exact={true} path="/directory" component={Directory} />
+        <Route exact={true} path="/about" component={About} />
         <ProtectedRoute exact={true} path="/add-site" component={AddSite} />
         <ProtectedRoute exact={true} path="/add-site/:slug" component={AddSite} />
         <ProtectedRoute exact={true} path="/add-typeface" component={AddTypeface} />
