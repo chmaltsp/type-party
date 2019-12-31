@@ -60,14 +60,12 @@ export default class Autocomplete<Item> extends React.Component<AutocompleteProp
   }
 
   private handleOnchange = (selection: any) => {
-    console.log('You selected', selection);
     this.props.handleOnChange(selection);
   };
 
   private handleOnInputEnter = (event: React.KeyboardEvent) => {
     // Callback on Enter only to add to list etc...
     if (event.which === 13) {
-      console.log('ON ENTER', event.which);
       event.preventDefault();
     }
   };
