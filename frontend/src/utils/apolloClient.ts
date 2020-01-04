@@ -29,7 +29,9 @@ export const createClient = () => {
     uri,
   });
 
-  const appCache = new InMemoryCache();
+  const appCache = new InMemoryCache().restore(
+    isWindowDefined && (window as any).__APOLLO_STATE__
+  );
 
   const stateLink = withClientState({
     cache: appCache,
@@ -92,6 +94,7 @@ export const createClient = () => {
   const client = new ApolloClient({
     cache: appCache,
     link,
+    resolvers: {},
     ssrMode: !isWindowDefined,
   });
 
