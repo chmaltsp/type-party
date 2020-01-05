@@ -11,6 +11,7 @@ import { TpCommon, getStage, ORG } from '../lib/common';
 import { FrontendStack } from '../lib/tp-fe';
 import { PostgresStack } from '../lib/tp-postgres';
 import { PrismaStack } from '../lib/tp-prisma';
+import { LBStack } from '../lib/tp-lb';
 
 const app = new cdk.App();
 
@@ -30,6 +31,13 @@ const VPC_STACK = getStackName('vpc');
 const vpc = new VpcStack(app, VPC_STACK, {
   name: VPC_STACK,
   env,
+});
+
+const LB_STACK = getStackName('lb');
+
+const lb = new LBStack(app, LB_STACK, {
+  env,
+  vpc: vpc.vpc,
 });
 
 const common = new TpCommon(app, 'TpCommon', {
@@ -71,6 +79,7 @@ new FrontendStack(app, FRONTEND_STACK, {
   stackName: FRONTEND_STACK,
   certificate: common.certificate,
   zone: common.zone,
+  lb: lb.alb,
   env,
 });
 

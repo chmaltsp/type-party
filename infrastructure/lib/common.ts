@@ -5,6 +5,7 @@ import ssm = require('@aws-cdk/aws-ssm');
 import kms = require('@aws-cdk/aws-kms');
 import { Certificate, ICertificate } from '@aws-cdk/aws-certificatemanager';
 
+import elb = require('@aws-cdk/aws-elasticloadbalancingv2');
 interface TpCommonProps extends cdk.StackProps {}
 
 export const ORG = 'tp';
@@ -27,6 +28,7 @@ export class TpCommon extends cdk.Stack {
   public readonly certificate: ICertificate;
   public readonly arnCertificate: string;
   public readonly zone: route53.IHostedZone;
+  public readonly lb: elb.ApplicationLoadBalancer;
 
   public readonly key: kms.IKey;
   constructor(scope: cdk.App, id: string, props: TpCommonProps) {

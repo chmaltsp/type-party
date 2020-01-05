@@ -9,12 +9,14 @@ import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { IGrantable } from '@aws-cdk/aws-iam';
 import { getDomainName, getStage } from './common';
+import { ApplicationLoadBalancer } from '@aws-cdk/aws-elasticloadbalancingv2';
 
 interface FrontendProps extends cdk.StackProps {
   vpc: ec2.Vpc;
   ecrRepository: IRepository;
   zone: IHostedZone;
   certificate: ICertificate;
+  lb: ApplicationLoadBalancer;
 }
 export class FrontendStack extends cdk.Stack {
   public readonly feServiceRole: IGrantable;
@@ -55,9 +57,9 @@ export class FrontendStack extends cdk.Stack {
       {
         cluster,
         memoryReservationMiB: 700,
-        publicLoadBalancer: true,
         domainName: feDomainName,
         domainZone: props.zone,
+        loadBalancer: props.lb,
         certificate: props.certificate,
         taskImageOptions: {
           image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
