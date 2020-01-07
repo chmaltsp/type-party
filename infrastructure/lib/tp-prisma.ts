@@ -1,13 +1,11 @@
 import cdk = require('@aws-cdk/core');
 import rds = require('@aws-cdk/aws-rds');
-import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import ecs = require('@aws-cdk/aws-ecs');
 import { StackProps } from '@aws-cdk/core';
 import { IVpc, InstanceType, InstanceClass, InstanceSize } from '@aws-cdk/aws-ec2';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { Secret } from '@aws-cdk/aws-secretsmanager';
-import { getDomainName } from './common';
 
 interface PrismaProps extends StackProps {
   vpc: IVpc;
@@ -24,14 +22,10 @@ export class PrismaStack extends cdk.Stack {
       vpc: props.vpc,
     });
 
-    const domainName = getDomainName(scope);
-
     cluster.addCapacity('DefaultAutoScalingGroup', {
       instanceType: InstanceType.of(InstanceClass.T2, InstanceSize.SMALL),
       spotPrice: '0.023',
     });
-
-    const prismaDomainName = `prisma.${domainName}`;
 
     const PRISMA_DOCKER_IMAGE = 'prismagraphql/prisma:1.34';
 
@@ -50,20 +44,28 @@ export class PrismaStack extends cdk.Stack {
         managementSchema: management
     `;
 
-    new ecs_patterns.ApplicationLoadBalancedEc2Service(this, 'prisma', {
-      cluster,
+    const taskdef = new ecs.Ec2TaskDefinition(this, 'taskdef');
+
+    const logging = new ecs.AwsLogDriver({ streamPrefix: props.stackName + '-logs' });
+
+    const container = taskdef.addContainer('prisma-container', {
+      image: ecs.ContainerImage.fromRegistry(PRISMA_DOCKER_IMAGE),
       memoryReservationMiB: 700,
-      publicLoadBalancer: true,
-      certificate: props.certificate,
-      domainName: prismaDomainName,
-      domainZone: props.zone,
-      taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry(PRISMA_DOCKER_IMAGE),
-        containerPort: 4466,
-        environment: {
-          PRISMA_CONFIG,
-        },
+      logging,
+
+      environment: {
+        PRISMA_CONFIG,
       },
+    });
+
+    container.addPortMappings({
+      containerPort: 4466,
+      protocol: ecs.Protocol.TCP,
+    });
+
+    new ecs.Ec2Service(this, 'prisma', {
+      taskDefinition: taskdef,
+      cluster,
     });
   }
 }

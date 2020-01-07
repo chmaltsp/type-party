@@ -6,6 +6,10 @@ import kms = require('@aws-cdk/aws-kms');
 import { Certificate, ICertificate } from '@aws-cdk/aws-certificatemanager';
 
 import elb = require('@aws-cdk/aws-elasticloadbalancingv2');
+
+import s3 = require('@aws-cdk/aws-s3');
+import targets = require('@aws-cdk/aws-route53-targets');
+
 interface TpCommonProps extends cdk.StackProps {}
 
 export const ORG = 'tp';
@@ -66,6 +70,22 @@ export class TpCommon extends cdk.Stack {
     new route53.CnameRecord(this, 'at-tp-prod', {
       domainName: 'type-party.superhi.com',
       recordName: '@',
+      zone: prodHostedZone,
+    });
+
+    const tpRedirectBucket = new s3.Bucket(this, 'bucket', {
+      bucketName: 'type.party',
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      websiteRedirect: {
+        hostName: 'www.type.party',
+        protocol: s3.RedirectProtocol.HTTP,
+      },
+    });
+
+    new route53.ARecord(this, 's3-tp-prod', {
+      target: route53.RecordTarget.fromAlias(
+        new targets.BucketWebsiteTarget(tpRedirectBucket)
+      ),
       zone: prodHostedZone,
     });
 

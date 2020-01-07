@@ -59,7 +59,7 @@ export class FrontendStack extends cdk.Stack {
         memoryReservationMiB: 700,
         domainName: feDomainName,
         domainZone: props.zone,
-        loadBalancer: props.lb,
+        publicLoadBalancer: true,
         certificate: props.certificate,
         taskImageOptions: {
           image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),

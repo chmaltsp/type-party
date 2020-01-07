@@ -761,6 +761,56 @@
               }
             }
           },
+          "bucket": {
+            "id": "bucket",
+            "path": "TpCommon/bucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TpCommon/bucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "type.party",
+                    "websiteConfiguration": {
+                      "redirectAllRequestsTo": {
+                        "hostName": "www.type.party",
+                        "protocol": "http"
+                      }
+                    }
+                  }
+                }
+              },
+              "Notifications": {
+                "id": "Notifications",
+                "path": "TpCommon/bucket/Notifications"
+              }
+            }
+          },
+          "s3-tp-prod": {
+            "id": "s3-tp-prod",
+            "path": "TpCommon/s3-tp-prod",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TpCommon/s3-tp-prod/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "type.party.",
+                    "type": "A",
+                    "aliasTarget": {
+                      "hostedZoneId": "Z3AQBSTGFYJSTF",
+                      "dnsName": "s3-website-us-east-1.amazonaws.com"
+                    },
+                    "hostedZoneId": {
+                      "Ref": "tpprod49D00DF1"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "Zone": {
             "id": "Zone",
             "path": "TpCommon/Zone"
@@ -772,6 +822,175 @@
               "Output{\"Ref\":\"SsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter\"}": {
                 "id": "Output{\"Ref\":\"SsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter\"}",
                 "path": "TpCommon/Exports/Output{\"Ref\":\"SsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter\"}"
+              }
+            }
+          }
+        }
+      },
+      "tp-lb-dev": {
+        "id": "tp-lb-dev",
+        "path": "tp-lb-dev",
+        "children": {
+          "loadbalancer": {
+            "id": "loadbalancer",
+            "path": "tp-lb-dev/loadbalancer",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "tp-lb-dev/loadbalancer/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                  "aws:cdk:cloudformation:props": {
+                    "scheme": "internet-facing",
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "loadbalancerSecurityGroup3A6B02E1",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnets": [
+                      {
+                        "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E"
+                      },
+                      {
+                        "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet2Subnet48B24DB25C427FA1"
+                      }
+                    ],
+                    "type": "application"
+                  }
+                }
+              },
+              "SecurityGroup": {
+                "id": "SecurityGroup",
+                "path": "tp-lb-dev/loadbalancer/SecurityGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "tp-lb-dev/loadbalancer/SecurityGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "groupDescription": "Automatically created Security Group for ELB tplbdevloadbalancer0340D10A",
+                        "securityGroupIngress": [
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "ipProtocol": "tcp",
+                            "fromPort": 4000,
+                            "toPort": 4000,
+                            "description": "Allow from anyone on port 4000"
+                          }
+                        ],
+                        "vpcId": {
+                          "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "listener": {
+                "id": "listener",
+                "path": "tp-lb-dev/loadbalancer/listener",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "tp-lb-dev/loadbalancer/listener/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                      "aws:cdk:cloudformation:props": {
+                        "defaultActions": [
+                          {
+                            "targetGroupArn": {
+                              "Ref": "loadbalancerlistenerECSGroup3F2C9717"
+                            },
+                            "type": "forward"
+                          }
+                        ],
+                        "loadBalancerArn": {
+                          "Ref": "loadbalancerEE24515C"
+                        },
+                        "port": 4000,
+                        "protocol": "HTTPS",
+                        "certificates": [
+                          {
+                            "certificateArn": {
+                              "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "ECSGroup": {
+                    "id": "ECSGroup",
+                    "path": "tp-lb-dev/loadbalancer/listener/ECSGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "tp-lb-dev/loadbalancer/listener/ECSGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "port": 4000,
+                            "protocol": "HTTP",
+                            "targetType": "instance",
+                            "vpcId": {
+                              "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "albRecord": {
+            "id": "albRecord",
+            "path": "tp-lb-dev/albRecord",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "tp-lb-dev/albRecord/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "typeparty.com.",
+                    "type": "A",
+                    "aliasTarget": {
+                      "hostedZoneId": {
+                        "Fn::GetAtt": [
+                          "loadbalancerEE24515C",
+                          "CanonicalHostedZoneID"
+                        ]
+                      },
+                      "dnsName": {
+                        "Fn::GetAtt": [
+                          "loadbalancerEE24515C",
+                          "DNSName"
+                        ]
+                      }
+                    },
+                    "hostedZoneId": "Z1M48R5Z0AFHNH"
+                  }
+                }
+              }
+            }
+          },
+          "Exports": {
+            "id": "Exports",
+            "path": "tp-lb-dev/Exports",
+            "children": {
+              "Output{\"Fn::GetAtt\":[\"loadbalancerSecurityGroup3A6B02E1\",\"GroupId\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"loadbalancerSecurityGroup3A6B02E1\",\"GroupId\"]}",
+                "path": "tp-lb-dev/Exports/Output{\"Fn::GetAtt\":[\"loadbalancerSecurityGroup3A6B02E1\",\"GroupId\"]}"
+              },
+              "Output{\"Ref\":\"loadbalancerlistenerECSGroup3F2C9717\"}": {
+                "id": "Output{\"Ref\":\"loadbalancerlistenerECSGroup3F2C9717\"}",
+                "path": "tp-lb-dev/Exports/Output{\"Ref\":\"loadbalancerlistenerECSGroup3F2C9717\"}"
               }
             }
           }
@@ -820,44 +1039,6 @@
                         },
                         "policyDocument": {
                           "Statement": [
-                            {
-                              "Action": [
-                                "s3:List*",
-                                "s3:GetObject*",
-                                "s3:GetBucket*",
-                                "s3:PutObject*",
-                                "s3:PutObjectAcl*",
-                                "s3:Abort*"
-                              ],
-                              "Effect": "Allow",
-                              "Principal": {
-                                "AWS": {
-                                  "Fn::ImportValue": "tp-api-dev-TaskArn"
-                                }
-                              },
-                              "Resource": [
-                                {
-                                  "Fn::GetAtt": [
-                                    "bucket43879C71",
-                                    "Arn"
-                                  ]
-                                },
-                                {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      {
-                                        "Fn::GetAtt": [
-                                          "bucket43879C71",
-                                          "Arn"
-                                        ]
-                                      },
-                                      "/*"
-                                    ]
-                                  ]
-                                }
-                              ]
-                            },
                             {
                               "Action": [
                                 "s3:GetObject*",
@@ -1261,9 +1442,9 @@
                           }
                         }
                       },
-                      "from tpapidevserviceLBSecurityGroupF33F7954:32768-65535": {
-                        "id": "from tpapidevserviceLBSecurityGroupF33F7954:32768-65535",
-                        "path": "tp-api-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tpapidevserviceLBSecurityGroupF33F7954:32768-65535",
+                      "from tplbdevloadbalancerSecurityGroup545133BC:32768-65535": {
+                        "id": "from tplbdevloadbalancerSecurityGroup545133BC:32768-65535",
+                        "path": "tp-api-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tplbdevloadbalancerSecurityGroup545133BC:32768-65535",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                           "aws:cdk:cloudformation:props": {
@@ -1277,11 +1458,30 @@
                               ]
                             },
                             "sourceSecurityGroupId": {
+                              "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+                            },
+                            "toPort": 65535
+                          }
+                        }
+                      },
+                      "tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from": {
+                        "id": "tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from",
+                        "path": "tp-api-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
+                          "aws:cdk:cloudformation:props": {
+                            "groupId": {
+                              "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+                            },
+                            "ipProtocol": "tcp",
+                            "description": "Load balancer to target",
+                            "destinationSecurityGroupId": {
                               "Fn::GetAtt": [
-                                "serviceLBSecurityGroup7C51B15A",
+                                "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
                                 "GroupId"
                               ]
                             },
+                            "fromPort": 32768,
                             "toPort": 65535
                           }
                         }
@@ -1840,145 +2040,61 @@
             "id": "PRISMA_ENDPOINT",
             "path": "tp-api-dev/PRISMA_ENDPOINT"
           },
-          "service": {
-            "id": "service",
-            "path": "tp-api-dev/service",
+          "taskdef": {
+            "id": "taskdef",
+            "path": "tp-api-dev/taskdef",
             "children": {
-              "LB": {
-                "id": "LB",
-                "path": "tp-api-dev/service/LB",
+              "TaskRole": {
+                "id": "TaskRole",
+                "path": "tp-api-dev/taskdef/TaskRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "tp-api-dev/service/LB/Resource",
+                    "path": "tp-api-dev/taskdef/TaskRole/Resource",
                     "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
-                        "scheme": "internet-facing",
-                        "securityGroups": [
-                          {
-                            "Fn::GetAtt": [
-                              "serviceLBSecurityGroup7C51B15A",
-                              "GroupId"
-                            ]
-                          }
-                        ],
-                        "subnets": [
-                          {
-                            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E"
-                          },
-                          {
-                            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet2Subnet48B24DB25C427FA1"
-                          }
-                        ],
-                        "type": "application"
-                      }
-                    }
-                  },
-                  "SecurityGroup": {
-                    "id": "SecurityGroup",
-                    "path": "tp-api-dev/service/LB/SecurityGroup",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "tp-api-dev/service/LB/SecurityGroup/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
-                          "aws:cdk:cloudformation:props": {
-                            "groupDescription": "Automatically created Security Group for ELB tpapidevserviceLB414EE1FD",
-                            "securityGroupIngress": [
-                              {
-                                "cidrIp": "0.0.0.0/0",
-                                "ipProtocol": "tcp",
-                                "fromPort": 443,
-                                "toPort": 443,
-                                "description": "Allow from anyone on port 443"
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "ecs-tasks.amazonaws.com"
                               }
-                            ],
-                            "vpcId": {
-                              "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
                             }
-                          }
-                        }
-                      },
-                      "to tpapidevclusterDefaultAutoScalingGroupInstanceSecurityGroupD933532C:32768-65535": {
-                        "id": "to tpapidevclusterDefaultAutoScalingGroupInstanceSecurityGroupD933532C:32768-65535",
-                        "path": "tp-api-dev/service/LB/SecurityGroup/to tpapidevclusterDefaultAutoScalingGroupInstanceSecurityGroupD933532C:32768-65535",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
-                          "aws:cdk:cloudformation:props": {
-                            "groupId": {
-                              "Fn::GetAtt": [
-                                "serviceLBSecurityGroup7C51B15A",
-                                "GroupId"
-                              ]
-                            },
-                            "ipProtocol": "tcp",
-                            "description": "Load balancer to target",
-                            "destinationSecurityGroupId": {
-                              "Fn::GetAtt": [
-                                "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
-                                "GroupId"
-                              ]
-                            },
-                            "fromPort": 32768,
-                            "toPort": 65535
-                          }
+                          ],
+                          "Version": "2012-10-17"
                         }
                       }
                     }
                   },
-                  "PublicListener": {
-                    "id": "PublicListener",
-                    "path": "tp-api-dev/service/LB/PublicListener",
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "tp-api-dev/taskdef/TaskRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "tp-api-dev/service/LB/PublicListener/Resource",
+                        "path": "tp-api-dev/taskdef/TaskRole/DefaultPolicy/Resource",
                         "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
-                            "defaultActions": [
-                              {
-                                "targetGroupArn": {
-                                  "Ref": "serviceLBPublicListenerECSGroupD194ED9A"
-                                },
-                                "type": "forward"
-                              }
-                            ],
-                            "loadBalancerArn": {
-                              "Ref": "serviceLBD84AC665"
-                            },
-                            "port": 443,
-                            "protocol": "HTTPS",
-                            "certificates": [
-                              {
-                                "certificateArn": {
-                                  "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Resource": "arn:aws:iam::561034361591:user/cdk-user"
                                 }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "taskdefTaskRoleDefaultPolicyCAEEE31E",
+                            "roles": [
+                              {
+                                "Ref": "taskdefTaskRole1E652319"
                               }
                             ]
-                          }
-                        }
-                      },
-                      "ECSGroup": {
-                        "id": "ECSGroup",
-                        "path": "tp-api-dev/service/LB/PublicListener/ECSGroup",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "tp-api-dev/service/LB/PublicListener/ECSGroup/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-                              "aws:cdk:cloudformation:props": {
-                                "port": 80,
-                                "protocol": "HTTP",
-                                "targetType": "instance",
-                                "vpcId": {
-                                  "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
-                                }
-                              }
-                            }
                           }
                         }
                       }
@@ -1986,370 +2102,26 @@
                   }
                 }
               },
-              "DNS": {
-                "id": "DNS",
-                "path": "tp-api-dev/service/DNS",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "tp-api-dev/service/DNS/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
-                      "aws:cdk:cloudformation:props": {
-                        "name": "api.typeparty.com.",
-                        "type": "A",
-                        "aliasTarget": {
-                          "hostedZoneId": {
-                            "Fn::GetAtt": [
-                              "serviceLBD84AC665",
-                              "CanonicalHostedZoneID"
-                            ]
-                          },
-                          "dnsName": {
-                            "Fn::GetAtt": [
-                              "serviceLBD84AC665",
-                              "DNSName"
-                            ]
-                          }
-                        },
-                        "hostedZoneId": "Z1M48R5Z0AFHNH"
-                      }
-                    }
-                  }
-                }
-              },
-              "LoadBalancerDNS": {
-                "id": "LoadBalancerDNS",
-                "path": "tp-api-dev/service/LoadBalancerDNS"
-              },
-              "ServiceURL": {
-                "id": "ServiceURL",
-                "path": "tp-api-dev/service/ServiceURL"
-              },
-              "TaskDef": {
-                "id": "TaskDef",
-                "path": "tp-api-dev/service/TaskDef",
-                "children": {
-                  "TaskRole": {
-                    "id": "TaskRole",
-                    "path": "tp-api-dev/service/TaskDef/TaskRole",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "tp-api-dev/service/TaskDef/TaskRole/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                          "aws:cdk:cloudformation:props": {
-                            "assumeRolePolicyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Principal": {
-                                    "Service": "ecs-tasks.amazonaws.com"
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            }
-                          }
-                        }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "tp-api-dev/service/TaskDef/TaskRole/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "tp-api-dev/service/TaskDef/TaskRole/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": "sts:AssumeRole",
-                                      "Effect": "Allow",
-                                      "Resource": "arn:aws:iam::561034361591:user/cdk-user"
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "serviceTaskDefTaskRoleDefaultPolicyC429502E",
-                                "roles": [
+              "Resource": {
+                "id": "Resource",
+                "path": "tp-api-dev/taskdef/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                  "aws:cdk:cloudformation:props": {
+                    "containerDefinitions": [
+                      {
+                        "essential": true,
+                        "image": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              {
+                                "Fn::Select": [
+                                  4,
                                   {
-                                    "Ref": "serviceTaskDefTaskRole43CA7BBB"
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "tp-api-dev/service/TaskDef/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
-                      "aws:cdk:cloudformation:props": {
-                        "containerDefinitions": [
-                          {
-                            "essential": true,
-                            "image": {
-                              "Fn::Join": [
-                                "",
-                                [
-                                  {
-                                    "Fn::Select": [
-                                      4,
+                                    "Fn::Split": [
+                                      ":",
                                       {
-                                        "Fn::Split": [
-                                          ":",
-                                          {
-                                            "Fn::Join": [
-                                              "",
-                                              [
-                                                "arn:",
-                                                {
-                                                  "Ref": "AWS::Partition"
-                                                },
-                                                ":ecr:",
-                                                {
-                                                  "Ref": "AWS::Region"
-                                                },
-                                                ":",
-                                                {
-                                                  "Ref": "AWS::AccountId"
-                                                },
-                                                ":repository/tp-api"
-                                              ]
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  ".dkr.ecr.",
-                                  {
-                                    "Fn::Select": [
-                                      3,
-                                      {
-                                        "Fn::Split": [
-                                          ":",
-                                          {
-                                            "Fn::Join": [
-                                              "",
-                                              [
-                                                "arn:",
-                                                {
-                                                  "Ref": "AWS::Partition"
-                                                },
-                                                ":ecr:",
-                                                {
-                                                  "Ref": "AWS::Region"
-                                                },
-                                                ":",
-                                                {
-                                                  "Ref": "AWS::AccountId"
-                                                },
-                                                ":repository/tp-api"
-                                              ]
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  ".",
-                                  {
-                                    "Ref": "AWS::URLSuffix"
-                                  },
-                                  "/tp-api:latest"
-                                ]
-                              ]
-                            },
-                            "memoryReservation": 700,
-                            "name": "web",
-                            "portMappings": [
-                              {
-                                "containerPort": 4000,
-                                "hostPort": 0,
-                                "protocol": "tcp"
-                              }
-                            ],
-                            "logConfiguration": {
-                              "logDriver": "awslogs",
-                              "options": {
-                                "awslogs-group": {
-                                  "Ref": "serviceTaskDefwebLogGroupCCBA392E"
-                                },
-                                "awslogs-stream-prefix": "service",
-                                "awslogs-region": "us-east-1"
-                              }
-                            },
-                            "environment": [
-                              {
-                                "name": "S3_ENDPOINT",
-                                "value": "https://s3.us-east-1.amazonaws.com"
-                              },
-                              {
-                                "name": "S3_BUCKET",
-                                "value": {
-                                  "Fn::ImportValue": "tp-images-dev:ExportsOutputRefbucket43879C716CF1CFA3"
-                                }
-                              }
-                            ],
-                            "secrets": [
-                              {
-                                "name": "PRISMA_SECRET",
-                                "valueFrom": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_SECRET"
-                                    ]
-                                  ]
-                                }
-                              },
-                              {
-                                "name": "PRISMA_ENDPOINT",
-                                "valueFrom": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_ENDPOINT"
-                                    ]
-                                  ]
-                                }
-                              },
-                              {
-                                "name": "PRISMA_MANAGEMENT_API_SECRET",
-                                "valueFrom": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
-                                    ]
-                                  ]
-                                }
-                              },
-                              {
-                                "name": "APP_SECRET",
-                                "valueFrom": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":ssm:us-east-1:561034361591:parameter/TpStaging/APP_SECRET"
-                                    ]
-                                  ]
-                                }
-                              }
-                            ]
-                          }
-                        ],
-                        "executionRoleArn": {
-                          "Fn::GetAtt": [
-                            "serviceTaskDefExecutionRole39FD5935",
-                            "Arn"
-                          ]
-                        },
-                        "family": "tpapidevserviceTaskDef311C7600",
-                        "networkMode": "bridge",
-                        "requiresCompatibilities": [
-                          "EC2"
-                        ],
-                        "taskRoleArn": {
-                          "Fn::GetAtt": [
-                            "serviceTaskDefTaskRole43CA7BBB",
-                            "Arn"
-                          ]
-                        }
-                      }
-                    }
-                  },
-                  "web": {
-                    "id": "web",
-                    "path": "tp-api-dev/service/TaskDef/web",
-                    "children": {
-                      "LogGroup": {
-                        "id": "LogGroup",
-                        "path": "tp-api-dev/service/TaskDef/web/LogGroup",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "tp-api-dev/service/TaskDef/web/LogGroup/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
-                              "aws:cdk:cloudformation:props": {}
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "ExecutionRole": {
-                    "id": "ExecutionRole",
-                    "path": "tp-api-dev/service/TaskDef/ExecutionRole",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "tp-api-dev/service/TaskDef/ExecutionRole/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                          "aws:cdk:cloudformation:props": {
-                            "assumeRolePolicyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Principal": {
-                                    "Service": "ecs-tasks.amazonaws.com"
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            }
-                          }
-                        }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "tp-api-dev/service/TaskDef/ExecutionRole/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "tp-api-dev/service/TaskDef/ExecutionRole/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": [
-                                        "ecr:BatchCheckLayerAvailability",
-                                        "ecr:GetDownloadUrlForLayer",
-                                        "ecr:BatchGetImage"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": {
                                         "Fn::Join": [
                                           "",
                                           [
@@ -2369,162 +2141,402 @@
                                           ]
                                         ]
                                       }
-                                    },
-                                    {
-                                      "Action": "ecr:GetAuthorizationToken",
-                                      "Effect": "Allow",
-                                      "Resource": "*"
-                                    },
-                                    {
-                                      "Action": [
-                                        "logs:CreateLogStream",
-                                        "logs:PutLogEvents"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": {
-                                        "Fn::GetAtt": [
-                                          "serviceTaskDefwebLogGroupCCBA392E",
-                                          "Arn"
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "Action": [
-                                        "ssm:DescribeParameters",
-                                        "ssm:GetParameters",
-                                        "ssm:GetParameter",
-                                        "ssm:GetParameterHistory"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": {
-                                        "Fn::Join": [
-                                          "",
-                                          [
-                                            "arn:",
-                                            {
-                                              "Ref": "AWS::Partition"
-                                            },
-                                            ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_SECRET"
-                                          ]
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "Action": [
-                                        "ssm:DescribeParameters",
-                                        "ssm:GetParameters",
-                                        "ssm:GetParameter",
-                                        "ssm:GetParameterHistory"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": {
-                                        "Fn::Join": [
-                                          "",
-                                          [
-                                            "arn:",
-                                            {
-                                              "Ref": "AWS::Partition"
-                                            },
-                                            ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_ENDPOINT"
-                                          ]
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "Action": [
-                                        "ssm:DescribeParameters",
-                                        "ssm:GetParameters",
-                                        "ssm:GetParameter",
-                                        "ssm:GetParameterHistory"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": {
-                                        "Fn::Join": [
-                                          "",
-                                          [
-                                            "arn:",
-                                            {
-                                              "Ref": "AWS::Partition"
-                                            },
-                                            ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
-                                          ]
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "Action": [
-                                        "ssm:DescribeParameters",
-                                        "ssm:GetParameters",
-                                        "ssm:GetParameter",
-                                        "ssm:GetParameterHistory"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": {
-                                        "Fn::Join": [
-                                          "",
-                                          [
-                                            "arn:",
-                                            {
-                                              "Ref": "AWS::Partition"
-                                            },
-                                            ":ssm:us-east-1:561034361591:parameter/TpStaging/APP_SECRET"
-                                          ]
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "serviceTaskDefExecutionRoleDefaultPolicy6375C3DF",
-                                "roles": [
-                                  {
-                                    "Ref": "serviceTaskDefExecutionRole39FD5935"
+                                    ]
                                   }
                                 ]
-                              }
+                              },
+                              ".dkr.ecr.",
+                              {
+                                "Fn::Select": [
+                                  3,
+                                  {
+                                    "Fn::Split": [
+                                      ":",
+                                      {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":ecr:",
+                                            {
+                                              "Ref": "AWS::Region"
+                                            },
+                                            ":",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            ":repository/tp-api"
+                                          ]
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              ".",
+                              {
+                                "Ref": "AWS::URLSuffix"
+                              },
+                              "/tp-api:latest"
+                            ]
+                          ]
+                        },
+                        "memoryReservation": 700,
+                        "name": "api",
+                        "portMappings": [
+                          {
+                            "containerPort": 4000,
+                            "hostPort": 0,
+                            "protocol": "tcp"
+                          }
+                        ],
+                        "logConfiguration": {
+                          "logDriver": "awslogs",
+                          "options": {
+                            "awslogs-group": {
+                              "Ref": "taskdefapiLogGroupF097149F"
+                            },
+                            "awslogs-stream-prefix": "tp-api-dev2",
+                            "awslogs-region": "us-east-1"
+                          }
+                        },
+                        "environment": [
+                          {
+                            "name": "S3_ENDPOINT",
+                            "value": "https://s3.us-east-1.amazonaws.com"
+                          },
+                          {
+                            "name": "S3_BUCKET",
+                            "value": {
+                              "Fn::ImportValue": "tp-images-dev:ExportsOutputRefbucket43879C716CF1CFA3"
                             }
                           }
+                        ],
+                        "secrets": [
+                          {
+                            "name": "PRISMA_SECRET",
+                            "valueFrom": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_SECRET"
+                                ]
+                              ]
+                            }
+                          },
+                          {
+                            "name": "PRISMA_ENDPOINT",
+                            "valueFrom": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_ENDPOINT"
+                                ]
+                              ]
+                            }
+                          },
+                          {
+                            "name": "PRISMA_MANAGEMENT_API_SECRET",
+                            "valueFrom": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+                                ]
+                              ]
+                            }
+                          },
+                          {
+                            "name": "APP_SECRET",
+                            "valueFrom": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ssm:us-east-1:561034361591:parameter/TpStaging/APP_SECRET"
+                                ]
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "executionRoleArn": {
+                      "Fn::GetAtt": [
+                        "taskdefExecutionRoleC2924C0C",
+                        "Arn"
+                      ]
+                    },
+                    "family": "tpapidevtaskdefFCFF9D19",
+                    "networkMode": "bridge",
+                    "requiresCompatibilities": [
+                      "EC2"
+                    ],
+                    "taskRoleArn": {
+                      "Fn::GetAtt": [
+                        "taskdefTaskRole1E652319",
+                        "Arn"
+                      ]
+                    }
+                  }
+                }
+              },
+              "api": {
+                "id": "api",
+                "path": "tp-api-dev/taskdef/api",
+                "children": {
+                  "LogGroup": {
+                    "id": "LogGroup",
+                    "path": "tp-api-dev/taskdef/api/LogGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "tp-api-dev/taskdef/api/LogGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                          "aws:cdk:cloudformation:props": {}
                         }
                       }
                     }
                   }
                 }
               },
-              "Service": {
-                "id": "Service",
-                "path": "tp-api-dev/service/Service",
+              "ExecutionRole": {
+                "id": "ExecutionRole",
+                "path": "tp-api-dev/taskdef/ExecutionRole",
                 "children": {
-                  "Service": {
-                    "id": "Service",
-                    "path": "tp-api-dev/service/Service/Service",
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "tp-api-dev/taskdef/ExecutionRole/Resource",
                     "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
-                        "cluster": {
-                          "Ref": "cluster611F8AFF"
-                        },
-                        "deploymentConfiguration": {
-                          "maximumPercent": 200,
-                          "minimumHealthyPercent": 50
-                        },
-                        "desiredCount": 1,
-                        "enableEcsManagedTags": false,
-                        "healthCheckGracePeriodSeconds": 60,
-                        "launchType": "EC2",
-                        "loadBalancers": [
-                          {
-                            "targetGroupArn": {
-                              "Ref": "serviceLBPublicListenerECSGroupD194ED9A"
-                            },
-                            "containerName": "web",
-                            "containerPort": 4000
-                          }
-                        ],
-                        "schedulingStrategy": "REPLICA",
-                        "taskDefinition": {
-                          "Ref": "serviceTaskDef7C4986C7"
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "ecs-tasks.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
                         }
                       }
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "tp-api-dev/taskdef/ExecutionRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "tp-api-dev/taskdef/ExecutionRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "ecr:BatchCheckLayerAvailability",
+                                    "ecr:GetDownloadUrlForLayer",
+                                    "ecr:BatchGetImage"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":ecr:",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        ":",
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        ":repository/tp-api"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": "ecr:GetAuthorizationToken",
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "taskdefapiLogGroupF097149F",
+                                      "Arn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "ssm:DescribeParameters",
+                                    "ssm:GetParameters",
+                                    "ssm:GetParameter",
+                                    "ssm:GetParameterHistory"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_SECRET"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "ssm:DescribeParameters",
+                                    "ssm:GetParameters",
+                                    "ssm:GetParameter",
+                                    "ssm:GetParameterHistory"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_ENDPOINT"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "ssm:DescribeParameters",
+                                    "ssm:GetParameters",
+                                    "ssm:GetParameter",
+                                    "ssm:GetParameterHistory"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":ssm:us-east-1:561034361591:parameter/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "ssm:DescribeParameters",
+                                    "ssm:GetParameters",
+                                    "ssm:GetParameter",
+                                    "ssm:GetParameterHistory"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":ssm:us-east-1:561034361591:parameter/TpStaging/APP_SECRET"
+                                      ]
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "taskdefExecutionRoleDefaultPolicy2A521DEF",
+                            "roles": [
+                              {
+                                "Ref": "taskdefExecutionRoleC2924C0C"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "ec2-service": {
+            "id": "ec2-service",
+            "path": "tp-api-dev/ec2-service",
+            "children": {
+              "Service": {
+                "id": "Service",
+                "path": "tp-api-dev/ec2-service/Service",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                  "aws:cdk:cloudformation:props": {
+                    "cluster": {
+                      "Ref": "cluster611F8AFF"
+                    },
+                    "deploymentConfiguration": {
+                      "maximumPercent": 200,
+                      "minimumHealthyPercent": 50
+                    },
+                    "desiredCount": 1,
+                    "enableEcsManagedTags": false,
+                    "healthCheckGracePeriodSeconds": 60,
+                    "launchType": "EC2",
+                    "loadBalancers": [
+                      {
+                        "targetGroupArn": {
+                          "Fn::ImportValue": "tp-lb-dev:ExportsOutputRefloadbalancerlistenerECSGroup3F2C971772ABDAEF"
+                        },
+                        "containerName": "api",
+                        "containerPort": 4000
+                      }
+                    ],
+                    "schedulingStrategy": "REPLICA",
+                    "taskDefinition": {
+                      "Ref": "taskdef8C9C43DE"
                     }
                   }
                 }
@@ -3786,31 +3798,6 @@
                             }
                           }
                         }
-                      },
-                      "from tpprismadevprismaLBSecurityGroup1217B50B:32768-65535": {
-                        "id": "from tpprismadevprismaLBSecurityGroup1217B50B:32768-65535",
-                        "path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tpprismadevprismaLBSecurityGroup1217B50B:32768-65535",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
-                          "aws:cdk:cloudformation:props": {
-                            "ipProtocol": "tcp",
-                            "description": "Load balancer to target",
-                            "fromPort": 32768,
-                            "groupId": {
-                              "Fn::GetAtt": [
-                                "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
-                                "GroupId"
-                              ]
-                            },
-                            "sourceSecurityGroupId": {
-                              "Fn::GetAtt": [
-                                "prismaLBSecurityGroup5156427E",
-                                "GroupId"
-                              ]
-                            },
-                            "toPort": 65535
-                          }
-                        }
                       }
                     }
                   },
@@ -4334,418 +4321,220 @@
             "id": "SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118",
             "path": "tp-prisma-dev/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118"
           },
+          "taskdef": {
+            "id": "taskdef",
+            "path": "tp-prisma-dev/taskdef",
+            "children": {
+              "TaskRole": {
+                "id": "TaskRole",
+                "path": "tp-prisma-dev/taskdef/TaskRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "tp-prisma-dev/taskdef/TaskRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "ecs-tasks.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "tp-prisma-dev/taskdef/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                  "aws:cdk:cloudformation:props": {
+                    "containerDefinitions": [
+                      {
+                        "essential": true,
+                        "image": "prismagraphql/prisma:1.34",
+                        "memoryReservation": 700,
+                        "name": "prisma-container",
+                        "portMappings": [
+                          {
+                            "containerPort": 4466,
+                            "hostPort": 0,
+                            "protocol": "tcp"
+                          }
+                        ],
+                        "logConfiguration": {
+                          "logDriver": "awslogs",
+                          "options": {
+                            "awslogs-group": {
+                              "Ref": "taskdefprismacontainerLogGroupB6F9BAA8"
+                            },
+                            "awslogs-stream-prefix": "undefined-logs",
+                            "awslogs-region": "us-east-1"
+                          }
+                        },
+                        "environment": [
+                          {
+                            "name": "PRISMA_CONFIG",
+                            "value": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "\n    managementApiSecret: staging-secret\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
+                                  {
+                                    "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC"
+                                  },
+                                  "\n        port: 5432\n        user: root\n        password: {{resolve:secretsmanager:",
+                                  {
+                                    "Fn::ImportValue": "tp-db-dev:ExportsOutputRefmasterPass79BF7903470EFD9E"
+                                  },
+                                  ":SecretString:::}}\n        migrations: true\n        managementSchema: management\n    "
+                                ]
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "executionRoleArn": {
+                      "Fn::GetAtt": [
+                        "taskdefExecutionRoleC2924C0C",
+                        "Arn"
+                      ]
+                    },
+                    "family": "tpprismadevtaskdefB7EB04E7",
+                    "networkMode": "bridge",
+                    "requiresCompatibilities": [
+                      "EC2"
+                    ],
+                    "taskRoleArn": {
+                      "Fn::GetAtt": [
+                        "taskdefTaskRole1E652319",
+                        "Arn"
+                      ]
+                    }
+                  }
+                }
+              },
+              "prisma-container": {
+                "id": "prisma-container",
+                "path": "tp-prisma-dev/taskdef/prisma-container",
+                "children": {
+                  "LogGroup": {
+                    "id": "LogGroup",
+                    "path": "tp-prisma-dev/taskdef/prisma-container/LogGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "tp-prisma-dev/taskdef/prisma-container/LogGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                          "aws:cdk:cloudformation:props": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "ExecutionRole": {
+                "id": "ExecutionRole",
+                "path": "tp-prisma-dev/taskdef/ExecutionRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "tp-prisma-dev/taskdef/ExecutionRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "ecs-tasks.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "tp-prisma-dev/taskdef/ExecutionRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "tp-prisma-dev/taskdef/ExecutionRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "taskdefprismacontainerLogGroupB6F9BAA8",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "taskdefExecutionRoleDefaultPolicy2A521DEF",
+                            "roles": [
+                              {
+                                "Ref": "taskdefExecutionRoleC2924C0C"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "prisma": {
             "id": "prisma",
             "path": "tp-prisma-dev/prisma",
             "children": {
-              "LB": {
-                "id": "LB",
-                "path": "tp-prisma-dev/prisma/LB",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "tp-prisma-dev/prisma/LB/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
-                      "aws:cdk:cloudformation:props": {
-                        "scheme": "internet-facing",
-                        "securityGroups": [
-                          {
-                            "Fn::GetAtt": [
-                              "prismaLBSecurityGroup5156427E",
-                              "GroupId"
-                            ]
-                          }
-                        ],
-                        "subnets": [
-                          {
-                            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E"
-                          },
-                          {
-                            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet2Subnet48B24DB25C427FA1"
-                          }
-                        ],
-                        "type": "application"
-                      }
-                    }
-                  },
-                  "SecurityGroup": {
-                    "id": "SecurityGroup",
-                    "path": "tp-prisma-dev/prisma/LB/SecurityGroup",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "tp-prisma-dev/prisma/LB/SecurityGroup/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
-                          "aws:cdk:cloudformation:props": {
-                            "groupDescription": "Automatically created Security Group for ELB tpprismadevprismaLB81CFBA31",
-                            "securityGroupIngress": [
-                              {
-                                "cidrIp": "0.0.0.0/0",
-                                "ipProtocol": "tcp",
-                                "fromPort": 443,
-                                "toPort": 443,
-                                "description": "Allow from anyone on port 443"
-                              }
-                            ],
-                            "vpcId": {
-                              "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
-                            }
-                          }
-                        }
-                      },
-                      "to tpprismadevclusterDefaultAutoScalingGroupInstanceSecurityGroup5BA0D893:32768-65535": {
-                        "id": "to tpprismadevclusterDefaultAutoScalingGroupInstanceSecurityGroup5BA0D893:32768-65535",
-                        "path": "tp-prisma-dev/prisma/LB/SecurityGroup/to tpprismadevclusterDefaultAutoScalingGroupInstanceSecurityGroup5BA0D893:32768-65535",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
-                          "aws:cdk:cloudformation:props": {
-                            "groupId": {
-                              "Fn::GetAtt": [
-                                "prismaLBSecurityGroup5156427E",
-                                "GroupId"
-                              ]
-                            },
-                            "ipProtocol": "tcp",
-                            "description": "Load balancer to target",
-                            "destinationSecurityGroupId": {
-                              "Fn::GetAtt": [
-                                "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
-                                "GroupId"
-                              ]
-                            },
-                            "fromPort": 32768,
-                            "toPort": 65535
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "PublicListener": {
-                    "id": "PublicListener",
-                    "path": "tp-prisma-dev/prisma/LB/PublicListener",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "tp-prisma-dev/prisma/LB/PublicListener/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
-                          "aws:cdk:cloudformation:props": {
-                            "defaultActions": [
-                              {
-                                "targetGroupArn": {
-                                  "Ref": "prismaLBPublicListenerECSGroupAEA979E8"
-                                },
-                                "type": "forward"
-                              }
-                            ],
-                            "loadBalancerArn": {
-                              "Ref": "prismaLB8A5E59B1"
-                            },
-                            "port": 443,
-                            "protocol": "HTTPS",
-                            "certificates": [
-                              {
-                                "certificateArn": {
-                                  "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      "ECSGroup": {
-                        "id": "ECSGroup",
-                        "path": "tp-prisma-dev/prisma/LB/PublicListener/ECSGroup",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "tp-prisma-dev/prisma/LB/PublicListener/ECSGroup/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-                              "aws:cdk:cloudformation:props": {
-                                "port": 80,
-                                "protocol": "HTTP",
-                                "targetType": "instance",
-                                "vpcId": {
-                                  "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "DNS": {
-                "id": "DNS",
-                "path": "tp-prisma-dev/prisma/DNS",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "tp-prisma-dev/prisma/DNS/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
-                      "aws:cdk:cloudformation:props": {
-                        "name": "prisma.typeparty.com.",
-                        "type": "A",
-                        "aliasTarget": {
-                          "hostedZoneId": {
-                            "Fn::GetAtt": [
-                              "prismaLB8A5E59B1",
-                              "CanonicalHostedZoneID"
-                            ]
-                          },
-                          "dnsName": {
-                            "Fn::GetAtt": [
-                              "prismaLB8A5E59B1",
-                              "DNSName"
-                            ]
-                          }
-                        },
-                        "hostedZoneId": "Z1M48R5Z0AFHNH"
-                      }
-                    }
-                  }
-                }
-              },
-              "LoadBalancerDNS": {
-                "id": "LoadBalancerDNS",
-                "path": "tp-prisma-dev/prisma/LoadBalancerDNS"
-              },
-              "ServiceURL": {
-                "id": "ServiceURL",
-                "path": "tp-prisma-dev/prisma/ServiceURL"
-              },
-              "TaskDef": {
-                "id": "TaskDef",
-                "path": "tp-prisma-dev/prisma/TaskDef",
-                "children": {
-                  "TaskRole": {
-                    "id": "TaskRole",
-                    "path": "tp-prisma-dev/prisma/TaskDef/TaskRole",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "tp-prisma-dev/prisma/TaskDef/TaskRole/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                          "aws:cdk:cloudformation:props": {
-                            "assumeRolePolicyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Principal": {
-                                    "Service": "ecs-tasks.amazonaws.com"
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "tp-prisma-dev/prisma/TaskDef/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
-                      "aws:cdk:cloudformation:props": {
-                        "containerDefinitions": [
-                          {
-                            "essential": true,
-                            "image": "prismagraphql/prisma:1.34",
-                            "memoryReservation": 700,
-                            "name": "web",
-                            "portMappings": [
-                              {
-                                "containerPort": 4466,
-                                "hostPort": 0,
-                                "protocol": "tcp"
-                              }
-                            ],
-                            "logConfiguration": {
-                              "logDriver": "awslogs",
-                              "options": {
-                                "awslogs-group": {
-                                  "Ref": "prismaTaskDefwebLogGroupC82EB3AC"
-                                },
-                                "awslogs-stream-prefix": "prisma",
-                                "awslogs-region": "us-east-1"
-                              }
-                            },
-                            "environment": [
-                              {
-                                "name": "PRISMA_CONFIG",
-                                "value": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "\n    managementApiSecret: staging-secret\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
-                                      {
-                                        "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC"
-                                      },
-                                      "\n        port: 5432\n        user: root\n        password: {{resolve:secretsmanager:",
-                                      {
-                                        "Fn::ImportValue": "tp-db-dev:ExportsOutputRefmasterPass79BF7903470EFD9E"
-                                      },
-                                      ":SecretString:::}}\n        migrations: true\n        managementSchema: management\n    "
-                                    ]
-                                  ]
-                                }
-                              }
-                            ]
-                          }
-                        ],
-                        "executionRoleArn": {
-                          "Fn::GetAtt": [
-                            "prismaTaskDefExecutionRoleFFE9DAFA",
-                            "Arn"
-                          ]
-                        },
-                        "family": "tpprismadevprismaTaskDefCB2EE977",
-                        "networkMode": "bridge",
-                        "requiresCompatibilities": [
-                          "EC2"
-                        ],
-                        "taskRoleArn": {
-                          "Fn::GetAtt": [
-                            "prismaTaskDefTaskRoleA663EF18",
-                            "Arn"
-                          ]
-                        }
-                      }
-                    }
-                  },
-                  "web": {
-                    "id": "web",
-                    "path": "tp-prisma-dev/prisma/TaskDef/web",
-                    "children": {
-                      "LogGroup": {
-                        "id": "LogGroup",
-                        "path": "tp-prisma-dev/prisma/TaskDef/web/LogGroup",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "tp-prisma-dev/prisma/TaskDef/web/LogGroup/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
-                              "aws:cdk:cloudformation:props": {}
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "ExecutionRole": {
-                    "id": "ExecutionRole",
-                    "path": "tp-prisma-dev/prisma/TaskDef/ExecutionRole",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "tp-prisma-dev/prisma/TaskDef/ExecutionRole/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                          "aws:cdk:cloudformation:props": {
-                            "assumeRolePolicyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Principal": {
-                                    "Service": "ecs-tasks.amazonaws.com"
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            }
-                          }
-                        }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "tp-prisma-dev/prisma/TaskDef/ExecutionRole/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "tp-prisma-dev/prisma/TaskDef/ExecutionRole/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": [
-                                        "logs:CreateLogStream",
-                                        "logs:PutLogEvents"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": {
-                                        "Fn::GetAtt": [
-                                          "prismaTaskDefwebLogGroupC82EB3AC",
-                                          "Arn"
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "prismaTaskDefExecutionRoleDefaultPolicy32E421DB",
-                                "roles": [
-                                  {
-                                    "Ref": "prismaTaskDefExecutionRoleFFE9DAFA"
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
               "Service": {
                 "id": "Service",
                 "path": "tp-prisma-dev/prisma/Service",
-                "children": {
-                  "Service": {
-                    "id": "Service",
-                    "path": "tp-prisma-dev/prisma/Service/Service",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ECS::Service",
-                      "aws:cdk:cloudformation:props": {
-                        "cluster": {
-                          "Ref": "cluster611F8AFF"
-                        },
-                        "deploymentConfiguration": {
-                          "maximumPercent": 200,
-                          "minimumHealthyPercent": 50
-                        },
-                        "desiredCount": 1,
-                        "enableEcsManagedTags": false,
-                        "healthCheckGracePeriodSeconds": 60,
-                        "launchType": "EC2",
-                        "loadBalancers": [
-                          {
-                            "targetGroupArn": {
-                              "Ref": "prismaLBPublicListenerECSGroupAEA979E8"
-                            },
-                            "containerName": "web",
-                            "containerPort": 4466
-                          }
-                        ],
-                        "schedulingStrategy": "REPLICA",
-                        "taskDefinition": {
-                          "Ref": "prismaTaskDef25E24F11"
-                        }
-                      }
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                  "aws:cdk:cloudformation:props": {
+                    "cluster": {
+                      "Ref": "cluster611F8AFF"
+                    },
+                    "deploymentConfiguration": {
+                      "maximumPercent": 200,
+                      "minimumHealthyPercent": 50
+                    },
+                    "desiredCount": 1,
+                    "enableEcsManagedTags": false,
+                    "launchType": "EC2",
+                    "schedulingStrategy": "REPLICA",
+                    "taskDefinition": {
+                      "Ref": "taskdef8C9C43DE"
                     }
                   }
                 }
