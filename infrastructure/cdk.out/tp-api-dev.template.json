@@ -31,7 +31,7 @@
         "aws:cdk:path": "tp-api-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource"
       }
     },
-    "clusterDefaultAutoScalingGroupInstanceSecurityGroupfromtpapidevserviceLBSecurityGroupF33F795432768655358EABFF18": {
+    "clusterDefaultAutoScalingGroupInstanceSecurityGroupfromtplbdevloadbalancerSecurityGroup545133BC32768655351F51CA11": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "IpProtocol": "tcp",
@@ -44,15 +44,33 @@
           ]
         },
         "SourceSecurityGroupId": {
-          "Fn::GetAtt": [
-            "serviceLBSecurityGroup7C51B15A",
-            "GroupId"
-          ]
+          "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
         },
         "ToPort": 65535
       },
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tpapidevserviceLBSecurityGroupF33F7954:32768-65535"
+        "aws:cdk:path": "tp-api-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tplbdevloadbalancerSecurityGroup545133BC:32768-65535"
+      }
+    },
+    "clusterDefaultAutoScalingGroupInstanceSecurityGrouptplbdevloadbalancerSecurityGroup545133BC3276865535from65B1AA17": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+        },
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
+            "GroupId"
+          ]
+        },
+        "FromPort": 32768,
+        "ToPort": 65535
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-api-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from"
       }
     },
     "clusterDefaultAutoScalingGroupInstanceRole98EFF504": {
@@ -503,145 +521,7 @@
         "aws:cdk:path": "tp-api-dev/cluster/DefaultAutoScalingGroup/LifecycleHookDrainHook/Resource"
       }
     },
-    "serviceLBD84AC665": {
-      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
-      "Properties": {
-        "Scheme": "internet-facing",
-        "SecurityGroups": [
-          {
-            "Fn::GetAtt": [
-              "serviceLBSecurityGroup7C51B15A",
-              "GroupId"
-            ]
-          }
-        ],
-        "Subnets": [
-          {
-            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E"
-          },
-          {
-            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet2Subnet48B24DB25C427FA1"
-          }
-        ],
-        "Type": "application"
-      },
-      "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/LB/Resource"
-      }
-    },
-    "serviceLBSecurityGroup7C51B15A": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "Automatically created Security Group for ELB tpapidevserviceLB414EE1FD",
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow from anyone on port 443",
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          }
-        ],
-        "VpcId": {
-          "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/LB/SecurityGroup/Resource"
-      }
-    },
-    "serviceLBSecurityGrouptotpapidevclusterDefaultAutoScalingGroupInstanceSecurityGroupD933532C3276865535F3CBB0CA": {
-      "Type": "AWS::EC2::SecurityGroupEgress",
-      "Properties": {
-        "GroupId": {
-          "Fn::GetAtt": [
-            "serviceLBSecurityGroup7C51B15A",
-            "GroupId"
-          ]
-        },
-        "IpProtocol": "tcp",
-        "Description": "Load balancer to target",
-        "DestinationSecurityGroupId": {
-          "Fn::GetAtt": [
-            "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
-            "GroupId"
-          ]
-        },
-        "FromPort": 32768,
-        "ToPort": 65535
-      },
-      "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/LB/SecurityGroup/to tpapidevclusterDefaultAutoScalingGroupInstanceSecurityGroupD933532C:32768-65535"
-      }
-    },
-    "serviceLBPublicListener924DC596": {
-      "Type": "AWS::ElasticLoadBalancingV2::Listener",
-      "Properties": {
-        "DefaultActions": [
-          {
-            "TargetGroupArn": {
-              "Ref": "serviceLBPublicListenerECSGroupD194ED9A"
-            },
-            "Type": "forward"
-          }
-        ],
-        "LoadBalancerArn": {
-          "Ref": "serviceLBD84AC665"
-        },
-        "Port": 443,
-        "Protocol": "HTTPS",
-        "Certificates": [
-          {
-            "CertificateArn": {
-              "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
-            }
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/LB/PublicListener/Resource"
-      }
-    },
-    "serviceLBPublicListenerECSGroupD194ED9A": {
-      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-      "Properties": {
-        "Port": 80,
-        "Protocol": "HTTP",
-        "TargetType": "instance",
-        "VpcId": {
-          "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/LB/PublicListener/ECSGroup/Resource"
-      }
-    },
-    "serviceDNSF6A96CA2": {
-      "Type": "AWS::Route53::RecordSet",
-      "Properties": {
-        "Name": "api.typeparty.com.",
-        "Type": "A",
-        "AliasTarget": {
-          "DNSName": {
-            "Fn::GetAtt": [
-              "serviceLBD84AC665",
-              "DNSName"
-            ]
-          },
-          "HostedZoneId": {
-            "Fn::GetAtt": [
-              "serviceLBD84AC665",
-              "CanonicalHostedZoneID"
-            ]
-          }
-        },
-        "HostedZoneId": "Z1M48R5Z0AFHNH"
-      },
-      "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/DNS/Resource"
-      }
-    },
-    "serviceTaskDefTaskRole43CA7BBB": {
+    "taskdefTaskRole1E652319": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -658,10 +538,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/TaskDef/TaskRole/Resource"
+        "aws:cdk:path": "tp-api-dev/taskdef/TaskRole/Resource"
       }
     },
-    "serviceTaskDefTaskRoleDefaultPolicyC429502E": {
+    "taskdefTaskRoleDefaultPolicyCAEEE31E": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -674,18 +554,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "serviceTaskDefTaskRoleDefaultPolicyC429502E",
+        "PolicyName": "taskdefTaskRoleDefaultPolicyCAEEE31E",
         "Roles": [
           {
-            "Ref": "serviceTaskDefTaskRole43CA7BBB"
+            "Ref": "taskdefTaskRole1E652319"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/TaskDef/TaskRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "tp-api-dev/taskdef/TaskRole/DefaultPolicy/Resource"
       }
     },
-    "serviceTaskDef7C4986C7": {
+    "taskdef8C9C43DE": {
       "Type": "AWS::ECS::TaskDefinition",
       "Properties": {
         "ContainerDefinitions": [
@@ -780,14 +660,14 @@
               "LogDriver": "awslogs",
               "Options": {
                 "awslogs-group": {
-                  "Ref": "serviceTaskDefwebLogGroupCCBA392E"
+                  "Ref": "taskdefapiLogGroupF097149F"
                 },
-                "awslogs-stream-prefix": "service",
+                "awslogs-stream-prefix": "tp-api-dev2",
                 "awslogs-region": "us-east-1"
               }
             },
             "MemoryReservation": 700,
-            "Name": "web",
+            "Name": "api",
             "PortMappings": [
               {
                 "ContainerPort": 4000,
@@ -861,35 +741,35 @@
         ],
         "ExecutionRoleArn": {
           "Fn::GetAtt": [
-            "serviceTaskDefExecutionRole39FD5935",
+            "taskdefExecutionRoleC2924C0C",
             "Arn"
           ]
         },
-        "Family": "tpapidevserviceTaskDef311C7600",
+        "Family": "tpapidevtaskdefFCFF9D19",
         "NetworkMode": "bridge",
         "RequiresCompatibilities": [
           "EC2"
         ],
         "TaskRoleArn": {
           "Fn::GetAtt": [
-            "serviceTaskDefTaskRole43CA7BBB",
+            "taskdefTaskRole1E652319",
             "Arn"
           ]
         }
       },
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/TaskDef/Resource"
+        "aws:cdk:path": "tp-api-dev/taskdef/Resource"
       }
     },
-    "serviceTaskDefwebLogGroupCCBA392E": {
+    "taskdefapiLogGroupF097149F": {
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain",
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/TaskDef/web/LogGroup/Resource"
+        "aws:cdk:path": "tp-api-dev/taskdef/api/LogGroup/Resource"
       }
     },
-    "serviceTaskDefExecutionRole39FD5935": {
+    "taskdefExecutionRoleC2924C0C": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -906,10 +786,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/TaskDef/ExecutionRole/Resource"
+        "aws:cdk:path": "tp-api-dev/taskdef/ExecutionRole/Resource"
       }
     },
-    "serviceTaskDefExecutionRoleDefaultPolicy6375C3DF": {
+    "taskdefExecutionRoleDefaultPolicy2A521DEF": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -955,7 +835,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "serviceTaskDefwebLogGroupCCBA392E",
+                  "taskdefapiLogGroupF097149F",
                   "Arn"
                 ]
               }
@@ -1047,18 +927,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "serviceTaskDefExecutionRoleDefaultPolicy6375C3DF",
+        "PolicyName": "taskdefExecutionRoleDefaultPolicy2A521DEF",
         "Roles": [
           {
-            "Ref": "serviceTaskDefExecutionRole39FD5935"
+            "Ref": "taskdefExecutionRoleC2924C0C"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "tp-api-dev/taskdef/ExecutionRole/DefaultPolicy/Resource"
       }
     },
-    "serviceService8587F09F": {
+    "ec2serviceServiceCAD2C483": {
       "Type": "AWS::ECS::Service",
       "Properties": {
         "Cluster": {
@@ -1074,24 +954,20 @@
         "LaunchType": "EC2",
         "LoadBalancers": [
           {
-            "ContainerName": "web",
+            "ContainerName": "api",
             "ContainerPort": 4000,
             "TargetGroupArn": {
-              "Ref": "serviceLBPublicListenerECSGroupD194ED9A"
+              "Fn::ImportValue": "tp-lb-dev:ExportsOutputRefloadbalancerlistenerECSGroup3F2C971772ABDAEF"
             }
           }
         ],
         "SchedulingStrategy": "REPLICA",
         "TaskDefinition": {
-          "Ref": "serviceTaskDef7C4986C7"
+          "Ref": "taskdef8C9C43DE"
         }
       },
-      "DependsOn": [
-        "serviceLBPublicListenerECSGroupD194ED9A",
-        "serviceLBPublicListener924DC596"
-      ],
       "Metadata": {
-        "aws:cdk:path": "tp-api-dev/service/Service/Service"
+        "aws:cdk:path": "tp-api-dev/ec2-service/Service"
       }
     }
   },
@@ -1118,31 +994,10 @@
     }
   },
   "Outputs": {
-    "serviceLoadBalancerDNS7A375B34": {
-      "Value": {
-        "Fn::GetAtt": [
-          "serviceLBD84AC665",
-          "DNSName"
-        ]
-      }
-    },
-    "serviceServiceURLD17005C1": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "https://",
-            {
-              "Ref": "serviceDNSF6A96CA2"
-            }
-          ]
-        ]
-      }
-    },
     "TaskArn": {
       "Value": {
         "Fn::GetAtt": [
-          "serviceTaskDefTaskRole43CA7BBB",
+          "taskdefTaskRole1E652319",
           "Arn"
         ]
       },
@@ -1153,7 +1008,7 @@
     "ServiceName": {
       "Value": {
         "Fn::GetAtt": [
-          "serviceService8587F09F",
+          "ec2serviceServiceCAD2C483",
           "Name"
         ]
       }

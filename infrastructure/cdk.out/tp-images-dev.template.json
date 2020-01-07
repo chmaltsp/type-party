@@ -27,44 +27,6 @@
           "Statement": [
             {
               "Action": [
-                "s3:List*",
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:PutObject*",
-                "s3:PutObjectAcl*",
-                "s3:Abort*"
-              ],
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": {
-                  "Fn::ImportValue": "tp-api-dev-TaskArn"
-                }
-              },
-              "Resource": [
-                {
-                  "Fn::GetAtt": [
-                    "bucket43879C71",
-                    "Arn"
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      {
-                        "Fn::GetAtt": [
-                          "bucket43879C71",
-                          "Arn"
-                        ]
-                      },
-                      "/*"
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*"

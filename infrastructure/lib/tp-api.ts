@@ -2,14 +2,16 @@ import ec2 = require('@aws-cdk/aws-ec2');
 import ecs = require('@aws-cdk/aws-ecs');
 import s3 = require('@aws-cdk/aws-s3');
 import cdk = require('@aws-cdk/core');
-import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 import { IRepository } from '@aws-cdk/aws-ecr';
 
 import ssm = require('@aws-cdk/aws-ssm');
-import { getDomainName } from './common';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import {
+  ApplicationLoadBalancer,
+  ApplicationProtocol,
+} from '@aws-cdk/aws-elasticloadbalancingv2';
 
 interface ApiProps extends cdk.StackProps {
   vpc: ec2.Vpc;
@@ -17,6 +19,7 @@ interface ApiProps extends cdk.StackProps {
   imageBucket: s3.Bucket;
   certificate: ICertificate;
   zone: IHostedZone;
+  lb: ApplicationLoadBalancer;
 }
 export class ApiStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: ApiProps) {
@@ -72,38 +75,58 @@ export class ApiStack extends cdk.Stack {
       )
     );
 
-    const domainName = getDomainName(scope);
-    const apiDomainName = `api.${domainName}`;
-
     const S3_BUCKET = props.imageBucket.bucketName;
 
     const S3_ENDPOINT = `https://s3.us-east-1.amazonaws.com`;
-    const apiService = new ecs_patterns.ApplicationLoadBalancedEc2Service(
-      this,
-      'service',
-      {
-        cluster,
-        memoryReservationMiB: 700,
-        publicLoadBalancer: true,
-        domainName: apiDomainName,
-        domainZone: props.zone,
-        certificate: props.certificate,
-        taskImageOptions: {
-          image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
-          containerPort: 4000,
 
-          secrets: {
-            PRISMA_SECRET,
-            PRISMA_ENDPOINT,
-            PRISMA_MANAGEMENT_API_SECRET,
-            APP_SECRET,
-          },
-          environment: {
-            S3_ENDPOINT,
-            S3_BUCKET,
-          },
-        },
-      }
+    const taskDef = new ecs.Ec2TaskDefinition(this, 'taskdef');
+
+    const logging = new ecs.AwsLogDriver({ streamPrefix: props.stackName + '2' });
+
+    const container = taskDef.addContainer('api', {
+      image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
+      memoryReservationMiB: 700,
+      environment: {
+        S3_ENDPOINT,
+        S3_BUCKET,
+      },
+      secrets: {
+        PRISMA_SECRET,
+        PRISMA_ENDPOINT,
+        PRISMA_MANAGEMENT_API_SECRET,
+        APP_SECRET,
+      },
+      logging,
+    });
+
+    container.addPortMappings({
+      containerPort: 4000,
+      protocol: ecs.Protocol.TCP,
+    });
+
+    const listener = props.lb.addListener('listener', {
+      protocol: ApplicationProtocol.HTTPS,
+      open: true,
+      port: 4000,
+    });
+
+    listener.addCertificates('Certs', [props.certificate]);
+
+    const apiService = new ecs.Ec2Service(this, 'ec2-service', {
+      cluster,
+      taskDefinition: taskDef,
+    });
+
+    const targetGroup = listener.addTargets('ECS', {
+      port: 4000,
+      protocol: ApplicationProtocol.HTTP,
+    });
+
+    targetGroup.addTarget(
+      apiService.loadBalancerTarget({
+        containerName: 'api',
+        containerPort: 4000,
+      })
     );
 
     const assumeRolePolicy = new PolicyStatement();
@@ -118,7 +141,7 @@ export class ApiStack extends cdk.Stack {
       exportName: `${props.stackName}-TaskArn`,
     });
     new cdk.CfnOutput(this, 'ServiceName', {
-      value: apiService.service.serviceName,
+      value: apiService.serviceName,
     });
 
     new cdk.CfnOutput(this, 'ClusterName', {

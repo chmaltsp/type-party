@@ -33,15 +33,15 @@ const vpc = new VpcStack(app, VPC_STACK, {
   env,
 });
 
+const common = new TpCommon(app, 'TpCommon', {
+  env,
+});
 const LB_STACK = getStackName('lb');
 
 const lb = new LBStack(app, LB_STACK, {
   env,
   vpc: vpc.vpc,
-});
-
-const common = new TpCommon(app, 'TpCommon', {
-  env,
+  zone: common.zone,
 });
 
 const IMAGE_STACK = getStackName('images');
@@ -69,6 +69,7 @@ new ApiStack(app, API_STACK, {
   certificate: common.certificate,
   zone: common.zone,
   env,
+  lb: lb.alb,
 });
 
 const FRONTEND_STACK = getStackName('frontend');

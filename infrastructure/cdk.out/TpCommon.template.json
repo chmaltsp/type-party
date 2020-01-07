@@ -48,6 +48,40 @@
       "Metadata": {
         "aws:cdk:path": "TpCommon/at-tp-prod/Resource"
       }
+    },
+    "bucket43879C71": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "type.party",
+        "WebsiteConfiguration": {
+          "RedirectAllRequestsTo": {
+            "HostName": "www.type.party",
+            "Protocol": "http"
+          }
+        }
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "TpCommon/bucket/Resource"
+      }
+    },
+    "s3tpprod9B034C62": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": "type.party.",
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": "s3-website-us-east-1.amazonaws.com",
+          "HostedZoneId": "Z3AQBSTGFYJSTF"
+        },
+        "HostedZoneId": {
+          "Ref": "tpprod49D00DF1"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TpCommon/s3-tp-prod/Resource"
+      }
     }
   },
   "Outputs": {

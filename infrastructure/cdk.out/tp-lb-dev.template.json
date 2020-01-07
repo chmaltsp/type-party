@@ -1,0 +1,139 @@
+{
+  "Resources": {
+    "loadbalancerEE24515C": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties": {
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "loadbalancerSecurityGroup3A6B02E1",
+              "GroupId"
+            ]
+          }
+        ],
+        "Subnets": [
+          {
+            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E"
+          },
+          {
+            "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdevPublicSubnet2Subnet48B24DB25C427FA1"
+          }
+        ],
+        "Type": "application"
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-lb-dev/loadbalancer/Resource"
+      }
+    },
+    "loadbalancerSecurityGroup3A6B02E1": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Automatically created Security Group for ELB tplbdevloadbalancer0340D10A",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 4000",
+            "FromPort": 4000,
+            "IpProtocol": "tcp",
+            "ToPort": 4000
+          }
+        ],
+        "VpcId": {
+          "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-lb-dev/loadbalancer/SecurityGroup/Resource"
+      }
+    },
+    "loadbalancerlistenerD4272A66": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "loadbalancerlistenerECSGroup3F2C9717"
+            },
+            "Type": "forward"
+          }
+        ],
+        "LoadBalancerArn": {
+          "Ref": "loadbalancerEE24515C"
+        },
+        "Port": 4000,
+        "Protocol": "HTTPS",
+        "Certificates": [
+          {
+            "CertificateArn": {
+              "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-lb-dev/loadbalancer/listener/Resource"
+      }
+    },
+    "loadbalancerlistenerECSGroup3F2C9717": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "Port": 4000,
+        "Protocol": "HTTP",
+        "TargetType": "instance",
+        "VpcId": {
+          "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-lb-dev/loadbalancer/listener/ECSGroup/Resource"
+      }
+    },
+    "albRecord27D18C85": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": "typeparty.com.",
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "loadbalancerEE24515C",
+              "DNSName"
+            ]
+          },
+          "HostedZoneId": {
+            "Fn::GetAtt": [
+              "loadbalancerEE24515C",
+              "CanonicalHostedZoneID"
+            ]
+          }
+        },
+        "HostedZoneId": "Z1M48R5Z0AFHNH"
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-lb-dev/albRecord/Resource"
+      }
+    }
+  },
+  "Outputs": {
+    "ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA": {
+      "Value": {
+        "Fn::GetAtt": [
+          "loadbalancerSecurityGroup3A6B02E1",
+          "GroupId"
+        ]
+      },
+      "Export": {
+        "Name": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+      }
+    },
+    "ExportsOutputRefloadbalancerlistenerECSGroup3F2C971772ABDAEF": {
+      "Value": {
+        "Ref": "loadbalancerlistenerECSGroup3F2C9717"
+      },
+      "Export": {
+        "Name": "tp-lb-dev:ExportsOutputRefloadbalancerlistenerECSGroup3F2C971772ABDAEF"
+      }
+    }
+  }
+}

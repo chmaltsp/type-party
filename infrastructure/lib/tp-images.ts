@@ -4,7 +4,7 @@ import cloudfront = require('@aws-cdk/aws-cloudfront');
 import route53 = require('@aws-cdk/aws-route53');
 import targets = require('@aws-cdk/aws-route53-targets');
 
-import iam = require('@aws-cdk/aws-iam');
+// import iam = require('@aws-cdk/aws-iam');
 
 import { getDomainName } from './common';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
@@ -40,21 +40,21 @@ export class ImageStack extends cdk.Stack {
       comment: `Origin access identity for ${this.bucket.bucketName}`,
     });
 
-    const apiS3Policy = new iam.PolicyStatement();
+    // const apiS3Policy = new iam.PolicyStatement();
 
-    const apiTaskArn = cdk.Fn.importValue('tp-api-dev-TaskArn');
-    apiS3Policy.addActions('s3:List*');
-    apiS3Policy.addActions('s3:GetObject*');
-    apiS3Policy.addActions('s3:GetBucket*');
-    apiS3Policy.addActions('s3:PutObject*');
-    apiS3Policy.addActions('s3:PutObjectAcl*');
-    apiS3Policy.addActions('s3:Abort*');
-    apiS3Policy.addResources(this.bucket.bucketArn);
-    apiS3Policy.addResources(`${this.bucket.bucketArn}/*`);
+    // const apiTaskArn = cdk.Fn.importValue('tp-api-dev-TaskArn');
+    // apiS3Policy.addActions('s3:List*');
+    // apiS3Policy.addActions('s3:GetObject*');
+    // apiS3Policy.addActions('s3:GetBucket*');
+    // apiS3Policy.addActions('s3:PutObject*');
+    // apiS3Policy.addActions('s3:PutObjectAcl*');
+    // apiS3Policy.addActions('s3:Abort*');
+    // apiS3Policy.addResources(this.bucket.bucketArn);
+    // apiS3Policy.addResources(`${this.bucket.bucketArn}/*`);
 
-    apiS3Policy.addArnPrincipal(apiTaskArn);
+    // // apiS3Policy.addArnPrincipal(apiTaskArn);
 
-    this.bucket.addToResourcePolicy(apiS3Policy);
+    // this.bucket.addToResourcePolicy(apiS3Policy);
 
     const distribution = new cloudfront.CloudFrontWebDistribution(this, 'distro', {
       aliasConfiguration: {
