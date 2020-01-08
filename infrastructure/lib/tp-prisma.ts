@@ -36,16 +36,9 @@ export class PrismaStack extends cdk.Stack {
       },
     };
 
-    const PRISMA_MANAGEMENT_API_SECRET = ecs.Secret.fromSsmParameter(
-      ssm.StringParameter.fromSecureStringParameterAttributes(
-        this,
-        'PRISMA_MANAGEMENT_API_SECRET',
-        {
-          parameterName: environmentVarKeys.staging.PRISMA_MANAGEMENT_API_SECRET,
-          encryptionKey: props.kmsKey,
-          version: 3,
-        }
-      )
+    const PRISMA_MANAGEMENT_API_SECRET = ssm.StringParameter.valueForStringParameter(
+      this,
+      environmentVarKeys.staging.PRISMA_MANAGEMENT_API_SECRET
     );
 
     const cluster = new ecs.Cluster(this, 'cluster', {

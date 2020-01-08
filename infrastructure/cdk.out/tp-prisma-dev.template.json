@@ -1,4 +1,14 @@
 {
+  "Parameters": {
+    "SsmParameterValueTpStagingPRISMAMANAGEMENTAPISECRETC96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+    },
+    "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
+    }
+  },
   "Resources": {
     "cluster611F8AFF": {
       "Type": "AWS::ECS::Cluster",
@@ -553,7 +563,11 @@
                   "Fn::Join": [
                     "",
                     [
-                      "\n    managementApiSecret: [object Object]\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
+                      "\n    managementApiSecret: ",
+                      {
+                        "Ref": "SsmParameterValueTpStagingPRISMAMANAGEMENTAPISECRETC96584B6F00A464EAD1953AFF4B05118Parameter"
+                      },
+                      "\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
                       {
                         "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC"
                       },
@@ -703,12 +717,6 @@
       "Metadata": {
         "aws:cdk:path": "tp-prisma-dev/prisma/Service"
       }
-    }
-  },
-  "Parameters": {
-    "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter": {
-      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
-      "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
     }
   },
   "Outputs": {
