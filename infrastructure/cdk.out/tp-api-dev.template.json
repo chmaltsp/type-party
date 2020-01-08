@@ -981,6 +981,10 @@
       "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
       "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
     },
+    "PRISMAMANAGEMENTSECRETParameter": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
+    },
     "PRISMAENDPOINTParameter": {
       "Type": "AWS::SSM::Parameter::Value<String>",
       "Default": "/TpStaging/PRISMA_ENDPOINT"

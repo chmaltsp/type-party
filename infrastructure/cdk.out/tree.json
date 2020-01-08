@@ -2121,9 +2121,13 @@
             "id": "APP_SECRET",
             "path": "tp-api-dev/APP_SECRET"
           },
-          "PRISMA_MANAGEMENT_API_SECRET": {
-            "id": "PRISMA_MANAGEMENT_API_SECRET",
-            "path": "tp-api-dev/PRISMA_MANAGEMENT_API_SECRET"
+          "PRISMA_MANAGEMENT_SECRET.Parameter": {
+            "id": "PRISMA_MANAGEMENT_SECRET.Parameter",
+            "path": "tp-api-dev/PRISMA_MANAGEMENT_SECRET.Parameter"
+          },
+          "PRISMA_MANAGEMENT_SECRET": {
+            "id": "PRISMA_MANAGEMENT_SECRET",
+            "path": "tp-api-dev/PRISMA_MANAGEMENT_SECRET"
           },
           "PRISMA_ENDPOINT.Parameter": {
             "id": "PRISMA_ENDPOINT.Parameter",
@@ -3855,9 +3859,13 @@
         "id": "tp-prisma-dev",
         "path": "tp-prisma-dev",
         "children": {
-          "PRISMA_MANAGEMENT_API_SECRET": {
-            "id": "PRISMA_MANAGEMENT_API_SECRET",
-            "path": "tp-prisma-dev/PRISMA_MANAGEMENT_API_SECRET"
+          "SsmParameterValue:--TpStaging--PRISMA_MANAGEMENT_API_SECRET:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:--TpStaging--PRISMA_MANAGEMENT_API_SECRET:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "tp-prisma-dev/SsmParameterValue:--TpStaging--PRISMA_MANAGEMENT_API_SECRET:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter"
+          },
+          "SsmParameterValue:--TpStaging--PRISMA_MANAGEMENT_API_SECRET:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:--TpStaging--PRISMA_MANAGEMENT_API_SECRET:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "tp-prisma-dev/SsmParameterValue:--TpStaging--PRISMA_MANAGEMENT_API_SECRET:C96584B6-F00A-464E-AD19-53AFF4B05118"
           },
           "cluster": {
             "id": "cluster",
@@ -4538,7 +4546,11 @@
                               "Fn::Join": [
                                 "",
                                 [
-                                  "\n    managementApiSecret: [object Object]\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
+                                  "\n    managementApiSecret: ",
+                                  {
+                                    "Ref": "SsmParameterValueTpStagingPRISMAMANAGEMENTAPISECRETC96584B6F00A464EAD1953AFF4B05118Parameter"
+                                  },
+                                  "\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
                                   {
                                     "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC"
                                   },
