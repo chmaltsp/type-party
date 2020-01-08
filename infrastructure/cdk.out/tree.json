@@ -880,6 +880,13 @@
                             "fromPort": 4000,
                             "toPort": 4000,
                             "description": "Allow from anyone on port 4000"
+                          },
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "ipProtocol": "tcp",
+                            "fromPort": 4466,
+                            "toPort": 4466,
+                            "description": "Allow from anyone on port 4466"
                           }
                         ],
                         "vpcId": {
@@ -945,6 +952,62 @@
                     }
                   }
                 }
+              },
+              "primsa-listener": {
+                "id": "primsa-listener",
+                "path": "tp-lb-dev/loadbalancer/primsa-listener",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "tp-lb-dev/loadbalancer/primsa-listener/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                      "aws:cdk:cloudformation:props": {
+                        "defaultActions": [
+                          {
+                            "targetGroupArn": {
+                              "Ref": "loadbalancerprimsalistenerprismatargetsGroup8FCED7E1"
+                            },
+                            "type": "forward"
+                          }
+                        ],
+                        "loadBalancerArn": {
+                          "Ref": "loadbalancerEE24515C"
+                        },
+                        "port": 4466,
+                        "protocol": "HTTPS",
+                        "certificates": [
+                          {
+                            "certificateArn": {
+                              "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "prisma-targetsGroup": {
+                    "id": "prisma-targetsGroup",
+                    "path": "tp-lb-dev/loadbalancer/primsa-listener/prisma-targetsGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "tp-lb-dev/loadbalancer/primsa-listener/prisma-targetsGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "port": 4466,
+                            "protocol": "HTTP",
+                            "targetType": "instance",
+                            "vpcId": {
+                              "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -987,6 +1050,10 @@
               "Output{\"Fn::GetAtt\":[\"loadbalancerSecurityGroup3A6B02E1\",\"GroupId\"]}": {
                 "id": "Output{\"Fn::GetAtt\":[\"loadbalancerSecurityGroup3A6B02E1\",\"GroupId\"]}",
                 "path": "tp-lb-dev/Exports/Output{\"Fn::GetAtt\":[\"loadbalancerSecurityGroup3A6B02E1\",\"GroupId\"]}"
+              },
+              "Output{\"Ref\":\"loadbalancerprimsalistenerprismatargetsGroup8FCED7E1\"}": {
+                "id": "Output{\"Ref\":\"loadbalancerprimsalistenerprismatargetsGroup8FCED7E1\"}",
+                "path": "tp-lb-dev/Exports/Output{\"Ref\":\"loadbalancerprimsalistenerprismatargetsGroup8FCED7E1\"}"
               },
               "Output{\"Ref\":\"loadbalancerlistenerECSGroup3F2C9717\"}": {
                 "id": "Output{\"Ref\":\"loadbalancerlistenerECSGroup3F2C9717\"}",
@@ -1039,6 +1106,44 @@
                         },
                         "policyDocument": {
                           "Statement": [
+                            {
+                              "Action": [
+                                "s3:List*",
+                                "s3:GetObject*",
+                                "s3:GetBucket*",
+                                "s3:PutObject*",
+                                "s3:PutObjectAcl*",
+                                "s3:Abort*"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": {
+                                  "Fn::ImportValue": "tp-api-dev-TaskArn"
+                                }
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "bucket43879C71",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "bucket43879C71",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
                             {
                               "Action": [
                                 "s3:GetObject*",
@@ -2024,10 +2129,6 @@
             "id": "APP_SECRET",
             "path": "tp-api-dev/APP_SECRET"
           },
-          "PRISMA_MANAGEMENT_API_SECRET.Parameter": {
-            "id": "PRISMA_MANAGEMENT_API_SECRET.Parameter",
-            "path": "tp-api-dev/PRISMA_MANAGEMENT_API_SECRET.Parameter"
-          },
           "PRISMA_MANAGEMENT_API_SECRET": {
             "id": "PRISMA_MANAGEMENT_API_SECRET",
             "path": "tp-api-dev/PRISMA_MANAGEMENT_API_SECRET"
@@ -2445,6 +2546,11 @@
                                   }
                                 },
                                 {
+                                  "Action": "kms:Decrypt",
+                                  "Effect": "Allow",
+                                  "Resource": "arn:aws:kms:us-east-1:561034361591:key/1b511fa7-dcd4-4db9-aef9-c15b141b3b29"
+                                },
+                                {
                                   "Action": [
                                     "ssm:DescribeParameters",
                                     "ssm:GetParameters",
@@ -2546,6 +2652,10 @@
           "TaskArn": {
             "id": "TaskArn",
             "path": "tp-api-dev/TaskArn"
+          },
+          "Endpoint": {
+            "id": "Endpoint",
+            "path": "tp-api-dev/Endpoint"
           },
           "ServiceName": {
             "id": "ServiceName",
@@ -3753,6 +3863,10 @@
         "id": "tp-prisma-dev",
         "path": "tp-prisma-dev",
         "children": {
+          "PRISMA_MANAGEMENT_API_SECRET": {
+            "id": "PRISMA_MANAGEMENT_API_SECRET",
+            "path": "tp-prisma-dev/PRISMA_MANAGEMENT_API_SECRET"
+          },
           "cluster": {
             "id": "cluster",
             "path": "tp-prisma-dev/cluster",
@@ -3796,6 +3910,50 @@
                             "vpcId": {
                               "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
                             }
+                          }
+                        }
+                      },
+                      "from tplbdevloadbalancerSecurityGroup545133BC:32768-65535": {
+                        "id": "from tplbdevloadbalancerSecurityGroup545133BC:32768-65535",
+                        "path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tplbdevloadbalancerSecurityGroup545133BC:32768-65535",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                          "aws:cdk:cloudformation:props": {
+                            "ipProtocol": "tcp",
+                            "description": "Load balancer to target",
+                            "fromPort": 32768,
+                            "groupId": {
+                              "Fn::GetAtt": [
+                                "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
+                                "GroupId"
+                              ]
+                            },
+                            "sourceSecurityGroupId": {
+                              "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+                            },
+                            "toPort": 65535
+                          }
+                        }
+                      },
+                      "tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from": {
+                        "id": "tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from",
+                        "path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
+                          "aws:cdk:cloudformation:props": {
+                            "groupId": {
+                              "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+                            },
+                            "ipProtocol": "tcp",
+                            "description": "Load balancer to target",
+                            "destinationSecurityGroupId": {
+                              "Fn::GetAtt": [
+                                "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
+                                "GroupId"
+                              ]
+                            },
+                            "fromPort": 32768,
+                            "toPort": 65535
                           }
                         }
                       }
@@ -4388,7 +4546,7 @@
                               "Fn::Join": [
                                 "",
                                 [
-                                  "\n    managementApiSecret: staging-secret\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
+                                  "\n    managementApiSecret: [object Object]\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
                                   {
                                     "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC"
                                   },
@@ -4531,7 +4689,17 @@
                     },
                     "desiredCount": 1,
                     "enableEcsManagedTags": false,
+                    "healthCheckGracePeriodSeconds": 60,
                     "launchType": "EC2",
+                    "loadBalancers": [
+                      {
+                        "targetGroupArn": {
+                          "Fn::ImportValue": "tp-lb-dev:ExportsOutputRefloadbalancerprimsalistenerprismatargetsGroup8FCED7E1EF063439"
+                        },
+                        "containerName": "prisma-container",
+                        "containerPort": 4466
+                      }
+                    ],
                     "schedulingStrategy": "REPLICA",
                     "taskDefinition": {
                       "Ref": "taskdef8C9C43DE"
@@ -4540,6 +4708,18 @@
                 }
               }
             }
+          },
+          "Endpoint": {
+            "id": "Endpoint",
+            "path": "tp-prisma-dev/Endpoint"
+          },
+          "ServiceName": {
+            "id": "ServiceName",
+            "path": "tp-prisma-dev/ServiceName"
+          },
+          "ClusterName": {
+            "id": "ClusterName",
+            "path": "tp-prisma-dev/ClusterName"
           }
         }
       }

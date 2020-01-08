@@ -31,6 +31,48 @@
         "aws:cdk:path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource"
       }
     },
+    "clusterDefaultAutoScalingGroupInstanceSecurityGroupfromtplbdevloadbalancerSecurityGroup545133BC32768655351F51CA11": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "FromPort": 32768,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+        },
+        "ToPort": 65535
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/from tplbdevloadbalancerSecurityGroup545133BC:32768-65535"
+      }
+    },
+    "clusterDefaultAutoScalingGroupInstanceSecurityGrouptplbdevloadbalancerSecurityGroup545133BC3276865535from65B1AA17": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Fn::ImportValue": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+        },
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "clusterDefaultAutoScalingGroupInstanceSecurityGroup02B5B205",
+            "GroupId"
+          ]
+        },
+        "FromPort": 32768,
+        "ToPort": 65535
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-prisma-dev/cluster/DefaultAutoScalingGroup/InstanceSecurityGroup/tplbdevloadbalancerSecurityGroup545133BC:32768-65535 from"
+      }
+    },
     "clusterDefaultAutoScalingGroupInstanceRole98EFF504": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -511,7 +553,7 @@
                   "Fn::Join": [
                     "",
                     [
-                      "\n    managementApiSecret: staging-secret\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
+                      "\n    managementApiSecret: [object Object]\n    port: 4466\n    databases:\n      default:\n        connector: postgres\n        active: true\n        host: ",
                       {
                         "Fn::ImportValue": "tp-db-dev:ExportsOutputFnGetAttpostgres6BBC2FA4EndpointAddress84834BDC"
                       },
@@ -642,7 +684,17 @@
         },
         "DesiredCount": 1,
         "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
         "LaunchType": "EC2",
+        "LoadBalancers": [
+          {
+            "ContainerName": "prisma-container",
+            "ContainerPort": 4466,
+            "TargetGroupArn": {
+              "Fn::ImportValue": "tp-lb-dev:ExportsOutputRefloadbalancerprimsalistenerprismatargetsGroup8FCED7E1EF063439"
+            }
+          }
+        ],
         "SchedulingStrategy": "REPLICA",
         "TaskDefinition": {
           "Ref": "taskdef8C9C43DE"
@@ -657,6 +709,27 @@
     "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter": {
       "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
       "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
+    }
+  },
+  "Outputs": {
+    "Endpoint": {
+      "Value": "https://typeparty.com:4466",
+      "Export": {
+        "Name": "undefined-endpoint"
+      }
+    },
+    "ServiceName": {
+      "Value": {
+        "Fn::GetAtt": [
+          "prismaServiceD6A5FE29",
+          "Name"
+        ]
+      }
+    },
+    "ClusterName": {
+      "Value": {
+        "Ref": "cluster611F8AFF"
+      }
     }
   }
 }

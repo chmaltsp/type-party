@@ -68,6 +68,7 @@ new ApiStack(app, API_STACK, {
   imageBucket: imageStack.bucket,
   certificate: common.certificate,
   zone: common.zone,
+  kmsKey: common.key,
   env,
   lb: lb.alb,
 });
@@ -91,5 +92,7 @@ new PrismaStack(app, PRISMA_STACK, {
   zone: common.zone,
   db: postgres.db,
   dbPassword: postgres.dbPassword,
+  lb: lb.alb,
+  kmsKey: common.key,
   env,
 });
