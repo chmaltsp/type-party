@@ -2113,10 +2113,6 @@
             "id": "SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118",
             "path": "tp-api-dev/SsmParameterValue:--aws--service--ecs--optimized-ami--amazon-linux-2--recommended--image_id:C96584B6-F00A-464E-AD19-53AFF4B05118"
           },
-          "PRISMA_SECRET.Parameter": {
-            "id": "PRISMA_SECRET.Parameter",
-            "path": "tp-api-dev/PRISMA_SECRET.Parameter"
-          },
           "PRISMA_SECRET": {
             "id": "PRISMA_SECRET",
             "path": "tp-api-dev/PRISMA_SECRET"
@@ -2500,6 +2496,11 @@
                                   }
                                 },
                                 {
+                                  "Action": "kms:Decrypt",
+                                  "Effect": "Allow",
+                                  "Resource": "arn:aws:kms:us-east-1:561034361591:key/1b511fa7-dcd4-4db9-aef9-c15b141b3b29"
+                                },
+                                {
                                   "Action": [
                                     "ssm:DescribeParameters",
                                     "ssm:GetParameters",
@@ -2540,11 +2541,6 @@
                                       ]
                                     ]
                                   }
-                                },
-                                {
-                                  "Action": "kms:Decrypt",
-                                  "Effect": "Allow",
-                                  "Resource": "arn:aws:kms:us-east-1:561034361591:key/1b511fa7-dcd4-4db9-aef9-c15b141b3b29"
                                 },
                                 {
                                   "Action": [
