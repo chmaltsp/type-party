@@ -30,8 +30,8 @@ update-api-service-dev:
 	$(eval API_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-api-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))
 	ecs-deploy -n $(API_SERVICE_NAME) -c $(API_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-api:latest
 
-set-ssm-param-secure: y
-	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=alias/TpMaster
+set-ssm-param-secure: 
+	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=1b511fa7-dcd4-4db9-aef9-c15b141b3b29
 
 set-ssm-param: 
 	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1"

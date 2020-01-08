@@ -37,6 +37,13 @@
             "FromPort": 4000,
             "IpProtocol": "tcp",
             "ToPort": 4000
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 4466",
+            "FromPort": 4466,
+            "IpProtocol": "tcp",
+            "ToPort": 4466
           }
         ],
         "VpcId": {
@@ -89,6 +96,48 @@
         "aws:cdk:path": "tp-lb-dev/loadbalancer/listener/ECSGroup/Resource"
       }
     },
+    "loadbalancerprimsalistener7FC82C55": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "loadbalancerprimsalistenerprismatargetsGroup8FCED7E1"
+            },
+            "Type": "forward"
+          }
+        ],
+        "LoadBalancerArn": {
+          "Ref": "loadbalancerEE24515C"
+        },
+        "Port": 4466,
+        "Protocol": "HTTPS",
+        "Certificates": [
+          {
+            "CertificateArn": {
+              "Fn::ImportValue": "TpCommon:ExportsOutputRefSsmParameterValueCertifcateArntypepartycomC96584B6F00A464EAD1953AFF4B05118Parameter4845F098"
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-lb-dev/loadbalancer/primsa-listener/Resource"
+      }
+    },
+    "loadbalancerprimsalistenerprismatargetsGroup8FCED7E1": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "Port": 4466,
+        "Protocol": "HTTP",
+        "TargetType": "instance",
+        "VpcId": {
+          "Fn::ImportValue": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "tp-lb-dev/loadbalancer/primsa-listener/prisma-targetsGroup/Resource"
+      }
+    },
     "albRecord27D18C85": {
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
@@ -125,6 +174,14 @@
       },
       "Export": {
         "Name": "tp-lb-dev:ExportsOutputFnGetAttloadbalancerSecurityGroup3A6B02E1GroupId12A98EFA"
+      }
+    },
+    "ExportsOutputRefloadbalancerprimsalistenerprismatargetsGroup8FCED7E1EF063439": {
+      "Value": {
+        "Ref": "loadbalancerprimsalistenerprismatargetsGroup8FCED7E1"
+      },
+      "Export": {
+        "Name": "tp-lb-dev:ExportsOutputRefloadbalancerprimsalistenerprismatargetsGroup8FCED7E1EF063439"
       }
     },
     "ExportsOutputRefloadbalancerlistenerECSGroup3F2C971772ABDAEF": {

@@ -12,6 +12,8 @@ import {
   ApplicationLoadBalancer,
   ApplicationProtocol,
 } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { getDomainName } from './common';
+import { IKey } from '@aws-cdk/aws-kms';
 
 interface ApiProps extends cdk.StackProps {
   vpc: ec2.Vpc;
@@ -20,6 +22,7 @@ interface ApiProps extends cdk.StackProps {
   certificate: ICertificate;
   zone: IHostedZone;
   lb: ApplicationLoadBalancer;
+  kmsKey: IKey;
 }
 export class ApiStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: ApiProps) {
@@ -60,10 +63,14 @@ export class ApiStack extends cdk.Stack {
     );
 
     const PRISMA_MANAGEMENT_API_SECRET = ecs.Secret.fromSsmParameter(
-      ssm.StringParameter.fromStringParameterName(
+      ssm.StringParameter.fromSecureStringParameterAttributes(
         this,
         'PRISMA_MANAGEMENT_API_SECRET',
-        environmentVarKeys.staging.PRISMA_MANAGEMENT_API_SECRET
+        {
+          parameterName: environmentVarKeys.staging.PRISMA_MANAGEMENT_API_SECRET,
+          encryptionKey: props.kmsKey,
+          version: 3,
+        }
       )
     );
 
@@ -99,15 +106,16 @@ export class ApiStack extends cdk.Stack {
       logging,
     });
 
+    const CONTAINER_PORT = 4000;
     container.addPortMappings({
-      containerPort: 4000,
+      containerPort: CONTAINER_PORT,
       protocol: ecs.Protocol.TCP,
     });
 
     const listener = props.lb.addListener('listener', {
       protocol: ApplicationProtocol.HTTPS,
       open: true,
-      port: 4000,
+      port: CONTAINER_PORT,
     });
 
     listener.addCertificates('Certs', [props.certificate]);
@@ -118,14 +126,14 @@ export class ApiStack extends cdk.Stack {
     });
 
     const targetGroup = listener.addTargets('ECS', {
-      port: 4000,
+      port: CONTAINER_PORT,
       protocol: ApplicationProtocol.HTTP,
     });
 
     targetGroup.addTarget(
       apiService.loadBalancerTarget({
         containerName: 'api',
-        containerPort: 4000,
+        containerPort: CONTAINER_PORT,
       })
     );
 
@@ -139,6 +147,11 @@ export class ApiStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'TaskArn', {
       value: apiService.taskDefinition.taskRole.roleArn,
       exportName: `${props.stackName}-TaskArn`,
+    });
+
+    new cdk.CfnOutput(this, 'Endpoint', {
+      value: `https://${getDomainName(scope)}:${CONTAINER_PORT}`,
+      exportName: `${props.stackName}-endpoint`,
     });
     new cdk.CfnOutput(this, 'ServiceName', {
       value: apiService.serviceName,

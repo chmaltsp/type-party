@@ -883,6 +883,11 @@
               }
             },
             {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": "arn:aws:kms:us-east-1:561034361591:key/1b511fa7-dcd4-4db9-aef9-c15b141b3b29"
+            },
+            {
               "Action": [
                 "ssm:DescribeParameters",
                 "ssm:GetParameters",
@@ -984,10 +989,6 @@
       "Type": "AWS::SSM::Parameter::Value<String>",
       "Default": "/TpStaging/APP_SECRET"
     },
-    "PRISMAMANAGEMENTAPISECRETParameter": {
-      "Type": "AWS::SSM::Parameter::Value<String>",
-      "Default": "/TpStaging/PRISMA_MANAGEMENT_API_SECRET"
-    },
     "PRISMAENDPOINTParameter": {
       "Type": "AWS::SSM::Parameter::Value<String>",
       "Default": "/TpStaging/PRISMA_ENDPOINT"
@@ -1003,6 +1004,12 @@
       },
       "Export": {
         "Name": "tp-api-dev-TaskArn"
+      }
+    },
+    "Endpoint": {
+      "Value": "https://typeparty.com:4000",
+      "Export": {
+        "Name": "tp-api-dev-endpoint"
       }
     },
     "ServiceName": {
