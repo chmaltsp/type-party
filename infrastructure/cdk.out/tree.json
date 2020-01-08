@@ -2121,10 +2121,6 @@
             "id": "PRISMA_SECRET",
             "path": "tp-api-dev/PRISMA_SECRET"
           },
-          "APP_SECRET.Parameter": {
-            "id": "APP_SECRET.Parameter",
-            "path": "tp-api-dev/APP_SECRET.Parameter"
-          },
           "APP_SECRET": {
             "id": "APP_SECRET",
             "path": "tp-api-dev/APP_SECRET"

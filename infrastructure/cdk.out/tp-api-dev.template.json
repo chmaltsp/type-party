@@ -985,10 +985,6 @@
       "Type": "AWS::SSM::Parameter::Value<String>",
       "Default": "/TpStaging/PRISMA_SECRET"
     },
-    "APPSECRETParameter": {
-      "Type": "AWS::SSM::Parameter::Value<String>",
-      "Default": "/TpStaging/APP_SECRET"
-    },
     "PRISMAENDPOINTParameter": {
       "Type": "AWS::SSM::Parameter::Value<String>",
       "Default": "/TpStaging/PRISMA_ENDPOINT"

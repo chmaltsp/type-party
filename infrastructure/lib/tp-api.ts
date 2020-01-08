@@ -55,11 +55,11 @@ export class ApiStack extends cdk.Stack {
     );
 
     const APP_SECRET = ecs.Secret.fromSsmParameter(
-      ssm.StringParameter.fromStringParameterName(
-        this,
-        'APP_SECRET',
-        environmentVarKeys.staging.APP_SECRET
-      )
+      ssm.StringParameter.fromSecureStringParameterAttributes(this, 'APP_SECRET', {
+        parameterName: environmentVarKeys.staging.APP_SECRET,
+        encryptionKey: props.kmsKey,
+        version: 4,
+      })
     );
 
     const PRISMA_MANAGEMENT_API_SECRET = ecs.Secret.fromSsmParameter(
