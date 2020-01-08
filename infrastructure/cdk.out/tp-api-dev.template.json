@@ -841,6 +841,11 @@
               }
             },
             {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": "arn:aws:kms:us-east-1:561034361591:key/1b511fa7-dcd4-4db9-aef9-c15b141b3b29"
+            },
+            {
               "Action": [
                 "ssm:DescribeParameters",
                 "ssm:GetParameters",
@@ -881,11 +886,6 @@
                   ]
                 ]
               }
-            },
-            {
-              "Action": "kms:Decrypt",
-              "Effect": "Allow",
-              "Resource": "arn:aws:kms:us-east-1:561034361591:key/1b511fa7-dcd4-4db9-aef9-c15b141b3b29"
             },
             {
               "Action": [
@@ -980,10 +980,6 @@
     "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter": {
       "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
       "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
-    },
-    "PRISMASECRETParameter": {
-      "Type": "AWS::SSM::Parameter::Value<String>",
-      "Default": "/TpStaging/PRISMA_SECRET"
     },
     "PRISMAENDPOINTParameter": {
       "Type": "AWS::SSM::Parameter::Value<String>",
