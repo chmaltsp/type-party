@@ -16,6 +16,11 @@ export const ORG = 'tp';
 export const STAGE = 'stage';
 export const DOMAIN_NAME = 'domainName';
 
+export const PRISMA = 'prisma';
+export const API = 'api';
+export const WWW = 'www';
+export const FE = 'fe';
+
 export type CONTEXT_KEYS = typeof STAGE | typeof DOMAIN_NAME;
 
 export type STAGES = 'dev' | 'prod';
