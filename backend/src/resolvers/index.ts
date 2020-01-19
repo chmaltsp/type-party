@@ -13,6 +13,7 @@ import { Typeface } from './Typeface';
 import { User } from './User';
 import { Resolvers } from '../generated/graphqlgen';
 import { tag } from './mutations/tag';
+import { mailchimp } from './mutations/mailchimp';
 
 const resolvers: Pick<
   Resolvers,
@@ -27,6 +28,7 @@ const resolvers: Pick<
     ...typeface,
     ...designer,
     ...tag,
+    ...mailchimp,
   },
   AuthPayload,
   User,

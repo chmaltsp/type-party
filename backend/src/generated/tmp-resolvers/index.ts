@@ -14,6 +14,7 @@ import { Designer } from './Designer';
 import { Tag } from './Tag';
 import { Mutation } from './Mutation';
 import { AuthPayload } from './AuthPayload';
+import { MailchimpPayload } from './MailchimpPayload';
 
 export const resolvers: Resolvers = {
   Query,
@@ -27,4 +28,5 @@ export const resolvers: Resolvers = {
   Tag,
   Mutation,
   AuthPayload,
+  MailchimpPayload,
 };

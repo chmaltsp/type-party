@@ -11,6 +11,9 @@ export const Mutation: MutationResolvers.Type = {
   login: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  subscribeToEmailList: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   addWebsite: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
