@@ -22,6 +22,7 @@
     "graphql-tools": "4.0.3",
     "graphql-yoga": "1.16.9",
     "jsonwebtoken": "8.2.0",
+    "mailchimp-api-v3": "^1.13.1",
     "prisma-binding": "2.3.16",
     "prisma-client-lib": "^1.34.10",
     "shortid": "^2.2.8"

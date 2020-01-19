@@ -83,6 +83,7 @@ input UpdateTypefaceInput {
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
+  subscribeToEmailList(email: String): MailchimpPayload!
   addWebsite(input: AddWebsiteInput): Website!
   updateWebsite(input: UpdateWebsiteInput): Website!
   addTypeface(input: AddTypefaceInput): Typeface @isAuthenticated
@@ -91,6 +92,10 @@ type Mutation {
   addDesigner(input: DesignerCreateInput): Designer @isAuthenticated
   addTag(input: TagCreateInput): Tag @isAuthenticated
   uploadImage(file: Upload!): File
+}
+
+type MailchimpPayload {
+  status: String!
 }
 
 type AuthPayload {

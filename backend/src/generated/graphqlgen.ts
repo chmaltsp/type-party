@@ -12,6 +12,7 @@ import {
   Tag,
 } from './prisma-client';
 import { AuthPayload } from '../types/auth';
+import { MailchimpPayload } from '../types/mailchimp';
 import { Context } from '../utils';
 
 type Role = 'ADMIN' | 'SUBSCRIBER';
@@ -4731,6 +4732,10 @@ export namespace MutationResolvers {
     password: string;
   }
 
+  export interface ArgsSubscribeToEmailList {
+    email: string | null;
+  }
+
   export interface ArgsAddWebsite {
     input: AddWebsiteInput | null;
   }
@@ -4776,6 +4781,13 @@ export namespace MutationResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => AuthPayload | Promise<AuthPayload>;
+
+  export type SubscribeToEmailListResolver = (
+    parent: undefined,
+    args: ArgsSubscribeToEmailList,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => MailchimpPayload | Promise<MailchimpPayload>;
 
   export type AddWebsiteResolver = (
     parent: undefined,
@@ -4847,6 +4859,13 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => AuthPayload | Promise<AuthPayload>;
+
+    subscribeToEmailList: (
+      parent: undefined,
+      args: ArgsSubscribeToEmailList,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => MailchimpPayload | Promise<MailchimpPayload>;
 
     addWebsite: (
       parent: undefined,
@@ -4943,6 +4962,28 @@ export namespace AuthPayloadResolvers {
   }
 }
 
+export namespace MailchimpPayloadResolvers {
+  export const defaultResolvers = {
+    status: (parent: MailchimpPayload) => parent.status,
+  };
+
+  export type StatusResolver = (
+    parent: MailchimpPayload,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export interface Type {
+    status: (
+      parent: MailchimpPayload,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+  }
+}
+
 export interface Resolvers {
   Query: QueryResolvers.Type;
   User: UserResolvers.Type;
@@ -4955,4 +4996,5 @@ export interface Resolvers {
   Tag: TagResolvers.Type;
   Mutation: MutationResolvers.Type;
   AuthPayload: AuthPayloadResolvers.Type;
+  MailchimpPayload: MailchimpPayloadResolvers.Type;
 }
