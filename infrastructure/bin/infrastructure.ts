@@ -42,6 +42,7 @@ const lb = new LBStack(app, LB_STACK, {
   env,
   vpc: vpc.vpc,
   zone: common.zone,
+  certificate: common.certificate,
 });
 
 const IMAGE_STACK = getStackName('images');
@@ -70,7 +71,8 @@ new ApiStack(app, API_STACK, {
   zone: common.zone,
   kmsKey: common.key,
   env,
-  lb: lb.alb,
+  cluster: lb.cluster,
+  targetGroup: lb.apiTargetGroup,
 });
 
 const FRONTEND_STACK = getStackName('frontend');
@@ -81,7 +83,9 @@ new FrontendStack(app, FRONTEND_STACK, {
   stackName: FRONTEND_STACK,
   certificate: common.certificate,
   zone: common.zone,
-  lb: lb.alb,
+  cluster: lb.cluster,
+  targetGroup: lb.targetGroup,
+  feTargetGroup: lb.feTargetGroup,
   env,
 });
 
@@ -92,7 +96,8 @@ new PrismaStack(app, PRISMA_STACK, {
   zone: common.zone,
   db: postgres.db,
   dbPassword: postgres.dbPassword,
-  lb: lb.alb,
   kmsKey: common.key,
+  targetGroup: lb.prismaTargetGroup,
+  cluster: lb.cluster,
   env,
 });

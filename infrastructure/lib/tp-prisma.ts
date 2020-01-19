@@ -3,16 +3,17 @@ import rds = require('@aws-cdk/aws-rds');
 import ecs = require('@aws-cdk/aws-ecs');
 import ssm = require('@aws-cdk/aws-ssm');
 import { StackProps } from '@aws-cdk/core';
-import { IVpc, InstanceType, InstanceClass, InstanceSize } from '@aws-cdk/aws-ec2';
+import { IVpc } from '@aws-cdk/aws-ec2';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { Secret } from '@aws-cdk/aws-secretsmanager';
 import {
-  ApplicationLoadBalancer,
-  ApplicationProtocol,
+  ApplicationTargetGroup,
+  // ApplicationProtocol,
 } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { getDomainName } from './common';
+import { getDomainName, PRISMA } from './common';
 import { IKey } from '@aws-cdk/aws-kms';
+import { ICluster } from '@aws-cdk/aws-ecs';
 
 interface PrismaProps extends StackProps {
   vpc: IVpc;
@@ -21,7 +22,8 @@ interface PrismaProps extends StackProps {
   db: rds.DatabaseInstance;
   dbPassword: Secret;
   kmsKey: IKey;
-  lb: ApplicationLoadBalancer;
+  targetGroup: ApplicationTargetGroup;
+  cluster: ICluster;
 }
 export class PrismaStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: PrismaProps) {
@@ -40,15 +42,6 @@ export class PrismaStack extends cdk.Stack {
       this,
       environmentVarKeys.staging.PRISMA_MANAGEMENT_API_SECRET
     );
-
-    const cluster = new ecs.Cluster(this, 'cluster', {
-      vpc: props.vpc,
-    });
-
-    cluster.addCapacity('DefaultAutoScalingGroup', {
-      instanceType: InstanceType.of(InstanceClass.T2, InstanceSize.SMALL),
-      spotPrice: '0.023',
-    });
 
     const PRISMA_DOCKER_IMAGE = 'prismagraphql/prisma:1.34';
 
@@ -89,24 +82,13 @@ export class PrismaStack extends cdk.Stack {
 
     const service = new ecs.Ec2Service(this, 'prisma', {
       taskDefinition: taskdef,
-      cluster,
+      cluster: props.cluster,
     });
 
-    const listener = props.lb.addListener('primsa-listener', {
-      port: CONTAINER_PORT,
-      certificates: [props.certificate],
-      open: true,
-      protocol: ApplicationProtocol.HTTPS,
-    });
-
-    listener.addTargets('prisma-targets', {
-      port: CONTAINER_PORT,
-      targets: [service],
-      protocol: ApplicationProtocol.HTTP,
-    });
+    props.targetGroup.addTarget(service);
 
     new cdk.CfnOutput(this, 'Endpoint', {
-      value: `https://${getDomainName(scope)}:${CONTAINER_PORT}`,
+      value: `https://${PRISMA}.${getDomainName(scope)}`,
       exportName: `${props.stackName}-endpoint`,
     });
     new cdk.CfnOutput(this, 'ServiceName', {
@@ -114,7 +96,7 @@ export class PrismaStack extends cdk.Stack {
     });
 
     new cdk.CfnOutput(this, 'ClusterName', {
-      value: cluster.clusterName,
+      value: props.cluster.clusterName,
     });
   }
 }

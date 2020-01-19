@@ -512,14 +512,6 @@
     }
   },
   "Outputs": {
-    "ExportsOutputReftpvpcdev26ADF65FC3D75A45": {
-      "Value": {
-        "Ref": "tpvpcdev26ADF65F"
-      },
-      "Export": {
-        "Name": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
-      }
-    },
     "ExportsOutputReftpvpcdevPrivateSubnet1SubnetF419DD006B86DAD9": {
       "Value": {
         "Ref": "tpvpcdevPrivateSubnet1SubnetF419DD00"
@@ -534,6 +526,14 @@
       },
       "Export": {
         "Name": "tp-vpc-dev:ExportsOutputReftpvpcdevPrivateSubnet2Subnet255789998AA14C7B"
+      }
+    },
+    "ExportsOutputReftpvpcdev26ADF65FC3D75A45": {
+      "Value": {
+        "Ref": "tpvpcdev26ADF65F"
+      },
+      "Export": {
+        "Name": "tp-vpc-dev:ExportsOutputReftpvpcdev26ADF65FC3D75A45"
       }
     },
     "ExportsOutputReftpvpcdevPublicSubnet1Subnet68E7FBEC5D42E57E": {

@@ -8,12 +8,10 @@ import ssm = require('@aws-cdk/aws-ssm');
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
-import {
-  ApplicationLoadBalancer,
-  ApplicationProtocol,
-} from '@aws-cdk/aws-elasticloadbalancingv2';
-import { getDomainName } from './common';
+import { ApplicationTargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { getDomainName, API } from './common';
 import { IKey } from '@aws-cdk/aws-kms';
+import { Cluster } from '@aws-cdk/aws-ecs';
 
 interface ApiProps extends cdk.StackProps {
   vpc: ec2.Vpc;
@@ -21,21 +19,13 @@ interface ApiProps extends cdk.StackProps {
   imageBucket: s3.Bucket;
   certificate: ICertificate;
   zone: IHostedZone;
-  lb: ApplicationLoadBalancer;
   kmsKey: IKey;
+  cluster: Cluster;
+  targetGroup: ApplicationTargetGroup;
 }
 export class ApiStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: ApiProps) {
     super(scope, id, props);
-
-    const cluster = new ecs.Cluster(this, 'cluster', {
-      vpc: props.vpc,
-    });
-
-    cluster.addCapacity('DefaultAutoScalingGroup', {
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.SMALL),
-      spotPrice: '0.023',
-    });
 
     const environmentVarKeys = {
       staging: {
@@ -108,31 +98,14 @@ export class ApiStack extends cdk.Stack {
       protocol: ecs.Protocol.TCP,
     });
 
-    const listener = props.lb.addListener('listener', {
-      protocol: ApplicationProtocol.HTTPS,
-      open: true,
-      port: CONTAINER_PORT,
-    });
-
-    listener.addCertificates('Certs', [props.certificate]);
-
     const apiService = new ecs.Ec2Service(this, 'ec2-service', {
-      cluster,
+      cluster: props.cluster,
       taskDefinition: taskDef,
     });
 
-    const targetGroup = listener.addTargets('ECS', {
-      port: CONTAINER_PORT,
-      protocol: ApplicationProtocol.HTTP,
-    });
+    props.targetGroup.addTarget(apiService);
 
-    targetGroup.addTarget(
-      apiService.loadBalancerTarget({
-        containerName: 'api',
-        containerPort: CONTAINER_PORT,
-      })
-    );
-
+    props.imageBucket.grantPut(taskDef.taskRole);
     const assumeRolePolicy = new PolicyStatement();
 
     assumeRolePolicy.addActions('sts:AssumeRole');
@@ -140,13 +113,8 @@ export class ApiStack extends cdk.Stack {
 
     apiService.taskDefinition.addToTaskRolePolicy(assumeRolePolicy);
 
-    new cdk.CfnOutput(this, 'TaskArn', {
-      value: apiService.taskDefinition.taskRole.roleArn,
-      exportName: `${props.stackName}-TaskArn`,
-    });
-
     new cdk.CfnOutput(this, 'Endpoint', {
-      value: `https://${getDomainName(scope)}:${CONTAINER_PORT}`,
+      value: `https://${API}.${getDomainName(scope)}`,
       exportName: `${props.stackName}-endpoint`,
     });
     new cdk.CfnOutput(this, 'ServiceName', {
@@ -154,7 +122,7 @@ export class ApiStack extends cdk.Stack {
     });
 
     new cdk.CfnOutput(this, 'ClusterName', {
-      value: cluster.clusterName,
+      value: props.cluster.clusterName,
     });
   }
 }

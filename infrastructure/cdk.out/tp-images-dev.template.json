@@ -27,44 +27,6 @@
           "Statement": [
             {
               "Action": [
-                "s3:List*",
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:PutObject*",
-                "s3:PutObjectAcl*",
-                "s3:Abort*"
-              ],
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": {
-                  "Fn::ImportValue": "tp-api-dev-TaskArn"
-                }
-              },
-              "Resource": [
-                {
-                  "Fn::GetAtt": [
-                    "bucket43879C71",
-                    "Arn"
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      {
-                        "Fn::GetAtt": [
-                          "bucket43879C71",
-                          "Arn"
-                        ]
-                      },
-                      "/*"
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*"
@@ -220,6 +182,17 @@
     }
   },
   "Outputs": {
+    "ExportsOutputFnGetAttbucket43879C71Arn20063EB0": {
+      "Value": {
+        "Fn::GetAtt": [
+          "bucket43879C71",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "tp-images-dev:ExportsOutputFnGetAttbucket43879C71Arn20063EB0"
+      }
+    },
     "ExportsOutputRefbucket43879C716CF1CFA3": {
       "Value": {
         "Ref": "bucket43879C71"
