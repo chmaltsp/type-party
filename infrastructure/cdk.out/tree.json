@@ -2474,7 +2474,7 @@
                             ]
                           ]
                         },
-                        "memoryReservation": 700,
+                        "memoryReservation": 256,
                         "name": "api",
                         "portMappings": [
                           {

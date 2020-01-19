@@ -173,7 +173,7 @@
                 "awslogs-region": "us-east-1"
               }
             },
-            "MemoryReservation": 700,
+            "MemoryReservation": 256,
             "Name": "api",
             "PortMappings": [
               {

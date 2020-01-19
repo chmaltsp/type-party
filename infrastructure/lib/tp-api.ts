@@ -78,7 +78,7 @@ export class ApiStack extends cdk.Stack {
 
     const container = taskDef.addContainer('api', {
       image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
-      memoryReservationMiB: 700,
+      memoryReservationMiB: 256,
       environment: {
         S3_ENDPOINT,
         S3_BUCKET,
