@@ -7,12 +7,13 @@ import { File } from '../generated/prisma-client';
 
 const debug = debugBase('s3');
 
+const isLocalhost = /localhost/.test(process.env.S3_ENDPOINT);
+
 const s3 = new S3({
+  s3ForcePathStyle: isLocalhost,
   endpoint: process.env.S3_ENDPOINT,
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  sessionToken:
-    'FwoGZXIvYXdzEGwaDC7jqye+B8ZERaaEVCKwAZMgph9KdphPgC6bFEHmWRyOjYWFoJjMpD7oVKcqhsgKA81x9yvkGIHIA8aHz1kdHL9boAhftvLr6YAO2mqG12wH5RjSqpyn1e7+h2U7klje0bcoelHBbOh7XmAHCYfqUkJQglPVU8dx2I0SlEks2L2BUq2VAenwZeEcFrUdcy4UDZkE/jqO08hpOPuWqJRbxPzV8fETq8qypOzYjmAoBfwaTR7mD71JTzX6V4z4A3HWKJHeo/AFMi2WTnK40KJOMX0mhhOI7gWXZOhQyazXqD+OdCMnrg3lqh0Pj6GMhHjS+XAhiWY=',
   apiVersion: 'latest',
 });
 
@@ -39,8 +40,8 @@ export const processUpload = async (upload, ctx: Context): Promise<File | null> 
     })
     .promise();
 
-  const cdnPrefix = /localhost/.test(process.env.S3_ENDPOINT)
-    ? process.env.S3_ENDPOINT
+  const cdnPrefix = isLocalhost
+    ? process.env.S3_ENDPOINT + '/' + process.env.S3_BUCKET
     : TP_CDN;
 
   // Get url

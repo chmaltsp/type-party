@@ -26,7 +26,7 @@ export const AddSite: React.SFC<RouteComponentProps<{ slug: string }>> = props =
   return (
     <Container>
       <PageTitle>Add / Edit Website</PageTitle>
-      <Form slug={props.match.params.slug} />
+      <Form slug={props.match.params.slug} push={props.history.push} />
     </Container>
   );
 };

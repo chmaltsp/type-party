@@ -1,6 +1,6 @@
 import { Form as FormBase } from 'formik';
 import styled from 'sc';
-import ButtonBase from '../../components/Button';
+import ButtonBase, { LoadingButton } from '../../components/Button';
 import Flex from '../../components/Flex';
 
 export const LeftColumn = styled(Flex)`
@@ -23,14 +23,14 @@ export const Form = styled(FormBase)`
   flex-direction: row;
   width: 100%;
 `;
-export const SubmitButton = styled.button.attrs({
-  type: 'submit',
-})`
-  background-color: transparent;
+export const SubmitButton = styled(LoadingButton)`
+  /* background-color: transparent; */
   border: 2px ${({ theme }) => theme.colors.black} solid;
   margin: ${({ theme }) => theme.baseSpacing * 2}px 0;
   border-radius: ${({ theme }) => theme.baseSpacing / 2}px;
-  color: ${({ theme }) => theme.colors.black};
+  height: 64px;
+  /* color: ${({ theme }) => theme.colors.black}; */
   cursor: pointer;
-  padding: ${({ theme }) => theme.baseSpacing}px ${({ theme }) => theme.baseSpacing * 2}px;
+  /* padding: ${({ theme }) => theme.baseSpacing}px ${({ theme }) =>
+  theme.baseSpacing * 2}px; */
 `;

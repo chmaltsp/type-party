@@ -5,6 +5,7 @@ import Flex from '../../components/Flex';
 import PageTitle from '../../components/PageTitle';
 export const DetailWrapper = styled(Flex)`
   flex-direction: row;
+
   ${media.tablet`
     flex-direction: column;
     margin: ${({ theme }: any) => theme.spacing.md}px 0;
@@ -27,6 +28,8 @@ export const WebsiteInfo = styled(Flex)`
   flex-direction: column;
   ${media.tablet`
     width: 100%;
+    padding-left: 0;
+    margin-top: ${({ theme }: any) => theme.spacing.md}px;
   `};
 `;
 export const Title = styled(PageTitle)`
