@@ -2,20 +2,27 @@ import { em } from 'polished';
 import * as React from 'react';
 
 import styled, { media } from 'sc';
-import ButtonBase from '../Button';
+import ButtonBase, { LoadingButton } from '../Button';
 import InputBase from '../Input';
 
-import { Field, FieldProps, Form as Formbase, Formik, FormikActions } from 'formik';
+import {
+  Field,
+  FieldProps,
+  Form as Formbase,
+  Formik,
+  FormikActions,
+  FormikProps,
+} from 'formik';
 import { ChildMutateProps, compose, graphql } from 'react-apollo';
 
 import * as Yup from 'yup';
+import { LoadingSpinner } from '../LoadingSpinner';
 import {
   SubscribeToEmailList,
   SubscribeToEmailList_subscribeToEmailList,
   SubscribeToEmailListVariables,
 } from './__generated__/SubscribeToEmailList';
 import { SUBSCRIBE_TO_LIST } from './mutation';
-import { useState } from 'react';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -35,19 +42,19 @@ const Form = styled(Formbase)`
   `};
 `;
 
-const Button = ButtonBase.extend`
+const Button = styled(LoadingButton)`
   flex: 1;
   margin-left: ${({ theme }) => theme.spacing.md}px;
   max-width: 220px;
-  background-color: ${({ theme }) => theme.colors.black};
-  color: ${({ theme }) => theme.colors.white};
-  background-size: 200% 100%;
+  background-color: ${({ theme, loading }) => !loading && theme.colors.black};
+  color: ${({ theme, loading }) => !loading && theme.colors.white};
+  background-size: ${({ loading }) => (loading ? '100% 0' : '200% 100%')};
   background-image: linear-gradient(to right, black 50%, white 50%);
   transition: background-position 0.3s, color 0.3s;
 
   &:hover {
     background-position: -100% 0;
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme, loading }) => !loading && theme.colors.black};
     cursor: pointer;
   }
 
@@ -75,12 +82,14 @@ const Input = styled(InputBase)`
     margin-left: 0;
     flex: 1;
   `};
+
+  margin-top: 0px;
 `;
 
 export const EmailForm: React.FunctionComponent<
   ChildMutateProps<{}, SubscribeToEmailList, SubscribeToEmailListVariables>
 > = props => {
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = React.useState(false);
   const handleSubmit = async (
     values: InputValues,
     actions: FormikActions<InputValues>
@@ -95,10 +104,12 @@ export const EmailForm: React.FunctionComponent<
       setSuccess(true);
 
       console.log(response);
+      actions.setSubmitting(false);
     } catch (error) {
       console.log(error);
 
       actions.setFieldError('email', 'Looks like you already signed up!');
+      actions.setSubmitting(false);
     }
   };
   return (
@@ -109,7 +120,7 @@ export const EmailForm: React.FunctionComponent<
       }}
       validationSchema={validationSchema}
     >
-      {() => (
+      {(formikProps: FormikProps<InputValues>) => (
         <Form>
           {success && <div>Successful Sign Up!</div>}
           {!success && (
@@ -120,7 +131,9 @@ export const EmailForm: React.FunctionComponent<
                   return <Input placeholder="name@email.com" {...fieldProps} />;
                 }}
               />
-              <Button type="submit">Yay open source</Button>
+              <Button type="submit" loading={formikProps.isSubmitting}>
+                Yay open source
+              </Button>
             </>
           )}
         </Form>
