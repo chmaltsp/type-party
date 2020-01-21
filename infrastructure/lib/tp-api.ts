@@ -33,6 +33,7 @@ export class ApiStack extends cdk.Stack {
         PRISMA_MANAGEMENT_API_SECRET: '/TpStaging/PRISMA_MANAGEMENT_API_SECRET',
         APP_SECRET: '/TpStaging/APP_SECRET',
         PRISMA_ENDPOINT: '/TpStaging/PRISMA_ENDPOINT',
+        MAILCHIMP_API_KEY: '/TpStaging/MAILCHIMP_API_KEY',
       },
     };
 
@@ -49,6 +50,14 @@ export class ApiStack extends cdk.Stack {
         parameterName: environmentVarKeys.staging.APP_SECRET,
         encryptionKey: props.kmsKey,
         version: 4,
+      })
+    );
+
+    const MAILCHIMP_API_KEY = ecs.Secret.fromSsmParameter(
+      ssm.StringParameter.fromSecureStringParameterAttributes(this, 'MAILCHIMP_API_KEY', {
+        parameterName: environmentVarKeys.staging.MAILCHIMP_API_KEY,
+        encryptionKey: props.kmsKey,
+        version: 1,
       })
     );
 
@@ -88,6 +97,7 @@ export class ApiStack extends cdk.Stack {
         PRISMA_ENDPOINT,
         PRISMA_MANAGEMENT_API_SECRET,
         APP_SECRET,
+        MAILCHIMP_API_KEY,
       },
       logging,
     });

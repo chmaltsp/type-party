@@ -57,7 +57,6 @@ export class LBStack extends Stack {
       statusCode: 'HTTP_301',
       port: '443',
     });
-
     const API_DOMAIN = `api.${getDomainName(scope)}`;
     const FRONTEND_DOMAIN = `www.${getDomainName(scope)}`;
     const PRISMA_DOMAIN = `prisma.${getDomainName(scope)}`;
