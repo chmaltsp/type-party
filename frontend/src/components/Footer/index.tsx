@@ -82,7 +82,7 @@ const Footer: React.SFC<{}> = props => {
             .slice(4, 5)}
         </Column>
       </InnerWrapper>
-      <Credits>©2018 Type Party. Project by Milan Moffatt, built by Phil Chmalts</Credits>
+      <Credits>©2020 Type Party. Project by Milan Moffatt, built by Phil Chmalts</Credits>
     </Container>
   );
 };
