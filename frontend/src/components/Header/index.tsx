@@ -19,11 +19,7 @@ export const links: NavLinks = [
   },
   {
     text: 'Sites using free fonts',
-    to: '/free-fonts',
-  },
-  {
-    text: 'Resources',
-    to: '/resources',
+    to: '/',
   },
   {
     text: 'About',
@@ -58,7 +54,7 @@ class Header extends React.Component<{}, HeaderState> {
         mobileOpen: true,
       });
     }
-  }
+  };
   public render() {
     return (
       <React.Fragment>
