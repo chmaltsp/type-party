@@ -8,11 +8,11 @@ import { ADD_WEBSITE, UPDATE_WEBSITE } from './mutation';
 
 import { Field, FieldProps, Formik, FormikActions, FormikProps } from 'formik';
 
-import { History, Location } from 'history';
-import { RouteComponentProps } from 'react-router';
+import { Divider } from '../../components/Divider';
 import TagForm from '../../components/TagForm';
 import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import TagTypeahead from '../../components/TagTypeahead';
+
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
 import {
@@ -67,8 +67,8 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
   };
 
   private handleAddTypeface = (typeface: AddTypeface_addTypeface) => {
-    console.log(typeface);
     this.props.setFieldValue('typefaces', [...this.props.values.typefaces, typeface]);
+    this.toggleTypefaceForm();
   };
 
   private handleAddTag = (tag: AddTag_addTag) => {
@@ -147,8 +147,15 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
             </div>
           )}
           {this.state.showAddTypeface && (
-            <TypefaceForm handleSubmit={this.handleAddTypeface} />
+            <>
+              <Divider />
+              <TypefaceForm
+                onCancel={this.toggleTypefaceForm}
+                handleSubmit={this.handleAddTypeface}
+              />
+            </>
           )}
+          <Divider />
           <SubmitButton loading={false || this.props.isSubmitting} type="submit">
             Publish Website
           </SubmitButton>

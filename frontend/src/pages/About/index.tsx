@@ -20,6 +20,11 @@ const Heading = styled.h1`
   margin-bottom: ${props => props.theme.spacing.md}px;
 `;
 
+const Link = styled.a`
+  color: ${props => props.theme.colors.black};
+  text-decoration: underline;
+`;
+
 const Container = styled(ContainerBase)`
   max-width: ${em(700)};
   display: flex;
@@ -31,6 +36,7 @@ const Container = styled(ContainerBase)`
 
 const Text = styled(TextBase)`
   margin-bottom: ${props => props.theme.spacing.sm}px;
+  line-height: 1.5;
   &:last-child {
     margin-bottom: 270px;
     ${media.tablet`
@@ -104,8 +110,17 @@ class About extends React.PureComponent<{}, {}> {
             commercial use. We highly encourage you credit the type designers if you use
             any of their fonts in your designs.
           </Text>
-          <Text>Type Party is a side project of product designer Milan Moffatt.</Text>
-          <Text>Built by Phil Chmalts.</Text>
+          <Text>
+            Type Party is a side project of product designer{' '}
+            <Link target="_blank" href="http://milanmoffatt.design">
+              Milan Moffatt
+            </Link>
+            . Built by{' '}
+            <Link target="_blank" href="https://gitcom.com/chmaltsp">
+              Phil Chmalts
+            </Link>
+            .
+          </Text>
         </Container>
       </>
     );

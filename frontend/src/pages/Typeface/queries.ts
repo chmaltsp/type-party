@@ -9,7 +9,12 @@ export const GET_TYPEFACE = gql`
       ...TypefaceDesigners
       ...TypefaceFoundries
     }
+
+    auth @client {
+      loggedIn
+    }
   }
+
   ${TypefaceFragments.fragments.info}
   ${TypefaceFragments.fragments.designers}
   ${TypefaceFragments.fragments.foundries}

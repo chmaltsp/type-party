@@ -84,8 +84,8 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   subscribeToEmailList(email: String): MailchimpPayload!
-  addWebsite(input: AddWebsiteInput): Website!
-  updateWebsite(input: UpdateWebsiteInput): Website!
+  addWebsite(input: AddWebsiteInput): Website! @hasRole(requires: [ADMIN])
+  updateWebsite(input: UpdateWebsiteInput): Website! @hasRole(requires: [ADMIN])
   addTypeface(input: AddTypefaceInput): Typeface @isAuthenticated
   updateTypeface(input: UpdateTypefaceInput): Typeface @isAuthenticated
   addFoundry(input: FoundryCreateInput): Foundry @isAuthenticated

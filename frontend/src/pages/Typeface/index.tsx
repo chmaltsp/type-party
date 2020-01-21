@@ -57,6 +57,8 @@ export class Typeface extends React.PureComponent<TypefaceProps> {
       return null;
     }
 
+    const loggedIn =
+      this.props.data && this.props.data.auth && this.props.data.auth.loggedIn;
     let fullImageUrl;
 
     if (this.props.data.typeface.images && this.props.data.typeface.images.full) {
@@ -68,15 +70,28 @@ export class Typeface extends React.PureComponent<TypefaceProps> {
           <Image src={fullImageUrl} />
           <TypefaceInfo>
             <Title>{this.props.data.typeface.name}</Title>
-            <Text>
-              Designer:
-              {this.props.data.typeface.designers && (
-                <AList list={this.props.data.typeface.designers || []} />
-              )}
-            </Text>
-            <Text>
-              Lisence: <Link to={`placeholder`}> MIT</Link>
-            </Text>
+            {loggedIn && (
+              <>
+                {' '}
+                -- <Link to={`/add-site/${this.props.data.typeface.slug}`}> Edit</Link>
+              </>
+            )}
+            {this.props.data.typeface.designers && (
+              <Text>
+                Designer:
+                {this.props.data.typeface.designers && (
+                  <AList list={this.props.data.typeface.designers || []} />
+                )}
+              </Text>
+            )}
+            {this.props.data.typeface.foundries && (
+              <Text>
+                Foundries:
+                {this.props.data.typeface.foundries && (
+                  <AList list={this.props.data.typeface.foundries || []} />
+                )}
+              </Text>
+            )}
             <Description>{this.props.data.typeface.description}</Description>
             <ButtonContainer>
               <ButtonA href={this.props.data.typeface.downloadUrl} black={true}>
