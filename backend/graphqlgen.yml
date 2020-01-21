@@ -8,6 +8,8 @@ models:
     - ./src/types/auth.ts
     - ./src/types/website.ts
     - ./src/types/typeface.ts
+    - ./src/types/mailchimp.ts
+
 
 
 output: ./src/generated/graphqlgen.ts
