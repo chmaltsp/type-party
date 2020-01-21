@@ -242,6 +242,21 @@
                     ]
                   ]
                 }
+              },
+              {
+                "Name": "MAILCHIMP_API_KEY",
+                "ValueFrom": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:us-east-1:561034361591:parameter/TpStaging/MAILCHIMP_API_KEY"
+                    ]
+                  ]
+                }
               }
             ]
           }
@@ -432,6 +447,27 @@
                       "Ref": "AWS::Partition"
                     },
                     ":ssm:us-east-1:561034361591:parameter/TpStaging/APP_SECRET"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:us-east-1:561034361591:parameter/TpStaging/MAILCHIMP_API_KEY"
                   ]
                 ]
               }
