@@ -122,20 +122,17 @@ export const EmailForm: React.FunctionComponent<
     >
       {(formikProps: FormikProps<InputValues>) => (
         <Form>
-          {success && <div>Successful Sign Up!</div>}
-          {!success && (
-            <>
-              <Field
-                name="email"
-                render={(fieldProps: FieldProps<InputValues>) => {
-                  return <Input placeholder="name@email.com" {...fieldProps} />;
-                }}
-              />
-              <Button type="submit" loading={formikProps.isSubmitting}>
-                Yay open source
-              </Button>
-            </>
-          )}
+          <>
+            <Field
+              name="email"
+              render={(fieldProps: FieldProps<InputValues>) => {
+                return <Input placeholder="name@email.com" {...fieldProps} />;
+              }}
+            />
+            <Button type="submit" loading={formikProps.isSubmitting}>
+              {success ? 'Thanks!' : 'Yay open source'}
+            </Button>
+          </>
         </Form>
       )}
     </Formik>
