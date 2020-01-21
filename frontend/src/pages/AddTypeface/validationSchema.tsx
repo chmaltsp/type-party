@@ -1,12 +1,12 @@
 import * as Yup from 'yup';
-import { InputValues } from './Form';
 
-export const validationSchema = () =>
+export const validationSchema = (update: boolean) =>
   Yup.object().shape({
     description: Yup.string().required('Description field is required'),
     downloadUrl: Yup.string()
       .required('Url field is required')
       .url('Must be a valid URL'),
+    fullTypeface: !update ? Yup.mixed().required('Full size image is required') : [],
     name: Yup.string().required('Name field is required'),
     slug: Yup.string()
       .required('Typeface Slug is required')

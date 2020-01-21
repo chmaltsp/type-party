@@ -1,12 +1,19 @@
 import * as React from 'react';
 import styled from 'sc';
 
-import { Field, FieldProps, Form as FormBase, Formik, FormikProps } from 'formik';
+import {
+  Field,
+  FieldProps,
+  Form as FormBase,
+  Formik,
+  FormikActions,
+  FormikProps,
+} from 'formik';
 import { ChildDataProps, compose, FetchResult, graphql } from 'react-apollo';
-import ButtonBase from '../../components/Button';
+import ButtonBase, { LoadingButton } from '../../components/Button';
 import DesignerForm from '../../components/DesignerForm';
 import Flex from '../../components/Flex';
-import FoundryForm from '../../components/FoundryForm';
+import FoundryForm, { Link } from '../../components/FoundryForm';
 import Input from '../../components/Input';
 
 import { AddDesigner_addDesigner } from '../../components/DesignerForm/__generated__/AddDesigner';
@@ -20,7 +27,9 @@ import { ADD_TYPEFACE, UPDATE_TYPEFACE } from './mutation';
 import MediaUpload from '../../components/MediaUpload';
 import TagForm from '../../components/TagForm';
 import TagTypeahead from '../../components/TagTypeahead';
+import Text from '../../components/Text';
 
+import { Divider } from '../../components/Divider';
 import {
   EditTypeface,
   EditTypeface_typeface_images_full,
@@ -32,8 +41,9 @@ import { validationSchema } from './validationSchema';
 
 export interface TypefaceFormProps {
   handleSubmit?: (typeface: any) => void;
+  onCancel?: () => void;
+  showHeader?: boolean;
 }
-
 interface TypefaceFormState {
   showDesignerForm: boolean;
   showFoundryForm: boolean;
@@ -57,9 +67,10 @@ const Form = styled(FormBase)`
 
 const ButtonWrapper = styled(Flex)`
   margin-top: ${({ theme }) => theme.spacing.md}px;
+  align-items: center;
 `;
 
-const Publish = styled(ButtonBase)``;
+const Publish = styled(LoadingButton)``;
 
 interface ImageProps {
   full: EditTypeface_typeface_images_full | null;
@@ -70,6 +81,7 @@ interface AllProps extends ChildDataProps<WrappedFormProps, EditTypeface>, Image
     data: UpdateTypefaceVariables
   ) => Promise<void | FetchResult<UpdateTypeface>>;
   handleSubmit?: (typeface: any) => void;
+  onCancel: () => void;
 }
 
 class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
@@ -89,7 +101,10 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
       showFoundryForm: !this.state.showFoundryForm,
     });
   };
-  public handleOnSubmit = async (values: InputValues) => {
+  public handleOnSubmit = async (
+    values: InputValues,
+    actions: FormikActions<InputValues>
+  ) => {
     const cleanInput = {
       ...values,
       designers: values.designers.map(designer => designer.id),
@@ -101,17 +116,22 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
     // Remove for compatibilty with nested form
     delete cleanInput.fullTypeface;
     try {
-      const response = await this.props.addTypeface({
+      const response = await this.props[
+        this.props.slug ? 'updateTypeface' : 'addTypeface'
+      ]({
         input: cleanInput,
       });
 
       if (response && response.data && this.props.handleSubmit) {
-        return this.props.handleSubmit(
+        this.props.handleSubmit(
           response.data[this.props.slug ? 'updateTypeface' : 'addTypeface']
         );
+
+        actions.setSubmitting(false);
       }
     } catch (error) {
       console.log(error);
+      actions.setSubmitting(false);
     }
   };
 
@@ -141,10 +161,8 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
   };
 
   public render() {
-    console.log(this.props);
-
     const typeface = this.props.data && this.props.data.typeface;
-
+    console.log(this.props);
     const full = typeface && typeface.images && typeface.images.full;
     return (
       <div>
@@ -160,11 +178,16 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
             slug: (typeface && typeface.slug) || '',
             tags: (typeface && typeface.tags) || [],
           }}
-          validationSchema={validationSchema}
+          validationSchema={validationSchema(!!this.props.slug)}
           onSubmit={this.handleOnSubmit}
           render={(props: FormikProps<InputValues>) => {
             return (
               <Form>
+                {!this.props.slug && (
+                  <Text>
+                    Add new typeface --<Link onClick={this.props.onCancel}>Cancel</Link>
+                  </Text>
+                )}
                 <Field
                   name="name"
                   render={(fieldProps: FieldProps<InputValues>) => {
@@ -215,6 +238,7 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
                 />
                 <TagTypeahead />
                 <TagForm handleSubmit={this.handleAddTag(props)} />
+                <Divider />
                 <DesignerTypeahead />
                 {!this.state.showDesignerForm && (
                   <div>
@@ -224,8 +248,15 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
                   </div>
                 )}
                 {this.state.showDesignerForm && (
-                  <DesignerForm handleSubmit={this.handleAddNewDesigner(props)} />
+                  <>
+                    <Text>
+                      Add new designer --{' '}
+                      <Link onClick={this.toggleDesignerForm}>Cancel</Link>
+                    </Text>
+                    <DesignerForm handleSubmit={this.handleAddNewDesigner(props)} />
+                  </>
                 )}
+                <Divider />
                 <FoundryTypeahead />
                 {!this.state.showFoundryForm && (
                   <div>
@@ -239,15 +270,26 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
                   </div>
                 )}
                 {this.state.showFoundryForm && (
-                  <FoundryForm
-                    handleSubmit={this.handleAddNewFoundry(props)}
-                    onCancel={this.toggleFoundryForm}
-                  />
+                  <>
+                    <Text>
+                      Add new foundry --<Link onClick={this.props.onCancel}>Cancel</Link>
+                    </Text>
+                    <FoundryForm
+                      handleSubmit={this.handleAddNewFoundry(props)}
+                      onCancel={this.toggleFoundryForm}
+                    />
+                  </>
                 )}
                 <ButtonWrapper>
-                  <Publish type="button" black={true} onClick={props.submitForm}>
+                  <Publish
+                    black={true}
+                    loading={props.isSubmitting}
+                    type="button"
+                    onClick={props.submitForm}
+                  >
                     Submit Typeface
                   </Publish>
+                  <Link onClick={this.props.onCancel}>Cancel</Link>
                 </ButtonWrapper>
               </Form>
             );
@@ -260,6 +302,7 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
 
 interface WrappedFormProps {
   slug: string;
+  onCancel: () => void;
 }
 
 const WrappedForm = compose(

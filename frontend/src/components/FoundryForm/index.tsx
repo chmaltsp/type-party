@@ -22,8 +22,9 @@ export interface FoundryProps {
   onCancel: () => void;
 }
 
-const Link = styled.a`
+export const Link = styled.a`
   padding-left: ${({ theme }) => theme.spacing.sm}px;
+  text-decoration: underline;
   cursor: pointer;
 `;
 
@@ -44,8 +45,6 @@ export class Foundry extends React.PureComponent<
     values: InputValues,
     actions: FormikActions<InputValues>
   ) => {
-    console.log('FOUNDRY FORM: ', values);
-
     try {
       const response = await this.props.mutate({
         variables: {
@@ -64,7 +63,7 @@ export class Foundry extends React.PureComponent<
         actions.setFieldError('name', error.graphQLErrors[0].message);
       }
     }
-  }
+  };
   public render() {
     return (
       <Formik

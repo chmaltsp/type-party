@@ -59,8 +59,14 @@ export interface GetTypeface_typeface {
   foundries: GetTypeface_typeface_foundries[] | null;
 }
 
+export interface GetTypeface_auth {
+  __typename: "Auth";
+  loggedIn: boolean;
+}
+
 export interface GetTypeface {
   typeface: GetTypeface_typeface;
+  auth: GetTypeface_auth | null;
 }
 
 export interface GetTypefaceVariables {

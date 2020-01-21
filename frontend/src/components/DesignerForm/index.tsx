@@ -2,15 +2,17 @@ import * as React from 'react';
 
 import { Field, FieldProps, Formik, FormikActions, FormikProps } from 'formik';
 
-import { ErrorResponse } from 'apollo-link-error';
 import { ChildMutateProps, graphql } from 'react-apollo';
 import Button from '../Button';
+import { ButtonContainer, Link } from '../FoundryForm';
 import Input from '../Input';
+import Text from '../Text';
 import { AddDesigner, AddDesignerVariables } from './__generated__/AddDesigner';
 import { ADD_DESIGNER } from './mutation';
 
 export interface DesignerFormProps {
   handleSubmit: (designer: any) => void;
+  onCancel: () => void;
 }
 
 export interface DesignerFormState {
@@ -49,7 +51,7 @@ export class DesignerForm extends React.PureComponent<
         actions.setFieldError('name', error.graphQLErrors[0].message);
       }
     }
-  }
+  };
   public render() {
     return (
       <Formik
@@ -73,9 +75,12 @@ export class DesignerForm extends React.PureComponent<
                   return <Input label="Designer Url" {...fieldProps} />;
                 }}
               />
-              <Button type="button" onClick={props.submitForm}>
-                Submit Designer
-              </Button>
+              <ButtonContainer>
+                <Button type="button" onClick={props.submitForm}>
+                  Submit Designer
+                </Button>
+                <Link onClick={this.props.onCancel}>Cancel</Link>
+              </ButtonContainer>
             </div>
           );
         }}

@@ -44,6 +44,7 @@ const Spinner = styled(LoadingSpinner)`
 interface LoadingButtonProps extends ButtonProps {
   loading: boolean;
   type?: 'submit' | 'button' | 'reset';
+  onClick?: () => void;
 }
 export const LoadingButton: React.FunctionComponent<LoadingButtonProps> = ({
   loading,
