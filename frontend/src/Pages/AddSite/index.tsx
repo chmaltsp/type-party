@@ -9,6 +9,7 @@ import Form from './Form';
 const Container = styled.div`
   margin: 0 auto;
   padding: ${props => props.theme.baseSpacing * 11}px;
+  margin-bottom: ${em(96)};
 `;
 
 const PageTitle = styled.h2`
