@@ -21,8 +21,6 @@ const validationSchema = Yup.object().shape({
     .email('Please enter a valid email'),
 });
 
-// export interface EmailFormProps {}
-
 export interface InputValues {
   email: string;
 }
