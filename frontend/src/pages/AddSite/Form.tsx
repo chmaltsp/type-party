@@ -6,8 +6,10 @@ import MediaUpload from '../../components/MediaUpload';
 import { ChildDataProps, compose, graphql } from 'react-apollo';
 import { ADD_WEBSITE, UPDATE_WEBSITE } from './mutation';
 
-import { Field, FieldProps, Formik, FormikProps } from 'formik';
+import { Field, FieldProps, Formik, FormikActions, FormikProps } from 'formik';
 
+import { History, Location } from 'history';
+import { RouteComponentProps } from 'react-router';
 import TagForm from '../../components/TagForm';
 import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import TagTypeahead from '../../components/TagTypeahead';
@@ -147,7 +149,9 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
           {this.state.showAddTypeface && (
             <TypefaceForm handleSubmit={this.handleAddTypeface} />
           )}
-          <SubmitButton onSubmit={this.props.submitForm}>Publish Website</SubmitButton>
+          <SubmitButton loading={false || this.props.isSubmitting} type="submit">
+            Publish Website
+          </SubmitButton>
         </RightColumn>
       </Form>
     );
@@ -179,14 +183,23 @@ const WrappedForm: React.SFC<AllProps> = props => {
         url: (website && website.url) || '',
       }}
       validationSchema={validationSchema(!!props.slug)}
-      onSubmit={async (values: InputValues) => {
-        const response = await props[props.slug ? 'updateWebsite' : 'addWebsite']({
-          input: {
-            ...values,
-            tags: values.tags.map(tag => tag.id),
-            typefaces: values.typefaces.map(typeface => typeface.id),
-          },
-        });
+      onSubmit={async (values: InputValues, actions: FormikActions<InputValues>) => {
+        try {
+          const response = await props[props.slug ? 'updateWebsite' : 'addWebsite']({
+            input: {
+              ...values,
+              tags: values.tags.map(tag => tag.id),
+              typefaces: values.typefaces.map(typeface => typeface.id),
+            },
+          });
+
+          actions.setSubmitting(false);
+
+          props.push(`/add-site/${values.slug}`);
+        } catch (error) {
+          console.log(error);
+          actions.setSubmitting(false);
+        }
       }}
     >
       {(formikProps: FormikProps<InputValues>) => (
@@ -202,6 +215,7 @@ const WrappedForm: React.SFC<AllProps> = props => {
 
 interface WrappedFormProps {
   slug: string;
+  push: (route: string) => void;
 }
 
 const ComposedWrappedForm = compose(

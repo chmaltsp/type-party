@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled from 'sc';
+import styled, { media } from 'sc';
 import { Image, Title } from '../Website/styles';
 
 import { ChildDataProps, graphql } from 'react-apollo';
@@ -25,6 +25,10 @@ export type TypefaceProps = ChildDataProps<
 
 export const DetailWrapper = styled(Flex)`
   flex-direction: row;
+  ${media.tablet`
+    flex-direction: column;
+    margin: ${({ theme }: any) => theme.spacing.md}px 0;
+  `}
 `;
 
 export const TypefaceInfo = styled(Flex)`
@@ -32,6 +36,11 @@ export const TypefaceInfo = styled(Flex)`
   padding: 0 ${({ theme }) => theme.spacing.md}px;
   width: 50%;
   flex-direction: column;
+  ${media.tablet`
+    width: 100%;
+    padding-left: 0;
+    margin-top: ${({ theme }: any) => theme.spacing.md}px;
+  `};
 `;
 
 export const Description = styled(Text)`

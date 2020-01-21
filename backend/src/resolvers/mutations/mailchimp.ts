@@ -1,4 +1,4 @@
-import { MailchimpPayloadResolvers, MutationResolvers } from '../../generated/graphqlgen';
+import { MutationResolvers } from '../../generated/graphqlgen';
 
 const MailchimpApi = require('mailchimp-api-v3');
 
