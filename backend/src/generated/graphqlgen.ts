@@ -83,8 +83,18 @@ type TagOrderByInput =
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
+  export interface WebsitesInput {
+    skip: number | null;
+    first: number | null;
+    after: string | null;
+  }
+
   export interface ArgsWebsite {
     slug: string;
+  }
+
+  export interface ArgsWebsites {
+    input: WebsitesInput | null;
   }
 
   export interface ArgsFindTypefaces {
@@ -130,7 +140,7 @@ export namespace QueryResolvers {
 
   export type WebsitesResolver = (
     parent: undefined,
-    args: {},
+    args: ArgsWebsites,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Website[] | Promise<Website[]>;
@@ -208,7 +218,7 @@ export namespace QueryResolvers {
 
     websites: (
       parent: undefined,
-      args: {},
+      args: ArgsWebsites,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Website[] | Promise<Website[]>;

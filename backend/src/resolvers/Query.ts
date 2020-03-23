@@ -26,7 +26,11 @@ export const Query: QueryResolvers.Type = {
     );
   },
   websites(parent, args, ctx) {
-    return ctx.client.websites({});
+    return ctx.client.websites({
+      first: (args.input && args.input.first) || 10,
+      skip: (args.input && args.input.skip) || 0,
+      after: (args.input && args.input.after) || undefined,
+    });
   },
   findTypefaces: (parent, args, ctx) => {
     return ctx.client.typefaces({

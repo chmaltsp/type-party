@@ -36,3 +36,7 @@ export interface GetWebsites_websites {
 export interface GetWebsites {
   websites: GetWebsites_websites[];
 }
+
+export interface GetWebsitesVariables {
+  cursor?: string | null;
+}

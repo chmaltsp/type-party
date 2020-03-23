@@ -24,7 +24,7 @@ type Query {
   me: User @isAuthenticated
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
   website(slug: String!): Website!
-  websites: [Website!]!
+  websites(input: WebsitesInput): [Website!]!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
   findTags(search: String!): [Tag!]!
@@ -36,6 +36,12 @@ type Query {
 
 input TypefaceInput {
   name: String!
+}
+
+input WebsitesInput {
+  skip: Int
+  first: Int
+  after: String
 }
 
 input AddWebsiteInput {
