@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import MobileNav from './Mobile';
 
-import { Link, Logo, MenuLink, NavlinksWrapper, Star, Wrapper } from './styles';
+import { Link, LinkA, Logo, MenuLink, NavlinksWrapper, Star, Wrapper } from './styles';
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -24,10 +24,6 @@ export const links: NavLinks = [
   {
     text: 'About',
     to: '/about',
-  },
-  {
-    text: <span>@typeparty</span>,
-    to: '/twitter',
   },
 ];
 
@@ -65,11 +61,16 @@ class Header extends React.Component<{}, HeaderState> {
           <Star />
           <MenuLink onClick={this.handleMenuToggle}>Menu</MenuLink>
           <NavlinksWrapper>
-            {links.map(({ to, text }) => (
-              <Link key={to} to={to}>
-                {text}
-              </Link>
-            ))}
+            <>
+              {links.map(({ to, text }) => (
+                <Link key={to} to={to}>
+                  {text}
+                </Link>
+              ))}
+              <LinkA href="https://twitter.com/typeparty_" target="_blank">
+                @typeparty
+              </LinkA>
+            </>
           </NavlinksWrapper>
         </Wrapper>
         <MobileNav open={this.state.mobileOpen} />
