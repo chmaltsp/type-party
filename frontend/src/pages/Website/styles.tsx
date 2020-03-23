@@ -19,6 +19,7 @@ export const LeftSide = styled(Flex)`
   `}
 `;
 export const Image = styled.img`
+  border: 1px ${({ theme }) => theme.colors.black} solid;
   height: auto;
   max-width: 100%;
   background-color: ${({ theme }) => theme.colors.greyC4C};

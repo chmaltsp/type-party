@@ -9,6 +9,7 @@ import { em } from 'polished';
 const Wrapper = styled.div``;
 
 const Image = styled.img`
+  border: 1px ${({ theme }) => theme.colors.black} solid;
   background-color: ${({ theme }) => theme.colors.greyDDD};
   height: auto;
   max-width: 100%;
