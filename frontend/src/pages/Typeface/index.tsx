@@ -73,7 +73,8 @@ export class Typeface extends React.PureComponent<TypefaceProps> {
             {loggedIn && (
               <>
                 {' '}
-                -- <Link to={`/add-site/${this.props.data.typeface.slug}`}> Edit</Link>
+                --{' '}
+                <Link to={`/add-typeface/${this.props.data.typeface.slug}`}> Edit</Link>
               </>
             )}
             {this.props.data.typeface.designers && (
