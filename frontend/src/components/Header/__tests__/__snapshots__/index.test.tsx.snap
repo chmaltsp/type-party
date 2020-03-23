@@ -34,14 +34,12 @@ exports[`<Header /> should render without blowing up 1`] = `
       >
         About
       </Styled(Styled(Link))>
-      <Styled(Styled(Link))
-        key="/twitter"
-        to="/twitter"
+      <styled.a
+        href="https://twitter.com/typeparty_"
+        target="_blank"
       >
-        <span>
-          @typeparty
-        </span>
-      </Styled(Styled(Link))>
+        @typeparty
+      </styled.a>
     </styled.div>
   </styled.div>
   <MobileNav
