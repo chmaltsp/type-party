@@ -42,7 +42,7 @@ const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
       '',
     secondary: (
       <span>
-        Fonts --{'  '}
+        Fonts —{'  '}
         <LinkList
           hrefPrefix="typeface"
           links={

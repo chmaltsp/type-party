@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import styled, { media } from 'sc';
-import { Image, Title } from '../Website/styles';
+import { Image, LeftSide, Title } from '../Website/styles';
 
 import { ChildDataProps, graphql } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
@@ -68,14 +68,15 @@ export class Typeface extends React.PureComponent<TypefaceProps> {
     return (
       <Container>
         <DetailWrapper>
-          <Image src={fullImageUrl} />
+          <LeftSide>
+            <Image src={fullImageUrl} />
+          </LeftSide>
           <TypefaceInfo>
             <Title>{this.props.data.typeface.name}</Title>
             {loggedIn && (
               <>
                 {' '}
-                --{' '}
-                <Link to={`/add-typeface/${this.props.data.typeface.slug}`}> Edit</Link>
+                — <Link to={`/add-typeface/${this.props.data.typeface.slug}`}> Edit</Link>
               </>
             )}
             {this.props.data.typeface.designers && (

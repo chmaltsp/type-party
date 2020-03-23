@@ -55,11 +55,11 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
           <WebsiteInfo>
             <Title>{this.props.data.website.title}</Title>
             <Text>
-              Posted on -- {MMMDDDYYYY(this.props.data.website.createdAt)}{' '}
+              Posted on — {MMMDDDYYYY(this.props.data.website.createdAt)}{' '}
               {loggedIn && (
                 <>
                   {' '}
-                  -- <Link to={`/add-site/${this.props.data.website.slug}`}> Edit</Link>
+                  —<Link to={`/add-site/${this.props.data.website.slug}`}> Edit</Link>
                 </>
               )}
             </Text>
