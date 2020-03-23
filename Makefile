@@ -50,6 +50,9 @@ tag-and-push-fe: build-tp-fe tag-fe-image push-tp-fe
 prisma-deploy-api: 
 	cd backend && yarn prisma
 
+make get-temp-token:
+	aws sts get-caller-identity && aws sts get-session-token
+
 update-fe-service-dev:
 	$(eval FE_SERVICE_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-frontend-dev --query "Stacks[0].Outputs[?OutputKey=='ServiceName'].OutputValue" --output text))
 	$(eval FE_CLUSTER_NAME=$(shell aws cloudformation describe-stacks --stack-name tp-frontend-dev --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text))

@@ -31,7 +31,7 @@ export const website: WebsiteResolvers = {
       if (fullFile) {
         images.update.full = {
           connect: {
-            id: thumbnailFile.id,
+            id: fullFile.id,
           },
         };
       }
