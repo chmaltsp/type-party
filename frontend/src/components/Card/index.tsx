@@ -10,8 +10,9 @@ const Wrapper = styled.div``;
 
 const Image = styled.img`
   background-color: ${({ theme }) => theme.colors.greyDDD};
-  width: 100%;
-  height: 419px;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
 `;
 
 const Title = styled(LinkBase)`
@@ -42,7 +43,9 @@ const Card: React.SFC<CardProps> = ({ title, imgUrl, slug, secondary, className 
   return (
     <Wrapper className={className}>
       <LinkBase to={`/site/${slug}`}>
-        <Image src={imgUrl} />
+        <div>
+          <Image src={imgUrl} alt={title + ' image'} />
+        </div>
       </LinkBase>
       <ContentWrapper>
         <Title to={`/site/${slug}`}>{title}</Title>

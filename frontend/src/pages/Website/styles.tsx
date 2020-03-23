@@ -5,25 +5,29 @@ import Flex from '../../components/Flex';
 import PageTitle from '../../components/PageTitle';
 export const DetailWrapper = styled(Flex)`
   flex-direction: row;
-
   ${media.tablet`
     flex-direction: column;
     margin: ${({ theme }: any) => theme.spacing.md}px 0;
   `}
 `;
-export const Image = styled.img`
+
+export const LeftSide = styled(Flex)`
   flex: 1;
   width: 50%;
-  height: 419px;
-  background-color: ${({ theme }) => theme.colors.greyC4C};
   ${media.tablet`
     width: 100%;
-  `};
+  `}
+`;
+export const Image = styled.img`
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  background-color: ${({ theme }) => theme.colors.greyC4C};
 `;
 
 export const WebsiteInfo = styled(Flex)`
   flex: 1;
-  padding: 0 ${({ theme }) => theme.spacing.md}px;
+  padding: 0 ${({ theme }) => theme.spacing.xxl}px;
   width: 50%;
   flex-direction: column;
   ${media.tablet`
