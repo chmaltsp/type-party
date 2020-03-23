@@ -58,7 +58,7 @@ export const TagWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   > div {
-    margin-right: ${({ theme }) => theme.spacing.sm}px;
-    margin-top: ${({ theme }) => theme.spacing.sm}px;
+    margin-right: ${({ theme }) => theme.spacing.xs}px;
+    margin-top: ${({ theme }) => theme.spacing.xs}px;
   }
 `;
