@@ -17,6 +17,7 @@ import { GET_TYPEFACE } from './queries';
 interface Params {
   slug: string;
 }
+
 export type TypefaceProps = ChildDataProps<
   RouteComponentProps<Params>,
   GetTypeface,

@@ -42,11 +42,17 @@ export class Directory extends React.PureComponent<
         <FontListWrapper>
           <FontListUL>
             {fonts &&
-              fonts.map(font => (
-                <Font key={font.name + Math.random()}>
-                  <Link to={`typeface/${font.slug}`}>{font.name}</Link>
-                </Font>
-              ))}
+              fonts
+                .sort((a, b) => {
+                  const textA = a.name.toUpperCase();
+                  const textB = b.name.toUpperCase();
+                  return textA < textB ? -1 : textA > textB ? 1 : 0;
+                })
+                .map(font => (
+                  <Font key={font.name + Math.random()}>
+                    <Link to={`typeface/${font.slug}`}>{font.name}</Link>
+                  </Font>
+                ))}
           </FontListUL>
         </FontListWrapper>
       </Container>
