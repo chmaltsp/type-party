@@ -8,9 +8,16 @@ export interface CardCarouselProps {
 }
 
 const Wrapper = styled(FlexBase)`
+  flex-wrap: wrap;
   > div {
-    width: 31%;
-    padding-right: ${({ theme }) => theme.spacing.md}px;
+    width: 25%;
+    /* margin-right: ${({ theme }) => theme.spacing.md}px; */
+  }
+  @media screen and (max-width: 1425px) {
+    > div {
+      margin-top: ${({ theme }: any) => theme.spacing.md}px;
+      width: 50%;
+    }
   }
   ${media.tablet`
     flex-direction: column;
@@ -22,17 +29,34 @@ const Wrapper = styled(FlexBase)`
 `;
 
 const Card = styled(CardBase)`
-  img {
-    height: 271px;
+  padding-right: ${({ theme }) => theme.spacing.md}px;
+
+  /* img {
+    max-height: 172px;
+    width: auto;
+    height: auto;
+    max-width: 321px;
   }
+  @media screen and (max-width: 1425px) {
+    img {
+      max-height: 250px;
+      width: auto;
+      height: auto;
+      max-width: 400px;
+    }
+  } */
 `;
+
+const CardWrapper = styled(FlexBase)``;
 export class CardCarousel extends React.PureComponent<CardCarouselProps, any> {
   public render() {
     const { cards } = this.props;
     return (
       <Wrapper>
         {cards.map(card => (
-          <Card key={card.title} {...card} />
+          <CardWrapper key={card.title}>
+            <Card {...card} />
+          </CardWrapper>
         ))}
       </Wrapper>
     );

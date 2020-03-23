@@ -16,6 +16,7 @@ import {
   Container,
   DetailWrapper,
   Image,
+  LeftSide,
   Line,
   TagWrapper,
   Title,
@@ -48,7 +49,9 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
     return (
       <Container>
         <DetailWrapper>
-          <Image src={fullImageUrl || ''} />
+          <LeftSide>
+            <Image src={fullImageUrl || ''} />
+          </LeftSide>
           <WebsiteInfo>
             <Title>{this.props.data.website.title}</Title>
             <Text>
