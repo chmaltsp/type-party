@@ -23,16 +23,10 @@ exports[`<Header /> should render without blowing up 1`] = `
         Font Directory
       </Styled(Styled(Link))>
       <Styled(Styled(Link))
-        key="/free-fonts"
-        to="/free-fonts"
+        key="/"
+        to="/"
       >
         Sites using free fonts
-      </Styled(Styled(Link))>
-      <Styled(Styled(Link))
-        key="/resources"
-        to="/resources"
-      >
-        Resources
       </Styled(Styled(Link))>
       <Styled(Styled(Link))
         key="/about"
