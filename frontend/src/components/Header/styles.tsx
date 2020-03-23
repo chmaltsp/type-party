@@ -1,17 +1,25 @@
 import { em, transparentize } from 'polished';
 
-import styled, { media } from 'sc';
+import styled, { css, media } from 'sc';
 
 import { Star as StarBase } from '../Images';
 
 import LinkBase from '../Link';
 import LogoBase from '../Logo';
 
-const Link = styled(LinkBase)`
+const linkCss = css`
   font-size: ${em(18)};
   font-weight: 400;
   text-decoration: none;
   margin-right: ${({ theme }) => em(theme.spacing.md)};
+  color: ${({ theme }) => theme.colors.black};
+`;
+
+const LinkA = styled.a`
+  ${linkCss}
+`;
+const Link = styled(LinkBase)`
+  ${linkCss}
 `;
 
 const Wrapper = styled.div`
@@ -71,4 +79,4 @@ const MenuLink = styled.div`
   `};
 `;
 
-export { MenuLink, NavlinksWrapper, Logo, Star, Wrapper, Link };
+export { MenuLink, NavlinksWrapper, Logo, Star, Wrapper, Link, LinkA };
