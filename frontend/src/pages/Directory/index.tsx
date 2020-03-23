@@ -49,7 +49,7 @@ export class Directory extends React.PureComponent<
                   return textA < textB ? -1 : textA > textB ? 1 : 0;
                 })
                 .map(font => (
-                  <Font key={font.name + Math.random()}>
+                  <Font key={font.name}>
                     <Link to={`typeface/${font.slug}`}>{font.name}</Link>
                   </Font>
                 ))}
