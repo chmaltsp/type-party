@@ -13,7 +13,7 @@ export const DetailWrapper = styled(Flex)`
 
 export const LeftSide = styled(Flex)`
   flex: 1;
-  width: 50%;
+  align-self: flex-start;
   ${media.tablet`
     width: 100%;
   `}
@@ -21,14 +21,12 @@ export const LeftSide = styled(Flex)`
 export const Image = styled.img`
   height: auto;
   max-width: 100%;
-  vertical-align: middle;
   background-color: ${({ theme }) => theme.colors.greyC4C};
 `;
 
 export const WebsiteInfo = styled(Flex)`
   flex: 1;
   padding: 0 ${({ theme }) => theme.spacing.xxl}px;
-  width: 50%;
   flex-direction: column;
   ${media.tablet`
     width: 100%;
