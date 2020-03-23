@@ -4,7 +4,7 @@ import styled, { media } from 'sc';
 
 import { Query } from 'react-apollo';
 
-import ButtonBase, { LoadingButton } from '../../components/Button';
+import { LoadingButton } from '../../components/Button';
 import Card, { CardProps } from '../../components/Card';
 import LinkList from '../../components/LinkList';
 import {
@@ -73,7 +73,6 @@ export const WebsitePanel: React.SFC<{}> = props => {
       query={GET_WEBSITES}
     >
       {({ data, loading, error, fetchMore }) => {
-        console.log('LOADING', loading);
         const cards = selectCards((data && data.websites) || []);
         return (
           <Wrapper>
@@ -90,8 +89,6 @@ export const WebsitePanel: React.SFC<{}> = props => {
                 fetchMore({
                   query: GET_WEBSITES,
                   updateQuery: (previousEntry, { fetchMoreResult }) => {
-                    console.log('FETCH MORE RESULT', fetchMoreResult);
-
                     const newWebsites =
                       (fetchMoreResult && fetchMoreResult.websites) || [];
 
