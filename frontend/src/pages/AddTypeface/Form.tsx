@@ -185,7 +185,7 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
               <Form>
                 {!this.props.slug && (
                   <Text>
-                    Add new typeface --<Link onClick={this.props.onCancel}>Cancel</Link>
+                    Add new typeface —<Link onClick={this.props.onCancel}>Cancel</Link>
                   </Text>
                 )}
                 <Field
@@ -250,7 +250,7 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
                 {this.state.showDesignerForm && (
                   <>
                     <Text>
-                      Add new designer --{' '}
+                      Add new designer —{' '}
                       <Link onClick={this.toggleDesignerForm}>Cancel</Link>
                     </Text>
                     <DesignerForm handleSubmit={this.handleAddNewDesigner(props)} />
@@ -272,7 +272,7 @@ class TypefaceForm extends React.PureComponent<AllProps, TypefaceFormState> {
                 {this.state.showFoundryForm && (
                   <>
                     <Text>
-                      Add new foundry --<Link onClick={this.props.onCancel}>Cancel</Link>
+                      Add new foundry —<Link onClick={this.props.onCancel}>Cancel</Link>
                     </Text>
                     <FoundryForm
                       handleSubmit={this.handleAddNewFoundry(props)}
