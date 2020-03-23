@@ -30,7 +30,7 @@ export const GET_WEBSITE = gql`
 
 export const KEEP_EXPLORING = gql`
   query KeepExploringQuery {
-    websites {
+    websites(input: { first: 4 }) {
       title
       slug
       url

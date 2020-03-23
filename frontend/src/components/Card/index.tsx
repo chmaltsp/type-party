@@ -38,6 +38,7 @@ export interface CardProps {
   slug?: string | null;
   secondary?: string | React.ReactNode;
   className?: string;
+  id?: string;
 }
 
 const Card: React.SFC<CardProps> = ({ title, imgUrl, slug, secondary, className }) => {

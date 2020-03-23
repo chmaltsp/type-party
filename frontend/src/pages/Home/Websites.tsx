@@ -4,13 +4,17 @@ import styled, { media } from 'sc';
 
 import { Query } from 'react-apollo';
 
-import ButtonBase from '../../components/Button';
+import ButtonBase, { LoadingButton } from '../../components/Button';
 import Card, { CardProps } from '../../components/Card';
 import LinkList from '../../components/LinkList';
-import { GetWebsites, GetWebsites_websites } from './__generated__/GetWebsites';
+import {
+  GetWebsites,
+  GetWebsites_websites,
+  GetWebsitesVariables,
+} from './__generated__/GetWebsites';
 import { GET_WEBSITES } from './queries';
 
-const Button = styled(ButtonBase)`
+const Button = styled(LoadingButton)`
   margin-top: ${({ theme }) => theme.spacing.md}px;
   align-self: center;
 `;
@@ -34,6 +38,7 @@ const Wrapper = styled.div`
 
 const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
   return websites.map(website => ({
+    id: website.id,
     imgUrl:
       (website.images &&
         website.images &&
@@ -63,18 +68,43 @@ const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
 
 export const WebsitePanel: React.SFC<{}> = props => {
   return (
-    <Query<GetWebsites> query={GET_WEBSITES}>
-      {({ data, loading, error }) => {
+    <Query<GetWebsites, GetWebsitesVariables>
+      notifyOnNetworkStatusChange={true}
+      query={GET_WEBSITES}
+    >
+      {({ data, loading, error, fetchMore }) => {
+        console.log('LOADING', loading);
         const cards = selectCards((data && data.websites) || []);
         return (
           <Wrapper>
             <Grid>
-              {!loading &&
+              {cards.length > 0 &&
                 cards.map(card => {
                   return <Card key={card.title} {...card} />;
                 })}
             </Grid>
-            <Button>Load More</Button>
+            <Button
+              type="button"
+              loading={loading}
+              onClick={() =>
+                fetchMore({
+                  query: GET_WEBSITES,
+                  updateQuery: (previousEntry, { fetchMoreResult }) => {
+                    console.log('FETCH MORE RESULT', fetchMoreResult);
+
+                    const newWebsites =
+                      (fetchMoreResult && fetchMoreResult.websites) || [];
+
+                    return { websites: [...previousEntry.websites, ...newWebsites] };
+                  },
+                  variables: {
+                    cursor: cards[cards.length - 1].id,
+                  },
+                })
+              }
+            >
+              Load More
+            </Button>
           </Wrapper>
         );
       }}

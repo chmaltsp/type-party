@@ -24,8 +24,8 @@ export const WebsitesFragments = {
 };
 
 export const GET_WEBSITES = gql`
-  query GetWebsites {
-    websites {
+  query GetWebsites($cursor: String) {
+    websites(input: { first: 6, after: $cursor }) {
       ...WebsiteCard
     }
   }
