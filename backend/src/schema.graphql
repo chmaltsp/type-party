@@ -25,6 +25,7 @@ type Query {
   users: [User!]! @hasRole(requires: [ADMIN, SUBSCRIBER])
   website(slug: String!): Website!
   websites(input: WebsitesInput): [Website!]!
+  websitesCount: Int!
   userWebsites: [Website!]! 
   findTypefaces(search: String!): [Typeface!]!
   findTags(search: String!): [Tag!]!
@@ -42,6 +43,7 @@ input WebsitesInput {
   skip: Int
   first: Int
   after: String
+  randomize: Boolean
 }
 
 input AddWebsiteInput {

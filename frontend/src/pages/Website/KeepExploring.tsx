@@ -21,6 +21,7 @@ const H2 = styled.h3`
 
 export interface KeepExploringProps {
   cards: CardProps[];
+  currentId: string;
 }
 
 export class KeepExploring extends React.PureComponent<
@@ -69,10 +70,18 @@ const selectCards = (websites: KeepExploringQuery_websites[]): CardProps[] => {
   }));
 };
 
-export default graphql<{}, KeepExploringQuery, any, any>(KEEP_EXPLORING, {
-  props: props => {
-    return {
-      cards: selectCards((props.data && props.data.websites) || []),
-    };
-  },
-})(KeepExploring);
+export default graphql<{ currentId: string }, KeepExploringQuery, { after: string }, any>(
+  KEEP_EXPLORING,
+  {
+    options: props => ({
+      variables: {
+        after: props.currentId,
+      },
+    }),
+    props: props => {
+      return {
+        cards: selectCards((props.data && props.data.websites) || []),
+      };
+    },
+  }
+)(KeepExploring);

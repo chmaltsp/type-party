@@ -1,5 +1,6 @@
 import { ctxUser } from '../utils';
 import { QueryResolvers } from '../generated/graphqlgen';
+import { WebsiteWhereInput } from '../generated/prisma';
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
@@ -25,12 +26,41 @@ export const Query: QueryResolvers.Type = {
       info
     );
   },
-  websites(parent, args, ctx) {
+  async websites(parent, args, ctx) {
+    let where: WebsiteWhereInput = {};
+
+    let after = args.input && args.input.after;
+
+    let skip = (args.input && args.input.skip) || 0;
+
+    if (args.input.randomize) {
+      try {
+        const count = await ctx.client.websitesConnection().aggregate().count();
+
+        const min = 0;
+        const max = Math.floor(count - args.input.first || 10);
+        const randomSkip = () => Math.floor(Math.random() * (max - min + 1));
+
+        where = {
+          id_not: args.input.after,
+        };
+
+        skip = randomSkip();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     return ctx.client.websites({
       first: (args.input && args.input.first) || 10,
-      skip: (args.input && args.input.skip) || 0,
-      after: (args.input && args.input.after) || undefined,
+      skip,
+      after,
+      orderBy: 'createdAt_DESC',
+      where,
     });
+  },
+  websitesCount(parent, args, ctx) {
+    return ctx.client.websitesConnection().aggregate().count();
   },
   findTypefaces: (parent, args, ctx) => {
     return ctx.client.typefaces({

@@ -35,6 +35,7 @@ export interface GetWebsite_website {
   title: string;
   url: string;
   createdAt: any;
+  id: string;
   typefaces: GetWebsite_website_typefaces[] | null;
   images: GetWebsite_website_images | null;
   tags: GetWebsite_website_tags[] | null;

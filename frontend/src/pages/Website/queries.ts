@@ -7,6 +7,7 @@ export const GET_WEBSITE = gql`
       title
       url
       createdAt
+      id
       typefaces {
         name
         slug
@@ -29,8 +30,8 @@ export const GET_WEBSITE = gql`
 `;
 
 export const KEEP_EXPLORING = gql`
-  query KeepExploringQuery {
-    websites(input: { first: 4 }) {
+  query KeepExploringQuery($after: String) {
+    websites(input: { first: 4, after: $after, randomize: true }) {
       title
       slug
       url
