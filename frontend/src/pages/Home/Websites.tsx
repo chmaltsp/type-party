@@ -90,7 +90,8 @@ export const WebsitePanel: React.SFC<RouteComponentProps<{}>> = props => {
       {({ data, loading, error, fetchMore }) => {
         const cards = selectCards((data && data.websites) || []);
 
-        const total = data && data.websitesCount;
+        const total = data && Math.floor(data.websitesCount / 6);
+
         return (
           <Wrapper>
             <Grid>

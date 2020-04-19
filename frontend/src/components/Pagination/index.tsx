@@ -9,16 +9,17 @@ interface PaginationProps {
   nextPage: (newPage: number) => void;
 }
 
-const PageNumber = styled.div<{ selected: boolean }>`
+const PageNumber = styled.button<{ selected: boolean }>`
   border-radius: 50%;
   border: 1px ${({ theme, selected }) => (selected ? theme.colors.black : 'transparent')}
     solid;
   width: 48px;
   height: 48px;
   line-height: 48px;
-  margin-right: ${({ theme }) => theme.spacing.md}px;
+  margin-right: ${({ theme }) => theme.spacing.sm}px;
   text-align: center;
   font-size: ${props => props.theme.font.sizes.md};
+  cursor: pointer;
 `;
 
 const Button = styled.button.attrs({
@@ -28,9 +29,14 @@ const Button = styled.button.attrs({
   background: none;
   border: 0;
   cursor: pointer;
+  text-decoration: underline;
+  padding-right: ${({ theme }) => theme.spacing.sm}px;
 `;
 
-const Next = styled(Button)``;
+const Previous = styled(Button)``;
+const Next = styled(Button)`
+  padding-right: 0;
+`;
 const Last = styled(Button)``;
 
 const Wrapper = styled(Flex)`
@@ -46,12 +52,16 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
 
   const startPage = currentPage <= 3 ? 1 : currentPage - 3;
 
-  for (let i = 0; i < 6; i++) {
+  const maxNumbers = total < 6 ? total : 6;
+  for (let i = 0; i < maxNumbers; i++) {
     components.push(i + startPage);
   }
 
   return (
     <Wrapper>
+      {currentPage !== 1 && (
+        <Previous onClick={() => nextPage(currentPage - 1)}>Previous</Previous>
+      )}
       {components.map(num => (
         <PageNumber
           key={`pagination-${num}`}
@@ -61,8 +71,12 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           {num}
         </PageNumber>
       ))}
-      <Next>Next</Next>
-      <Last>Last</Last>
+      {currentPage !== total && (
+        <>
+          <Last onClick={() => nextPage(total)}>Last</Last>
+          <Next onClick={() => nextPage(currentPage + 1)}>Next</Next>
+        </>
+      )}
     </Wrapper>
   );
 };
