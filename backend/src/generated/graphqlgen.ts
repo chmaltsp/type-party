@@ -87,6 +87,7 @@ export namespace QueryResolvers {
     skip: number | null;
     first: number | null;
     after: string | null;
+    randomize: boolean | null;
   }
 
   export interface ArgsWebsite {
@@ -144,6 +145,13 @@ export namespace QueryResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Website[] | Promise<Website[]>;
+
+  export type WebsitesCountResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
 
   export type UserWebsitesResolver = (
     parent: undefined,
@@ -222,6 +230,13 @@ export namespace QueryResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Website[] | Promise<Website[]>;
+
+    websitesCount: (
+      parent: undefined,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
 
     userWebsites: (
       parent: undefined,

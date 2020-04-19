@@ -46,6 +46,8 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
       fullImageUrl = this.props.data.website.images.full.url;
     }
 
+    const currentId =
+      this.props.data && this.props.data.website && this.props.data.website.id;
     return (
       <Container>
         <DetailWrapper>
@@ -84,7 +86,7 @@ export class Website extends React.PureComponent<WebsiteProps, any> {
           </WebsiteInfo>
         </DetailWrapper>
         <Line />
-        <KeepExploring />
+        <KeepExploring currentId={currentId} />
       </Container>
     );
   }

@@ -35,8 +35,9 @@ export interface GetWebsites_websites {
 
 export interface GetWebsites {
   websites: GetWebsites_websites[];
+  websitesCount: number;
 }
 
 export interface GetWebsitesVariables {
-  cursor?: string | null;
+  skip?: number | null;
 }

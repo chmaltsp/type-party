@@ -35,3 +35,7 @@ export interface KeepExploringQuery_websites {
 export interface KeepExploringQuery {
   websites: KeepExploringQuery_websites[];
 }
+
+export interface KeepExploringQueryVariables {
+  after?: string | null;
+}

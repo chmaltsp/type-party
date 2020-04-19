@@ -4,6 +4,11 @@ import styled, { media } from 'sc';
 
 import { Query } from 'react-apollo';
 
+import qs from 'qs';
+
+import Pagination from '../../components/Pagination';
+
+import { RouteComponentProps, withRouter } from 'react-router';
 import { LoadingButton } from '../../components/Button';
 import Card, { CardProps } from '../../components/Card';
 import LinkList from '../../components/LinkList';
@@ -66,14 +71,27 @@ const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
   }));
 };
 
-export const WebsitePanel: React.SFC<{}> = props => {
+export const WebsitePanel: React.SFC<RouteComponentProps<{}>> = props => {
+  const {
+    location: { search },
+    history: { push },
+  } = props;
+
+  const { page } = qs.parse(search, {
+    ignoreQueryPrefix: true,
+  });
+  const pageNum = page && parseInt(page, 10);
   return (
     <Query<GetWebsites, GetWebsitesVariables>
       notifyOnNetworkStatusChange={true}
       query={GET_WEBSITES}
+      variables={{ skip: (pageNum && pageNum > 1 && pageNum * 6) || 0 }}
     >
       {({ data, loading, error, fetchMore }) => {
         const cards = selectCards((data && data.websites) || []);
+
+        const total = data && data.websitesCount;
+        console.log(pageNum);
         return (
           <Wrapper>
             <Grid>
@@ -82,26 +100,31 @@ export const WebsitePanel: React.SFC<{}> = props => {
                   return <Card key={card.title} {...card} />;
                 })}
             </Grid>
-            <Button
-              type="button"
-              loading={loading}
-              onClick={() =>
-                fetchMore({
+            <Pagination
+              total={total || 0}
+              currentPage={pageNum || 1}
+              nextPage={newPage => {
+                push({
+                  pathname: '/',
+                  search:
+                    '?' + new URLSearchParams({ page: newPage.toString() }).toString(),
+                });
+                return fetchMore({
                   query: GET_WEBSITES,
                   updateQuery: (previousEntry, { fetchMoreResult }) => {
                     const newWebsites =
                       (fetchMoreResult && fetchMoreResult.websites) || [];
 
-                    return { websites: [...previousEntry.websites, ...newWebsites] };
+                    const newCount =
+                      (fetchMoreResult && fetchMoreResult.websitesCount) || 0;
+                    return { websites: [...newWebsites], websitesCount: newCount };
                   },
                   variables: {
-                    cursor: cards[cards.length - 1].id,
+                    skip: (newPage > 1 && newPage * 6) || 0,
                   },
-                })
-              }
-            >
-              Load More
-            </Button>
+                });
+              }}
+            />
           </Wrapper>
         );
       }}
@@ -109,4 +132,5 @@ export const WebsitePanel: React.SFC<{}> = props => {
   );
 };
 
-export default WebsitePanel;
+const WebsitePanelWithRouter = withRouter(WebsitePanel);
+export default WebsitePanelWithRouter;

@@ -17,6 +17,9 @@ export const Query: QueryResolvers.Type = {
   websites: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
+  websitesCount: (parent, args, ctx) => {
+    throw new Error('Resolver not implemented');
+  },
   userWebsites: (parent, args, ctx) => {
     throw new Error('Resolver not implemented');
   },
