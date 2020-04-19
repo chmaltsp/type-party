@@ -45,6 +45,8 @@ export const Query: QueryResolvers.Type = {
           id_not: args.input.after,
         };
 
+        after = undefined;
+
         skip = randomSkip();
       } catch (error) {
         console.log(error);

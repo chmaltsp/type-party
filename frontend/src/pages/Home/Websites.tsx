@@ -91,7 +91,6 @@ export const WebsitePanel: React.SFC<RouteComponentProps<{}>> = props => {
         const cards = selectCards((data && data.websites) || []);
 
         const total = data && data.websitesCount;
-        console.log(pageNum);
         return (
           <Wrapper>
             <Grid>
