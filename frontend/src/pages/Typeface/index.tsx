@@ -34,7 +34,7 @@ export const DetailWrapper = styled(Flex)`
 
 export const TypefaceInfo = styled(Flex)`
   flex: 1;
-  padding: 0 ${({ theme }) => theme.spacing.md}px;
+  padding: 0 ${({ theme }) => theme.spacing.xxl}px;
   width: 50%;
   flex-direction: column;
   ${media.tablet`
@@ -46,6 +46,7 @@ export const TypefaceInfo = styled(Flex)`
 
 export const Description = styled(Text)`
   margin: ${({ theme }) => theme.spacing.md}px 0;
+  line-height: 1.6;
 `;
 
 export const ButtonContainer = styled(Flex)`
@@ -81,20 +82,21 @@ export class Typeface extends React.PureComponent<TypefaceProps> {
             )}
             {this.props.data.typeface.designers && (
               <Text>
-                Designer:
+                Designer:&nbsp;
                 {this.props.data.typeface.designers && (
                   <AList list={this.props.data.typeface.designers || []} />
                 )}
               </Text>
             )}
-            {this.props.data.typeface.foundries && (
-              <Text>
-                Foundries:
-                {this.props.data.typeface.foundries && (
-                  <AList list={this.props.data.typeface.foundries || []} />
-                )}
-              </Text>
-            )}
+            {this.props.data.typeface.foundries &&
+              this.props.data.typeface.foundries.length > 0 && (
+                <Text>
+                  Foundries:&nbsp;
+                  {this.props.data.typeface.foundries && (
+                    <AList list={this.props.data.typeface.foundries || []} />
+                  )}
+                </Text>
+              )}
             <Description>{this.props.data.typeface.description}</Description>
             <ButtonContainer>
               <ButtonA href={this.props.data.typeface.downloadUrl} black={true}>

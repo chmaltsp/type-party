@@ -66,6 +66,7 @@ const Plant = PlantBase.extend`
   background-repeat: no-repeat;
   z-index: -1;
   ${media.tablet`
+    display: none;
     background-position-y: 30%;
     background-size: 47% 35%;
     background-position-x: 115%;

@@ -15,6 +15,7 @@ import {
 const Heading = styled.h1`
   font-weight: 600;
   font-size: ${em(32)};
+  line-height: 1.4;
   margin: 136px 0 0 0;
   display: block;
   margin-bottom: ${props => props.theme.spacing.md}px;
@@ -36,7 +37,7 @@ const Container = styled(ContainerBase)`
 
 const Text = styled(TextBase)`
   margin-bottom: ${props => props.theme.spacing.sm}px;
-  line-height: 1.5;
+  line-height: 1.6;
   &:last-child {
     margin-bottom: 270px;
     ${media.tablet`

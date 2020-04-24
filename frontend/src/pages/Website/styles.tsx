@@ -12,7 +12,7 @@ export const DetailWrapper = styled(Flex)`
 `;
 
 export const LeftSide = styled(Flex)`
-  flex: 1;
+  flex: 2;
   align-self: flex-start;
   ${media.tablet`
     width: 100%;
