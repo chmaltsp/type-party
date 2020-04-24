@@ -32,15 +32,17 @@ export interface MobileNavProps {
 }
 
 const MobileNav: React.SFC<MobileNavProps> = ({ open }) => (
-  <LinkWrapper open={open}>
-    {links.map(({ to, text }) => {
-      return (
-        <Link key={to} to={to}>
-          {text}
-        </Link>
-      );
-    })}
-  </LinkWrapper>
+  <>
+    <LinkWrapper open={open}>
+      {links.map(({ to, text }) => {
+        return (
+          <Link key={to} to={to}>
+            {text}
+          </Link>
+        );
+      })}
+    </LinkWrapper>
+  </>
 );
 
 export default MobileNav;

@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-import styled from 'sc';
+import styled, { media } from 'sc';
 import Flex from '../Flex';
+
+import ButtonBase from '../../components/Button';
 
 interface PaginationProps {
   currentPage: number;
@@ -42,6 +44,18 @@ const Last = styled(Button)``;
 const Wrapper = styled(Flex)`
   margin: 0 auto;
   padding: ${({ theme }) => theme.spacing.lg}px 0;
+  ${media.tablet`
+    display: none;
+  `}
+`;
+
+const MobileWrapper = styled(Flex)`
+  display: none;
+  ${media.tablet`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `}
 `;
 const Pagination: React.FunctionComponent<PaginationProps> = ({
   currentPage,
@@ -57,27 +71,56 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     components.push(i + startPage);
   }
 
+  const onPrevious = () => nextPage(currentPage - 1);
+  const onNext = () => nextPage(currentPage + 1);
+
+  const MobileButton = styled(ButtonBase)`
+    width: 100%;
+    margin-top: ${({ theme }) => theme.spacing.sm}px;
+    &:nth-child(2) {
+      margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+    }
+  `;
   return (
-    <Wrapper>
-      {currentPage !== 1 && (
-        <Previous onClick={() => nextPage(currentPage - 1)}>Previous</Previous>
-      )}
-      {components.map(num => (
-        <PageNumber
-          key={`pagination-${num}`}
-          onClick={() => nextPage(num)}
-          selected={currentPage === num}
-        >
-          {num}
-        </PageNumber>
-      ))}
-      {currentPage !== total && (
-        <>
-          <Last onClick={() => nextPage(total)}>Last</Last>
-          <Next onClick={() => nextPage(currentPage + 1)}>Next</Next>
-        </>
-      )}
-    </Wrapper>
+    <>
+      <MobileWrapper>
+        <MobileButton black={false} onClick={onPrevious}>
+          Previous
+        </MobileButton>
+        <MobileButton black={false} onClick={onNext}>
+          Next
+        </MobileButton>
+        <div>
+          {components.map(num => (
+            <PageNumber
+              key={`pagination-${num}`}
+              onClick={() => nextPage(num)}
+              selected={currentPage === num}
+            >
+              {num}
+            </PageNumber>
+          ))}
+        </div>
+      </MobileWrapper>
+      <Wrapper>
+        {currentPage !== 1 && <Previous onClick={onPrevious}>Previous</Previous>}
+        {components.map(num => (
+          <PageNumber
+            key={`pagination-${num}`}
+            onClick={() => nextPage(num)}
+            selected={currentPage === num}
+          >
+            {num}
+          </PageNumber>
+        ))}
+        {currentPage !== total && (
+          <>
+            <Last onClick={() => nextPage(total)}>Last</Last>
+            <Next onClick={() => nextPage(currentPage + 1)}>Next</Next>
+          </>
+        )}
+      </Wrapper>
+    </>
   );
 };
 

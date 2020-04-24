@@ -28,15 +28,34 @@ const Wrapper = styled.div`
   padding-top: ${em(48)};
   padding-bottom: ${em(16)};
   border-bottom: none;
-  ${media.tablet`
-  border-bottom: 1px solid ${(props: any) =>
-    transparentize(0.8, props.theme.colors.black)};
-`};
   ${media.desktop`
-  margin: 0 ${em(32)};
+    margin: 0;
+    padding: ${({ theme }: any) => theme.spacing.sm}px;
+`};
+  ${media.tablet`
+    padding:${({ theme }: any) => theme.spacing.sm}px ${({ theme }: any) =>
+    theme.spacing.md}px;
 `};
 `;
 
+const Line = styled.hr`
+  display: none;
+  width: 100%;
+  height: 1px;
+
+  color: ${(props: any) => transparentize(0.8, props.theme.colors.black)};
+
+  ${media.tablet`
+   margin: 0 auto;
+   display: block;
+   width: calc(100% - 48px);
+
+  `};
+`;
+
+const TwitterLogo = styled.img`
+  vertical-align: middle;
+`;
 const Star = styled(StarBase)`
   display: none;
   width: 48px;
@@ -49,13 +68,12 @@ const Star = styled(StarBase)`
 
 const Logo = styled(LogoBase)`
   display: block;
-  width: ${em(80)};
+  width: ${em(160)};
   ${media.tablet`
     display: none;
   `}
   ${media.desktop`
-    width: ${em(72)};
-    height: ${em(72)};
+    width: ${em(150)};
   `};
 `;
 
@@ -79,4 +97,4 @@ const MenuLink = styled.div`
   `};
 `;
 
-export { MenuLink, NavlinksWrapper, Logo, Star, Wrapper, Link, LinkA };
+export { MenuLink, NavlinksWrapper, Logo, Star, Wrapper, Link, Line, LinkA, TwitterLogo };

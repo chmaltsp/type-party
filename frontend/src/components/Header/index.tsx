@@ -2,9 +2,21 @@ import * as React from 'react';
 
 import MobileNav from './Mobile';
 
-import { Link, LinkA, Logo, MenuLink, NavlinksWrapper, Star, Wrapper } from './styles';
+import {
+  Line,
+  Link,
+  LinkA,
+  Logo,
+  MenuLink,
+  NavlinksWrapper,
+  Star,
+  TwitterLogo,
+  Wrapper,
+} from './styles';
 
 import { Link as RouterLink } from 'react-router-dom';
+
+import tw from './tw.svg';
 
 interface NavLink {
   to: string;
@@ -68,11 +80,12 @@ class Header extends React.Component<{}, HeaderState> {
                 </Link>
               ))}
               <LinkA href="https://twitter.com/typeparty_" target="_blank">
-                @typeparty
+                <TwitterLogo src={tw} alt="Twitter Type Party" />
               </LinkA>
             </>
           </NavlinksWrapper>
         </Wrapper>
+        <Line />
         <MobileNav open={this.state.mobileOpen} />
       </React.Fragment>
     );

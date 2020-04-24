@@ -33,8 +33,7 @@ const InnerWrapper = styled.div`
 `;
 
 const Logo = LogoBase.extend`
-  width: ${em(64)};
-  height: ${em(64)};
+  width: ${em(160)};
   ${media.tablet`
     display: none;
   `};
@@ -46,6 +45,11 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  > a {
+    &:nth-child(2) {
+      padding-top: ${({ theme }) => theme.spacing.md}px;
+    }
+  }
 `;
 
 const Footer: React.SFC<{}> = props => {
@@ -53,7 +57,6 @@ const Footer: React.SFC<{}> = props => {
     <Container>
       <InnerWrapper>
         <Logo />
-
         <Column>
           {links
             .map(({ to, text }) => (
