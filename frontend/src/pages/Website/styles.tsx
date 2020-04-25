@@ -18,10 +18,12 @@ export const LeftSide = styled(Flex)`
     width: 100%;
   `}
 `;
+
 export const Image = styled.img`
   border: 1px ${({ theme }) => theme.colors.black} solid;
   height: auto;
   max-width: 100%;
+  align-self: flex-start;
   background-color: ${({ theme }) => theme.colors.greyC4C};
 `;
 
