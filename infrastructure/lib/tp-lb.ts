@@ -40,6 +40,10 @@ export class LBStack extends Stack {
       vpc: props.vpc,
     });
 
+    this.targetGroup.configureHealthCheck({
+      path: '/health'
+    })
+
     this.httpsListener = this.alb.addListener('https-listener', {
       protocol: ApplicationProtocol.HTTPS,
       open: true,
@@ -68,6 +72,10 @@ export class LBStack extends Stack {
       port: 80,
       priority: 2,
     });
+
+    this.feTargetGroup.configureHealthCheck({
+      path: '/health'
+    })
 
     this.apiTargetGroup = this.httpsListener.addTargets('apiTargetGroup', {
       hostHeader: API_DOMAIN,

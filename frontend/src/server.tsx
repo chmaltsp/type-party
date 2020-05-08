@@ -36,14 +36,21 @@ const basicAuthUsers = {
 
 server
   .disable('x-powered-by')
-  .use(
-    basicAuth({
-      challenge: true,
-      realm: 'tprealm',
-      users: basicAuthUsers,
-    })
-  )
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR!))
+  .use((req, res, next) => {
+    if (req.path === '/health') {
+      next();
+    } else {
+      basicAuth({
+        challenge: true,
+        realm: 'tprealm',
+        users: basicAuthUsers,
+      })(req, res, next);
+    }
+  })
+  .get('/health', (req, res, next) => {
+    res.sendStatus(200);
+  })
   .get('/*', (req: express.Request, res: express.Response) => {
     const context = {};
 
