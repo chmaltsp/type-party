@@ -15,6 +15,8 @@ import App from './App';
 import { runtimeConfig } from './config';
 import { createClient } from './utils/apolloClient';
 
+import basicAuth from 'express-basic-auth';
+
 let assets: any;
 
 const syncLoadAssets = () => {
@@ -24,8 +26,23 @@ syncLoadAssets();
 
 const server = express();
 
+if (!process.env.BASIC_AUTH) {
+  throw new Error('BASIC AUTH MISSING');
+}
+
+const basicAuthUsers = {
+  tp: process.env.BASIC_AUTH,
+};
+
 server
   .disable('x-powered-by')
+  .use(
+    basicAuth({
+      challenge: true,
+      realm: 'tprealm',
+      users: basicAuthUsers,
+    })
+  )
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR!))
   .get('/*', (req: express.Request, res: express.Response) => {
     const context = {};

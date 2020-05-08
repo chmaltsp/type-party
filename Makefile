@@ -36,10 +36,10 @@ update-api-service-dev:
 	ecs-deploy -n $(API_SERVICE_NAME) -c $(API_CLUSTER_NAME) -i 561034361591.dkr.ecr.us-east-1.amazonaws.com/tp-api:latest --profile ${aws_profile}
 
 set-ssm-param-secure: 
-	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=1b511fa7-dcd4-4db9-aef9-c15b141b3b29
+	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --key-id=1b511fa7-dcd4-4db9-aef9-c15b141b3b29 --profile ${aws_profile}
 
 set-ssm-param: 
-	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1"
+	aws ssm put-parameter --name="${NAME}" --value="${VALUE}" --overwrite --type="${TYPE}" --region="us-east-1" --profile ${aws_profile}
 # FE Docker Build
 build-tp-fe:
 	docker build -t ${TP_FE_REPO} ./frontend

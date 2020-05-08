@@ -3,6 +3,10 @@
     "APIURLParameter": {
       "Type": "AWS::SSM::Parameter::Value<String>",
       "Default": "/TpStaging/API_URL"
+    },
+    "BASICAUTHParameter": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/TpStaging/BASIC_AUTH"
     }
   },
   "Resources": {
@@ -139,6 +143,21 @@
                     ]
                   ]
                 }
+              },
+              {
+                "Name": "BASIC_AUTH",
+                "ValueFrom": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:us-east-1:561034361591:parameter/TpStaging/BASIC_AUTH"
+                    ]
+                  ]
+                }
               }
             ]
           }
@@ -261,6 +280,27 @@
                       "Ref": "AWS::Partition"
                     },
                     ":ssm:us-east-1:561034361591:parameter/TpStaging/API_URL"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:us-east-1:561034361591:parameter/TpStaging/BASIC_AUTH"
                   ]
                 ]
               }

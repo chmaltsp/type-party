@@ -2948,6 +2948,14 @@
             "id": "API_URL",
             "path": "tp-frontend-dev/API_URL"
           },
+          "BASIC_AUTH.Parameter": {
+            "id": "BASIC_AUTH.Parameter",
+            "path": "tp-frontend-dev/BASIC_AUTH.Parameter"
+          },
+          "BASIC_AUTH": {
+            "id": "BASIC_AUTH",
+            "path": "tp-frontend-dev/BASIC_AUTH"
+          },
           "taskdef": {
             "id": "taskdef",
             "path": "tp-frontend-dev/taskdef",
@@ -3095,6 +3103,21 @@
                                 ]
                               ]
                             }
+                          },
+                          {
+                            "name": "BASIC_AUTH",
+                            "valueFrom": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ssm:us-east-1:561034361591:parameter/TpStaging/BASIC_AUTH"
+                                ]
+                              ]
+                            }
                           }
                         ]
                       }
@@ -3239,6 +3262,27 @@
                                           "Ref": "AWS::Partition"
                                         },
                                         ":ssm:us-east-1:561034361591:parameter/TpStaging/API_URL"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "ssm:DescribeParameters",
+                                    "ssm:GetParameters",
+                                    "ssm:GetParameter",
+                                    "ssm:GetParameterHistory"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":ssm:us-east-1:561034361591:parameter/TpStaging/BASIC_AUTH"
                                       ]
                                     ]
                                   }
