@@ -85,6 +85,7 @@
     "loadbalancerhttpslistenerfeTargetGroupGroupD9F377AE": {
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
       "Properties": {
+        "HealthCheckPath": "/health",
         "Port": 80,
         "Protocol": "HTTP",
         "TargetType": "instance",
@@ -234,6 +235,7 @@
     "defaultTargetGroup184444EC": {
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
       "Properties": {
+        "HealthCheckPath": "/health",
         "Port": 80,
         "Protocol": "HTTP",
         "TargetType": "instance",
