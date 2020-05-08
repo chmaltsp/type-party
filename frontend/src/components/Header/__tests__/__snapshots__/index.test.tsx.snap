@@ -38,10 +38,14 @@ exports[`<Header /> should render without blowing up 1`] = `
         href="https://twitter.com/typeparty_"
         target="_blank"
       >
-        @typeparty
+        <styled.img
+          alt="Twitter Type Party"
+          src="test-file-stub"
+        />
       </styled.a>
     </styled.div>
   </styled.div>
+  <styled.hr />
   <MobileNav
     open={false}
   />
