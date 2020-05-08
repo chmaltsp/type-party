@@ -28,9 +28,11 @@ export class FrontendStack extends cdk.Stack {
     const environmentVarKeys = {
       dev: {
         API_URL: '/TpStaging/API_URL',
+        BASIC_AUTH: '/TpStaging/BASIC_AUTH',
       },
       prod: {
         API_URL: '/TpStaging/API_URL',
+        BASIC_AUTH: '/TpStaging/BASIC_AUTH',
       },
     };
 
@@ -42,6 +44,13 @@ export class FrontendStack extends cdk.Stack {
       )
     );
 
+    const BASIC_AUTH = ecs.Secret.fromSsmParameter(
+      ssm.StringParameter.fromStringParameterName(
+        this,
+        'BASIC_AUTH',
+        environmentVarKeys[getStage(scope)].BASIC_AUTH
+      )
+    );
     const taskDef = new ecs.Ec2TaskDefinition(this, 'taskdef');
 
     const logging = new ecs.AwsLogDriver({ streamPrefix: id });
@@ -51,6 +60,7 @@ export class FrontendStack extends cdk.Stack {
       memoryReservationMiB: 256,
       secrets: {
         RAZZLE_API_URL,
+        BASIC_AUTH,
       },
       logging,
     });
