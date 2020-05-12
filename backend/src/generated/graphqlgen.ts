@@ -4401,6 +4401,7 @@ export namespace MutationResolvers {
     slug: string;
     typefaces: string[];
     tags: string[];
+    featured: boolean;
   }
   export interface UpdateWebsiteInput {
     full: string | null;
@@ -4410,6 +4411,7 @@ export namespace MutationResolvers {
     slug: string;
     typefaces: string[];
     tags: string[];
+    featured: boolean;
   }
   export interface AddTypefaceInput {
     name: string;

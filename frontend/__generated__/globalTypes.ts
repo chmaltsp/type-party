@@ -30,6 +30,7 @@ export interface AddWebsiteInput {
   slug: string;
   typefaces: string[];
   tags: string[];
+  featured: boolean;
 }
 
 export interface DesignerCreateInput {
@@ -294,6 +295,7 @@ export interface UpdateWebsiteInput {
   slug: string;
   typefaces: string[];
   tags: string[];
+  featured: boolean;
 }
 
 export interface UserCreateInput {

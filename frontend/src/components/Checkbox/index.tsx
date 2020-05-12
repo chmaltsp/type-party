@@ -18,10 +18,17 @@ const Wrapper = styled(Flex)`
 const Label = styled.label``;
 
 export const Checkbox: React.SFC<InputProps & FieldProps> = ({ field, label }) => {
+  console.log('IN CHECKBOX: ', field.value);
   return (
     <Wrapper>
       <Label>
-        <CheckBoxBase type="checkbox" name={field.name} value={field.value} {...field} />
+        <CheckBoxBase
+          type="checkbox"
+          checked={field.value}
+          name={field.name}
+          value={field.value}
+          {...field}
+        />
         <span>{label}</span>
       </Label>
     </Wrapper>
