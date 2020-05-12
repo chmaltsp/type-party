@@ -53,6 +53,13 @@ export const Query: QueryResolvers.Type = {
       }
     }
 
+    if (args.input.featured) {
+      where = {
+        ...where,
+        featured: true,
+      };
+    }
+
     return ctx.client.websites({
       first: (args.input && args.input.first) || 10,
       skip,

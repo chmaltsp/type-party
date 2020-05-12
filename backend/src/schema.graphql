@@ -43,6 +43,7 @@ input WebsitesInput {
   skip: Int
   first: Int
   after: String
+  featured: Boolean
   randomize: Boolean
 }
 
