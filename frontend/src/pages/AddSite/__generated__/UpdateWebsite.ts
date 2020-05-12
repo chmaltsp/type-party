@@ -49,6 +49,7 @@ export interface UpdateWebsite_updateWebsite {
   isPublished: boolean;
   url: string;
   tags: UpdateWebsite_updateWebsite_tags[] | null;
+  featured: boolean;
   typefaces: UpdateWebsite_updateWebsite_typefaces[] | null;
   images: UpdateWebsite_updateWebsite_images | null;
 }
