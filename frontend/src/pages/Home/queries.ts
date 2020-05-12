@@ -23,6 +23,15 @@ export const WebsitesFragments = {
   },
 };
 
+export const GET_FEATURED_WEBSITES = gql`
+  query GetFeaturedWebsites {
+    websites(input: { first: 6, featured: true }) {
+      ...WebsiteCard
+    }
+  }
+  ${WebsitesFragments.fragments.card}
+`;
+
 export const GET_WEBSITES = gql`
   query GetWebsites($skip: Int) {
     websites(input: { first: 6, skip: $skip }) {

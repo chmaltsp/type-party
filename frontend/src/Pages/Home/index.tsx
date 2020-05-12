@@ -8,6 +8,8 @@ import { Container } from '../../components/Container';
 import SignupPanel from '../../components/SignupPanel';
 import Websites from './Websites';
 
+import HeroCarousel from './HeroCarousel';
+
 const Heading = styled.h1`
   font-weight: 800;
   font-size: ${em(40)};
@@ -31,6 +33,7 @@ class Home extends React.Component<{}, {}> {
             Type Party is a collection of the best free and open source typography on the
             web.
           </Heading>
+          <HeroCarousel />
           <Websites />
         </Container>
         <SignupPanel />

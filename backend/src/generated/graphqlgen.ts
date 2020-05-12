@@ -87,6 +87,7 @@ export namespace QueryResolvers {
     skip: number | null;
     first: number | null;
     after: string | null;
+    featured: boolean | null;
     randomize: boolean | null;
   }
 

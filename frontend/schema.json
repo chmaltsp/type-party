@@ -9543,6 +9543,16 @@
             "defaultValue": null
           },
           {
+            "name": "featured",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "randomize",
             "description": "",
             "type": {
