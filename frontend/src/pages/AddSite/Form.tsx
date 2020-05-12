@@ -13,6 +13,7 @@ import TagForm from '../../components/TagForm';
 import { AddTag_addTag } from '../../components/TagForm/__generated__/AddTag';
 import TagTypeahead from '../../components/TagTypeahead';
 
+import { Checkbox } from '../../components/Checkbox';
 import { AddTypeface_addTypeface } from '../AddTypeface/__generated__/AddTypeface';
 import TypefaceForm from '../AddTypeface/Form';
 import {
@@ -43,6 +44,7 @@ export interface InputValues {
   title: string;
   url: string;
   typefaces: AddTypeface_addTypeface[];
+  featured: boolean;
   tags: AddTag_addTag[];
 }
 
@@ -155,6 +157,12 @@ class SiteForm extends React.PureComponent<Props, SiteFormState> {
               />
             </>
           )}
+          <Field
+            name="featured"
+            render={(props: FieldProps<AddWebsiteVariables>) => {
+              return <Checkbox label="Featured" {...props} />;
+            }}
+          />
           <Divider />
           <SubmitButton loading={false || this.props.isSubmitting} type="submit">
             Publish Website
@@ -181,6 +189,7 @@ const WrappedForm: React.SFC<AllProps> = props => {
     <Formik
       enableReinitialize={true}
       initialValues={{
+        featured: (website && website.featured) || false,
         full: null,
         slug: (website && website.slug) || '',
         tags: (website && website.tags) || [],

@@ -20,4 +20,5 @@ export interface WebsiteInfo {
   isPublished: boolean;
   url: string;
   tags: WebsiteInfo_tags[] | null;
+  featured: boolean;
 }

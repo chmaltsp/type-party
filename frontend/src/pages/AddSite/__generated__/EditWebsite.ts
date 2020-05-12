@@ -47,6 +47,7 @@ export interface EditWebsite_website {
   isPublished: boolean;
   url: string;
   tags: EditWebsite_website_tags[] | null;
+  featured: boolean;
   typefaces: EditWebsite_website_typefaces[] | null;
   images: EditWebsite_website_images | null;
 }

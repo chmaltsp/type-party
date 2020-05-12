@@ -29,6 +29,7 @@ export const WebsiteFragments = {
           id
           name
         }
+        featured
       }
     `,
     typefaces: gql`
