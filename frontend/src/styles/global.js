@@ -12,7 +12,7 @@ export default injectGlobal`
     }
 
     body {
-        font-family: 'Muli', sans-serif;
+        font-family: 'IBM Plex Mono', monospace;
         height: 100%;
         font-size: 16px;
         width: 100%;
@@ -20,6 +20,6 @@ export default injectGlobal`
     }
 
     button {
-        font-family: 'Muli', sans-serif;
+        font-family: 'IBM Plex Mono', monospace;
     }
 `;

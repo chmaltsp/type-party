@@ -3,6 +3,7 @@ export const theme = {
   borderRadius: '2px',
   colors: {
     black: '#000',
+    green: '#438D57',
     greyC4C: '#C4C4C4',
     greyCCC: '#CCC',
     greyDDD: '#DDD',
