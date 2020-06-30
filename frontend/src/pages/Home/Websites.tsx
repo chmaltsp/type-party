@@ -41,7 +41,7 @@ const Wrapper = styled.div`
 // export interface WebsitePanelProps {
 // }
 
-const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
+export const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
   return websites.map(website => ({
     id: website.id,
     imgUrl:

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { em } from 'polished';
 import styled, { media } from 'sc';
 
-import { Container } from '../../components/Container';
+import { Container, FullWidthContainer } from '../../components/Container';
 
 import SignupPanel from '../../components/SignupPanel';
 import Websites from './Websites';
@@ -28,15 +28,21 @@ class Home extends React.Component<{}, {}> {
   public render() {
     return (
       <>
-        <Container>
-          <Heading>
-            Type Party is a collection of the best free and open source typography on the
-            web.
-          </Heading>
-          <HeroCarousel />
-          <Websites />
-        </Container>
-        <SignupPanel />
+        <div>
+          <Container>
+            <Heading>
+              Type Party is a collection of the best free and open source typography on
+              the web.
+            </Heading>
+          </Container>
+          <FullWidthContainer>
+            <HeroCarousel />
+          </FullWidthContainer>
+          <Container>
+            <Websites />
+            <SignupPanel />
+          </Container>
+        </div>
       </>
     );
   }
