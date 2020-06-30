@@ -23,6 +23,8 @@ services:
     container_name: prisma-pg
     image: postgres:11
     restart: always
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: prisma
@@ -34,5 +36,20 @@ services:
     image: lphoward/fake-s3
     ports:
       - "4569:4569"
+
+  hasura:
+    container_name: hasura
+    image: hasura/graphql-engine:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "postgres"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://root:prisma@postgres:5432/tp_db
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
 volumes:
   postgres:
