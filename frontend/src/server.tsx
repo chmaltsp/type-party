@@ -73,8 +73,10 @@ server
       </ApolloProvider>
     );
 
+    console.log(assets);
     getDataFromTree(RenderedApp).then(() => {
       const markup = renderToString(RenderedApp);
+      // tslint:disable: max-line-length
       res.send(
         `<!doctype html>
         <html lang="">
@@ -83,13 +85,14 @@ server
             <meta charSet='utf-8' />
             <title>Type Party</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
             ${styleTags}
               ${
                 process.env.NODE_ENV === 'production'
                   ? `<script src="${assets.client.js}" defer></script>`
                   : `<script src="${assets.client.js}" defer crossorigin></script>`
               }
+              <link href="${assets.client.css}" rel="stylesheet" />
               <script>
                  window.__APOLLO_STATE__ = ${JSON.stringify(client.extract())};
               </script>
