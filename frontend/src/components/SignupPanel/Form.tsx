@@ -44,17 +44,19 @@ const Form = styled(Formbase)`
 
 const Button = styled(LoadingButton)`
   flex: 1;
+  flex-grow: 2;
   margin-left: ${({ theme }) => theme.spacing.md}px;
-  max-width: 220px;
-  background-color: ${({ theme, loading }) => !loading && theme.colors.black};
+  max-width: 330px;
+  background-color: ${({ theme, loading }) => !loading && theme.colors.green};
   color: ${({ theme, loading }) => !loading && theme.colors.white};
   background-size: ${({ loading }) => (loading ? '100% 0' : '200% 100%')};
-  background-image: linear-gradient(to right, black 50%, white 50%);
+  border-color: ${({ theme }) => theme.colors.green};
+  background-image: linear-gradient(to right, #438d57 50%, white 50%);
   transition: background-position 0.3s, color 0.3s;
 
   &:hover {
     background-position: -100% 0;
-    color: ${({ theme, loading }) => !loading && theme.colors.black};
+    color: ${({ theme, loading }) => !loading && theme.colors.green};
     cursor: pointer;
   }
 
@@ -130,7 +132,7 @@ export const EmailForm: React.FunctionComponent<
               }}
             />
             <Button type="submit" loading={formikProps.isSubmitting}>
-              {success ? 'Thanks!' : 'Yay open source'}
+              {success ? 'Thanks!' : <span>Party time, excellent! 🤙</span>}
             </Button>
           </>
         </Form>

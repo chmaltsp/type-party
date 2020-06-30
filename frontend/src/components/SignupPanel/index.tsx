@@ -23,9 +23,11 @@ const Wrapper = styled.div`
   margin-bottom: ${em(32)};
 `;
 const CtaText = styled.h2`
-  font-weight: 800;
+  font-weight: 500;
   font-size: ${em(32)};
   line-height: 1.4;
+  font-style: italic;
+  text-align: center;
 `;
 // export interface SignupPanelProps {}
 const StarLeft = StarBase.extend`

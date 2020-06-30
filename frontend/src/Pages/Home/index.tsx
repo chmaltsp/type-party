@@ -11,12 +11,14 @@ import Websites from './Websites';
 import HeroCarousel from './HeroCarousel';
 
 const Heading = styled.h1`
-  font-weight: 800;
+  font-weight: 500;
   font-size: ${em(40)};
   margin: 96px auto;
   padding: 0 80px;
+  max-width: 891px;
   display: block;
   text-align: center;
+  font-style: italic;
   ${media.tablet`
    text-align: left;
     margin: 0;
