@@ -19,6 +19,8 @@ import {
 } from './__generated__/GetWebsites';
 import { GET_WEBSITES } from './queries';
 
+import typeIcon from './TypeIcon.svg';
+
 const Button = styled(LoadingButton)`
   margin-top: ${({ theme }) => theme.spacing.md}px;
   align-self: center;
@@ -41,6 +43,12 @@ const Wrapper = styled.div`
 // export interface WebsitePanelProps {
 // }
 
+const TypeIcon = styled.img`
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  padding: 2px;
+  vertical-align: top;
+  margin-right: ${({ theme }) => theme.spacing.xs}px;
+`;
 export const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
   return websites.map(website => ({
     id: website.id,
@@ -52,7 +60,7 @@ export const selectCards = (websites: GetWebsites_websites[]): CardProps[] => {
       '',
     secondary: (
       <span>
-        Fonts —{'  '}
+        <TypeIcon src={typeIcon} alt="type icon" />
         <LinkList
           hrefPrefix="typeface"
           links={
