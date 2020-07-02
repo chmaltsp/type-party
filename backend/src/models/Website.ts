@@ -5,7 +5,8 @@ schema.objectType({
     // the fields of the type will be defined here
     t.model.id();
     t.model.title();
-    t.model.addedBy();
+    t.model.featured();
+    t.model.Image({});
     t.model.User({});
   },
 });

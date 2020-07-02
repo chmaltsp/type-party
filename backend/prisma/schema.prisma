@@ -24,10 +24,10 @@ model File {
   filename                      String
   id                            String   @default(cuid()) @id
   mimetype                      String
-  updatedAt                     DateTime @updatedAt
+  updatedAt                     DateTime
   url                           String   @unique
-  Images_FileToImages_full      Images[] @relation("FileToImages_full")
-  Images_FileToImages_thumbnail Images[] @relation("FileToImages_thumbnail")
+  Image_FileToImage_fullId      Image[]  @relation("FileToImage_fullId")
+  Image_FileToImage_thumbnailId Image[]  @relation("FileToImage_thumbnailId")
 }
 
 model Foundry {
@@ -41,16 +41,16 @@ model Foundry {
   Typeface  Typeface[] @relation("TypefaceFoundry", references: [id])
 }
 
-model Images {
-  createdAt                   DateTime  @default(now())
-  full                        String?
-  id                          String    @default(cuid()) @id
-  thumbnail                   String?
-  updatedAt                   DateTime  @updatedAt
-  File_FileToImages_full      File?     @relation("FileToImages_full", fields: [full], references: [id])
-  File_FileToImages_thumbnail File?     @relation("FileToImages_thumbnail", fields: [thumbnail], references: [id])
-  Typeface                    Typeface?
-  Website                     Website?
+model Image {
+  createdAt   DateTime  @default(now())
+  fullId      String?
+  id          String    @default(cuid()) @id
+  thumbnailId String?
+  updatedAt   DateTime  @updatedAt
+  full        File?     @relation("FileToImage_fullId", fields: [fullId], references: [id])
+  thumbnail   File?     @relation("FileToImage_thumbnailId", fields: [thumbnailId], references: [id])
+  Typeface    Typeface?
+  Website     Website?
 }
 
 model Tag {
@@ -71,9 +71,9 @@ model Typeface {
   images      String?    @unique
   name        String     @unique
   slug        String     @unique
-  updatedAt   DateTime   @updatedAt
+  updatedAt   DateTime
   User        User?      @relation(fields: [addedBy], references: [id])
-  Images      Images?    @relation(fields: [images], references: [id])
+  Image       Image?     @relation(fields: [images], references: [id])
   Designer    Designer[] @relation("TypefaceDesigner", references: [id])
   Foundry     Foundry[]  @relation("TypefaceFoundry", references: [id])
   Tag         Tag[]      @relation("TypefaceTags", references: [id])
@@ -98,15 +98,15 @@ model Website {
   addedBy     String?
   createdAt   DateTime   @default(now())
   featured    Boolean    @default(false)
-  id          String     @default(cuid()) @id
+  id          String     @id
   images      String?    @unique
   isPublished Boolean    @default(false)
   slug        String?    @unique
   title       String     @unique
-  updatedAt   DateTime   @updatedAt
+  updatedAt   DateTime
   url         String
   User        User?      @relation(fields: [addedBy], references: [id])
-  Images      Images?    @relation(fields: [images], references: [id])
+  Image       Image?     @relation(fields: [images], references: [id])
   Typeface    Typeface[] @relation(references: [id])
   Tag         Tag[]      @relation("WebsiteTags", references: [id])
 }
