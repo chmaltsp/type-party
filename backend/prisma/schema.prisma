@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Designer {
+  addedBy   String?
+  createdAt DateTime   @default(now())
+  id        String     @default(cuid()) @id
+  name      String     @unique
+  updatedAt DateTime   @updatedAt
+  url       String
+  User      User?      @relation(fields: [addedBy], references: [id])
+  Typeface  Typeface[] @relation("TypefaceDesigner", references: [id])
+}
+
+model File {
+  createdAt                     DateTime @default(now())
+  encoding                      String
+  filename                      String
+  id                            String   @default(cuid()) @id
+  mimetype                      String
+  updatedAt                     DateTime @updatedAt
+  url                           String   @unique
+  Images_FileToImages_full      Images[] @relation("FileToImages_full")
+  Images_FileToImages_thumbnail Images[] @relation("FileToImages_thumbnail")
+}
+
+model Foundry {
+  addedBy   String?
+  createdAt DateTime   @default(now())
+  id        String     @default(cuid()) @id
+  name      String     @unique
+  updatedAt DateTime   @updatedAt
+  url       String
+  User      User?      @relation(fields: [addedBy], references: [id])
+  Typeface  Typeface[] @relation("TypefaceFoundry", references: [id])
+}
+
+model Images {
+  createdAt                   DateTime  @default(now())
+  full                        String?
+  id                          String    @default(cuid()) @id
+  thumbnail                   String?
+  updatedAt                   DateTime  @updatedAt
+  File_FileToImages_full      File?     @relation("FileToImages_full", fields: [full], references: [id])
+  File_FileToImages_thumbnail File?     @relation("FileToImages_thumbnail", fields: [thumbnail], references: [id])
+  Typeface                    Typeface?
+  Website                     Website?
+}
+
+model Tag {
+  createdAt DateTime   @default(now())
+  id        String     @default(cuid()) @id
+  name      String
+  updatedAt DateTime   @updatedAt
+  Typeface  Typeface[] @relation("TypefaceTags", references: [id])
+  Website   Website[]  @relation("WebsiteTags", references: [id])
+}
+
+model Typeface {
+  addedBy     String?
+  createdAt   DateTime   @default(now())
+  description String?
+  downloadUrl String
+  id          String     @default(cuid()) @id
+  images      String?    @unique
+  name        String     @unique
+  slug        String     @unique
+  updatedAt   DateTime   @updatedAt
+  User        User?      @relation(fields: [addedBy], references: [id])
+  Images      Images?    @relation(fields: [images], references: [id])
+  Designer    Designer[] @relation("TypefaceDesigner", references: [id])
+  Foundry     Foundry[]  @relation("TypefaceFoundry", references: [id])
+  Tag         Tag[]      @relation("TypefaceTags", references: [id])
+  Website     Website[]  @relation(references: [id])
+}
+
+model User {
+  createdAt DateTime   @default(now())
+  email     String     @unique
+  id        String     @default(cuid()) @id
+  name      String
+  password  String
+  role      Role       @default(SUBSCRIBER)
+  updatedAt DateTime   @updatedAt
+  Designer  Designer[]
+  Foundry   Foundry[]
+  Typeface  Typeface[]
+  Website   Website[]
+}
+
+model Website {
+  addedBy     String?
+  createdAt   DateTime   @default(now())
+  featured    Boolean    @default(false)
+  id          String     @default(cuid()) @id
+  images      String?    @unique
+  isPublished Boolean    @default(false)
+  slug        String?    @unique
+  title       String     @unique
+  updatedAt   DateTime   @updatedAt
+  url         String
+  User        User?      @relation(fields: [addedBy], references: [id])
+  Images      Images?    @relation(fields: [images], references: [id])
+  Typeface    Typeface[] @relation(references: [id])
+  Tag         Tag[]      @relation("WebsiteTags", references: [id])
+}
+
+enum Role {
+  ADMIN
+  SUBSCRIBER
+}

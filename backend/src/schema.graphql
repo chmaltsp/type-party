@@ -5,20 +5,15 @@
 # import Designer, DesignerCreateInput from "./generated/prisma.graphql"
 # import Foundry, FoundryCreateInput from "./generated/prisma.graphql"
 # import Tag, TagCreateInput from "./generated/prisma.graphql"
+# import ImagesWhereInput from "./generated/prisma.graphql"
 
-scalar Upload
+# scalar Upload
 
 directive @isAuthenticated on FIELD_DEFINITION | QUERY | MUTATION
 
-directive @hasRole(
-  requires: [Role] = SUBSCRIBER
-) on FIELD_DEFINITION | QUERY | MUTATION
+directive @hasRole(requires: [Role] = SUBSCRIBER) on FIELD_DEFINITION | QUERY | MUTATION
 
-directive @isOwner(
-  type: String!
-  field: String
-) on FIELD_DEFINITION | QUERY | MUTATION
-
+directive @isOwner(type: String!, field: String) on FIELD_DEFINITION | QUERY | MUTATION
 
 type Query {
   me: User @isAuthenticated
@@ -26,7 +21,7 @@ type Query {
   website(slug: String!): Website!
   websites(input: WebsitesInput): [Website!]!
   websitesCount: Int!
-  userWebsites: [Website!]! 
+  userWebsites: [Website!]!
   findTypefaces(search: String!): [Typeface!]!
   findTags(search: String!): [Tag!]!
   findDesigners(search: String!): [Designer!]!

@@ -14,6 +14,7 @@ export class VpcStack extends cdk.Stack {
       maxAzs: 2,
       natGateways: 2,
       natGatewayProvider: ec2.NatProvider.instance({
+        keyName: 'tp-ssh-key', 
         instanceType: InstanceType.of(InstanceClass.T3A, InstanceSize.NANO),
       }),
     });

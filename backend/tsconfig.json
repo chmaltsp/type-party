@@ -6,13 +6,15 @@
     "sourceMap": true,
     "rootDir": "src",
     "outDir": "dist",
-    "lib": [
-      "esnext", "dom"
-    ],
+    "noEmit": true,
+    "lib": ["esnext", "dom"],
+    "typeRoots": ["node_modules/@types", "types"],
     "plugins": [
+      { "name": "nexus/typescript-language-service" },
       {
         "name": "@divyenduz/ts-graphql-plugin"
       }
     ]
-  }
+  },
+  "include": ["src", "types.d.ts"]
 }

@@ -117,6 +117,7 @@
         },
         "ImageId": "ami-02cb555e324696ced",
         "InstanceType": "t3a.nano",
+        "KeyName": "tp-ssh-key",
         "SecurityGroupIds": [
           {
             "Fn::GetAtt": [
@@ -245,6 +246,7 @@
         },
         "ImageId": "ami-02cb555e324696ced",
         "InstanceType": "t3a.nano",
+        "KeyName": "tp-ssh-key",
         "SecurityGroupIds": [
           {
             "Fn::GetAtt": [

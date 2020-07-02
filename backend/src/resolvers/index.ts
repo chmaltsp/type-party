@@ -15,10 +15,7 @@ import { Resolvers } from '../generated/graphqlgen';
 import { tag } from './mutations/tag';
 import { mailchimp } from './mutations/mailchimp';
 
-const resolvers: Pick<
-  Resolvers,
-  'Query' | 'Mutation' | 'AuthPayload' | 'User' | 'Website' | 'Images' | 'Typeface'
-> = {
+const resolvers = {
   Query,
   Mutation: {
     ...auth,
