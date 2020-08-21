@@ -15,8 +15,8 @@ type File {
 }
 
 type Image {
+  File_FileToImage_thumbnailId: File
   id: String!
-  thumbnail: File
 }
 
 """
@@ -43,14 +43,13 @@ input UserWhereUniqueInput {
 type Website {
   featured: Boolean!
   id: String!
-  Image: Image
   title: String!
   User: User
 }
 
 input WebsiteWhereUniqueInput {
   id: String
-  images: String
+  imageId: String
   slug: String
   title: String
 }

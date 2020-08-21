@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+model Designer {
+  addedBy   String?
+  createdAt DateTime   @default(now())
+  id        String     @default(cuid()) @id
+  name      String     @unique
+  updatedAt DateTime   @updatedAt
+  url       String
+  user      User?      @relation(fields: [addedBy], references: [id])
+  typeface  Typeface[] @relation("TypefaceDesigner", references: [id])
+}
+
+model File {
+  createdAt DateTime @default(now())
+  encoding  String
+  filename  String
+  id        String   @default(cuid()) @id
+  mimetype  String
+  updatedAt DateTime
+  url       String   @unique
+  full      Image[]  @relation("FileToImage_fullId")
+  thumbnail Image[]  @relation("FileToImage_thumbnailId")
+}
+
+model Foundry {
+  addedBy   String?
+  createdAt DateTime   @default(now())
+  id        String     @default(cuid()) @id
+  name      String     @unique
+  updatedAt DateTime   @updatedAt
+  url       String
+  user      User?      @relation(fields: [addedBy], references: [id])
+  typeface  Typeface[] @relation("TypefaceFoundry", references: [id])
+}
+
+model Image {
+  createdAt   DateTime  @default(now())
+  fullId      String?
+  id          String    @default(cuid()) @id
+  thumbnailId String?
+  updatedAt   DateTime  @updatedAt
+  full        File?     @relation("FileToImage_fullId", fields: [fullId], references: [id])
+  thumbnail   File?     @relation("FileToImage_thumbnailId", fields: [thumbnailId], references: [id])
+  typeface    Typeface?
+  website     Website?
+}
+
+model Tag {
+  createdAt DateTime   @default(now())
+  id        String     @default(cuid()) @id
+  name      String
+  updatedAt DateTime   @updatedAt
+  typeface  Typeface[] @relation("TypefaceTags", references: [id])
+  website   Website[]  @relation("WebsiteTags", references: [id])
+}
+
+model Typeface {
+  addedBy     String?
+  createdAt   DateTime   @default(now())
+  description String?
+  downloadUrl String
+  id          String     @default(cuid()) @id
+  imageId     String?    @unique
+  name        String     @unique
+  slug        String     @unique
+  updatedAt   DateTime
+  user        User?      @relation(fields: [addedBy], references: [id])
+  image       Image?     @relation(fields: [imageId], references: [id])
+  designer    Designer[] @relation("TypefaceDesigner", references: [id])
+  foundry     Foundry[]  @relation("TypefaceFoundry", references: [id])
+  tag         Tag[]      @relation("TypefaceTags", references: [id])
+  website     Website[]  @relation(references: [id])
+}
+
+model User {
+  createdAt DateTime   @default(now())
+  email     String     @unique
+  id        String     @default(cuid()) @id
+  name      String
+  password  String
+  role      Role       @default(SUBSCRIBER)
+  updatedAt DateTime   @updatedAt
+  designer  Designer[]
+  foundry   Foundry[]
+  typeface  Typeface[]
+  website   Website[]
+}
+
+model Website {
+  addedBy     String?
+  createdAt   DateTime   @default(now())
+  featured    Boolean    @default(false)
+  id          String     @id
+  imageId     String?    @unique
+  isPublished Boolean    @default(false)
+  slug        String?    @unique
+  title       String     @unique
+  updatedAt   DateTime
+  url         String
+  user        User?      @relation(fields: [addedBy], references: [id])
+  image       Image?     @relation(fields: [imageId], references: [id])
+  typeface    Typeface[] @relation(references: [id])
+  tag         Tag[]      @relation("WebsiteTags", references: [id])
+}
+
+enum Role {
+  ADMIN
+  SUBSCRIBER
+}

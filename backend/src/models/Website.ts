@@ -14,7 +14,7 @@ schema.objectType({
 schema.extendType({
   type: 'Query',
   definition(t) {
-    t.crud.websites();
+    t.crud.websites({});
     t.crud.users();
   },
 });

@@ -1,0 +1,6 @@
+# Prisma Migrate lockfile v1
+
+20200702221216-migration-1
+20200702222058-uuid-on-designer-instead-cuid
+20200702222415-uuid-attempt-2
+20200702222616-uuid-3

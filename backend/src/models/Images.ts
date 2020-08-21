@@ -4,6 +4,6 @@ schema.objectType({
   name: 'Image',
   definition(t) {
     t.model.id();
-    t.model.thumbnail({});
+    t.model.File_FileToImage_thumbnailId({});
   },
 });
