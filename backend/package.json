@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@types/shortid": "^0.0.29",
-    "aws-sdk": "^2.327.0",
+    "aws-sdk": "^2.814.0",
     "bcryptjs": "2.4.3",
     "express-jwt": "^6.0.0",
     "graphql-tools": "4.0.3",
